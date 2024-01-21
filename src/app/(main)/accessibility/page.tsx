@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export const metadata = constructMetadata({ title: 'Accessibility' })
 // NOTE: Maybe an LCP (image) would be nice here?
-const Page: React.FC<NextPage> = (): JSX.Element => {
+const Page = (): JSX.Element => {
   return (
     <Container sx={{ my: 3 }} maxWidth={`sm`}>
       <Typography gutterBottom>

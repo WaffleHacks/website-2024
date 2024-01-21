@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export const metadata = constructMetadata({ title: 'Privacy Policy' })
 
-const Page: React.FC<NextPage> = (): JSX.Element => {
+const Page = (): JSX.Element => {
   return (
     <Container sx={{ my: 3 }} maxWidth="sm">
       <Typography level="h1" gutterBottom>

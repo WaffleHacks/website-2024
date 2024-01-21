@@ -7,11 +7,11 @@ import Link from 'next/link'
 
 export const metadata = constructMetadata({ title: 'Terms of Service' })
 
-const Page: React.FC<NextPage> = (): JSX.Element => {
+const Page = (): JSX.Element => {
   return (
     <Container
       maxWidth="sm"
-      sx={{ marginTop: (x) => x.spacing(3), marginBottom: (x) => x.spacing(3) }}
+      sx={{ marginTop: 3, marginBottom: 3 }}
     >
       <Typography level="h1" gutterBottom>
         Terms of Service

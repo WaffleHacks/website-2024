@@ -14,9 +14,9 @@ const NotFound = (): JSX.Element => {
         <Typography level="body-md" gutterBottom>
           Sorry, we couldn’t find the page you’re looking for.
         </Typography>
-        <Button color="primary" href="/">
+        <button>
           Go to the home page
-        </Button>
+        </button>
       </Container>
     </>
   )
