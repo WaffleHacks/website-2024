@@ -8,7 +8,7 @@ export const Header = (): JSX.Element => {
         w-full h-[60dvh] flex flex-row items-center gap-10 px-7 py-4 bg-gray-300 justify-between
       `}
     >
-      <article
+      {/* <article
         className={`
           flex flex-col items-center justify-around gap-4 text-left bg-stone-600 w-[50%]  h-96 p-4
         `}
@@ -45,7 +45,7 @@ export const Header = (): JSX.Element => {
         `}
       >
         <div className={`size-96 bg-slate-600 rounded-lg`}/>
-      </picture>
+      </picture> */}
     </header>
   )
 }

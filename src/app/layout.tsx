@@ -16,9 +16,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeRegistry options={{ key: 'mui-theme' }}>
-          <Nav />
+          {/* <Nav />
             {children}
-          <Footer />
+          <Footer /> */}
+          {children}
         </ThemeRegistry>
       </body>
     </html>
