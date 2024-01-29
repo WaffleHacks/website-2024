@@ -8,7 +8,7 @@ const label = { inputProps: { "aria-label": "Switch demo" } };
 const Home: NextPage = (): JSX.Element => {
   return (
     <main className="flex w-screen h-screen items-center justify-between p-10 box-border">
-      <img src='/assets/images/olympics placeholder.png' alt="" style={{objectFit: 'contain'}} />
+      <img src='/assets/images/olympics_placeholder.png' alt="" style={{objectFit: 'contain'}} />
       
     {/* //   <Header />
     //   {NavLinks.map((link, index) => {
