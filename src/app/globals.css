@@ -10,4 +10,7 @@
 
 .landing-panel-img {
     height: min(50vh, 30rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
