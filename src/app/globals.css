@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font-mplus {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+}
+
+.landing-panel-img {
+    height: min(50vh, 30rem);
+}
