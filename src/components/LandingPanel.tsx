@@ -28,7 +28,7 @@ const LandingPanel = () => {
 
   useEffect(() => {
     function showtime() {
-      let subDate = Date.UTC(2024, 5, 25, 16, 0, 0);
+      let subDate = Date.UTC(2024, 5, 23, 16, 0, 0);
       let now = Date.now();
       let subTimeLeft = Math.max(0, subDate - now);
   
