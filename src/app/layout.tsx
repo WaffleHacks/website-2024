@@ -15,12 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className + ' box-border overflow-x-hidden'}>
         <Header />
         <ThemeRegistry options={{ key: 'mui-theme' }}>
-          {/* <Nav />
-            {children}
-          <Footer /> */}
           {children}
         </ThemeRegistry>
       </body>

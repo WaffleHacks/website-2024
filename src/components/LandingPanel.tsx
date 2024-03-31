@@ -59,12 +59,12 @@ const LandingPanel = () => {
   }, []);
 
   return (
-    <div className='font-mplus p-12'>
+    <div className='font-mplus p-12 h-screen'>
         <h2 className='text-2xl font-normal'>Put your best code forward for the</h2>
         <h1 className='text-[2.5rem] font-medium'>WaffleHacks games!</h1>
 
         <div className='landing-panel-img p-8'>
-            <img className='object-contain' src='/assets/images/olympics_placeholder.png' alt=""/>
+            <img className='h-full object-contain' src='/assets/images/olympics_placeholder.png' alt=""/>
         </div>
 
         <div className='flex flex-row justify-end w-full'>
