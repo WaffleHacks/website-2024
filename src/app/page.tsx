@@ -6,6 +6,7 @@ import Image from 'next/image'
 import LandingPanel from '../components/LandingPanel'
 import AboutPanel from '../components/AboutPanel'
 import Calendar from '../components/Calendar'
+import FaqPanel from '../components/FaqPanel'
 import Sponsors from '../components/Sponsors'
 const label = { inputProps: { "aria-label": "Switch demo" } };
 const Home: NextPage = (): JSX.Element => {
@@ -14,6 +15,8 @@ const Home: NextPage = (): JSX.Element => {
       <LandingPanel />
       <AboutPanel />
       <Calendar />
+      <FaqPanel />
+      
       <Sponsors />
     </main>
     

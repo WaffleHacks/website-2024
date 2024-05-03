@@ -25,7 +25,7 @@
 
 .calendar-title-cell {
     padding: 0.5rem;
-    height: 2rem;
+    /* height: 2rem; */
 }
 
 .calendar-grid-cell {
@@ -63,3 +63,9 @@
     border-right: 1px solid #e2e8f0;
     height: 6rem;
 }
+
+.faq-tab li {
+    list-style: inside;
+    padding: 0 0 0 1.5rem;
+  }
+  

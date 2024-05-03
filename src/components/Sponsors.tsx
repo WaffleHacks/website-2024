@@ -13,7 +13,11 @@ const Sponsors = () => {
                     <span className='text-[#9DDCF8] font-bold'>Platinum</span>
                 </div>
 
-                <img src='/assets/images/sponsors/balsamiq-logo.png' alt='Balsamiq' className='h-24' />
+                <div className='flex flex-row gap-4 flex-wrap justify-center'>
+                    <img src='/assets/images/sponsors/wolfram.svg' alt='Wolfram' className='h-24' />
+                    <img src='/assets/images/sponsors/genxyz.svg' alt='Genxyz' className='h-24' />
+                </div>
+                
             </div>
 
             {/* GOLD */}
@@ -24,7 +28,7 @@ const Sponsors = () => {
                     <span className='text-[#FBAD24] font-bold'>Gold</span>
                 </div>
 
-                <img src='/assets/images/sponsors/genxyz.svg' alt='Genxyz' className='h-20' />
+                <img src='/assets/images/sponsors/balsamiq-logo.png' alt='Balsamiq' className='h-20' />
             </div>
 
             {/* SILVER */}
