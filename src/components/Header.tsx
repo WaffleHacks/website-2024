@@ -2,7 +2,7 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div className='w-screen flex flex-row gap-8 justify-center items-center py-6 shadow-lg font-semibold'>
+    <div className='fixed z-50 bg-white w-screen flex flex-row gap-8 justify-center items-center py-6 shadow-lg font-semibold'>
         <a href="#about">About</a>
         <a href="#tracks">Tracks</a>
         <a href="#calendar">Calendar</a>

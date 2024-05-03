@@ -59,7 +59,7 @@ const LandingPanel = () => {
   }, []);
 
   return (
-    <div className='font-mplus p-12 h-screen'>
+    <div className='font-mplus px-12 pt-44 h-screen'>
         <h2 className='text-2xl font-normal'>Put your best code forward for the</h2>
         <h1 className='text-[2.5rem] font-medium'>WaffleHacks games!</h1>
 

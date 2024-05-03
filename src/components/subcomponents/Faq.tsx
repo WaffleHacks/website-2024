@@ -18,8 +18,8 @@ const Faq = ({ faq, desc }: FaqProps) => {
       onClick={toggleDesc}
       onKeyDown={toggleDesc}
     >
-      <span className="font-light">{faq}</span>
-      {showDesc && <ReactMarkdown className="font-light mt-4">{desc}</ReactMarkdown>}
+      <span className="font-normal">{faq}</span>
+      {showDesc && <ReactMarkdown className="font-normal mt-4">{desc}</ReactMarkdown>}
     </button>
   );
 };
