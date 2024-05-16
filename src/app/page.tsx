@@ -1,6 +1,5 @@
 "use client"
 import { Switch } from '@mui/material'
-import CustomSlider from '@/src/components/CustomSlider'
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import LandingPanel from '../components/LandingPanel'
@@ -8,6 +7,8 @@ import AboutPanel from '../components/AboutPanel'
 import Calendar from '../components/Calendar'
 import FaqPanel from '../components/FaqPanel'
 import Sponsors from '../components/Sponsors'
+import React from 'react'
+import Footer from '../components/Footer'
 const label = { inputProps: { "aria-label": "Switch demo" } };
 const Home: NextPage = (): JSX.Element => {
   return (
@@ -18,6 +19,7 @@ const Home: NextPage = (): JSX.Element => {
       <FaqPanel />
       
       <Sponsors />
+      <Footer />
     </main>
     
     

@@ -67,5 +67,12 @@
 .faq-tab li {
     list-style: inside;
     padding: 0 0 0 1.5rem;
-  }
-  
+}
+
+#footer {
+    background: #feca8b;
+}
+
+#footer a {
+    text-decoration: underline;
+}
