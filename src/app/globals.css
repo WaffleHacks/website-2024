@@ -8,7 +8,7 @@
     font-family: "M PLUS Rounded 1c", sans-serif;
 }
 
-.landing-panel-img {
+.landing-panel-img-container {
     height: min(50vh, 30rem);
     display: flex;
     justify-content: center;
