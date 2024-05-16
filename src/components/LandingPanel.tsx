@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
+import { useEffect, useState, useRef, useLayoutEffect } from 'react';
 
 
 const NumberDisplay = ({number, text}: {number: number, text: string}) => {
