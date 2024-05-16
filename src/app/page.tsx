@@ -1,16 +1,20 @@
-"use client"
-import { Switch } from '@mui/material'
-import CustomSlider from '@/src/components/CustomSlider'
-import type { NextPage } from 'next'
-import Image from 'next/image'
-import { Header, NavLinks } from '../components/semantics'
+"use client";
+import CustomSlider from "@/src/components/CustomSlider";
+import { Switch } from "@mui/material";
+import type { NextPage } from "next";
+import Image from "next/image";
+import { Header, NavLinks } from "../components/semantics";
 const label = { inputProps: { "aria-label": "Switch demo" } };
 const Home: NextPage = (): JSX.Element => {
-  return (
-    <main className="flex w-screen h-screen items-center justify-between p-10 box-border">
-      <img src='/assets/images/olympics_placeholder.png' alt="" style={{objectFit: 'contain'}} />
-      
-    {/* //   <Header />
+	return (
+		<main className="flex w-screen h-screen items-center justify-between p-10 box-border">
+			<img
+				src="/assets/images/olympics_placeholder.png"
+				alt=""
+				style={{ objectFit: "contain" }}
+			/>
+
+			{/* //   <Header />
     //   {NavLinks.map((link, index) => {
     //     return (
     //       <section
@@ -28,9 +32,7 @@ const Home: NextPage = (): JSX.Element => {
     //       </section>
     //     )
     //   })} */}
-    </main>
-    
-    
-  )
-}
-export default Home
+		</main>
+	);
+};
+export default Home;

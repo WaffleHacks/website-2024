@@ -1,10 +1,6 @@
-import React from 'react'
+import type React from "react";
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return (
-    <>
-      {children}
-    </>
-  )
-}
+	return <>{children}</>;
+};
 
-export default MainLayout
+export default MainLayout;

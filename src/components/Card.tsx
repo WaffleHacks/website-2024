@@ -1,12 +1,8 @@
-import React from 'react'
-import Card from '@mui/joy/Card';
+import Card from "@mui/joy/Card";
+import React from "react";
 
 const CardComponent = () => {
-  return (
-    <>
-    
-    </>
-  )
-}
+	return <></>;
+};
 
-export default CardComponent
+export default CardComponent;

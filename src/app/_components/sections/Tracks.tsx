@@ -1,11 +1,9 @@
-import React from 'react'
+import React from "react";
 
-type Props = {}
+type Props = {};
 
 const Tracks = (props: Props) => {
-  return (
-    <div>Tracks</div>
-  )
-}
+	return <div>Tracks</div>;
+};
 
-export default Tracks
+export default Tracks;

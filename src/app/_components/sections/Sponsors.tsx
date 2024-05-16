@@ -1,11 +1,9 @@
-import React from 'react'
+import React from "react";
 
-type Props = {}
+type Props = {};
 
 const Sponsors = (props: Props) => {
-  return (
-    <div>Sponsors</div>
-  )
-}
+	return <div>Sponsors</div>;
+};
 
-export default Sponsors
+export default Sponsors;
