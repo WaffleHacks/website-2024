@@ -125,8 +125,13 @@
     font-size: 1.5rem;
     font-weight: 700;
 }
+.track-desc h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+
+}
 .track-desc p {
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 400;
     display: block;
 }
