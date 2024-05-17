@@ -15,6 +15,15 @@
     align-items: center;
 }
 
+#svg-biker:hover .bike-wheel-rotate {
+    animation: rotate 5s 0.5s linear infinite;
+}
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(15, 1fr);
@@ -64,8 +73,66 @@
     height: 6rem;
 }
 
+.swiper {
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.swiper * {
+    box-sizing: border-box;
+}
+
+.swiper-slide {
+    display: flex !important;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 70% !important;
+    padding: 1rem;
+    
+    background: lightblue;
+    border-radius: 1rem;
+    border: 2px solid black;
+}
+
+.swiper-button-next, .swiper-button-prev {
+    color: black;
+    height: 100%;
+    position: absolute;
+    /* background: rgb(255, 0, 0, 0.5); */
+    width: calc(15% - 30px);
+    border-radius: 1rem;
+    top: 0;
+    z-index: 50;
+}
+.swiper-button-next {
+    right: 0;
+}
+
+.track-photo {
+    height: 15vw;
+    flex-basis: 15vw;
+    border-radius: 1rem;
+    border: 2px solid black;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.track-desc {
+    flex-grow: 1;
+}
+.track-desc h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.track-desc p {
+    font-size: 1rem;
+    font-weight: 400;
+    display: block;
+}
+
 .faq-tab li {
     list-style: inside;
     padding: 0 0 0 1.5rem;
-  }
+}
   

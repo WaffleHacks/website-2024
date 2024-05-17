@@ -1,26 +1,26 @@
-"use client"
-import { Switch } from '@mui/material'
-import CustomSlider from '@/src/components/CustomSlider'
-import type { NextPage } from 'next'
-import Image from 'next/image'
-import LandingPanel from '../components/LandingPanel'
-import AboutPanel from '../components/AboutPanel'
-import Calendar from '../components/Calendar'
-import FaqPanel from '../components/FaqPanel'
-import Sponsors from '../components/Sponsors'
+"use client";
+import CustomSlider from "@/src/components/CustomSlider";
+import { Switch } from "@mui/material";
+import type { NextPage } from "next";
+import Image from "next/image";
+import AboutPanel from "../components/AboutPanel";
+import Calendar from "../components/Calendar";
+import FaqPanel from "../components/FaqPanel";
+import LandingPanel from "../components/LandingPanel";
+import Sponsors from "../components/Sponsors";
+import Tracks from "../components/Tracks";
 const label = { inputProps: { "aria-label": "Switch demo" } };
 const Home: NextPage = (): JSX.Element => {
-  return (
-    <main className="flex flex-col w-screen">
-      <LandingPanel />
-      <AboutPanel />
-      <Calendar />
-      <FaqPanel />
-      
-      <Sponsors />
-    </main>
-    
-    
-  )
-}
-export default Home
+	return (
+		<main className="flex flex-col w-screen">
+			<LandingPanel />
+			<AboutPanel />
+			<Calendar />
+      <Tracks />
+			<FaqPanel />
+
+			<Sponsors />
+		</main>
+	);
+};
+export default Home;
