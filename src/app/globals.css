@@ -91,9 +91,9 @@
     width: 70% !important;
     padding: 1rem;
     
-    background: lightblue;
     border-radius: 1rem;
-    border: 2px solid black;
+    border: 1px solid #135CBD;
+    color: #135CBD;
 }
 
 .swiper-button-next, .swiper-button-prev {
@@ -114,7 +114,6 @@
     height: 15vw;
     flex-basis: 15vw;
     border-radius: 1rem;
-    border: 2px solid black;
     flex-grow: 0;
     flex-shrink: 0;
 }
