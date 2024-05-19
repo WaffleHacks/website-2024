@@ -1,5 +1,5 @@
-export const appOrigin = process.env.BASE_URL as string || 'https://wafflehacks.org';
-const regex = /https?:\/\/(?:www\.)?([^\/]+)/;
-
-export const appName = 'WaffleHacks';
-export const email = '[]@wafflehacks.org'
+export { Team } from "./team";
+export { Awards } from "./awards";
+export { Tracks } from "./tracks";
+export { Faqs } from "./faqs";
+export { appOrigin, appName, email } from "./app";

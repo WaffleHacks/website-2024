@@ -1,39 +1,61 @@
 {
-  "name": "website2024",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
-    "@mui/joy": "^5.0.0-beta.20",
-    "@mui/material": "^5.15.2",
-    "framer-motion": "^10.16.16",
-    "next": "14.0.4",
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0",
-    "react-markdown": "^9.0.1",
-    "tailwind-merge": "^2.2.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "autoprefixer": "^10.0.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.4",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0",
-    "typescript": "^5"
-  },
-  "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0"
-  },
-  "license": "MIT"
+	"name": "website2024",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --turbo --port 3000",
+		"build": "next build",
+		"start": "next start",
+		"lint": "bunx biome check --apply ./  bunx stylelint src/styles/*.{css,scss,sass} --fix"
+	},
+	"dependencies": {
+		"@ducanh2912/next-pwa": "^10.2.5",
+		"@emotion/react": "^11.11.4",
+		"@emotion/styled": "^11.11.5",
+		"@mui/joy": "^5.0.0-beta.36",
+		"@mui/material": "^5.15.18",
+		"concurrently": "^8.2.2",
+		"framer-motion": "^11.2.3",
+		"got": "^14.2.1",
+		"million": "^3.0.6",
+		"next": "14.2.3",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"react-markdown": "^9.0.1",
+		"sharp": "^0.33.4",
+		"stylelint": "^16.5.0",
+		"stylelint-config-standard-scss": "^13.1.0",
+		"tailwind-merge": "^2.3.0",
+		"zod": "^3.22.4",
+		"zustand": "^4.5.2"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.7.3",
+		"@types/node": "^20",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"autoprefixer": "^10.4.19",
+		"postcss": "^8",
+		"tailwindcss": "^3.4.3",
+		"typescript": "^5"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0 || ^18.0.0",
+		"react-dom": "^17.0.0 || ^18.0.0"
+	},
+	"license": "MIT",
+	"browserslist": {
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		],
+		"production": [
+			"defaults",
+			"not dead",
+			"not IE 11",
+			"not IE_Mob 11",
+			"maintained node versions"
+		]
+	}
 }
