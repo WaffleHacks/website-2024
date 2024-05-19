@@ -1,5 +1,5 @@
-import { appName, appOrigin, email } from "@/src/constants";
-import { constructMetadata } from "@/src/utils";
+import { appName, appOrigin, email } from "@/constants/app";
+import { constructMetadata } from "@/utils/meta";
 import { Container, Typography } from "@mui/joy";
 import type { NextPage } from "next";
 import Link from "next/link";

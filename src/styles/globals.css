@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'fonts.css';
+@import 'landing.css';
+@import 'calendar.css';
+@import 'faq.css';
+
+@layer base {
+    :root {
+        
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+    
+    :host,html {
+        line-height: 1.5;
+        text-size-adjust: 100%;
+        font-family: 'M PLUS Rounded 1c',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-feature-settings: normal;
+        font-variation-settings: normal;
+        tab-size: 4;
+        tab-size: 4;
+        tab-size: 4;
+        -webkit-tap-highlight-color: transparent;
+        transition-duration:  0.3s;
+        list-style: none;
+        scroll-behavior: smooth;
+        transition: all;
+    }
+    
+    ::-webkit-scrollbar {
+        width: 0;
+        background: transparent;
+    }
+}
+

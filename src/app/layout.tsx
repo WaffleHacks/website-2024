@@ -1,12 +1,14 @@
+import { Footer, Nav } from "@/components/semantics";
+import { constructMetadata, constructViewport } from "@/utils/meta";
+import ThemeRegistry from "@/providers/ThemeRegistry";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import { Footer, Nav } from "@/src/components/semantics";
-import { constructMetadata } from "@/src/utils";
-import ThemeRegistry from "@/src/utils/ThemeRegistry";
-import Header from "../components/Header";
+import Header from "./_components/Header";
+import "@/styles/globals.css";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = constructMetadata();
+export const viewport = constructViewport();
 
 export default function RootLayout({
 	children,

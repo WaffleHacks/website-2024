@@ -1,5 +1,5 @@
 "use client";
-import { appName } from "@/src/constants";
+import { appName } from "@/constants/app";
 import { Typography } from "@mui/joy";
 import Image from "next/image";
 import React from "react";

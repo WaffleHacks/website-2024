@@ -49,3 +49,42 @@ export const theme = createTheme({
 		},
 	},
 });
+
+export const tailwind_theme = {
+	colors: {
+		primary: {
+			DEFAULT: "bg-primary",
+			light: "bg-primary-light",
+			dark: "bg-primary-dark",
+			contrastText: "text-primary-contrast",
+		},
+		secondary: {
+			DEFAULT: "bg-secondary",
+			light: "bg-secondary-light",
+			dark: "bg-secondary-dark",
+			contrastText: "text-secondary-contrast",
+		},
+		error: {
+			DEFAULT: "bg-error",
+			light: "bg-error-light",
+			dark: "bg-error-dark",
+			contrastText: "text-error-contrast",
+		},
+		warning: {
+			DEFAULT: "bg-warning",
+			light: "bg-warning-light",
+			dark: "bg-warning-dark",
+			contrastText: "text-warning-contrast",
+		},
+		success: {
+			DEFAULT: "bg-success",
+			light: "bg-success-light",
+			dark: "bg-success-dark",
+			contrastText: "text-success-contrast",
+		},
+		background: {
+			DEFAULT: "bg-background",
+			paper: "bg-paper",
+		},
+	},
+};
