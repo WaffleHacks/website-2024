@@ -5,6 +5,7 @@ import Calendar from "./(main)/_sections/CalendarPanel";
 import FaqPanel from "./(main)/_sections/FaqPanel";
 import LandingPanel from "./(main)/_sections/LandingPanel";
 import Sponsors from "./(main)/_sections/Sponsors";
+import Tracks from "./(main)/_sections/TracksPanel";
 // const label = { inputProps: { "aria-label": "Switch demo" } };
 
 const Home: NextPage = (): JSX.Element => {
@@ -24,6 +25,7 @@ const Home: NextPage = (): JSX.Element => {
 
 			<AboutPanel />
 			<Calendar />
+			<Tracks />
 			<FaqPanel />
 
 			<Sponsors />

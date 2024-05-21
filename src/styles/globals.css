@@ -3,6 +3,7 @@
 @import 'landing.css';
 @import 'calendar.css';
 @import 'faq.css';
+@import 'tracks.css';
 
 @tailwind base;
 @tailwind components;
@@ -36,6 +37,10 @@
     ::-webkit-scrollbar {
         width: 0;
         background: transparent;
+    }
+
+    .font-mplus {
+        font-family: 'M PLUS Rounded 1c',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     }
 }
 
