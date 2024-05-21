@@ -12,13 +12,16 @@ const Header = () => {
 	];
 	return (
 		<>
-			<div className="fixed z-50 bg-white w-screen flex gap-8 justify-center items-center py-6 shadow-lg font-semibold">
+			<div className="fixed top-0 z-50 bg-white w-screen flex gap-8 justify-center items-center py-6 shadow-lg font-semibold">
 				{Links.slice(0, 3).map((link, index) => (
 					<Link key={index} href={link.href}>
 						<p>{link.text}</p>
 					</Link>
 				))}
-				<img className="" src="/assets/images/header.svg" alt="Header" />
+				<a href="/">
+					<img className="" src="/assets/images/header.svg" alt="Header" />
+				</a>
+				
 				{Links.slice(3).map((link, index) => (
 					<Link key={index} href={link.href}>
 						<p>{link.text}</p>

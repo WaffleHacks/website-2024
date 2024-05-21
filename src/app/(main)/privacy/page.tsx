@@ -9,7 +9,7 @@ export const metadata = constructMetadata({ title: "Privacy Policy" });
 
 const Page = (): JSX.Element => {
 	return (
-		<Container sx={{ my: 3 }} maxWidth="sm">
+		<Container sx={{ my: 20 }} maxWidth="sm">
 			<Typography level="h1" gutterBottom>
 				Privacy Policy
 			</Typography>
@@ -52,7 +52,7 @@ const Page = (): JSX.Element => {
 			<Typography level="h3" gutterBottom>
 				Personal Information
 			</Typography>
-			<Typography gutterBottom>
+			<Typography>
 				We may ask for personal information which may include one or more of the
 				following:
 			</Typography>
