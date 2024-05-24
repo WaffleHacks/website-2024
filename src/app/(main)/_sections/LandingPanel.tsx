@@ -117,21 +117,23 @@ const LandingPanel = () => {
 						alt="road"
 						className="absolute left-[-0.2%] top-[31.5%] w-[32.9%]"
 					/>
-					<img
-						src="/assets/images/landing/wheel.svg"
-						alt="wheel"
-						className="absolute left-[9.4%] top-[32.4%] w-[5.5%]"
-					/>
-					<img
-						src="/assets/images/landing/wheel.svg"
-						alt="wheel"
-						className="absolute left-[17.8%] top-[32.4%] w-[5.5%]"
-					/>
-					<img
-						src="/assets/images/landing/biker.svg"
-						alt="biker"
-						className="absolute left-[13.7%] top-[14%] w-[7%]"
-					/>
+          <div id="svg-biker" className="">
+            <img
+              src="/assets/images/landing/wheel.svg"
+              alt="wheel"
+              className="bike-wheel-rotate absolute left-[9.4%] top-[32.4%] w-[5.5%]"
+            />
+            <img
+              src="/assets/images/landing/wheel.svg"
+              alt="wheel"
+              className="bike-wheel-rotate absolute left-[17.8%] top-[32.4%] w-[5.5%]"
+            />
+            <img
+              src="/assets/images/landing/biker.svg"
+              alt="biker"
+              className="absolute left-[13.7%] top-[14%] w-[7%]"
+            />
+          </div>
 
 					<img
 						src="/assets/images/landing/red_pf.svg"

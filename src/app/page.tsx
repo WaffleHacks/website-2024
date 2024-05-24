@@ -24,6 +24,7 @@ const Home: NextPage = (): JSX.Element => {
 
 			<AboutPanel />
 			<Calendar />
+      		<Tracks />
 			<FaqPanel />
 
 			<Sponsors />

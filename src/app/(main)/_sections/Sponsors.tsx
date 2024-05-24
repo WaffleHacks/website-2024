@@ -61,11 +61,27 @@ const Sponsors = () => {
 						<span className="text-[#AEAEAE] font-bold">Silver</span>
 					</div>
 
-					<img
-						src="/assets/images/sponsors/NordVPN.svg"
-						alt="NordVPN"
+					<div className="flex flex-row gap-4 flex-wrap justify-center">
+						<img
+							src="/assets/images/sponsors/NordVPN.svg"
+							alt="NordVPN"
+							className="h-16"
+						/>
+						<img
+						src="/assets/images/sponsors/nordpass.png"
+						alt="Nordpass"
 						className="h-16"
-					/>
+						/>
+						<img
+						src="/assets/images/sponsors/incogni.png"
+						alt="Incogni"
+						className="h-16"
+						/>
+
+					</div>
+
+					
+					
 				</div>
 
 				{/* BRONZE */}
