@@ -1,11 +1,6 @@
-import React from 'react'
+"use client";
+import type React from "react";
 
-type Props = {}
-
-const TeamPanel = (props: Props) => {
-  return (
-    <div>TeamPanel</div>
-  )
-}
-
-export default TeamPanel
+export const TeamPanel = () => {
+	return <>TeamPanel</>;
+};

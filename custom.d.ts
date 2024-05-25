@@ -1,5 +1,3 @@
-import type { AriaAttributes, DOMAttributes } from "react";
-
 declare module "*.png" {
 	import React = require("react");
 
@@ -28,10 +26,17 @@ declare module "*.svg" {
 	export default src;
 }
 
-declare module "*.css";
+declare module "*.css" {
+	const content: { [className: string]: string };
+	export default content;
+}
 
-declare module "react" {
-	interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-		fetchpriority?: "high" | "low" | "auto";
-	}
+declare module "*.scss" {
+	const content: { [className: string]: string };
+	export default content;
+}
+
+declare module "*.sass" {
+	const content: { [className: string]: string };
+	export default content;
 }

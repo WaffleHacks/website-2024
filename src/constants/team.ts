@@ -32,13 +32,9 @@ type Team = Record<
 	}
 >;
 
-type PartialTeam = DeepPartial<Team>;
-type RequiredTeam = DeepRequired<Team>;
-type ReadonlyTeam = DeepReadonly<Team>;
-type NonNullableTeam = DeepNonNullable<Team>;
-type NullableTeam = DeepNullable<Team>;
+type ReadonlyTeam = ReadonlyArray<Team>;
 
-export const Team: ReadonlyTeam[] = [
+export const Team: ReadonlyTeam = [
 	{
 		operations: {
 			members: [

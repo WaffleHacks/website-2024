@@ -1,16 +1,5 @@
 import { createTheme } from "@mui/material/styles";
-/*
-primary
-secondary
-background
-foreground
-accent
-disabled
-desctructive
-destructive-hover
-primary-hover
-secondary-hover
-*/
+
 export const theme = createTheme({
 	palette: {
 		primary: {

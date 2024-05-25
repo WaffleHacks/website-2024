@@ -1,0 +1,58 @@
+
+#svg-biker:hover .bike-wheel-rotate {
+    animation: rotate 5s 0.5s linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr;
+    width: 100%;
+    height: 100%;
+}
+
+.calendar-title-cell {
+    padding: 0.5rem;
+}
+
+.calendar-grid-cell {
+    background: white;
+    border-right: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar-grid .calendar-grid-cell:nth-child(17) {
+    border-radius: 0.5rem 0 0;
+}
+
+.calendar-grid .calendar-grid-cell:nth-child(30) {
+    border-radius: 0 0.5rem 0 0;
+}
+
+.calendar-grid .calendar-grid-cell:nth-last-child(14) {
+    border-radius: 0 0 0 0.5rem;
+}
+
+.calendar-grid .calendar-grid-cell:last-child {
+    border-radius: 0 0 0.5rem;
+}
+
+.calendar-grid-cell img {
+    width: 80%;
+}
+
+.calendar-ceremony {
+    background: #f6ad55;
+    border-right: 1px solid #e2e8f0;
+    height: 6rem;
+}

@@ -1,3 +1,4 @@
+import { app } from "@/constants";
 import type { Metadata, Viewport } from "next";
 
 export function constructMetadata({
@@ -42,7 +43,7 @@ export function constructMetadata({
 			},
 		],
 		manifest: "/pwa/manifest.json",
-		metadataBase: new URL("https://wafflehacks.org/"),
+		metadataBase: new URL(`${app.url}`),
 		other: {
 			currentYear: new Date().getFullYear(),
 			timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -66,7 +67,10 @@ export async function constructViewport(): Promise<Viewport> {
 		userScalable: false,
 		viewportFit: "cover",
 		interactiveWidget: "resizes-visual",
-		themeColor: "#BA9BDD",
+		themeColor: [
+			{ media: "(prefers-color-scheme: light)", color: "#fddc79" },
+			{ media: "(prefers-color-scheme: dark)", color: "#3c2415" },
+		],
 		colorScheme: "dark light",
 	};
 }

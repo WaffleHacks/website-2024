@@ -1,5 +1,6 @@
-export { Team } from "./team";
-export { Awards } from "./awards";
-export { Tracks } from "./tracks";
-export { Faqs } from "./faqs";
-export { appOrigin, appName, email } from "./app";
+export * from "./team";
+export * from "./tracks";
+export * from "./faqs";
+export * from "./app";
+export * from "./constant";
+export * from "./sponsor";

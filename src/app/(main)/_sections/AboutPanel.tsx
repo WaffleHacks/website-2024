@@ -1,6 +1,7 @@
-import React from "react";
+"use client";
+import type React from "react";
 
-const AboutPanel = () => {
+export const AboutPanel = () => {
 	return (
 		<div id="about" className="font-mplus px-8">
 			<h1 className="text-4xl font-extrabold mb-4">About</h1>
@@ -19,5 +20,3 @@ const AboutPanel = () => {
 		</div>
 	);
 };
-
-export default AboutPanel;

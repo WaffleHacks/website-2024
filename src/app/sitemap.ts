@@ -1,27 +1,27 @@
+import { app } from "@/constants";
 import type { MetadataRoute } from "next";
-
 export default function sitemap(): MetadataRoute.Sitemap {
 	return [
 		{
-			url: "https://wafflehacks.org",
+			url: `${app}`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 1,
 		},
 		{
-			url: "https://wafflehacks.org/accessibility",
+			url: `${app}/accessibility`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 0.8,
 		},
 		{
-			url: "https://wafflehacks.org/privacy",
+			url: `${app}/privacy`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 0.8,
 		},
 		{
-			url: "https://wafflehacks.org/terms",
+			url: `${app}/terms`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 0.8,

@@ -1,7 +1,8 @@
+"use client";
 import { useState } from "react";
-import Faq from "./Faq";
+import { Faq } from "../_components";
 
-const FaqPanel = () => {
+export const FaqPanel = () => {
 	const [faqs, _] = useState([
 		[
 			"What is a hackathon?",
@@ -54,7 +55,7 @@ const FaqPanel = () => {
 						{faqs.map(
 							(faq, ind) =>
 								ind < 4 && (
-									<Faq key={"faq-" + ind} faq={faq[0]} desc={faq[1]} />
+									<Faq key={"faq-" + ind} faq={faq[0] ?? ""} desc={faq[1] ?? ""} />
 								),
 						)}
 					</div>
@@ -62,7 +63,7 @@ const FaqPanel = () => {
 						{faqs.map(
 							(faq, ind) =>
 								ind >= 4 && (
-									<Faq key={"faq-" + ind} faq={faq[0]} desc={faq[1]} />
+									<Faq key={"faq-" + ind} faq={faq[0] ?? ""} desc={faq[1] ?? ""} />
 								),
 						)}
 					</div>
@@ -71,5 +72,3 @@ const FaqPanel = () => {
 		</div>
 	);
 };
-
-export default FaqPanel;

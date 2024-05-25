@@ -1,25 +1,36 @@
-import { Footer, Nav } from "@/components/semantics";
 import { constructMetadata, constructViewport } from "@/utils/meta";
-import ThemeRegistry from "@/providers/ThemeRegistry";
-import { Inter } from "next/font/google";
-import Header from "./_components/Header";
-import "@/styles/globals.css";
+import type { NextWebVitalsMetric } from "next/app";
 
-const inter = Inter({ subsets: ["latin"] });
+import "@/styles/css/globals.css";
+import "@/styles/sass/globals.scss";
 
 export const metadata = constructMetadata();
 export const viewport = constructViewport();
 
+export function reportWebVitals(metric: NextWebVitalsMetric) {
+	if (metric.label === "web-vital") {
+		console.log(metric);
+	}
+}
+
 export default function RootLayout({
 	children,
-}: {
+}: Readonly<{
 	children: React.ReactNode;
-}) {
+}>) {
 	return (
-		<html lang="en">
-			<body className={inter.className + " box-border overflow-x-hidden"}>
-				<Header />
-				<ThemeRegistry options={{ key: "mui-theme" }}>{children}</ThemeRegistry>
+		<html
+			lang="en"
+			suppressHydrationWarning
+			className={``}
+		>
+			<body
+				className={`
+					box-border overflow-x-hidden
+					
+				`}
+			>
+				{children}
 			</body>
 		</html>
 	);

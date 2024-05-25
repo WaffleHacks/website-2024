@@ -1,89 +1,50 @@
-import { appName } from "@/constants/app";
+"use client";
+import { app, LegalLinks } from "@/constants";
 import Link from "next/link";
 import React from "react";
-// TODO: Determine what is needed
-interface LegalLinks {
-	href: string;
-	text: string;
-}
-interface LegalLinksProps extends Array<LegalLinks> {}
-[];
-export const LegalLinks: LegalLinksProps = [
-	{
-		href: `/accessibility`,
-		text: `Accessibility`,
-	},
-	{
-		href: `/terms`,
-		text: `Terms of Service`,
-	},
-	{
-		href: `/privacy`,
-		text: `Privacy Policy`,
-	},
-];
 
-export const Footer = (): JSX.Element => {
+export const FooterBar = (): JSX.Element => {
 	return (
-		<footer
-			className={`
-        bottom-0 left-0 w-full h-[50px] px-3
-      `}
-		>
-			<menu
-				className={`
-          flex flex-row items-center justify-between
-        `}
-			>
-				<li>
-					<p>&copy; {appName} 2023</p>
-				</li>
-				<li
-					className={`
-            flex flex-row items-center justify-between gap-3
-          `}
-				>
-					{LegalLinks.map((links, index) => {
-						return (
-							<Link key={index} href={links.href}>
-								<p>{links.text}</p>
+		<footer className="bg-gray-900 text-white py-6">
+			<div className="container mx-auto flex flex-col lg:flex-row justify-between items-center px-6">
+				<div className="flex items-center mb-4 lg:mb-0">
+					<p className="mr-4">&copy; {app.name} 2023</p>
+					<ul className="flex space-x-4">
+						{LegalLinks.map((links, index) => (
+							<li key={index}>
+								<Link href={links.href}>
+									<span className="hover:text-gray-300">{links.text}</span>
+								</Link>
+							</li>
+						))}
+					</ul>
+				</div>
+				<div className="text-center lg:text-left">
+					<span>© WaffleHacks 2023</span>
+					<div className="flex flex-wrap justify-center lg:justify-start mt-4">
+						<Link href="/privacy" target="_blank">
+							<span className="mr-4 hover:text-gray-300">Privacy Policy</span>
+						</Link>
+						<Link href="/rules" target="_blank">
+							<span className="hover:text-gray-300">Rules</span>
+						</Link>
+					</div>
+					<div className="text-gray-400 mt-2">
+						<p>
+							Fiscally sponsored by{" "}
+							<Link
+								href="https://the.hackfoundation.org/"
+								target="_blank"
+								rel="noreferrer"
+								className="hover:text-gray-300"
+							>
+								The Hack Foundation
 							</Link>
-						);
-					})}
-				</li>
-			</menu>
+						</p>
+						<p>Non-profit EIN: 81-2908499</p>
+					</div>
+				</div>
+			</div>
 		</footer>
 	);
 };
-
-/**
- * import Link from 'next/link';
-
-const Footer = () => {
-	return (
-		<div id="footer" className="flex flex-col items-center py-4 space-y-4 mt-8">
-			<span>© WaffleHacks 2023</span>
-			<div className="flex flex-row gap-4 flex-wrap px-8 justify-around">
-				<Link href="/privacy" target="_blank">
-					Privacy Policy
-				</Link>
-				<Link href="/rules" target="_blank">
-					Rules
-				</Link>
-			</div>
-			<div className="text-gray-800">
-				<p>
-					Fiscally sponsored by{' '}
-					<a href="https://the.hackfoundation.org/" target="_blank" rel="noreferrer">
-						The Hack Foundation
-					</a>
-				</p>
-				<p>Non-profit EIN: 81-2908499</p>
-			</div>
-		</div>
-	);
-};
-
-export default Footer;
- * 
-*/

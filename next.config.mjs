@@ -1,30 +1,60 @@
-import * as pwa from "@ducanh2912/next-pwa";
+await import("./src/env.js");
+import pwa from "@ducanh2912/next-pwa";
+import MillionLint from "@million/lint";
 import million from "million/compiler";
 
-const withPwa = pwa.default({
+const withPwa = pwa({
 	cacheOnFrontEndNav: true,
 	aggressiveFrontEndNavCaching: true,
 	reloadOnOnline: true,
 	dest: "public",
-	fallbacks: {
-		document: "src/app/offline",
-	},
+	register: true,
+	sw: "service-worker.js",
 	workboxOptions: {
 		disableDevLogs: true,
 	},
 });
 
 /**
- * @template {import('next').NextConfig} T
- * @param {T} config - A generic parameter that flows through to the return type
- * @constraint {{import('next').NextConfig}}
+ * @type {import("next/dist/server/config").NextConfig}
  */
-
 const config = {
 	typescript: {
 		ignoreBuildErrors: true,
 	},
-	reactStrictMode: true
+	reactStrictMode: true,
+	logging: {
+		fetches: {
+			fullUrl: true,
+		},
+	},
+	experimental: {
+		turbo: {
+			rules: {
+				"*.svg": {
+					loaders: ["@svgr/webpack"],
+					as: "*.js",
+				},
+			},
+		},
+	},
 };
 
-export default million.next(withPwa(config), { auto: { rsc: true } });
+const millionConfig = {
+	auto: true,
+};
+
+const finalConfig = withPwa(
+	million.next(
+		MillionLint.next({
+			rsc: true,
+			filter: {
+				include: ["**/*.{mtsx,mjsx,tsx,jsx}"],
+				exclude: ["node_modules", ".next", "public"],
+			},
+		})(config),
+		millionConfig,
+	),
+);
+
+export default finalConfig;

@@ -10,7 +10,7 @@ interface EventList {
 	[key: string]: (EventStructure | null)[];
 }
 
-const Calendar = () => {
+export const CalendarPanel = () => {
 	const [eventIndex, setEventIndex] = useState(0);
 	const eventOrder = [
 		"Friday, June 21st",
@@ -20,36 +20,211 @@ const Calendar = () => {
 	const events: { [key: string]: EventList } = {
 		"Friday, June 21st": {
 			Ceremonies: [
-				null, null, null, null, null, null, null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
 				{
 					title: "Opening Ceremony",
 					description: "Welcome to WaffleHacks 2023!",
 					time: "5:00 PM",
 					link: "",
-				}, null, null, null, null, null, null,
+				},
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
 			],
-			Workshops: [ null, null, null, null, null, null, null, null, null, null, null, null, null, null ],
-			Panels: [ null, null, null, null, null, null, null, null, null, null, null, null, null, null ],
-			"Other / Fun": [ null, null, null, null, null, null, null, null, null, null, null, null, null, null ],
+			Workshops: [
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+			],
+			Panels: [
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+			],
+			"Other / Fun": [
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+			],
 		},
 		"Saturday, June 22nd": {
-			Ceremonies: [ null, null, null, null, null, null, null, null, null, null, null, null, null, null ],
-			Workshops: [ null, null, null, null, null, null, null, null, null, null, null, null, null, null ],
-			Panels: [ null, null, null, null, null, null, null, null, null, null, null, null, null, null ],
-			"Other / Fun": [ null, null, null, null, null, null, null, null, null, null, null, null, null, null ],
+			Ceremonies: [
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+			],
+			Workshops: [
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+			],
+			Panels: [
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+			],
+			"Other / Fun": [
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+			],
 		},
 		"Sunday, June 23rd": {
-			Ceremonies: [ null, null, null, null, null, null, null,
+			Ceremonies: [
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
 				{
 					title: "Closing Ceremony",
 					description: "Thank you for attending WaffleHacks 2023!",
 					time: "5:00 PM",
 					link: "",
-				}, null, null, null, null, null, null
+				},
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
 			],
-			Workshops: [ null, null, null, null, null, null, null, null, null, null, null, null, null, null ],
-			Panels: [ null, null, null, null, null, null, null, null, null, null, null, null, null, null ],
-			"Other / Fun": [ null, null, null, null, null, null, null, null, null, null, null, null, null, null ],
+			Workshops: [
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+			],
+			Panels: [
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+			],
+			"Other / Fun": [
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+			],
 		},
 	};
 
@@ -123,7 +298,7 @@ const Calendar = () => {
 								}
 							>
 								{event ? (
-									<img src="/assets/images/calendar/curtains.svg" />
+									<img src="/assets/svgs/calendar/curtains.svg" />
 								) : (
 									""
 								)}
@@ -143,7 +318,7 @@ const Calendar = () => {
 									(event ? " calendar-workshop" : "")
 								}
 							>
-								{event ? <img src="/assets/images/calendar/wrench.svg" /> : ""}
+								{event ? <img src="/assets/svgs/calendar/wrench.svg" /> : ""}
 							</div>
 						);
 					})}
@@ -160,7 +335,7 @@ const Calendar = () => {
 									(event ? " calendar-panel" : "")
 								}
 							>
-								{event ? <img src="/assets/images/calendar/panel.svg" /> : ""}
+								{event ? <img src="/assets/svgs/calendar/panel.svg" /> : ""}
 							</div>
 						);
 					})}
@@ -177,7 +352,7 @@ const Calendar = () => {
 									(event ? " calendar-other" : "")
 								}
 							>
-								{event ? <img src="/assets/images/calendar/other.svg" /> : ""}
+								{event ? <img src="/assets/svgs/calendar/other.svg" /> : ""}
 							</div>
 						);
 					})}
@@ -186,5 +361,3 @@ const Calendar = () => {
 		</div>
 	);
 };
-
-export default Calendar;

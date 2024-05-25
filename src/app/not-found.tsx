@@ -1,3 +1,4 @@
+"use client";
 import { Button, Container, Typography } from "@mui/joy";
 import Image from "next/image";
 

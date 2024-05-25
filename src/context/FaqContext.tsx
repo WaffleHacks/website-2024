@@ -1,26 +1,27 @@
-import React, { createContext, useContext } from 'react';
-import { useLocalStorage } from '@/hooks/index';
+import { useLocalStorage } from "@/hooks/index";
+import type React from "react";
+import { createContext, useContext } from "react";
 
 type Faq = {};
 
 const FaqContext = createContext<Faq | undefined>(undefined);
 
-export const FaqProvider: React.FC<Readonly<{
-	children: React.ReactNode;
-}>> = ({ children }) => {
-	const [faq, setFaq] = useLocalStorage('', '');
+export const FaqProvider: React.FC<
+	Readonly<{
+		children: React.ReactNode;
+	}>
+> = ({ children }) => {
+	const [faq, setFaq] = useLocalStorage("", "");
 
 	const toggleFaq = () => {
-		setFaq(
-			(prevFaq: '') => 
-				(prevFaq === '' ? '' : '')
-		);
-	}
+		setFaq((prevFaq: "") => (prevFaq === "" ? "" : ""));
+	};
 
 	return (
-		<FaqContext.Provider 
+		<FaqContext.Provider
 			value={{
-				faq, toggleFaq
+				faq,
+				toggleFaq,
 			}}
 		>
 			{children}
@@ -31,7 +32,7 @@ export const FaqProvider: React.FC<Readonly<{
 export const useFaq = () => {
 	const context = useContext(FaqContext);
 	if (context === undefined) {
-		throw new Error('useFaq must be used within a FaqProvider');
+		throw new Error("useFaq must be used within a FaqProvider");
 	}
 	return context;
 };

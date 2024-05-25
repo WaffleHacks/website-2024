@@ -1,3 +1,5 @@
+"use client";
+import Image from "next/image";
 import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
 
 const NumberDisplay = ({ number, text }: { number: number; text: string }) => {
@@ -35,7 +37,7 @@ function useWindowSize() {
 	return size;
 }
 
-const LandingPanel = () => {
+export const LandingPanel = () => {
 	const [daysLeft, setDaysLeft] = useState(0);
 	const [hoursLeft, setHoursLeft] = useState(0);
 	const [minutesLeft, setMinutesLeft] = useState(0);
@@ -94,7 +96,40 @@ const LandingPanel = () => {
 	}
 
 	useEffect(onSizing, [container.current, img_box.current, windowSize]);
-
+	const images = [
+		{
+			src: "/assets/svgs/landing/red_pf.svg",
+			className: "absolute left-[34.5%] top-[31.5%] w-[31%]",
+		},
+		{
+			src: "/assets/svgs/landing/wh_logo.svg",
+			className: "absolute left-[42.9%] top-[7.1%] w-[14.85%]",
+		},
+		{
+			src: "/assets/svgs/landing/fencer_pf.svg",
+			className: "absolute left-[68.2%] top-[31.5%] w-[31%]",
+		},
+		{
+			src: "/assets/svgs/landing/fencer.svg",
+			className: "absolute left-[72.4%] top-[15.3%] w-[17%]",
+		},
+		{
+			src: "/assets/svgs/landing/archer_pf.svg",
+			className: "absolute left-[16.2%] top-[67.5%] w-[31%]",
+		},
+		{
+			src: "/assets/svgs/landing/archer.svg",
+			className: "absolute left-[27.3%] top-[40.55%] w-[10.8%]",
+		},
+		{
+			src: "/assets/svgs/landing/tennis_pf.svg",
+			className: "absolute left-[50.05%] top-[67.9%] w-[31%]",
+		},
+		{
+			src: "/assets/svgs/landing/tennis.svg",
+			className: "absolute left-[60.4%] top-[48.8%] w-[8.4%]",
+		},
+	];
 	return (
 		<div className="font-mplus px-12 pt-44 h-screen">
 			<h2 className="text-2xl font-normal">
@@ -113,71 +148,45 @@ const LandingPanel = () => {
 					style={{ aspectRatio: 1510 / 599 }}
 				>
 					<img
-						src="/assets/images/landing/road.svg"
+						src="/assets/svgs/landing/road.svg"
 						alt="road"
 						className="absolute left-[-0.2%] top-[31.5%] w-[32.9%]"
 					/>
-          <div id="svg-biker" className="">
-            <img
-              src="/assets/images/landing/wheel.svg"
-              alt="wheel"
-              className="bike-wheel-rotate absolute left-[9.4%] top-[32.4%] w-[5.5%]"
-            />
-            <img
-              src="/assets/images/landing/wheel.svg"
-              alt="wheel"
-              className="bike-wheel-rotate absolute left-[17.8%] top-[32.4%] w-[5.5%]"
-            />
-            <img
-              src="/assets/images/landing/biker.svg"
-              alt="biker"
-              className="absolute left-[13.7%] top-[14%] w-[7%]"
-            />
-          </div>
-
-					<img
-						src="/assets/images/landing/red_pf.svg"
-						alt=""
-						className="absolute left-[34.5%] top-[31.5%] w-[31%]"
-					/>
-					<img
-						src="/assets/images/landing/wh_logo.svg"
-						alt=""
-						className="absolute left-[42.9%] top-[7.1%] w-[14.85%]"
-					/>
-
-					<img
-						src="/assets/images/landing/fencer_pf.svg"
-						alt=""
-						className="absolute left-[68.2%] top-[31.5%] w-[31%]"
-					/>
-					<img
-						src="/assets/images/landing/fencer.svg"
-						alt=""
-						className="absolute left-[72.4%] top-[15.3%] w-[17%]"
-					/>
-
-					<img
-						src="/assets/images/landing/archer_pf.svg"
-						alt=""
-						className="absolute left-[16.2%] top-[67.5%] w-[31%]"
-					/>
-					<img
-						src="/assets/images/landing/archer.svg"
-						alt=""
-						className="absolute left-[27.3%] top-[40.55%] w-[10.8%]"
-					/>
-
-					<img
-						src="/assets/images/landing/tennis_pf.svg"
-						alt=""
-						className="absolute left-[50.05%] top-[67.9%] w-[31%]"
-					/>
-					<img
-						src="/assets/images/landing/tennis.svg"
-						alt=""
-						className="absolute left-[60.4%] top-[48.8%] w-[8.4%]"
-					/>
+					<div id="svg-biker">
+						{[
+							{
+								src: "/assets/svgs/landing/wheel.svg",
+								alt: "wheel",
+								className:
+									"bike-wheel-rotate absolute left-[9.4%] top-[32.4%] w-[5.5%]",
+							},
+							{
+								src: "/assets/svgs/landing/wheel.svg",
+								alt: "wheel",
+								className:
+									"bike-wheel-rotate absolute left-[17.8%] top-[32.4%] w-[5.5%]",
+							},
+							{
+								src: "/assets/svgs/landing/biker.svg",
+								alt: "biker",
+								className: "absolute left-[13.7%] top-[14%] w-[7%]",
+							},
+						].map(({ src, alt, className }, index) => (
+							<img key={index} src={src} alt={alt} className={className} />
+						))}
+					</div>
+					{images.map(
+						({ src, className }: { src: string; className: string }, index) => {
+							return (
+								<img
+									key={index}
+									src={src}
+									alt=""
+									className={className}
+								/>
+							);
+						},
+					)}
 				</div>
 			</div>
 
@@ -195,5 +204,3 @@ const LandingPanel = () => {
 		</div>
 	);
 };
-
-export default LandingPanel;

@@ -1,17 +1,18 @@
+import { nextui } from "@nextui-org/theme";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
 	mode: "jit",
+	darkMode: "class",
 	content: [
-		"./src/**/*.{js,ts,jsx,tsx,mdx}",
-		"./src/styles/**/*.{css,scss,sass,less,stylus}",
+		"./src/**/*.{ts,tsx}",
+		"./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
 		extend: {
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-				"gradient-conic":
-					"conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+				"gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
 			},
 			colors: {
 				primary: {
@@ -51,7 +52,12 @@ const config: Config = {
 			},
 		},
 	},
-	plugins: [],
+	plugins: [
+		require("@tailwindcss/aspect-ratio"),
+		require("@tailwindcss/line-clamp"),
+		require("@tailwindcss/typography"),
+		nextui(),
+	],
 };
 
 export default config;
