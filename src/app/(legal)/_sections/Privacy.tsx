@@ -6,7 +6,7 @@ import type React from "react";
 
 export const Privacy: React.FC = () => {
 	return (
-		<Container sx={{ my: 3 }} maxWidth="sm">
+		<Container sx={{ my: 20 }} maxWidth="sm">
 			<Typography level="h1" gutterBottom>
 				Privacy Policy
 			</Typography>
@@ -49,7 +49,7 @@ export const Privacy: React.FC = () => {
 			<Typography level="h3" gutterBottom>
 				Personal Information
 			</Typography>
-			<Typography gutterBottom>
+			<Typography>
 				We may ask for personal information which may include one or more of the
 				following:
 			</Typography>

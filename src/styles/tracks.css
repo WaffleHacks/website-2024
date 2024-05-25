@@ -1,0 +1,61 @@
+.swiper {
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.swiper * {
+    box-sizing: border-box;
+}
+
+.swiper-slide {
+    display: flex !important;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 70% !important;
+    padding: 1rem;
+    
+    border-radius: 1rem;
+    border: 1px solid #135CBD;
+    color: #135CBD;
+}
+
+.swiper-button-next, .swiper-button-prev {
+    color: black;
+    height: 100%;
+    position: absolute;
+    /* background: rgb(255, 0, 0, 0.5); */
+    width: calc(15% - 30px);
+    border-radius: 1rem;
+    top: 0;
+    z-index: 50;
+}
+.swiper-button-next {
+    right: 0;
+}
+
+.track-photo {
+    height: 15vw;
+    flex-basis: 15vw;
+    border-radius: 1rem;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.track-desc {
+    flex-grow: 1;
+}
+.track-desc h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.track-desc h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+
+}
+.track-desc p {
+    font-size: 0.8rem;
+    font-weight: 400;
+    display: block;
+}

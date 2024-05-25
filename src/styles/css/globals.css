@@ -32,5 +32,9 @@
         width: 0;
         background: transparent;
     }
+
+    .font-mplus {
+        font-family: 'M PLUS Rounded 1c',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    }
 }
 
