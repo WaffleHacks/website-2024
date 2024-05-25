@@ -1,9 +1,9 @@
 "use client";
-import { app, LegalLinks } from "@/constants";
+import { LegalLinks, app } from "@/constants";
 import Link from "next/link";
 import React from "react";
 
-export const FooterBar = (): JSX.Element => {
+export const FooterBar = () => {
 	return (
 		<footer className="bg-gray-900 text-white py-6">
 			<div className="container mx-auto flex flex-col lg:flex-row justify-between items-center px-6">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { useMediaQuery } from "usehooks-ts";
 
-export const NavBar = (): JSX.Element => {
+export const NavBar = () => {
 	const Links: ReadonlyArray<{
 		href: string;
 		text: string;
@@ -26,13 +26,10 @@ export const NavBar = (): JSX.Element => {
 					</Link>
 				))}
 				<Image
-					className={`
-
-					`}
-					src="/assets/images/header.svg"
-					alt="Header"
-					quality={100}
-					priority
+					src={`/assets/svgs/header.svg`}
+					alt={``}
+					height={80}
+					width={80}
 				/>
 				{Links.slice(3).map((link, index) => (
 					<Link key={index} href={link.href}>

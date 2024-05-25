@@ -177,14 +177,7 @@ export const LandingPanel = () => {
 					</div>
 					{images.map(
 						({ src, className }: { src: string; className: string }, index) => {
-							return (
-								<img
-									key={index}
-									src={src}
-									alt=""
-									className={className}
-								/>
-							);
+							return <img key={index} src={src} alt="" className={className} />;
 						},
 					)}
 				</div>

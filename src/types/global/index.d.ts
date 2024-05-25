@@ -35,6 +35,8 @@ type Sizes =
 	| "80"
 	| "96";
 
+type Directory = "team" | "waffles";
+
 type Index = number | string | React.Key;
 
 interface AccordionTextProps {

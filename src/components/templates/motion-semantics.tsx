@@ -1,8 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import type { SemanticProps } from "@/types/frontend/semantic-props";
-import * as Motion from "../constants/Motion";
+import * as Motion from "@/components";
+import { cn } from "@/lib";
+import type { SemanticProps } from "@/types";
 
 export const Article: React.FC<SemanticProps<"article">> = ({
 	framer,

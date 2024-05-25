@@ -1,6 +1,14 @@
 "use client";
 import type { NextPage } from "next";
-import { TracksPanel, AboutPanel, FaqPanel, LandingPanel, SponsorsPanel, CalendarPanel } from "./_sections";
+import {
+	AboutPanel,
+	CalendarPanel,
+	FaqPanel,
+	LandingPanel,
+	SponsorsPanel,
+	TeamPanel,
+	TracksPanel,
+} from "./_sections";
 // const label = { inputProps: { "aria-label": "Switch demo" } };
 
 const Home: NextPage = (): JSX.Element => {
@@ -20,6 +28,7 @@ const Home: NextPage = (): JSX.Element => {
 			<AboutPanel />
 			<CalendarPanel />
 			<TracksPanel />
+			<TeamPanel />
 			<SponsorsPanel />
 			<FaqPanel />
 		</main>

@@ -29,7 +29,10 @@ export const sponsorsData: ReadonlySponsors = {
 		{
 			tier: "Gold",
 			sponsors: [
-				{ name: "Balsamiq", image: "/assets/images/sponsors/balsamiq-logo.png" },
+				{
+					name: "Balsamiq",
+					image: "/assets/images/sponsors/balsamiq-logo.png",
+				},
 			],
 		},
 		{

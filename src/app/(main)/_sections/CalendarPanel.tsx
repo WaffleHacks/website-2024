@@ -297,11 +297,7 @@ export const CalendarPanel = () => {
 									(event ? " calendar-ceremony" : "")
 								}
 							>
-								{event ? (
-									<img src="/assets/svgs/calendar/curtains.svg" />
-								) : (
-									""
-								)}
+								{event ? <img src="/assets/svgs/calendar/curtains.svg" /> : ""}
 							</div>
 						);
 					})}

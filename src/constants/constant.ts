@@ -27,16 +27,14 @@ export const LegalLinks: LegalLinksProps = [
 	},
 ];
 
-type Directory = "team" | "waffles";
-
 export const members: string[] = [
 	"Alex",
 	"Amara",
-	"Arti",
+	"Arthi",
 	"Ethan",
 	"Jasmine",
 	"Jendy",
-	"Laveesh",
+	"Laaveshwaran",
 	"Mike",
 	"Nisarg",
 	"Nona",
@@ -46,11 +44,17 @@ export const members: string[] = [
 	"Tammy",
 ];
 
-function createFilePath<T extends Directory>(directory: T): string[] {
-	return members.map((member) => {
-		return `/assets/images/${directory}/${member.toLowerCase()}.png`;
-	});
+function createFilePath<T extends Directory>(
+	directory: T,
+): Record<string, string> {
+	return members.reduce(
+		(acc, member) => {
+			acc[member] = `/assets/images/${directory}/${member.toLowerCase()}.png`;
+			return acc;
+		},
+		{} as Record<string, string>,
+	);
 }
 
-export const team_members_png: typeof members = createFilePath("team");
-export const waffle_png: typeof members = createFilePath("waffles");
+export const team_members_png = createFilePath("team");
+export const waffle_png = createFilePath("waffles");

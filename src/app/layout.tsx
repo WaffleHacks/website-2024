@@ -1,5 +1,8 @@
-import { constructMetadata, constructViewport } from "@/utils/meta";
+import { FooterBar, NavBar, Semantics } from "@/components/semantics";
+import { Providers } from "@/providers";
+import { constructMetadata, constructViewport } from "@/utils";
 import type { NextWebVitalsMetric } from "next/app";
+import type React from "react";
 
 import "@/styles/css/globals.css";
 import "@/styles/sass/globals.scss";
@@ -19,18 +22,16 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html
-			lang="en"
-			suppressHydrationWarning
-			className={``}
-		>
+		<html lang="en" suppressHydrationWarning className={``}>
 			<body
 				className={`
 					box-border overflow-x-hidden
 					
 				`}
 			>
-				{children}
+				<Providers>
+					<Semantics>{children}</Semantics>
+				</Providers>
 			</body>
 		</html>
 	);

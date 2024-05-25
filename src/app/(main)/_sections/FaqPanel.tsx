@@ -55,7 +55,11 @@ export const FaqPanel = () => {
 						{faqs.map(
 							(faq, ind) =>
 								ind < 4 && (
-									<Faq key={"faq-" + ind} faq={faq[0] ?? ""} desc={faq[1] ?? ""} />
+									<Faq
+										key={"faq-" + ind}
+										faq={faq[0] ?? ""}
+										desc={faq[1] ?? ""}
+									/>
 								),
 						)}
 					</div>
@@ -63,7 +67,11 @@ export const FaqPanel = () => {
 						{faqs.map(
 							(faq, ind) =>
 								ind >= 4 && (
-									<Faq key={"faq-" + ind} faq={faq[0] ?? ""} desc={faq[1] ?? ""} />
+									<Faq
+										key={"faq-" + ind}
+										faq={faq[0] ?? ""}
+										desc={faq[1] ?? ""}
+									/>
 								),
 						)}
 					</div>

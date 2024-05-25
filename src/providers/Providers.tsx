@@ -1,20 +1,21 @@
 "use client";
+import { Semantics } from "@/components";
 import { NextUIProvider } from "@nextui-org/react";
 import type React from "react";
 import { Events } from "./events";
-export const Providers: React.FC<
-	Readonly<{
-		children: React.ReactNode;
-	}>
-> = ({ children }) => {
+import RootStyleRegistry from "./theme/ThemeRegistry";
+export const Providers: React.FC<{
+	children: JSX.Element | JSX.Element[];
+}> = ({ children }) => {
 	return (
 		<ProviderStack
 			providers={[
 				[NextUIProvider, {}],
+				[RootStyleRegistry, {}],
 				[Events, {}],
 			]}
 		>
-			{children}
+			<>{children}</>
 		</ProviderStack>
 	);
 };

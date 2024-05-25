@@ -1,4 +1,4 @@
-export enum Time {
+enum Time {
 	SHORT = 300,
 	MEDIUM = 500,
 	LONG = 1000,

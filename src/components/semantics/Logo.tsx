@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type React from "react";
 
-export const Logo: React.FC<{
+const Logo: React.FC<{
 	size: Sizes;
 	className?: string;
 }> = ({ size, className }) => {
@@ -20,7 +20,7 @@ export const Logo: React.FC<{
 			onClick={() => router.push("/")}
 		>
 			<Image
-				src={`/assets/svgs/logo-text.svg`}
+				src={`/assets/svgs/logo.svg`}
 				alt={``}
 				height={TwDimensionConversion(size)}
 				width={TwDimensionConversion(size)}
@@ -28,3 +28,5 @@ export const Logo: React.FC<{
 		</CustomPicture>
 	);
 };
+
+export default Logo;

@@ -1,40 +1,81 @@
-import { createTheme } from "@mui/material/styles";
+"use client";
+import { extendTheme } from "@mui/joy/styles";
 
-export const theme = createTheme({
-	palette: {
-		primary: {
-			main: "#f2994a",
-			light: "#fddc79",
-			dark: "#3c2415",
-			contrastText: "#a47556",
-		},
-		secondary: {
-			main: "#2d9cdb",
-			light: "#eaf9ff",
-			dark: "#135cbd",
-			contrastText: "#3c7ed6",
-		},
-		error: {
-			main: "#920813",
-			light: "#ed6b65",
-			dark: "#b73f48",
-			contrastText: "#f1906b",
-		},
-		warning: {
-			main: "#f2994a",
-			light: "#fddc79",
-			dark: "#3c2415",
-			contrastText: "#a47556",
-		},
-		success: {
-			main: "#3a7c13",
-			light: "#e5eaa7",
-			dark: "#5c913b",
-			contrastText: "#bdd1a3",
-		},
-		background: {
-			default: "#ffffff",
-			paper: "#fddc79",
+export const theme = extendTheme({
+	colorSchemes: {
+		dark: {
+			palette: {
+				primary: {
+					50: "#fddc79",
+					100: "#fddc79",
+					200: "#fddc79",
+					300: "#f2994a",
+					400: "#f2994a",
+					500: "#f2994a",
+					600: "#3c2415",
+					700: "#3c2415",
+					800: "#3c2415",
+					900: "#3c2415",
+				},
+				neutral: {
+					50: "#eaf9ff",
+					100: "#eaf9ff",
+					200: "#eaf9ff",
+					300: "#2d9cdb",
+					400: "#2d9cdb",
+					500: "#2d9cdb",
+					600: "#135cbd",
+					700: "#135cbd",
+					800: "#135cbd",
+					900: "#135cbd",
+				},
+				danger: {
+					50: "#ed6b65",
+					100: "#ed6b65",
+					200: "#ed6b65",
+					300: "#920813",
+					400: "#920813",
+					500: "#920813",
+					600: "#b73f48",
+					700: "#b73f48",
+					800: "#b73f48",
+					900: "#b73f48",
+				},
+				warning: {
+					50: "#fddc79",
+					100: "#fddc79",
+					200: "#fddc79",
+					300: "#f2994a",
+					400: "#f2994a",
+					500: "#f2994a",
+					600: "#3c2415",
+					700: "#3c2415",
+					800: "#3c2415",
+					900: "#3c2415",
+				},
+				success: {
+					50: "#e5eaa7",
+					100: "#e5eaa7",
+					200: "#e5eaa7",
+					300: "#3a7c13",
+					400: "#3a7c13",
+					500: "#3a7c13",
+					600: "#5c913b",
+					700: "#5c913b",
+					800: "#5c913b",
+					900: "#5c913b",
+				},
+				background: {
+					body: "#E6D8B5",
+					surface: "#D9C193",
+					popup: "#CCAF71",
+					level1: "#BF9D4F",
+					level2: "#B18B2D",
+					level3: "#A37A0B",
+					tooltip: "#966C00",
+					backdrop: "#FFFFFF99",
+				},
+			},
 		},
 	},
 });

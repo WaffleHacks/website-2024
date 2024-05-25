@@ -4,4 +4,4 @@ export * from "./FaqPanel";
 export * from "./LandingPanel";
 export * from "./SponsorsPanel";
 export * from "./TeamPanel";
-export * from './TracksPanel'
+export * from "./TracksPanel";

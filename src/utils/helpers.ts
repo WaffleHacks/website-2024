@@ -148,11 +148,11 @@ export function* windows<T>(input: Iterable<T>, size: number) {
 }
 
 export function zip<T>(...input: T[][]) {
-	return input[0].map((_, i) => input.map((array) => array[i]));
+	return input[0]!.map((_, i) => input.map((array) => array[i]));
 }
 
 export function transpose<T>(input: T[][]) {
-	return input[0].map((_, i) => input.map((array) => array[i]));
+	return input[0]!.map((_, i) => input.map((array) => array[i]));
 }
 
 export function chunk<T>(input: T[], size: number): T[][] {
