@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import CalendarDescription from "./CalendarDescription";
+import { CalendarDescriptionType as CDT} from './CalendarDescription'
+
+
 interface EventStructure {
 	title: string;
 	description: string;
 	time: string;
 	link: string;
+	type: string;
 }
 
 interface EventList {
@@ -12,7 +17,7 @@ interface EventList {
 
 export const CalendarPanel = () => {
 	const [eventIndex, setEventIndex] = useState(0);
-	const eventOrder = [
+	const eventOrder: string[] = [
 		"Friday, June 21st",
 		"Saturday, June 22nd",
 		"Sunday, June 23rd",
@@ -32,6 +37,7 @@ export const CalendarPanel = () => {
 					description: "Welcome to WaffleHacks 2023!",
 					time: "5:00 PM",
 					link: "",
+					type: 'ceremony'
 				},
 				null,
 				null,
@@ -169,6 +175,7 @@ export const CalendarPanel = () => {
 					description: "Thank you for attending WaffleHacks 2023!",
 					time: "5:00 PM",
 					link: "",
+					type: 'ceremony'
 				},
 				null,
 				null,
@@ -294,7 +301,7 @@ export const CalendarPanel = () => {
 								key={index}
 								className={
 									"calendar-grid-cell text-center" +
-									(event ? " calendar-ceremony" : "")
+									(event ? " calendar-ceremony event" : "")
 								}
 							>
 								{event ? <img src="/assets/svgs/calendar/curtains.svg" /> : ""}
@@ -354,6 +361,7 @@ export const CalendarPanel = () => {
 					})}
 				</div>
 			</div>
+			<CalendarDescription type={CDT.CEREMONY} title='Opening Ceremony' description='Welcome to WaffleHacks 2023!' time='5:00 PM' link=''/>
 		</div>
 	);
 };

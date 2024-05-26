@@ -31,6 +31,13 @@
     align-items: center;
 }
 
+.calendar-grid-cell.event {
+    transition: filter 0.3s;
+}
+.calendar-grid-cell.event:hover {
+    filter: brightness(1.2);
+}
+
 .calendar-grid .calendar-grid-cell:nth-child(17) {
     border-radius: 0.5rem 0 0;
 }
