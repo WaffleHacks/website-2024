@@ -125,24 +125,12 @@ export const TeamPanel = () => {
 							.slice(currentIndex, currentIndex + howMuchToShow)
 							.map(({ mem, member, color }, index) => (
 								<motion.div
-									className={`relative overflow-hidden h-[300px] min-w-[300px] bg-slate-200 rounded-xl flex justify-center items-center shadow-lg border-none mx-4`}
+									className={`relative overflow-hidden h-[300px] min-w-[300px] bg-slate-200 hover:bg-slate-400 transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none mx-4`}
 									key={`${mem}-${index}`}
-									onHoverStart={() => {
+									onClick={() => {
 										setShowOverlay(mem);
-										setTimeout(() => {
-											if (!modalOpen) {
-												setSelectedMember({ mem, member, color });
-												setModalOpen(true);
-											}
-										}, 500);
-									}}
-									onHoverEnd={() => {
-										setShowOverlay("");
-										if (!modalOpen) {
-											setTimeout(() => {
-												setModalOpen(false);
-											}, 2000);
-										}
+										setSelectedMember({ mem, member, color });
+										setModalOpen(true);
 									}}
 								>
 									<AnimatePresence>
