@@ -26,7 +26,7 @@ export const NavBar = () => {
 					</Link>
 				))}
 				<Image
-					src={`/assets/svgs/header.svg`}
+					src={`/assets/svgs/header.png`}
 					alt={``}
 					height={80}
 					width={80}
