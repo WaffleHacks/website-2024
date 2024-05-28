@@ -173,10 +173,10 @@ export const TeamPanel = () => {
 			</div>
 			<menu
 				className={`
-          flex items-center justify-between 
-          bg-gray-100/50 p-4 rounded-md
-          shadow-md mt-6 mx-auto ${isXLarge ? "w-[310px]" : "w-[210px]"}
-        `}
+				flex items-center justify-between 
+				bg-gray-100/50 p-4 rounded-md
+				shadow-md mt-6 mx-auto ${isXLarge ? "w-[310px]" : "w-[210px]"}
+				`}
 			>
 				{currentIndex > 0 && (
 					<li className="flex">

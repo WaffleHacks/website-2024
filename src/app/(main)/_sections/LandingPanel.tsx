@@ -12,7 +12,7 @@ const NumberDisplay = ({ number, text }: { number: number; text: string }) => {
 					return (
 						<span
 							key={index}
-							className="text-2xl font-extrabold bg-gray-200 rounded-lg py-3 px-3"
+							className="numberdisplay-number text-2xl font-extrabold bg-gray-200 rounded-lg py-3 px-3"
 						>
 							{char}
 						</span>
@@ -102,10 +102,6 @@ export const LandingPanel = () => {
 			className: "absolute left-[34.5%] top-[31.5%] w-[31%]",
 		},
 		{
-			src: "/assets/svgs/landing/wh_logo.svg",
-			className: "absolute left-[42.9%] top-[7.1%] w-[14.85%]",
-		},
-		{
 			src: "/assets/svgs/landing/fencer_pf.svg",
 			className: "absolute left-[68.2%] top-[31.5%] w-[31%]",
 		},
@@ -129,9 +125,18 @@ export const LandingPanel = () => {
 			src: "/assets/svgs/landing/tennis.svg",
 			className: "absolute left-[60.4%] top-[48.8%] w-[8.4%]",
 		},
+		// {
+		// 	src: "/assets/svgs/landing/scav/wh_inner.svg",
+		// 	className: "absolute left-[45.06%] top-[12.65%] w-[10.47%]",
+		// },
+		// {
+		// 	src: "/assets/svgs/landing/scav/wh_cut.svg",
+		// 	className: "absolute left-[42.9%] top-[7.1%] w-[14.85%]",
+		// },
+		
 	];
 	return (
-		<div className="font-mplus px-12 pt-44 h-screen">
+		<div className="font-mplus px-12 pt-44 h-screen w-full">
 			<h2 className="text-2xl font-normal">
 				Put your best code forward for the
 			</h2>
@@ -180,6 +185,22 @@ export const LandingPanel = () => {
 							return <img key={index} src={src} alt="" className={className} />;
 						},
 					)}
+
+					
+
+					<div className="absolute left-[42.9%] top-[7.1%] w-[14.85%]" style={{aspectRatio: '1/1'}}>
+					<img id="stand-sign" className="absolute left-[9%] top-[0%] w-[85%]" src="/assets/svgs/landing/scav/stand_sign.svg" alt="" />
+					</div>
+
+					<img id="stand-shadow" className="absolute left-[42.9%] top-[7.1%] w-[14.85%]" src="/assets/svgs/landing/scav/wh_cut_shadow.svg" alt="" />
+					<div className="overflow-hidden absolute left-[42.9%] top-[7.1%] w-[14.85%]" style={{aspectRatio: '1/1'}}>
+						<img className="absolute left-[14.7%] top-[14.9%] w-[70.5%]" src="/assets/svgs/landing/scav/stand_bkg.svg" alt="" />
+						<img id="stand-logo-inner" className="absolute left-[14.7%] top-[14.9%] w-[70.5%]" src="/assets/svgs/landing/scav/wh_inner.svg" alt="" />
+						<img id="stand-bar" className="absolute left-[24%] top-[100%] w-[52%]" src="/assets/svgs/landing/scav/stand_bar.svg" alt="" />
+						<img className="absolute top-0 left-0 w-full h-full" src="/assets/svgs/landing/scav/wh_cut.svg" alt="" />
+					</div>
+
+
 				</div>
 			</div>
 

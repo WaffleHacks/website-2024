@@ -14,6 +14,10 @@
     *::after{
         box-sizing: border-box;
     }
+
+    :root {
+        --scav-transition-dur: 0.5s;
+    }
     
     :host,html {
         line-height: 1.5;
@@ -40,6 +44,23 @@
 
     .no-scroll {
         overflow-y: hidden;
+    }
+
+    body {
+        background-color: white;
+        transition: background-color var(--scav-transition-dur) ease;
+    }
+    body.scav {
+        background-color: #F1D6BB;
+    }
+
+    .navbar {
+        background: white;
+        transition: var(--scav-transition-dur) ease;
+        backdrop-filter: blur(10px);
+    }
+    body.scav .navbar {
+        background: rgba(255, 255, 255, 0.7);
     }
 }
 
