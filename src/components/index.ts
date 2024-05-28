@@ -3,3 +3,5 @@ export * from "./constants";
 export * from "./custom";
 export * from "./semantics";
 export * from "./templates";
+export * from "./svgs";
+export * from "./layout";

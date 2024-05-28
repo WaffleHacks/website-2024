@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from "next";
 
 export function constructMetadata({
 	title = "WaffleHacks",
-	description = "WaffleHacks is a 48-hour student-organized hackathon working to bring technical solutions to your local communities and small businesses.We welcome all students, of high school level and beyond, and of all technical proficiency levels, to join us on June 23th - 25th, 2023.",
+	description = `WaffleHacks is a 48-hour student-organized hackathon working to bring technical solutions to your local communities and small businesses.We welcome all students, of high school level and beyond, and of all technical proficiency levels, to join us on June 23th - 25th, 2023.`,
 	image = "/assets/images/og.png",
 	icons = "/assets/svgs/logo.svg",
 	noIndex = false,

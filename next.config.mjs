@@ -23,11 +23,11 @@ const config = {
 		ignoreBuildErrors: true,
 	},
 	reactStrictMode: true,
-	// logging: {
-	// 	fetches: {
-	// 		fullUrl: true,
-	// 	},
-	// },
+	logging: {
+		fetches: {
+			fullUrl: true,
+		},
+	},
 	experimental: {
 		turbo: {
 			rules: {
@@ -44,17 +44,6 @@ const millionConfig = {
 	auto: true,
 };
 
-const finalConfig = withPwa(
-	million.next(
-		MillionLint.next({
-			rsc: true,
-			filter: {
-				include: ["**/*.{mtsx,mjsx,tsx,jsx}"],
-				exclude: ["node_modules", ".next", "public"],
-			},
-		})(config),
-		millionConfig,
-	),
-);
+const finalConfig = withPwa(config);
 
 export default finalConfig;

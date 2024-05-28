@@ -177,6 +177,14 @@ export function* range(start: number, end: number, step = 1) {
 	}
 }
 
+export function objToArray<T>(obj: Record<string, T>): T[] {
+	const output: T[] = [];
+	for (const key in obj) {
+		output.push(obj[key]!);
+	}
+	return output;
+}
+
 /*_____________Set_____________*/
 export function intersection<T>(a: T[], b: T[]) {
 	return new Set(a.filter((x) => b.includes(x)));

@@ -35,7 +35,7 @@ type Sizes =
 	| "80"
 	| "96";
 
-type Directory = "team" | "waffles";
+type Directory = "team" | "waffles" | "sport";
 
 type Index = number | string | React.Key;
 
@@ -52,10 +52,14 @@ interface FooterProps {
 	top: {
 		left: {
 			image: string;
-			sponsor: string;
+			icons: Array<{
+				icon: JSX.Element;
+				href: string;
+			}>;
 		};
 		right: {
-			icons: JSX.Element[];
+			sponsor: string;
+			link: string;
 		};
 	};
 	bottom: {

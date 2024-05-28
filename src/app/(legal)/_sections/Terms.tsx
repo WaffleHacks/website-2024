@@ -4,7 +4,7 @@ import { Container, Typography } from "@mui/joy";
 import Link from "next/link";
 import type React from "react";
 
-export const Terms: React.FC = () => {
+export const Terms = () => {
 	return (
 		<Container maxWidth="sm" sx={{ marginTop: 3, marginBottom: 3 }}>
 			<Typography level="h1" gutterBottom>

@@ -5,13 +5,13 @@ import type React from "react";
 import { Events } from "./events";
 import RootStyleRegistry from "./theme/ThemeRegistry";
 export const Providers: React.FC<{
-	children: JSX.Element | JSX.Element[];
+	children: React.ReactNode;
 }> = ({ children }) => {
 	return (
 		<ProviderStack
 			providers={[
-				[NextUIProvider, {}],
-				[RootStyleRegistry, {}],
+				// [NextUIProvider, {}],
+				// [RootStyleRegistry, {}],
 				[Events, {}],
 			]}
 		>

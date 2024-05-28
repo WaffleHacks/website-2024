@@ -1,71 +1,223 @@
 "use client";
-import { Team, members, team_members_png, waffle_png } from "@/constants";
+
+import { Modal, CustomPicture as Picture } from "@/components";
+import { team_members_panel_png } from "@/constants";
+import { useOverlay, useTeam } from "@/core";
+import { getTeamColor } from "@/lib";
+import { objToArray } from "@/utils";
+import { Button } from "@nextui-org/react";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import type React from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { FaArrowLeft, FaArrowRight, FaPlusCircle } from "react-icons/fa";
+import { useBoolean, useMediaQuery } from "usehooks-ts";
+import { TeamCard } from "../_components";
 
-const getFirstName = (fullName: string) => {
-	return fullName.split(" ")[0];
-};
+const MAX_CONCURRENT_REQUESTS = 5;
+const NUM_MEMBERS = 13;
 
-const getMemberImage = (name: string, type: Directory) => {
-	const firstName = getFirstName(name);
-	const images = type === "team" ? team_members_png : waffle_png;
-	return images[firstName!];
-};
+export const TeamPanel = () => {
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const [processingQueue, setProcessingQueue] = useState(false);
+	const [teamData, setTeamData] = useState<
+		Array<{ mem: string; member: any; color: string }>
+	>([]);
+	const [selectedMember, setSelectedMember] = useState<any>(null);
 
-const TeamCard: React.FC<{ member: any; color: string }> = ({ member, color }) => {
+	const { showOverlay, setShowOverlay } = useOverlay();
+	const [modalOpen, setModalOpen] = useState(false);
+
+	const team = objToArray(team_members_panel_png);
+	const { getTeamMember } = useTeam();
+
+	const memberDataMap = useRef(new Map());
+	const requestQueue = useRef<string[]>([]);
+
+	const isXLarge = useMediaQuery("(min-width: 1280px)");
+	const isLarge = useMediaQuery("(min-width: 1024px)");
+	const isMedium = useMediaQuery("(min-width: 768px)");
+	const isSmall = useMediaQuery("(min-width: 640px)");
+
+	const router = useRouter();
+
+	const fileToName = (file: string) =>
+		file.split("/").pop()?.replace(".png", "");
+
+	const handleNext = () => {
+		setCurrentIndex((prevIndex) => (prevIndex + 1) % NUM_MEMBERS);
+	};
+
+	const handlePrev = () => {
+		setCurrentIndex((prevIndex) => (prevIndex - 1 + NUM_MEMBERS) % NUM_MEMBERS);
+	};
+
+	if (currentIndex > NUM_MEMBERS - 3) {
+		setCurrentIndex(0);
+	}
+
+	useEffect(() => {
+		const uniqueTeam = Array.from(new Set(team));
+		const queue: string[] = [];
+
+		uniqueTeam.forEach((mem) => {
+			if (!memberDataMap.current.has(mem)) {
+				queue.push(mem);
+			}
+		});
+
+		requestQueue.current.push(...queue);
+		if (!processingQueue) {
+			setProcessingQueue(true);
+		}
+	}, [team]);
+
+	useEffect(() => {
+		const processQueue = async () => {
+			if (processingQueue && requestQueue.current.length > 0) {
+				const requests = requestQueue.current.splice(
+					0,
+					MAX_CONCURRENT_REQUESTS,
+				);
+				await Promise.all(
+					requests.map(async (mem) => {
+						if (!memberDataMap.current.has(mem)) {
+							const getMemberName = (mem: string) =>
+								mem.split("/").pop()?.replace(".png", "");
+							const member = await getTeamMember(getMemberName(mem)!);
+
+							let color = "";
+							if (member?.top?.name) {
+								color = getTeamColor(member.top.name) as string;
+							}
+
+							memberDataMap.current.set(mem, { mem, member, color });
+							setTeamData((prev) => [...prev, { mem, member, color }]);
+						}
+					}),
+				);
+				if (requestQueue.current.length > 0) {
+					processQueue();
+				} else {
+					setProcessingQueue(false);
+				}
+			}
+		};
+		processQueue();
+	}, [processingQueue]);
+
+	const howMuchToShow = isXLarge
+		? 5
+		: isLarge
+			? 4
+			: isMedium
+				? 3
+				: isSmall
+					? 2
+					: 1;
+
 	return (
-		<div className={`bg-[${color}] p-6 rounded-lg shadow-lg text-center`}>
-			<Image
-				src={getMemberImage(member.top.name, "team")!}
-				alt={member.top.name}
-				className="w-24 h-24 mx-auto rounded-full object-cover mb-4"
-				width={400}
-				height={400}
-			/>
-			<h2 className="text-xl font-semibold mb-2">{member.top.name}</h2>
-			<p className="text-gray-600 mb-2">{member.top.position}</p>
-			<p className="text-gray-600 mb-2">Waffle Team: {member.top.waffle_team}</p>
-			<p className="text-gray-600 mb-4">Member Since: {member.top.member_since}x</p>
-			<p className="text-gray-600 mb-2">Looking Forward To: {member.middle.looking_forward}</p>
-			<div className="mb-4">
-				<img
-					src={getMemberImage(member.top.name, "waffles")}
-					alt={`${member.middle.favorite_waffle.type} waffle`}
-					className="w-16 h-16 mx-auto rounded-full object-cover mb-2"
-				/>
-				<p className="text-gray-600">Favorite Waffle: {member.middle.favorite_waffle.type}</p>
-			</div>
-			<p className="text-gray-600 mb-2">School: {member.bottom.education.school.name}</p>
-			{member.bottom.education.school.subtext && (
-				<p className="text-gray-600 mb-2">{member.bottom.education.school.subtext}</p>
-			)}
-			<p className="text-gray-600 mb-2">Class of {member.bottom.education.class}</p>
-			<p className="text-gray-600 mb-4">Major: {member.bottom.education.major}</p>
-			<p className="text-gray-600">Favorite Olympic Sport: {member.bottom.favorite_olympic_sport}</p>
-		</div>
-	);
-};
-
-export const TeamPanel: React.FC = () => {
-	return (
-		<div className="p-6">
-			{Team.map((teamCategory) =>
-				Object.entries(teamCategory).map(([categoryName, categoryData]) => (
-					<div key={categoryName} className={`mb-8`}>
-						<h1 className="text-3xl font-bold text-center mb-6">
-							{categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
-						</h1>
-						<div
-							className={`flex flex-wrap justify-center gap-6 border-t-4 pt-4`}
-							style={{ borderColor: categoryData.color }}
-						>
-							{categoryData.members.map((member, index) => (
-								<TeamCard key={index} member={member} color={categoryData.color} />
+		<div className="mt-2 relative">
+			<div className="w-full">
+				<div className="relative">
+					<div className="flex space-x-4">
+						{teamData
+							.slice(currentIndex, currentIndex + howMuchToShow)
+							.map(({ mem, member, color }, index) => (
+								<motion.div
+									className={`relative overflow-hidden h-[300px] min-w-[300px] bg-slate-200 rounded-xl flex justify-center items-center shadow-lg border-none mx-4`}
+									key={`${mem}-${index}`}
+									onHoverStart={() => {
+										setShowOverlay(mem);
+										setTimeout(() => {
+											if (!modalOpen) {
+												setSelectedMember({ mem, member, color });
+												setModalOpen(true);
+											}
+										}, 500);
+									}}
+									onHoverEnd={() => {
+										setShowOverlay("");
+										if (!modalOpen) {
+											setTimeout(() => {
+												setModalOpen(false);
+											}, 2000);
+										}
+									}}
+								>
+									<AnimatePresence>
+										{modalOpen && selectedMember?.mem || showOverlay === mem && (
+											<motion.div
+												className="absolute left-0 top-0 bottom-0 right-0 z-10 flex justify-center items-center"
+												initial={{ opacity: 0 }}
+												animate={{ opacity: 0.5 }}
+												exit={{ opacity: 0 }}
+											>
+												<div className="absolute bg-black pointer-events-none opacity-50 h-full w-full" />
+											</motion.div>
+										)}
+									</AnimatePresence>
+									<Picture>
+										<Image
+											src={mem}
+											alt={mem}
+											fill={true}
+											fetchPriority="high"
+											className="object-cover"
+										/>
+									</Picture>
+								</motion.div>
 							))}
-						</div>
 					</div>
-				))
+				</div>
+			</div>
+			<menu
+				className={`
+          flex items-center justify-between 
+          bg-gray-100/50 p-4 rounded-md
+          shadow-md mt-6 mx-auto ${isXLarge ? "w-[310px]" : "w-[210px]"}
+        `}
+			>
+				{currentIndex > 0 && (
+					<li className="flex">
+						<Button
+							onClick={handlePrev}
+							className="backdrop-filter  backdrop-blur-lg bg-white bg-opacity-20 border border-white border-opacity-20 shadow-lg text-white px-4 py-2 rounded-lg mr-2"
+						>
+							<FaArrowLeft className={`w-10`} color={`black`} />
+						</Button>
+					</li>
+				)}
+				<li className="text-lg font-semibold">
+					{currentIndex + 1} - {currentIndex + howMuchToShow} of {NUM_MEMBERS}
+				</li>
+				{currentIndex < NUM_MEMBERS - howMuchToShow && (
+					<li>
+						<Button
+							onClick={handleNext}
+							className="backdrop-filter  backdrop-blur-lg bg-white bg-opacity-20 border border-white border-opacity-20 shadow-lg text-white px-4 py-2 rounded-lg"
+						>
+							<FaArrowRight className={`w-10`} color={`black`} />
+						</Button>
+					</li>
+				)}
+			</menu>
+			{modalOpen && selectedMember && (
+				<Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+					<TeamCard
+						member={selectedMember.member}
+						color={selectedMember.color}
+					/>
+					<Button
+						onClick={() => {
+							setModalOpen(false);
+							router.push(`/team/${fileToName(selectedMember.mem)}`);
+						}}
+						className="absolute top-4 right-4"
+					>
+						<FaArrowRight className={`w-10`} color={`black`} />
+					</Button>
+				</Modal>
 			)}
 		</div>
 	);

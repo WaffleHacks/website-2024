@@ -3,6 +3,7 @@
 @import 'fonts.css';
 @import 'landing.css';
 @import 'tracks.css';
+@import 'team.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -35,6 +36,10 @@
 
     .font-mplus {
         font-family: 'M PLUS Rounded 1c',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    }
+
+    .no-scroll {
+        overflow-y: hidden;
     }
 }
 

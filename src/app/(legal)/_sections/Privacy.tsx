@@ -4,7 +4,7 @@ import { Container, Typography } from "@mui/joy";
 import Link from "next/link";
 import type React from "react";
 
-export const Privacy: React.FC = () => {
+export const Privacy = () => {
 	return (
 		<Container sx={{ my: 20 }} maxWidth="sm">
 			<Typography level="h1" gutterBottom>

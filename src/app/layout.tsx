@@ -1,5 +1,6 @@
-import { FooterBar, NavBar, Semantics } from "@/components/semantics";
+import { Semantics } from "@/components";
 import { Providers } from "@/providers";
+import Scripts from "@/scripts";
 import { constructMetadata, constructViewport } from "@/utils";
 import type { NextWebVitalsMetric } from "next/app";
 import type React from "react";
@@ -23,15 +24,12 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning className={``}>
-			<body
-				className={`
-					box-border overflow-x-hidden
-					
-				`}
-			>
-				<Providers>
-					<Semantics>{children}</Semantics>
-				</Providers>
+			<body className={`box-border overflow-x-hidden`}>
+				<>
+					<Providers>
+						<Semantics>{children}</Semantics>
+					</Providers>
+				</>
 			</body>
 		</html>
 	);

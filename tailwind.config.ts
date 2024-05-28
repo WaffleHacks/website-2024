@@ -1,20 +1,45 @@
 import { nextui } from "@nextui-org/theme";
 import type { Config } from "tailwindcss";
 
-const config: Config = {
+export default {
 	mode: "jit",
 	darkMode: "class",
 	content: [
-		"./src/**/*.{ts,tsx}",
+		"./src/**/*.{ts,tsx,js,jsx}",
 		"./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
 		extend: {
-			backgroundImage: {
-				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-				"gradient-conic":
-					"conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-			},
+			backgroundImage: (_theme) => ({
+				"waffle-amara": "url('/assets/images/waffles/amara.png')",
+				"waffle-pranav": "url('/assets/images/waffles/pranav.png')",
+				"waffle-jasmine": "url('/assets/images/waffles/jasmine.png')",
+				"waffle-samihah": "url('/assets/images/waffles/samihah.png')",
+				"waffle-sammi": "url('/assets/images/waffles/sammi.png')",
+				"waffle-arthi": "url('/assets/images/waffles/arthi.png')",
+				"waffle-tammy": "url('/assets/images/waffles/tammy.png')",
+				"waffle-nisarg": "url('/assets/images/waffles/nisarg.png')",
+				"waffle-ethan": "url('/assets/images/waffles/ethan.png')",
+				"waffle-laaveshwaran": "url('/assets/images/waffles/laaveshwaran.png')",
+				"waffle-mike": "url('/assets/images/waffles/mike.png')",
+				"waffle-alex": "url('/assets/images/waffles/alex.png')",
+				"waffle-jendy": "url('/assets/images/waffles/jendy.png')",
+			}),
+			backgroundColor: (_theme) => ({
+				"waffle-color-amara": "#fddc79",
+				"waffle-color-pranav": "#fddc79",
+				"waffle-color-jasmine": "#fddc79",
+				"waffle-color-jendy": "#fddc79",
+				"waffle-color-samihah": "#9ddcf8",
+				"waffle-color-sammi": "#9ddcf8",
+				"waffle-color-arthi": "#9ddcf8",
+				"waffle-color-tammy": "#9ddcf8",
+				"waffle-color-nisarg": "#fcb59a",
+				"waffle-color-ethan": "#fcb59a",
+				"waffle-color-laaveshwaran": "#fcb59a",
+				"waffle-color-mike": "#fcb59a",
+				"waffle-color-alex": "#fcb59a",
+			}),
 			colors: {
 				primary: {
 					DEFAULT: "#f2994a",
@@ -58,6 +83,4 @@ const config: Config = {
 		require("@tailwindcss/typography"),
 		nextui(),
 	],
-};
-
-export default config;
+} satisfies Config;

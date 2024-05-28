@@ -19,7 +19,7 @@ export const CustomPicture = React.forwardRef<HTMLElement, PictureProps>(
 				{...props}
 			>
 				{children}
-				<source srcSet={srcSet} type="image/webp" />
+				<source srcSet={srcSet} type="image/png" />
 			</picture>
 		);
 	},

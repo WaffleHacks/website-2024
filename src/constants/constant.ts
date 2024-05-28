@@ -1,3 +1,4 @@
+// "use client";
 import type { LegalLinksProps } from "@/types";
 
 export const LegalLinks: LegalLinksProps = [
@@ -37,7 +38,6 @@ export const members: string[] = [
 	"Laaveshwaran",
 	"Mike",
 	"Nisarg",
-	"Nona",
 	"Pranav",
 	"Samihah",
 	"Sammi",
@@ -56,5 +56,19 @@ function createFilePath<T extends Directory>(
 	);
 }
 
+function panelFilePath<T extends Directory>(
+	directory: T,
+): Record<string, string> {
+	return members.reduce(
+		(acc, member) => {
+			acc[member] =
+				`/assets/images/${directory}/panel/${member.toLowerCase()}.png`;
+			return acc;
+		},
+		{} as Record<string, string>,
+	);
+}
+
 export const team_members_png = createFilePath("team");
 export const waffle_png = createFilePath("waffles");
+export const team_members_panel_png = panelFilePath("team");

@@ -1,10 +1,10 @@
 "use client";
-import type React from "react";
+import React from "react";
 
 export const AboutPanel = () => {
 	return (
-		<div id="about" className="font-mplus px-8">
-			<h1 className="text-4xl font-extrabold mb-4">About</h1>
+		<div className="font-mplus px-8">
+			<h2 className="text-4xl font-extrabold mb-4">About</h2>
 
 			<div className="flex flex-row justify-between">
 				<p className="w-[35rem]">
@@ -15,7 +15,7 @@ export const AboutPanel = () => {
 					technical proficiency levels, to join us on June 23th - 25th, 2023.
 				</p>
 
-				<img src="/assets/images/rick.gif" alt="" className="w-5/12" />
+				<img src="/assets/svgs/logo.svg" alt="" className="w-5/12" />
 			</div>
 		</div>
 	);

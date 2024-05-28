@@ -1,3 +1,4 @@
+"use server";
 import got from "got";
 import sharp from "sharp";
 

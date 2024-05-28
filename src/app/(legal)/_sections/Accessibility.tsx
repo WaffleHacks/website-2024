@@ -4,7 +4,7 @@ import { Container, Typography } from "@mui/joy";
 import Link from "next/link";
 import type React from "react";
 
-export const Accessibility: React.FC = () => {
+export const Accessibility = () => {
 	return (
 		<Container sx={{ my: 3 }} maxWidth={`sm`}>
 			<Typography gutterBottom>Website Accessibility Policy</Typography>

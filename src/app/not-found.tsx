@@ -2,7 +2,7 @@
 import { Button, Container, Typography } from "@mui/joy";
 import Image from "next/image";
 
-const NotFound = (): JSX.Element => {
+export default function NotFound() {
 	return (
 		<>
 			<Container>
@@ -19,6 +19,4 @@ const NotFound = (): JSX.Element => {
 			</Container>
 		</>
 	);
-};
-
-export default NotFound;
+}

@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
 
-const AccordionComponent = () => {
+export const AccordionComponent = () => {
 	return <></>;
 };
-
-export default AccordionComponent;
