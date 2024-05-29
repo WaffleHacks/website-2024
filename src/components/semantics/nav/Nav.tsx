@@ -1,8 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, {useContext} from "react";
-import { useMediaQuery } from "usehooks-ts";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import { ScavContext } from "@/components/semantics/Semantics";
 import Switch from '@mui/material/Switch';
 
@@ -23,12 +22,53 @@ export const NavBar = () => {
 
 	let {scavState, setScavState} = useContext(ScavContext);
 
+	const apple = useRef<HTMLImageElement>(null);
+	const [walkState, setWalkState] = useState(1);
+	const [appleImg, setAppleImg] = useState('apple1');
+	const [appleX, setAppleX] = useState(-100);
+	const interval = useRef<NodeJS.Timeout>();
+
+
 	function setScav(e: React.ChangeEvent<HTMLInputElement>){
 		setScavState(e.target.checked);
 		if (e.target.checked) document.body.classList.add('scav');
 		else document.body.classList.remove('scav');
 		console.log(e.target.checked);
 	}
+
+	useEffect(() => {
+		if (interval.current){
+			clearInterval(interval.current);
+		}
+		if (scavState){
+			interval.current = setInterval(() => {
+				let files = ['apple1', 'apple2', 'apple3', 'apple2'];
+				setWalkState(walk => {
+					let nextWalk = (walk + 1) % 4
+					
+					return nextWalk
+				});
+				
+				setAppleX(x => {
+					let nextX = x + 1;
+					let next_ind = Math.floor(nextX / 4) % 4;
+					if (next_ind < 0) next_ind = (4 - next_ind + 4) % 4;
+					let file = files[next_ind];
+					if (file == undefined){
+						console.log('undefined', file, next_ind);
+					}
+					setAppleImg(files[next_ind]);
+					if (nextX > window.innerWidth) nextX = -100;
+					return nextX;
+				});
+			}, 25);
+		}
+		return () => clearInterval(interval.current);
+	}, [scavState]);
+
+	
+
+
 
 	return (
 		<>
@@ -54,11 +94,14 @@ export const NavBar = () => {
 				</div>
 
 				<div className="flex justify-end mr-8 items-center">
-					
 					<Switch {...label} onChange={setScav} value={scavState} />
 					<span>Scavenger Hunt</span>
-					
 				</div>
+				
+				{
+					scavState && 
+					<img ref={apple} src={`/assets/svgs/nav/${appleImg}.svg`} alt="apple" className="no-drag" style={{position: 'absolute', bottom: 0, width: '4rem', right: appleX + 'px'}} />
+				}
 				
 			</nav>
 		</>

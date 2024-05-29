@@ -9,7 +9,7 @@ export const FaqPanel = () => {
 	const [selectedSection, setSelectedSection] = useState<string | null>(null);
 
 	return (
-		<div className="bg-white p-8 md:text-left flex justify-center font-mplus">
+		<div className="p-8 md:text-left flex justify-center font-mplus w-full">
 			<div className="block w-full" style={{ maxWidth: "min(100vw, 80rem)" }}>
 				<h2 className="text-4xl font-extrabold mb-4">FAQs</h2>
 				<div className="flex flex-row justify-center mb-8">
