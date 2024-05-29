@@ -50,6 +50,7 @@
         background-color: white;
         transition: background-color var(--scav-transition-dur) ease;
     }
+
     body.scav {
         background-color: #F1D6BB;
     }
@@ -59,8 +60,9 @@
         transition: var(--scav-transition-dur) ease;
         backdrop-filter: blur(10px);
     }
+
     body.scav .navbar {
-        background: rgba(255, 255, 255, 0.7);
+        background: rgb(255 255 255 / 70%);
     }
 }
 

@@ -21,7 +21,7 @@ import Image from "next/image";
 import type React from "react";
 import { FaFlag, FaGraduationCap } from "react-icons/fa";
 import { FaBookOpenReader } from "react-icons/fa6";
-
+import { lazyImages } from "@/data/lazyImages";
 const getFirstName = (fullName: string) => {
 	return fullName.split(" ")[0];
 };
@@ -73,6 +73,8 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 							height={208}
 							quality={100}
 							priority
+							placeholder="blur"
+							blurDataURL={lazyImages[name as string]}
 						/>
 					</CustomPicture>
 				</Aside>

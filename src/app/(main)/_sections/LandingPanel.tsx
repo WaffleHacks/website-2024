@@ -133,7 +133,6 @@ export const LandingPanel = () => {
 		// 	src: "/assets/svgs/landing/scav/wh_cut.svg",
 		// 	className: "absolute left-[42.9%] top-[7.1%] w-[14.85%]",
 		// },
-		
 	];
 	return (
 		<div className="font-mplus px-12 pt-44 h-screen w-full">
@@ -186,21 +185,51 @@ export const LandingPanel = () => {
 						},
 					)}
 
-					
-
-					<div className="absolute left-[42.9%] top-[7.1%] w-[14.85%]" style={{aspectRatio: '1/1'}}>
-					<img id="stand-sign" className="absolute left-[9%] top-[0%] w-[85%]" src="/assets/svgs/landing/scav/stand_sign.svg" alt="" />
+					<div
+						className="absolute left-[42.9%] top-[7.1%] w-[14.85%]"
+						style={{ aspectRatio: "1/1" }}
+					>
+						<img
+							id="stand-sign"
+							className="absolute left-[9%] top-[0%] w-[85%]"
+							src="/assets/svgs/landing/scav/stand_sign.svg"
+							alt=""
+						/>
 					</div>
 
-					<img id="stand-shadow" className="absolute left-[42.9%] top-[7.1%] w-[14.85%]" src="/assets/svgs/landing/scav/wh_cut_shadow.svg" alt="" />
-					<div className="overflow-hidden absolute left-[42.9%] top-[7.1%] w-[14.85%]" style={{aspectRatio: '1/1'}}>
-						<img className="absolute left-[14.7%] top-[14.9%] w-[70.5%]" src="/assets/svgs/landing/scav/stand_bkg.svg" alt="" />
-						<img id="stand-logo-inner" className="absolute left-[14.7%] top-[14.9%] w-[70.5%]" src="/assets/svgs/landing/scav/wh_inner.svg" alt="" />
-						<img id="stand-bar" className="absolute left-[24%] top-[100%] w-[52%]" src="/assets/svgs/landing/scav/stand_bar.svg" alt="" />
-						<img className="absolute top-0 left-0 w-full h-full" src="/assets/svgs/landing/scav/wh_cut.svg" alt="" />
+					<img
+						id="stand-shadow"
+						className="absolute left-[42.9%] top-[7.1%] w-[14.85%]"
+						src="/assets/svgs/landing/scav/wh_cut_shadow.svg"
+						alt=""
+					/>
+					<div
+						className="overflow-hidden absolute left-[42.9%] top-[7.1%] w-[14.85%]"
+						style={{ aspectRatio: "1/1" }}
+					>
+						<img
+							className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
+							src="/assets/svgs/landing/scav/stand_bkg.svg"
+							alt=""
+						/>
+						<img
+							id="stand-logo-inner"
+							className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
+							src="/assets/svgs/landing/scav/wh_inner.svg"
+							alt=""
+						/>
+						<img
+							id="stand-bar"
+							className="absolute left-[24%] top-[100%] w-[52%]"
+							src="/assets/svgs/landing/scav/stand_bar.svg"
+							alt=""
+						/>
+						<img
+							className="absolute top-0 left-0 w-full h-full"
+							src="/assets/svgs/landing/scav/wh_cut.svg"
+							alt=""
+						/>
 					</div>
-
-
 				</div>
 			</div>
 

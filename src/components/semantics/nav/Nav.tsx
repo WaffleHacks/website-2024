@@ -1,10 +1,11 @@
 "use client";
+import { ScavContext } from "@/components/semantics/Semantics";
+import Switch from "@mui/material/Switch";
 import Image from "next/image";
 import Link from "next/link";
-import React, {useContext} from "react";
+import type React from "react";
+import { useContext } from "react";
 import { useMediaQuery } from "usehooks-ts";
-import { ScavContext } from "@/components/semantics/Semantics";
-import Switch from '@mui/material/Switch';
 
 export const NavBar = () => {
 	const Links: ReadonlyArray<{
@@ -19,14 +20,14 @@ export const NavBar = () => {
 		{ href: "#apply", text: "Apply Now" },
 	];
 
-	const label = { inputProps: { 'aria-label': 'Scav switch' } };
+	const label = { inputProps: { "aria-label": "Scav switch" } };
 
-	let {scavState, setScavState} = useContext(ScavContext);
+	const { scavState, setScavState } = useContext(ScavContext);
 
-	function setScav(e: React.ChangeEvent<HTMLInputElement>){
+	function setScav(e: React.ChangeEvent<HTMLInputElement>) {
 		setScavState(e.target.checked);
-		if (e.target.checked) document.body.classList.add('scav');
-		else document.body.classList.remove('scav');
+		if (e.target.checked) document.body.classList.add("scav");
+		else document.body.classList.remove("scav");
 		console.log(e.target.checked);
 	}
 
@@ -54,12 +55,9 @@ export const NavBar = () => {
 				</div>
 
 				<div className="flex justify-end mr-8 items-center">
-					
 					<Switch {...label} onChange={setScav} value={scavState} />
 					<span>Scavenger Hunt</span>
-					
 				</div>
-				
 			</nav>
 		</>
 	);
