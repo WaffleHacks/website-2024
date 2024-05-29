@@ -4,8 +4,7 @@ import Switch from "@mui/material/Switch";
 import Image from "next/image";
 import Link from "next/link";
 import React, {useContext, useEffect, useRef, useState} from "react";
-import { ScavContext } from "@/components/semantics/Semantics";
-import Switch from '@mui/material/Switch';
+import Draggable, {DraggableEvent, DraggableCore, DraggableData} from "react-draggable";
 
 export const NavBar = () => {
 	const Links: ReadonlyArray<{
@@ -28,6 +27,7 @@ export const NavBar = () => {
 	const [walkState, setWalkState] = useState(1);
 	const [appleImg, setAppleImg] = useState('apple1');
 	const [appleX, setAppleX] = useState(-100);
+	const [appleY, setAppleY] = useState(0);
 	const interval = useRef<NodeJS.Timeout>();
 
 
@@ -38,38 +38,69 @@ export const NavBar = () => {
 		console.log(e.target.checked);
 	}
 
+	function appleInterval() {
+		let files = ['apple1', 'apple2', 'apple3', 'apple2'];
+		setWalkState(walk => {
+			let nextWalk = (walk + 1) % 4
+			
+			return nextWalk
+		});
+		
+		setAppleX(x => {
+			let nextX = x + 1;
+			let next_ind = Math.floor(nextX / 4) % 4;
+			if (next_ind < 0) next_ind = (4 - next_ind + 4) % 4;
+			let file = files[next_ind];
+			if (file == undefined){
+				console.log('undefined', file, next_ind);
+			}
+			setAppleImg(files[next_ind]);
+			if (nextX > window.innerWidth) nextX = -100;
+			return nextX;
+		});
+	}
+
 	useEffect(() => {
 		if (interval.current){
 			clearInterval(interval.current);
 		}
 		if (scavState){
-			interval.current = setInterval(() => {
-				let files = ['apple1', 'apple2', 'apple3', 'apple2'];
-				setWalkState(walk => {
-					let nextWalk = (walk + 1) % 4
-					
-					return nextWalk
-				});
-				
-				setAppleX(x => {
-					let nextX = x + 1;
-					let next_ind = Math.floor(nextX / 4) % 4;
-					if (next_ind < 0) next_ind = (4 - next_ind + 4) % 4;
-					let file = files[next_ind];
-					if (file == undefined){
-						console.log('undefined', file, next_ind);
-					}
-					setAppleImg(files[next_ind]);
-					if (nextX > window.innerWidth) nextX = -100;
-					return nextX;
-				});
-			}, 25);
+			interval.current = setInterval(appleInterval, 25);
 		}
 		return () => clearInterval(interval.current);
 	}, [scavState]);
 
 	
+	function appleDrag(e: DraggableEvent, pos: DraggableData){
+		clearInterval(interval.current);
 
+		let ap = apple.current;
+		if (!ap) return;
+		let navRect = document.querySelector('nav')?.getBoundingClientRect();
+		if (!navRect) return;
+		let apRect = ap.getBoundingClientRect();
+
+		let mouseX = pos.x - (pos.lastX - apRect.right);
+		let mouseY = pos.y - (pos.lastY - apRect.bottom);
+
+		setAppleY(navRect.bottom - mouseY);
+		setAppleX(window.innerWidth - mouseX);
+
+		setAppleImg('applesit');
+	}
+	function appleDragStop(e: DraggableEvent){
+		let ap = apple.current;
+		if (!ap) return;
+		let appleRect = ap.getBoundingClientRect();
+		let navRect = document.querySelector('nav')?.getBoundingClientRect();
+		if (!navRect) return;
+		if (appleRect.bottom <= navRect.bottom){
+			ap.style.bottom = '0';
+			ap.style.top = 'unset';
+			setAppleY(0);
+			interval.current = setInterval(appleInterval, 25);
+		}
+	}
 
 
 	return (
@@ -102,7 +133,9 @@ export const NavBar = () => {
 				
 				{
 					scavState && 
-					<img ref={apple} src={`/assets/svgs/nav/${appleImg}.svg`} alt="apple" className="no-drag" style={{position: 'absolute', bottom: 0, width: '4rem', right: appleX + 'px'}} />
+					<DraggableCore onDrag={appleDrag} onStop={appleDragStop}>
+						<img ref={apple} src={`/assets/svgs/nav/${appleImg}.svg`} alt="apple" className="no-drag" style={{position: 'absolute', bottom: appleY + 'px', width: '4rem', right: appleX + 'px'}} />
+					</DraggableCore>
 				}
 				
 			</nav>

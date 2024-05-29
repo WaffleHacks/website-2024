@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef, useLayoutEffect, useContext } from "react";
-import { DraggableCore, DraggableEvent } from 'react-draggable';
+import { DraggableCore, DraggableData, DraggableEvent } from 'react-draggable';
 import { ScavContext } from "@/components";
 
 const NumberDisplay = ({ number, text }: { number: number; text: string }) => {
@@ -45,7 +45,10 @@ export const LandingPanel = () => {
 	const [secondsLeft, setSecondsLeft] = useState(0);
 
 	const [archerAngle, setArcherAngle] = useState(0);
+	const [arrowPos, setArrowPos] = useState({x: 0, y: 0, angle: 0, vx: 0, vy: 0}) 
 	const archerBox = useRef<HTMLDivElement>(null);
+	const arrow = useRef<HTMLImageElement>(null);
+	const arrowInterval = useRef<NodeJS.Timeout | null>(null);
 
 	const container = useRef<HTMLDivElement>(null);
 	const img_box = useRef<HTMLDivElement>(null);
@@ -144,13 +147,16 @@ export const LandingPanel = () => {
 	];
 
 
-	function rotateArcher(e: DraggableEvent){
+	function rotateArcher(e: DraggableEvent, pos: DraggableData){
 		if (!ctx.scavState) return;
 		// center of rotation is at 14.3vw, 5.5vw
 		let box = archerBox.current;
 		if (!box) return;
-		let box_y_middle = box.getBoundingClientRect().top + box.getBoundingClientRect().height / 2;
-		let box_x_middle = box.getBoundingClientRect().left + box.getBoundingClientRect().width / 2;
+
+		let boxRect = box.getBoundingClientRect();
+
+		let box_y_middle = boxRect.top + boxRect.height / 2;
+		let box_x_middle = boxRect.left + boxRect.width / 2;
 
 		let mouseX = e.clientX;
 		let mouseY = e.clientY;
@@ -158,7 +164,57 @@ export const LandingPanel = () => {
 		let angle = Math.atan2(mouseY - box_y_middle, mouseX - box_x_middle);
 		let degrees = angle * (180 / Math.PI);
 		setArcherAngle(degrees);
-	  }
+	}
+
+	function shootArrow(){
+		if (!ctx.scavState) return;
+
+		if (arrowInterval.current){
+			clearInterval(arrowInterval.current);
+		}
+		
+		// initializa angles
+		// start with velocity of 10
+		setArrowPos({x: 0, y: 0, angle: 0, vx: 10, vy: 0})
+
+		arrowInterval.current = setInterval(() => {
+
+			setArrowPos(pos => {
+				console.log('going');
+				let nextX = pos.x + pos.vx;
+				let nextY = pos.y + pos.vy;
+				let nextAngle = Math.atan2(pos.vy, pos.vx) * 180 / Math.PI;
+
+				let aAngle = archerAngle * Math.PI / 180;
+
+				let gravity = [-Math.cos(aAngle), Math.sin(aAngle)];
+				let gravStrength = 0.15;
+
+				let nextVx = pos.vx + gravity[1] * gravStrength;
+				let nextVy = pos.vy - gravity[0] * gravStrength;
+
+				let newPos = {x: nextX, y: nextY, angle: nextAngle, vx: nextVx, vy: nextVy};
+
+				let ar = arrow.current;
+				if (!ar){
+					clearInterval(arrowInterval.current as NodeJS.Timeout);
+					arrowInterval.current = null;
+					newPos = {x: 0, y: 0, angle: 0, vx: 0, vy: 0};
+					return newPos;
+				}
+				let box = ar.getBoundingClientRect();
+
+				if (box.bottom <= 0 || box.right <= 0 || box.top >= window.innerHeight || box.left >= window.innerWidth) {
+					clearInterval(arrowInterval.current as NodeJS.Timeout);
+					arrowInterval.current = null;
+					newPos = {x: 0, y: 0, angle: 0, vx: 0, vy: 0};
+				}
+
+				return newPos;
+			});
+
+		}, 15);
+	}
 
 	return (
 		<div className="font-mplus px-12 pt-44 h-screen w-full">
@@ -233,9 +289,14 @@ export const LandingPanel = () => {
 					{/* archer */}
 					<div>
 						<img className="absolute left-[30%] top-[63.55%] w-[3.36%]" src="/assets/svgs/landing/archer_lower.svg" alt="" />
-						<DraggableCore onDrag={rotateArcher} >
+						<DraggableCore onDrag={rotateArcher} onStop={shootArrow} >
 						<div ref={archerBox} style={{transformOrigin: 'bottom', transform: `rotateZ(${ctx.scavState ? archerAngle : 0}deg)`}} className="absolute left-[27.25%] top-[40.3%] w-[10.2%] h-[25%]">
-							<img className="no-drag absolute left-[32.5%] top-[60%] w-[74%]" src="/assets/svgs/landing/archer_arrow.svg" alt="" />
+							<img 
+								className="no-drag absolute left-[32.5%] top-[60%] w-[74%]"
+								ref={arrow}
+								style={{left: `calc(32.5% + ${arrowPos.x}px)`, top: `calc(60% + ${arrowPos.y}px)`, transformOrigin: 'center', transform: `rotateZ(${arrowPos.angle}deg)`}}
+								src="/assets/svgs/landing/archer_arrow.svg" 
+								alt="" />
 							<img className="no-drag absolute left-[66%] top-0 w-[35.4%]" src="/assets/svgs/landing/archer_bow.svg" alt="" />
 							<img className="no-drag absolute left-0 top-[33%] w-[100%]" src="/assets/svgs/landing/archer_upper.svg" alt="" />
 						</div>
