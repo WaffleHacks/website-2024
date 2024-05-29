@@ -3,8 +3,7 @@
 import { Modal, CustomPicture as Picture } from "@/components";
 import { team_members_panel_png } from "@/constants";
 import { useOverlay, useTeam } from "@/core";
-import { getApiUrl, getTeamColor } from "@/lib";
-import { generateLazyImage } from "@/lib";
+import { getTeamColor } from "@/lib";
 import { objToArray } from "@/utils";
 import { Button } from "@nextui-org/react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -14,6 +13,8 @@ import { useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useMediaQuery } from "usehooks-ts";
 import { TeamCard } from "../_components";
+import { lazyImages } from "@/data/lazyImages";
+
 const MAX_CONCURRENT_REQUESTS = 5;
 const NUM_MEMBERS = 13;
 
@@ -125,7 +126,9 @@ export const TeamPanel = () => {
 							.slice(currentIndex, currentIndex + howMuchToShow)
 							.map(({ mem, member, color }, index) => (
 								<motion.div
-									className={`relative overflow-hidden h-[300px] min-w-[300px] bg-slate-200 hover:bg-slate-400 transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none mx-4`}
+									className={`
+										relative overflow-hidden h-[300px] min-w-[300px] bg-slate-200 hover:bg-slate-400 transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none mx-4
+									`}
 									key={`${mem}-${index}`}
 									onClick={() => {
 										setShowOverlay(mem);
@@ -134,16 +137,17 @@ export const TeamPanel = () => {
 									}}
 								>
 									<AnimatePresence>
-										{modalOpen && selectedMember?.mem || showOverlay === mem && (
-											<motion.div
-												className="absolute left-0 top-0 bottom-0 right-0 z-10 flex justify-center items-center"
-												initial={{ opacity: 0 }}
-												animate={{ opacity: 0.5 }}
-												exit={{ opacity: 0 }}
-											>
-												<div className="absolute bg-black pointer-events-none opacity-50 h-full w-full" />
-											</motion.div>
-										)}
+										{(modalOpen && selectedMember?.mem) ||
+											(showOverlay === mem && (
+												<motion.div
+													className="absolute left-0 top-0 bottom-0 right-0 z-10 flex justify-center items-center"
+													initial={{ opacity: 0 }}
+													animate={{ opacity: 0.5 }}
+													exit={{ opacity: 0 }}
+												>
+													<div className="absolute bg-black pointer-events-none opacity-50 h-full w-full" />
+												</motion.div>
+											))}
 									</AnimatePresence>
 									<Picture>
 										<Image
@@ -152,6 +156,9 @@ export const TeamPanel = () => {
 											fill={true}
 											fetchPriority="high"
 											className="object-cover"
+											placeholder="blur"
+											blurDataURL={lazyImages[mem.split("/").pop()?.replace(".png", "") as string]}
+											sizes="(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px"
 										/>
 									</Picture>
 								</motion.div>

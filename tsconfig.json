@@ -35,6 +35,6 @@
 		"**/*.tsx",
 		".next/types/**/*.ts",
 		"custom.d.ts"
-	],
+, "src/lib/generateLazyImage.cts"	],
 	"exclude": ["node_modules"]
 }

@@ -2,8 +2,9 @@
 import { Button } from "@nextui-org/button";
 import type React from "react";
 export const ApplyPanel = () => {
-	return <Button
-		className={`
+	return (
+		<Button
+			className={`
 			px-4 py-2
 			text-white
 			bg-primary-500
@@ -12,6 +13,9 @@ export const ApplyPanel = () => {
 			shadow-md
 			transition-all
 		`}
-		onClick={() => {}}
-	>Apply</Button>
+			onClick={() => {}}
+		>
+			Apply
+		</Button>
+	);
 };

@@ -1,4 +1,6 @@
 "use client";
+import { ScavContext } from "@/components/semantics/Semantics";
+import Switch from "@mui/material/Switch";
 import Image from "next/image";
 import Link from "next/link";
 import React, {useContext, useEffect, useRef, useState} from "react";
@@ -18,7 +20,7 @@ export const NavBar = () => {
 		{ href: "#apply", text: "Apply Now" },
 	];
 
-	const label = { inputProps: { 'aria-label': 'Scav switch' } };
+	const label = { inputProps: { "aria-label": "Scav switch" } };
 
 	let {scavState, setScavState} = useContext(ScavContext);
 
@@ -29,10 +31,10 @@ export const NavBar = () => {
 	const interval = useRef<NodeJS.Timeout>();
 
 
-	function setScav(e: React.ChangeEvent<HTMLInputElement>){
+	function setScav(e: React.ChangeEvent<HTMLInputElement>) {
 		setScavState(e.target.checked);
-		if (e.target.checked) document.body.classList.add('scav');
-		else document.body.classList.remove('scav');
+		if (e.target.checked) document.body.classList.add("scav");
+		else document.body.classList.remove("scav");
 		console.log(e.target.checked);
 	}
 

@@ -1,20 +1,14 @@
 type Tiers = {
 	tier: string;
-	sponsors: Array<
-		| {
-				name: string;
-				image: string;
-				link: string;
-		  }
-		| {
-				name: string;
-				image: string;
-		  }
-	>;
+	sponsors: Array<{
+		name: string;
+		image: string;
+		link?: string;
+	}>;
 };
 
 type ReadonlySponsors = {
-	tiers: ReadonlyArray<Tiers>;
+	tiers: Tiers[];
 };
 
 interface Slide {

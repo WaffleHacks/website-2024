@@ -1,5 +1,5 @@
+import { Terms } from "@/app/(legal)/_sections";
 import { constructMetadata } from "@/utils";
-import { Terms } from "../../_sections";
 
 export const metadata = constructMetadata({ title: "Terms of Service" });
 

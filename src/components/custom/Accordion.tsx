@@ -2,28 +2,26 @@
 
 import { motion } from "framer-motion";
 
-import type React from "react";
-import { useRef, useState } from "react";
 import * as Acc from "@mui/joy/Accordion";
 import AccordionDetails from "@mui/joy/AccordionDetails";
 import AccordionGroup from "@mui/joy/AccordionGroup";
 import AccordionSummary from "@mui/joy/AccordionSummary";
+import type React from "react";
+import { useState } from "react";
 
 import { useMediaQuery } from "usehooks-ts";
 
 const AccordionBody: React.FC<AccordionTextProps> = (props) => {
 	const isMobile = useMediaQuery("(max-width: 640px)");
 	const { title, description, expandedIndex, index, setExpandedIndex } = props;
-  const isExpanded = expandedIndex === index;
+	const isExpanded = expandedIndex === index;
 
-  const toggleAccordion = () => {
-    setExpandedIndex(isExpanded ? null : index);
-  };
+	const toggleAccordion = () => {
+		setExpandedIndex(isExpanded ? null : index);
+	};
 	return (
 		<Acc.default expanded={isExpanded} onChange={toggleAccordion}>
-			<AccordionSummary>
-          {title}
-			</AccordionSummary>
+			<AccordionSummary>{title}</AccordionSummary>
 			<AccordionDetails className="mb-2 overflow-hidden duration-700 ease-in-out transition-max-height">
 				{description}
 			</AccordionDetails>
@@ -32,7 +30,7 @@ const AccordionBody: React.FC<AccordionTextProps> = (props) => {
 };
 
 export const Accordion: React.FC<AccordionProps> = ({ data }) => {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
+	const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
 	return (
 		<motion.aside
 			initial="exit"
@@ -51,7 +49,7 @@ export const Accordion: React.FC<AccordionProps> = ({ data }) => {
 							duration: 1,
 						},
 						opacity: {
-							ease: "ease",
+							ease: "easeInOut",
 							duration: 1,
 						},
 					},
@@ -62,11 +60,11 @@ export const Accordion: React.FC<AccordionProps> = ({ data }) => {
 					height: 0,
 					transition: {
 						height: {
-							ease: "ease",
+							ease: "easeInOut",
 							duration: 0.25,
 						},
 						opacity: {
-							ease: "ease",
+							ease: "easeInOut",
 							duration: 0.3,
 						},
 					},
@@ -79,9 +77,9 @@ export const Accordion: React.FC<AccordionProps> = ({ data }) => {
 						key={index}
 						title={item.title}
 						description={item.description}
-            index={index}
-            expandedIndex={expandedIndex}
-            setExpandedIndex={setExpandedIndex}
+						index={index}
+						expandedIndex={expandedIndex}
+						setExpandedIndex={setExpandedIndex}
 					/>
 				))}
 			</AccordionGroup>

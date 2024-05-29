@@ -1,5 +1,5 @@
+import { Rules } from "@/app/(legal)/_sections";
 import { constructMetadata } from "@/utils/meta";
-import { Rules } from "../../_sections";
 
 export const metadata = constructMetadata({ title: "Rules" });
 
