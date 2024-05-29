@@ -3,28 +3,20 @@ import type { LegalLinksProps } from "@/types";
 
 export const LegalLinks: LegalLinksProps = [
 	{
-		href: `/accessibility`,
+		href: `/legal/accessibility`,
 		text: `Accessibility`,
 	},
 	{
-		href: `/terms`,
+		href: `/legal/terms`,
 		text: `Terms of Service`,
 	},
 	{
-		href: `/privacy`,
+		href: `/legal/privacy`,
 		text: `Privacy Policy`,
 	},
 	{
-		href: `/rules`,
+		href: `/legal/rules`,
 		text: `Rules`,
-	},
-	{
-		href: `https://the.hackfoundation.org/`,
-		text: `The Hack Foundation`,
-	},
-	{
-		href: `https://the.hackfoundation.org/`,
-		text: `Non-profit EIN: 81-2908499`,
 	},
 ];
 

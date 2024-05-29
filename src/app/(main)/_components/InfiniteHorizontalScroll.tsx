@@ -7,19 +7,19 @@ import useMeasure from "react-use-measure";
 export const InfiniteHorizontalScroll: React.FC<{
 	children: React.ReactNode;
 }> = ({ children }) => {
-	const FAST_DURATION = 50;
-	const SLOW_DURATION = 150;
+	const FAST_DURATION = 25;
+	const SLOW_DURATION = 75;
 
 	const [ref, { width }] = useMeasure();
 	const xTranslation = useMotionValue(0);
 
-	const [duration, setDuration] = useState<number>(300);
+	const [duration, setDuration] = useState<number>(25);
 	const [mustFinish, setMustFinish] = useState(false);
 	const [rerender, setRerender] = useState(false);
 
 	useEffect(() => {
 		let controls;
-		const finalPosition = -width + window.innerWidth + 800;
+		const finalPosition = -width / 2 - 8;
 		console.log(finalPosition);
 		if (mustFinish) {
 			controls = animate(xTranslation, [xTranslation.get(), finalPosition], {

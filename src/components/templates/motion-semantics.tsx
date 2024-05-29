@@ -11,7 +11,6 @@ export const Article: React.FC<SemanticProps<"article">> = ({
 	attributes,
 	style,
 	framerProps,
-	key,
 }) => {
 	type SectionMotionProps = typeof Motion.MotionArticle extends React.FC<
 		infer P
@@ -25,7 +24,6 @@ export const Article: React.FC<SemanticProps<"article">> = ({
 					{...(framerProps as SectionMotionProps)}
 					className={cn("", className)}
 					style={style}
-					key={key}
 				>
 					{children}
 				</Motion.MotionArticle>
@@ -45,7 +43,6 @@ export const Aside: React.FC<SemanticProps<"aside">> = ({
 	style,
 	framerProps,
 	attributes,
-	key,
 }) => {
 	type SectionMotionProps = typeof Motion.MotionAside extends React.FC<infer P>
 		? P
@@ -57,7 +54,6 @@ export const Aside: React.FC<SemanticProps<"aside">> = ({
 					{...(framerProps as SectionMotionProps)}
 					className={cn("", className)}
 					style={style}
-					key={key}
 				>
 					{children}
 				</Motion.MotionAside>
@@ -77,7 +73,6 @@ export const Div: React.FC<SemanticProps<"div">> = ({
 	style,
 	attributes,
 	framerProps,
-	key,
 }) => {
 	type SectionMotionProps = typeof Motion.MotionDiv extends React.FC<infer P>
 		? P
@@ -89,7 +84,6 @@ export const Div: React.FC<SemanticProps<"div">> = ({
 					{...(framerProps as SectionMotionProps)}
 					className={cn("", className)}
 					style={style}
-					key={key}
 				>
 					{children}
 				</Motion.MotionDiv>
@@ -109,7 +103,6 @@ export const Figure: React.FC<SemanticProps<"figure">> = ({
 	style,
 	framerProps,
 	attributes,
-	key,
 }) => {
 	type SectionMotionProps = typeof Motion.MotionFigure extends React.FC<infer P>
 		? P
@@ -121,7 +114,6 @@ export const Figure: React.FC<SemanticProps<"figure">> = ({
 					{...(framerProps as SectionMotionProps)}
 					className={cn("", className)}
 					style={style}
-					key={key}
 				>
 					{children}
 				</Motion.MotionFigure>
@@ -141,7 +133,6 @@ export const Footer: React.FC<SemanticProps<"footer">> = ({
 	style,
 	framerProps,
 	attributes,
-	key,
 }) => {
 	type SectionMotionProps = typeof Motion.MotionFooter extends React.FC<infer P>
 		? P
@@ -153,7 +144,6 @@ export const Footer: React.FC<SemanticProps<"footer">> = ({
 					{...(framerProps as SectionMotionProps)}
 					className={cn("", className)}
 					style={style}
-					key={key}
 				>
 					{children}
 				</Motion.MotionFooter>
@@ -173,7 +163,6 @@ export const Header: React.FC<SemanticProps<"header">> = ({
 	style,
 	framerProps,
 	attributes,
-	key,
 }) => {
 	type SectionMotionProps = typeof Motion.MotionHeader extends React.FC<infer P>
 		? P
@@ -185,7 +174,6 @@ export const Header: React.FC<SemanticProps<"header">> = ({
 					{...(framerProps as SectionMotionProps)}
 					className={cn("", className)}
 					style={style}
-					key={key}
 				>
 					{children}
 				</Motion.MotionHeader>
@@ -205,7 +193,6 @@ export const Main: React.FC<SemanticProps<"main">> = ({
 	style,
 	framerProps,
 	attributes,
-	key,
 }) => {
 	type SectionMotionProps = typeof Motion.MotionMain extends React.FC<infer P>
 		? P
@@ -217,7 +204,6 @@ export const Main: React.FC<SemanticProps<"main">> = ({
 					{...(framerProps as SectionMotionProps)}
 					className={cn("", className)}
 					style={style}
-					key={key}
 				>
 					{children}
 				</Motion.MotionMain>
@@ -237,7 +223,6 @@ export const Menu: React.FC<SemanticProps<"menu">> = ({
 	style,
 	framerProps,
 	attributes,
-	key,
 }) => {
 	type SectionMotionProps = typeof Motion.MotionMenu extends React.FC<infer P>
 		? P
@@ -249,7 +234,6 @@ export const Menu: React.FC<SemanticProps<"menu">> = ({
 					{...(framerProps as SectionMotionProps)}
 					className={cn("", className)}
 					style={style}
-					key={key}
 				>
 					{children}
 				</Motion.MotionMenu>
@@ -269,7 +253,6 @@ export const Nav: React.FC<SemanticProps<"nav">> = ({
 	style,
 	framerProps,
 	attributes,
-	key,
 }) => {
 	type SectionMotionProps = typeof Motion.MotionNav extends React.FC<infer P>
 		? P
@@ -281,7 +264,6 @@ export const Nav: React.FC<SemanticProps<"nav">> = ({
 					{...(framerProps as SectionMotionProps)}
 					className={cn("", className)}
 					style={style}
-					key={key}
 				>
 					{children}
 				</Motion.MotionNav>
@@ -298,7 +280,6 @@ export const Picture: React.FC<SemanticProps<"picture">> = ({
 	framer,
 	framerProps,
 	attributes,
-	key,
 	style,
 	className,
 	children,
@@ -315,7 +296,6 @@ export const Picture: React.FC<SemanticProps<"picture">> = ({
 					{...(framerProps as SectionMotionProps)}
 					className={cn("", className)}
 					style={style}
-					key={key}
 				>
 					{children}
 				</Motion.MotionPicture>
@@ -335,7 +315,6 @@ export const Section: React.FC<SemanticProps<"section">> = ({
 	style,
 	framerProps,
 	attributes,
-	key,
 }) => {
 	type SectionMotionProps = typeof Motion.MotionSection extends React.FC<
 		infer P
@@ -349,7 +328,6 @@ export const Section: React.FC<SemanticProps<"section">> = ({
 					{...(framerProps as SectionMotionProps)}
 					className={cn("", className)}
 					style={style}
-					key={key}
 				>
 					{children}
 				</Motion.MotionSection>

@@ -3,17 +3,17 @@
 import { Modal, CustomPicture as Picture } from "@/components";
 import { team_members_panel_png } from "@/constants";
 import { useOverlay, useTeam } from "@/core";
-import { getTeamColor } from "@/lib";
+import { getApiUrl, getTeamColor } from "@/lib";
+import { generateLazyImage } from "@/lib";
 import { objToArray } from "@/utils";
 import { Button } from "@nextui-org/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { FaArrowLeft, FaArrowRight, FaPlusCircle } from "react-icons/fa";
-import { useBoolean, useMediaQuery } from "usehooks-ts";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useMediaQuery } from "usehooks-ts";
 import { TeamCard } from "../_components";
-
 const MAX_CONCURRENT_REQUESTS = 5;
 const NUM_MEMBERS = 13;
 
@@ -123,51 +123,54 @@ export const TeamPanel = () => {
 					<div className="flex space-x-4">
 						{teamData
 							.slice(currentIndex, currentIndex + howMuchToShow)
-							.map(({ mem, member, color }, index) => (
-								<motion.div
-									className={`relative overflow-hidden h-[300px] min-w-[300px] bg-slate-200 rounded-xl flex justify-center items-center shadow-lg border-none mx-4`}
-									key={`${mem}-${index}`}
-									onHoverStart={() => {
-										setShowOverlay(mem);
-										setTimeout(() => {
-											if (!modalOpen) {
-												setSelectedMember({ mem, member, color });
-												setModalOpen(true);
-											}
-										}, 500);
-									}}
-									onHoverEnd={() => {
-										setShowOverlay("");
-										if (!modalOpen) {
+							.map(({ mem, member, color }, index) => {
+								return (
+									<motion.div
+										className={`relative overflow-hidden h-[300px] min-w-[300px] bg-slate-200 rounded-xl flex justify-center items-center shadow-lg border-none mx-4`}
+										key={`${mem}-${index}`}
+										onHoverStart={() => {
+											setShowOverlay(mem);
 											setTimeout(() => {
-												setModalOpen(false);
-											}, 2000);
-										}
-									}}
-								>
-									<AnimatePresence>
-										{modalOpen && selectedMember?.mem || showOverlay === mem && (
-											<motion.div
-												className="absolute left-0 top-0 bottom-0 right-0 z-10 flex justify-center items-center"
-												initial={{ opacity: 0 }}
-												animate={{ opacity: 0.5 }}
-												exit={{ opacity: 0 }}
-											>
-												<div className="absolute bg-black pointer-events-none opacity-50 h-full w-full" />
-											</motion.div>
-										)}
-									</AnimatePresence>
-									<Picture>
-										<Image
-											src={mem}
-											alt={mem}
-											fill={true}
-											fetchPriority="high"
-											className="object-cover"
-										/>
-									</Picture>
-								</motion.div>
-							))}
+												if (!modalOpen) {
+													setSelectedMember({ mem, member, color });
+													setModalOpen(true);
+												}
+											}, 500);
+										}}
+										onHoverEnd={() => {
+											setShowOverlay("");
+											if (!modalOpen) {
+												setTimeout(() => {
+													setModalOpen(false);
+												}, 2000);
+											}
+										}}
+									>
+										<AnimatePresence>
+											{(modalOpen && selectedMember?.mem) ||
+												(showOverlay === mem && (
+													<motion.div
+														className="absolute left-0 top-0 bottom-0 right-0 z-10 flex justify-center items-center"
+														initial={{ opacity: 0 }}
+														animate={{ opacity: 0.5 }}
+														exit={{ opacity: 0 }}
+													>
+														<div className="absolute bg-black pointer-events-none opacity-50 h-full w-full" />
+													</motion.div>
+												))}
+										</AnimatePresence>
+										<Picture>
+											<Image
+												src={mem}
+												alt={mem}
+												fill={true}
+												fetchPriority="high"
+												className="object-cover"
+											/>
+										</Picture>
+									</motion.div>
+								);
+							})}
 					</div>
 				</div>
 			</div>

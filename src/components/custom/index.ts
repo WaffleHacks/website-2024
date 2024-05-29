@@ -4,3 +4,4 @@ export * from "./Text";
 export * from "./Title";
 export * from "./Dialog";
 export * from "./modal";
+export * from "./Accordion";
