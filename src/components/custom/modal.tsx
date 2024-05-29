@@ -26,7 +26,6 @@ export const Modal = ({
 	}, [isOpen]);
 
 	useEffect(() => {
-		
 		const handleClickOutside = (e: MouseEvent) => {
 			const dialogDimensions = dialogRef.current?.getBoundingClientRect();
 			if (
@@ -39,7 +38,7 @@ export const Modal = ({
 				onClose(false);
 			}
 		};
-		
+
 		if (isOpen) {
 			// document.body.classList.toggle("no-scroll");
 			document.addEventListener("mousedown", handleClickOutside);

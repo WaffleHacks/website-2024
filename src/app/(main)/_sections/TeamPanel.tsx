@@ -3,17 +3,17 @@
 import { Modal, CustomPicture as Picture } from "@/components";
 import { team_members_panel_png } from "@/constants";
 import { useOverlay, useTeam } from "@/core";
-import { getTeamColor } from "@/lib";
+import { getApiUrl, getTeamColor } from "@/lib";
+import { generateLazyImage } from "@/lib";
 import { objToArray } from "@/utils";
 import { Button } from "@nextui-org/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { FaArrowLeft, FaArrowRight, FaPlusCircle } from "react-icons/fa";
-import { useBoolean, useMediaQuery } from "usehooks-ts";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useMediaQuery } from "usehooks-ts";
 import { TeamCard } from "../_components";
-
 const MAX_CONCURRENT_REQUESTS = 5;
 const NUM_MEMBERS = 13;
 

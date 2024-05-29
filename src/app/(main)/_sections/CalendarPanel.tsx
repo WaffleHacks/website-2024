@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import CalendarDescription from "./CalendarDescription";
-import { CalendarDescriptionType as CDT} from './CalendarDescription'
-
+import { CalendarDescriptionType as CDT } from "./CalendarDescription";
 
 interface EventStructure {
 	title: string;
@@ -38,7 +37,7 @@ export const CalendarPanel = () => {
 					description: "Welcome to WaffleHacks 2023!",
 					time: "5:00 PM",
 					link: "",
-					type: 'ceremony'
+					type: "ceremony",
 				},
 				null,
 				null,
@@ -176,7 +175,7 @@ export const CalendarPanel = () => {
 					description: "Thank you for attending WaffleHacks 2023!",
 					time: "5:00 PM",
 					link: "",
-					type: 'ceremony'
+					type: "ceremony",
 				},
 				null,
 				null,
@@ -362,7 +361,13 @@ export const CalendarPanel = () => {
 					})}
 				</div>
 			</div>
-			<CalendarDescription type={CDT.CEREMONY} title='Opening Ceremony' description='Welcome to WaffleHacks 2023!' time='5:00 PM' link=''/>
+			<CalendarDescription
+				type={CDT.CEREMONY}
+				title="Opening Ceremony"
+				description="Welcome to WaffleHacks 2023!"
+				time="5:00 PM"
+				link=""
+			/>
 		</div>
 	);
 };

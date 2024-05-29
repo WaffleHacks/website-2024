@@ -34,6 +34,7 @@
 .calendar-grid-cell.event {
     transition: filter 0.3s;
 }
+
 .calendar-grid-cell.event:hover {
     filter: brightness(1.2);
 }

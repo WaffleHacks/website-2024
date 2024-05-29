@@ -1,22 +1,3 @@
-type Tiers = {
-	tier: string;
-	sponsors: Array<
-		| {
-				name: string;
-				image: string;
-				link: string;
-		  }
-		| {
-				name: string;
-				image: string;
-		  }
-	>;
-};
-
-type ReadonlySponsors = {
-	tiers: ReadonlyArray<Tiers>;
-};
-
 export const sponsorsData: ReadonlySponsors = {
 	tiers: [
 		{

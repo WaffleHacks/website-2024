@@ -1,19 +1,3 @@
-interface Slide {
-	image: string;
-	prizes: {
-		images: [string, ...string[]];
-	};
-	description: string;
-}
-type Tracks = Record<
-	number | string,
-	{
-		slides: Array<Slide>;
-	}
->;
-
-type ReadonlyTracks = ReadonlyArray<Tracks>;
-
 export const Tracks: ReadonlyTracks = [
 	{
 		1: {
