@@ -1,24 +1,11 @@
 "use client";
 import { ScavContext } from "@/components/semantics/Semantics";
-import { h } from "@/utils";
 import Switch from "@mui/material/Switch";
-import { Button } from "@nextui-org/button";
-import {
-	Navbar,
-	NavbarBrand,
-	NavbarContent,
-	NavbarItem,
-	NavbarMenu,
-	NavbarMenuItem,
-	NavbarMenuToggle,
-} from "@nextui-org/navbar";
 import Image from "next/image";
 import Link from "next/link";
 import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
 import React, {useContext, useEffect, useRef, useState} from "react";
-import Draggable, {DraggableEvent, DraggableCore, DraggableData} from "react-draggable";
-import internal from "stream";
-import { set } from "zod";
+import {DraggableEvent, DraggableCore, DraggableData} from "react-draggable";
 
 export const NavBar = () => {
 	const Links: ReadonlyArray<{
@@ -33,14 +20,12 @@ export const NavBar = () => {
 		{ href: "#apply", text: "Apply Now" },
 	];
 
-	const [scrolling, setScrolling] = useState(false);
   	const [scrollTop, setScrollTop] = useState(0);
 	const [navHide, setNavHide] = useState(false);
 
 	useEffect(() => {
 		function onScroll(e: any){
 		  setScrollTop(e.target.documentElement.scrollTop);
-		  setScrolling(e.target.documentElement.scrollTop > scrollTop);
 		  if (scrollTop > 100){
 			setNavHide(true);
 		  }
