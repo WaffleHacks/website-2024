@@ -18,6 +18,7 @@ import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
 import React, {useContext, useEffect, useRef, useState} from "react";
 import Draggable, {DraggableEvent, DraggableCore, DraggableData} from "react-draggable";
 import internal from "stream";
+import { set } from "zod";
 
 export const NavBar = () => {
 	const Links: ReadonlyArray<{
@@ -32,17 +33,33 @@ export const NavBar = () => {
 		{ href: "#apply", text: "Apply Now" },
 	];
 
+	const [scrolling, setScrolling] = useState(false);
+  	const [scrollTop, setScrollTop] = useState(0);
+	const [navHide, setNavHide] = useState(false);
+
+	useEffect(() => {
+		function onScroll(e: any){
+		  setScrollTop(e.target.documentElement.scrollTop);
+		  setScrolling(e.target.documentElement.scrollTop > scrollTop);
+		  if (scrollTop > 100){
+			setNavHide(true);
+		  }
+		  else setNavHide(false);
+		};
+		window.addEventListener("scroll", onScroll);
+	
+		return () => window.removeEventListener("scroll", onScroll);
+	  }, [scrollTop]);
+
 	const label = { inputProps: { "aria-label": "Scav switch" } };
 
 	let {scavState, setScavState, headspot1, headspot2} = useContext(ScavContext);
 
 	const apple = useRef<HTMLImageElement>(null);
-	const [walkState, setWalkState] = useState(1);
 	const [appleImg, setAppleImg] = useState('apple1');
 	const [appleX, setAppleX] = useState(-100);
 	const [appleY, setAppleY] = useState(0);
 	const interval = useRef<NodeJS.Timeout>();
-	const lastMousePos = useRef({x: 0, y: 0});
 
 	const isMediumOrLarger = useMediaQuery("(min-width: 768px)");
 
@@ -77,10 +94,6 @@ export const NavBar = () => {
 
 	function appleInterval() {
 		let files = ['apple1', 'apple2', 'apple3', 'apple2'];
-		setWalkState(walk => {
-			let nextWalk = (walk + 1) % 4
-			return nextWalk
-		});
 		
 		setAppleX(x => {
 			let nextX = x + 1;
@@ -170,16 +183,19 @@ export const NavBar = () => {
 		}
 	}
 
+	
+
 	return (
 		<>
 			<nav
 				className={`
-					navbar absolute top-0 left-0 z-50
+					navbar fixed left-0 z-50
 					py-6 shadow-lg font-semibold
 					bg-white flex justify-between
 					items-center px-4 md:px-8 w-screen
 					transition-all duration-300 ease-in-out
 				`}
+				style={{top: navHide ? '-10rem' : 0}}
 			>
 				<div
 					className={`

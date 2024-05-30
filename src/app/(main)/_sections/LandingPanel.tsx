@@ -215,7 +215,7 @@ export const LandingPanel = () => {
 	}
 
 	return (
-		<div className="font-mplus px-12 pt-44 h-screen w-full">
+		<div className="font-mplus px-2 sm:px-12 pt-44 h-screen w-full">
 
 			<img id='landing-blob' className="absolute top-24 right-0 h-[50%]" src="/assets/svgs/landing/scav/blob.svg" alt="" />
 

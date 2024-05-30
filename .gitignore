@@ -42,3 +42,5 @@ next-env.d.ts
 .million
 .vercel
 package-lock.json
+
+/public/service-worker.js.map
