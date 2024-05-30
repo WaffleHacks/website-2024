@@ -39,7 +39,7 @@ export const PageSections = () => {
 					<section
 						id={Slugify(value.toLowerCase())}
 						key={key}
-						className={`flex items-center justify-center border border-red-500 max-w-screen-2xl`}
+						className={`flex items-center justify-center border max-w-screen-2xl`}
 					>
 						{Sections && <Sections />}
 					</section>
