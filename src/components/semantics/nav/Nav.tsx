@@ -13,9 +13,14 @@ import {
 } from "@nextui-org/navbar";
 import Image from "next/image";
 import Link from "next/link";
+import type React from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import Draggable, {
+	type DraggableEvent,
+	DraggableCore,
+	type DraggableData,
+} from "react-draggable";
 import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
-import React, {useContext, useEffect, useRef, useState} from "react";
-import Draggable, {DraggableEvent, DraggableCore, DraggableData} from "react-draggable";
 
 export const NavBar = () => {
 	const Links: ReadonlyArray<{
@@ -32,21 +37,20 @@ export const NavBar = () => {
 
 	const label = { inputProps: { "aria-label": "Scav switch" } };
 
-	let {scavState, setScavState} = useContext(ScavContext);
+	const { scavState, setScavState } = useContext(ScavContext);
 
 	const apple = useRef<HTMLImageElement>(null);
 	const [walkState, setWalkState] = useState(1);
-	const [appleImg, setAppleImg] = useState('apple1');
+	const [appleImg, setAppleImg] = useState("apple1");
 	const [appleX, setAppleX] = useState(-100);
 	const [appleY, setAppleY] = useState(0);
 	const interval = useRef<NodeJS.Timeout>();
-
 
 	function setScav(e: React.ChangeEvent<HTMLInputElement>) {
 		setScavState(e.target.checked);
 		if (e.target.checked) document.body.classList.add("scav");
 		else document.body.classList.remove("scav");
-		console.log(e.target.checked);
+		// console.log(e.target.checked);
 	}
 
 	const isMediumOrLarger = useMediaQuery("(min-width: 768px)");
@@ -71,21 +75,22 @@ export const NavBar = () => {
 		window.addEventListener("scroll", handleScroll);
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
+
 	function appleInterval() {
-		let files = ['apple1', 'apple2', 'apple3', 'apple2'];
-		setWalkState(walk => {
-			let nextWalk = (walk + 1) % 4
-			
-			return nextWalk
+		const files: string[] = ["apple1", "apple2", "apple3", "apple2"];
+		setWalkState((walk) => {
+			const nextWalk: number = (walk + 1) % 4;
+
+			return nextWalk;
 		});
-		
-		setAppleX(x => {
+
+		setAppleX((x) => {
 			let nextX = x + 1;
 			let next_ind = Math.floor(nextX / 4) % 4;
 			if (next_ind < 0) next_ind = (4 - next_ind + 4) % 4;
-			let file = files[next_ind];
-			if (file == undefined){
-				console.log('undefined', file, next_ind);
+			const file = files[next_ind];
+			if (file == undefined) {
+				console.log("undefined", file, next_ind);
 			}
 			setAppleImg(files[next_ind] as string);
 			if (nextX > window.innerWidth) nextX = -100;
@@ -93,117 +98,122 @@ export const NavBar = () => {
 		});
 	}
 
-	useEffect(() => {
-		if (interval.current){
+	useIsomorphicLayoutEffect(() => {
+		if (interval.current) {
 			clearInterval(interval.current);
 		}
-		if (scavState){
+		if (scavState) {
 			interval.current = setInterval(appleInterval, 25);
 		}
 		return () => clearInterval(interval.current);
 	}, [scavState]);
 
-	
-	function appleDrag(e: DraggableEvent, pos: DraggableData){
+	function appleDrag(e: DraggableEvent, pos: DraggableData) {
 		clearInterval(interval.current);
 
-		let ap = apple.current;
+		const ap = apple.current;
 		if (!ap) return;
-		let navRect = document.querySelector('nav')?.getBoundingClientRect();
+		const navRect = document.querySelector("nav")?.getBoundingClientRect();
 		if (!navRect) return;
-		let apRect = ap.getBoundingClientRect();
+		const apRect = ap.getBoundingClientRect();
 
-		let mouseX = pos.x - (pos.lastX - apRect.right);
-		let mouseY = pos.y - (pos.lastY - apRect.bottom);
+		const mouseX = pos.x - (pos.lastX - apRect.right);
+		const mouseY = pos.y - (pos.lastY - apRect.bottom);
 
 		setAppleY(navRect.bottom - mouseY);
 		setAppleX(window.innerWidth - mouseX);
 
-		setAppleImg('applesit');
+		setAppleImg("applesit");
 	}
-	function appleDragStop(e: DraggableEvent){
-		let ap = apple.current;
+	function appleDragStop(e: DraggableEvent) {
+		const ap = apple.current;
 		if (!ap) return;
-		let appleRect = ap.getBoundingClientRect();
-		let navRect = document.querySelector('nav')?.getBoundingClientRect();
+		const appleRect = ap.getBoundingClientRect();
+		const navRect = document.querySelector("nav")?.getBoundingClientRect();
 		if (!navRect) return;
-		if (appleRect.bottom <= navRect.bottom){
-			ap.style.bottom = '0';
-			ap.style.top = 'unset';
+		if (appleRect.bottom <= navRect.bottom) {
+			ap.style.bottom = "0";
+			ap.style.top = "unset";
 			setAppleY(0);
 			interval.current = setInterval(appleInterval, 25);
 		}
 	}
 
-
 	return (
-		<>
-			<Navbar
-				className={`
-					navbar fixed top-0 left-0 z-50
-					py-6 shadow-lg font-semibold
-				bg-white flex justify-between
-					items-center px-4 md:px-8 w-full
-					transition-all duration-300 ease-in-out
-				`}
-			>
-				<div
-					className={`
-						flex justify-between w-full
-						md:w-auto
-					`}
-				>
-					<Link
-						href={`/`}
-					>
-						<Image
-							src={`/assets/svgs/header.png`}
-							alt={`Logo`}
-							height={80}
-							width={80}
-							className={`
-								hidden md:block
-							`}
-						/>
-					</Link>
-				</div>
-				<div
-					className={`
-						md:flex w-full md:w-auto
-					`}
-				>
-					<div className="flex flex-col md:flex-row items-center md:gap-8 mt-4 md:mt-0">
-						{Links.map((link, index) => (
-							<Link
-								key={index}
-								href={link.href}
-								className="block px-2 py-1 md:py-0"
-							>
-								{link.text}
-							</Link>
-						))}
-						<Image
-							src={`/assets/svgs/header.png`}
-							alt={`Logo`}
-							height={80}
-							width={80}
-							className="hidden md:block"
-						/>
-						<div className="flex items-center">
-							<Switch {...label} onChange={setScav} checked={scavState} />
-							<span>Scavenger Hunt</span>
-						</div>
-					</div>
-				</div>
-				
-				{
-					scavState && 
-					<DraggableCore onDrag={appleDrag} onStop={appleDragStop}>
-						<img ref={apple} src={`/assets/svgs/nav/${appleImg}.svg`} alt="apple" className="no-drag" style={{position: 'absolute', bottom: appleY + 'px', width: '4rem', right: appleX + 'px'}} />
-					</DraggableCore>
-				}
-				
-			</Navbar>
-		</>
+		<Navbar
+			className="navbar fixed top-0 left-0 z-50 py-6 shadow-lg font-semibold bg-white flex justify-between items-center px-4 md:px-8 w-full transition-all duration-300 ease-in-out"
+			disableAnimation
+			isBordered
+		>
+
+			<NavbarContent className="sm:hidden pr-3" justify="center">
+				<NavbarBrand>
+					<Image src={`/assets/svgs/header.png`} alt={`ACME`} height={80} width={80} />
+					<p className="font-bold text-inherit">ACME</p>
+				</NavbarBrand>
+			</NavbarContent>
+
+			<NavbarContent className="hidden sm:flex gap-4" justify="center">
+				<NavbarBrand>
+					<Image src={`/assets/svgs/header.png`} alt={`ACME`} height={80} width={80} />
+					<p className="font-bold text-inherit">ACME</p>
+				</NavbarBrand>
+				{Links.slice(0, 3).map((link, index) => (
+					<NavbarItem key={index}>
+						<Link href={link.href}>
+							<p>{link.text}</p>
+						</Link>
+					</NavbarItem>
+				))}
+				<Image src={`/assets/svgs/header.png`} alt={`ACME`} height={80} width={80} />
+				{Links.slice(3).map((link, index) => (
+					<NavbarItem key={index}>
+						<Link href={link.href}>
+							<p>{link.text}</p>
+						</Link>
+					</NavbarItem>
+				))}
+			</NavbarContent>
+
+
+			<NavbarMenu>
+				{Links.map((item, index) => (
+					<NavbarMenuItem key={index}>
+						<Link
+							className="w-full"
+							color={index === 2 ? "warning" : index === Links.length - 1 ? "danger" : "foreground"}
+							href={item.href}
+						>
+							{item.text}
+						</Link>
+					</NavbarMenuItem>
+				))}
+			</NavbarMenu>
+
+			<NavbarContent className="sm:hidden" justify="start">
+				<NavbarMenuToggle />
+				<form action="">
+					<Switch {...label} onChange={setScav} checked={scavState}/>
+					<label>Scavenger Hunt</label>
+				</form>
+			</NavbarContent>
+
+			{scavState && (
+				<DraggableCore onDrag={appleDrag} onStop={appleDragStop}>
+					<img
+						ref={apple}
+						src={`/assets/svgs/nav/${appleImg}.svg`}
+						alt="apple"
+						className="no-drag"
+						style={{
+							position: "absolute",
+							bottom: appleY + "px",
+							width: "4rem",
+							right: appleX + "px",
+						}}
+					/>
+				</DraggableCore>
+			)}
+		</Navbar>
 	);
 };
