@@ -1,13 +1,7 @@
 "use client";
+import React, { useEffect, useState, useRef, useLayoutEffect, useContext } from "react";
+import { DraggableCore, DraggableData, DraggableEvent } from 'react-draggable';
 import { ScavContext } from "@/components";
-import React, {
-	useEffect,
-	useState,
-	useRef,
-	useLayoutEffect,
-	useContext,
-} from "react";
-import { DraggableCore, type DraggableEvent } from "react-draggable";
 
 const NumberDisplay = ({ number, text }: { number: number; text: string }) => {
 	let num_chars = number.toString();
@@ -51,7 +45,10 @@ export const LandingPanel = () => {
 	const [secondsLeft, setSecondsLeft] = useState(0);
 
 	const [archerAngle, setArcherAngle] = useState(0);
+	const [arrowPos, setArrowPos] = useState({x: 0, y: 0, angle: 0, vx: 0, vy: 0}) 
 	const archerBox = useRef<HTMLDivElement>(null);
+	const arrow = useRef<HTMLImageElement>(null);
+	const arrowInterval = useRef<NodeJS.Timeout | null>(null);
 
 	const container = useRef<HTMLDivElement>(null);
 	const img_box = useRef<HTMLDivElement>(null);
@@ -146,42 +143,83 @@ export const LandingPanel = () => {
 		// 	src: "/assets/svgs/landing/scav/wh_cut.svg",
 		// 	className: "absolute left-[42.9%] top-[7.1%] w-[14.85%]",
 		// },
+		
 	];
 
-	function rotateArcher(e: DraggableEvent) {
+
+	function rotateArcher(e: DraggableEvent, pos: DraggableData){
 		if (!ctx.scavState) return;
 		// center of rotation is at 14.3vw, 5.5vw
-		const box = archerBox.current;
+		let box = archerBox.current;
 		if (!box) return;
-		const box_y_middle =
-			box.getBoundingClientRect().top + box.getBoundingClientRect().height / 2;
-		const box_x_middle =
-			box.getBoundingClientRect().left + box.getBoundingClientRect().width / 2;
 
-		const mouseX = e.clientX;
-		const mouseY = e.clientY;
+		let boxRect = box.getBoundingClientRect();
 
-		const angle = Math.atan2(mouseY - box_y_middle, mouseX - box_x_middle);
-		const degrees = angle * (180 / Math.PI);
+		let box_y_middle = boxRect.top + boxRect.height / 2;
+		let box_x_middle = boxRect.left + boxRect.width / 2;
+
+		let mouseX = e.clientX;
+		let mouseY = e.clientY;
+	
+		let angle = Math.atan2(mouseY - box_y_middle, mouseX - box_x_middle);
+		let degrees = angle * (180 / Math.PI);
 		setArcherAngle(degrees);
 	}
 
+	function shootArrow(){
+		if (!ctx.scavState) return;
+
+		if (arrowInterval.current){
+			clearInterval(arrowInterval.current);
+		}
+		
+		// initializa angles
+		// start with velocity of 10
+		setArrowPos({x: 0, y: 0, angle: 0, vx: 10, vy: 0})
+
+		arrowInterval.current = setInterval(() => {
+
+			setArrowPos(pos => {
+				console.log('going');
+				let nextX = pos.x + pos.vx;
+				let nextY = pos.y + pos.vy;
+				let nextAngle = Math.atan2(pos.vy, pos.vx) * 180 / Math.PI;
+
+				let aAngle = archerAngle * Math.PI / 180;
+
+				let gravity = [-Math.cos(aAngle), Math.sin(aAngle)];
+				let gravStrength = 0.15;
+
+				let nextVx = pos.vx + gravity[1] * gravStrength;
+				let nextVy = pos.vy - gravity[0] * gravStrength;
+
+				let newPos = {x: nextX, y: nextY, angle: nextAngle, vx: nextVx, vy: nextVy};
+
+				let ar = arrow.current;
+				if (!ar){
+					clearInterval(arrowInterval.current as NodeJS.Timeout);
+					arrowInterval.current = null;
+					newPos = {x: 0, y: 0, angle: 0, vx: 0, vy: 0};
+					return newPos;
+				}
+				let box = ar.getBoundingClientRect();
+
+				if (box.bottom <= 0 || box.right <= 0 || box.top >= window.innerHeight || box.left >= window.innerWidth) {
+					clearInterval(arrowInterval.current as NodeJS.Timeout);
+					arrowInterval.current = null;
+					newPos = {x: 0, y: 0, angle: 0, vx: 0, vy: 0};
+				}
+
+				return newPos;
+			});
+
+		}, 15);
+	}
+
 	return (
-		<div
-			className={`
-				font-mplus px-12 pt-44
-				h-[70vh] w-full
-			`}
-			style={{
-				maxWidth: "1536px",
-			}}
-		>
-			<img
-				id="landing-blob"
-				className="absolute top-24 right-0 h-[50%]"
-				src="/assets/svgs/landing/scav/blob.svg"
-				alt=""
-			/>
+		<div className="font-mplus px-12 pt-44 h-screen w-full">
+
+			<img id='landing-blob' className="absolute top-24 right-0 h-[50%]" src="/assets/svgs/landing/scav/blob.svg" alt="" />
 
 			<h2 className="text-2xl font-normal">
 				Put your best code forward for the
@@ -232,89 +270,39 @@ export const LandingPanel = () => {
 						},
 					)}
 
+
 					{/* WH logo / stand */}
-					<div id="landing-wh-logo">
-						<div
-							className="absolute left-[42.9%] top-[7.1%] w-[14.85%]"
-							style={{ aspectRatio: "1/1" }}
-						>
-							<img
-								id="stand-sign"
-								className="absolute left-[9%] top-[0%] w-[85%]"
-								src="/assets/svgs/landing/scav/stand_sign.svg"
-								alt="Sign"
-							/>
+					<div id='landing-wh-logo'>
+						<div className="absolute left-[42.9%] top-[7.1%] w-[14.85%]" style={{aspectRatio: '1/1'}}>
+						<img id="stand-sign" className="absolute left-[9%] top-[0%] w-[85%]" src="/assets/svgs/landing/scav/stand_sign.svg" alt="Sign" />
 						</div>
 
-						<img
-							id="stand-shadow"
-							className="absolute left-[42.9%] top-[7.1%] w-[14.85%]"
-							src="/assets/svgs/landing/scav/wh_cut_shadow.svg"
-							alt=""
-						/>
-						<div
-							className="overflow-hidden absolute left-[42.9%] top-[7.1%] w-[14.85%]"
-							style={{ aspectRatio: "1/1" }}
-						>
-							<img
-								className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
-								src="/assets/svgs/landing/scav/stand_bkg.svg"
-								alt=""
-							/>
-							<img
-								id="stand-logo-inner"
-								className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
-								src="/assets/svgs/landing/scav/wh_inner.svg"
-								alt=""
-							/>
-							<img
-								id="stand-bar"
-								className="absolute left-[24%] top-[100%] w-[52%]"
-								src="/assets/svgs/landing/scav/stand_bar.svg"
-								alt=""
-							/>
-							<img
-								className="absolute top-0 left-0 w-full h-full"
-								src="/assets/svgs/landing/scav/wh_cut.svg"
-								alt=""
-							/>
+						<img id="stand-shadow" className="absolute left-[42.9%] top-[7.1%] w-[14.85%]" src="/assets/svgs/landing/scav/wh_cut_shadow.svg" alt="" />
+						<div className="overflow-hidden absolute left-[42.9%] top-[7.1%] w-[14.85%]" style={{aspectRatio: '1/1'}}>
+							<img className="absolute left-[14.7%] top-[14.9%] w-[70.5%]" src="/assets/svgs/landing/scav/stand_bkg.svg" alt="" />
+							<img id="stand-logo-inner" className="absolute left-[14.7%] top-[14.9%] w-[70.5%]" src="/assets/svgs/landing/scav/wh_inner.svg" alt="" />
+							<img id="stand-bar" className="absolute left-[24%] top-[100%] w-[52%]" src="/assets/svgs/landing/scav/stand_bar.svg" alt="" />
+							<img className="absolute top-0 left-0 w-full h-full" src="/assets/svgs/landing/scav/wh_cut.svg" alt="" />
 						</div>
 					</div>
 
 					{/* archer */}
 					<div>
-						<img
-							className="absolute left-[30%] top-[63.55%] w-[3.36%]"
-							src="/assets/svgs/landing/archer_lower.svg"
-							alt=""
-						/>
-						<DraggableCore onDrag={rotateArcher}>
-							<div
-								ref={archerBox}
-								style={{
-									transformOrigin: "bottom",
-									transform: `rotateZ(${ctx.scavState ? archerAngle : 0}deg)`,
-								}}
-								className="absolute left-[27.25%] top-[40.3%] w-[10.2%] h-[25%]"
-							>
-								<img
-									className="no-drag absolute left-[32.5%] top-[60%] w-[74%]"
-									src="/assets/svgs/landing/archer_arrow.svg"
-									alt=""
-								/>
-								<img
-									className="no-drag absolute left-[66%] top-0 w-[35.4%]"
-									src="/assets/svgs/landing/archer_bow.svg"
-									alt=""
-								/>
-								<img
-									className="no-drag absolute left-0 top-[33%] w-[100%]"
-									src="/assets/svgs/landing/archer_upper.svg"
-									alt=""
-								/>
-							</div>
+						<img className="absolute left-[30%] top-[63.55%] w-[3.36%]" src="/assets/svgs/landing/archer_lower.svg" alt="" />
+						<DraggableCore onDrag={rotateArcher} onStop={shootArrow} >
+						<div ref={archerBox} style={{transformOrigin: 'bottom', transform: `rotateZ(${ctx.scavState ? archerAngle : 0}deg)`}} className="absolute left-[27.25%] top-[40.3%] w-[10.2%] h-[25%]">
+							<img 
+								className="no-drag absolute left-[32.5%] top-[60%] w-[74%]"
+								ref={arrow}
+								style={{left: `calc(32.5% + ${arrowPos.x}px)`, top: `calc(60% + ${arrowPos.y}px)`, transformOrigin: 'center', transform: `rotateZ(${arrowPos.angle}deg)`}}
+								src="/assets/svgs/landing/archer_arrow.svg" 
+								alt="" />
+							<img className="no-drag absolute left-[66%] top-0 w-[35.4%]" src="/assets/svgs/landing/archer_bow.svg" alt="" />
+							<img className="no-drag absolute left-0 top-[33%] w-[100%]" src="/assets/svgs/landing/archer_upper.svg" alt="" />
+						</div>
 						</DraggableCore>
 					</div>
+
 				</div>
 			</div>
 
