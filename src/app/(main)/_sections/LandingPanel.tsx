@@ -270,7 +270,6 @@ export const LandingPanel = () => {
 						},
 					)}
 
-
 					{/* WH logo / stand */}
 					<div id='landing-wh-logo'>
 						<div className="absolute left-[42.9%] top-[7.1%] w-[14.85%]" style={{aspectRatio: '1/1'}}>
@@ -285,6 +284,9 @@ export const LandingPanel = () => {
 							<img className="absolute top-0 left-0 w-full h-full" src="/assets/svgs/landing/scav/wh_cut.svg" alt="" />
 						</div>
 					</div>
+
+					<div className="absolute bg-blue-300 w-[3%] h-[6%] left-[63.2%] top-[47%] w-[14.85%] h-[14.85%]"></div>
+					<div className="absolute bg-blue-300 w-[3%] h-[6%] left-[81%] top-[9.4%] w-[14.85%] h-[14.85%]"></div>
 
 					{/* archer */}
 					<div>

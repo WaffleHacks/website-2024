@@ -1,12 +1,21 @@
 "use client";
 import type React from "react";
-import { createContext, useState } from "react";
+import { createContext, useRef, useState } from "react";
 import { FooterBar } from "./footer";
 import { NavBar } from "./nav";
 
-export const ScavContext = createContext({
+interface ScavContextParameters {
+	scavState: boolean;
+	setScavState: (state: boolean) => void;
+	headspot1: React.MutableRefObject<HTMLDivElement | null> | null;
+	headspot2: React.MutableRefObject<HTMLDivElement | null> | null;
+}
+
+export const ScavContext = createContext<ScavContextParameters>({
 	scavState: false,
 	setScavState: (state: boolean) => {},
+	headspot1: null,
+	headspot2: null,
 });
 
 export const Semantics: React.FC<
@@ -22,6 +31,8 @@ export const Semantics: React.FC<
 				value={{
 					scavState,
 					setScavState,
+					headspot1: useRef<HTMLDivElement | null>(null),
+					headspot2: useRef<HTMLDivElement | null>(null),
 				}}
 			>
 				<NavBar />
