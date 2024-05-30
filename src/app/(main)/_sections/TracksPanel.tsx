@@ -35,7 +35,7 @@ export const TracksPanel = () => {
 							innovation, and usability.
 						</p>
 						<h2>Prize(s)</h2>
-						<p>???</p>
+						<p>TBD</p>
 					</div>
 				</SwiperSlide>
 				<SwiperSlide>
@@ -49,7 +49,7 @@ export const TracksPanel = () => {
 							tangible, real-world ways.
 						</p>
 						<h2>Prize(s)</h2>
-						<p>???</p>
+						<p>TBD</p>
 					</div>
 				</SwiperSlide>
 				<SwiperSlide>
@@ -63,7 +63,7 @@ export const TracksPanel = () => {
 							business, or an initiative that
 						</p>
 						<h2>Prize(s)</h2>
-						<p>???</p>
+						<p>TBD</p>
 					</div>
 				</SwiperSlide>
 				<SwiperSlide>
@@ -78,7 +78,7 @@ export const TracksPanel = () => {
 							college and university students find affordable, nutritious meals.
 						</p>
 						<h2>Prize(s)</h2>
-						<p>???</p>
+						<p>TBD</p>
 					</div>
 				</SwiperSlide>
 			</Swiper>

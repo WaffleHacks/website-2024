@@ -10,6 +10,7 @@
 
 .swiper-slide {
     display: flex !important;
+    flex-direction: row;
     gap: 1rem;
     justify-content: center;
     align-items: center;
@@ -19,6 +20,7 @@
     border: 1px solid #135CBD;
     color: #135CBD;
 }
+
 
 .swiper-button-next, .swiper-button-prev {
     color: black;
@@ -69,4 +71,17 @@
     left: 1rem;
     font-weight: 800;
     font-size: 1.15rem;
+}
+
+@media (max-width: 768px) {
+    .swiper-slide {
+        width: min(90vw, 25rem) !important;
+        flex-direction: column;
+    }
+    .track-photo {
+        width: 80%;
+        height: unset;
+        flex: unset;
+        aspect-ratio: 1;
+    }
 }

@@ -7,15 +7,25 @@ import { NavBar } from "./nav";
 interface ScavContextParameters {
 	scavState: boolean;
 	setScavState: (state: boolean) => void;
-	headspot1: React.MutableRefObject<HTMLDivElement | null> | null;
-	headspot2: React.MutableRefObject<HTMLDivElement | null> | null;
+	archer: {
+		headspot1: React.MutableRefObject<HTMLDivElement | null> | null;
+		headspot2: React.MutableRefObject<HTMLDivElement | null> | null;
+		headshot: boolean;
+		activeHeadSpot: number;
+	}
+	
 }
 
 export const ScavContext = createContext<ScavContextParameters>({
 	scavState: false,
 	setScavState: (state: boolean) => {},
-	headspot1: null,
-	headspot2: null,
+	archer: {
+		headspot1: null,
+		headspot2: null,
+		headshot: false,
+		activeHeadSpot: -1
+	
+	}
 });
 
 export const Semantics: React.FC<
@@ -31,8 +41,12 @@ export const Semantics: React.FC<
 				value={{
 					scavState,
 					setScavState,
-					headspot1: useRef<HTMLDivElement | null>(null),
-					headspot2: useRef<HTMLDivElement | null>(null),
+					archer: {
+						headspot1: useRef<HTMLDivElement | null>(null),
+						headspot2: useRef<HTMLDivElement | null>(null),
+						headshot: false,
+						activeHeadSpot: -1
+					}
 				}}
 			>
 				<NavBar />
