@@ -1,10 +1,12 @@
 "use client";
 import { ScavContext } from "@/components/semantics/Semantics";
+import { h } from "@/utils";
 import Switch from "@mui/material/Switch";
 import Image from "next/image";
 import Link from "next/link";
 import React, {useContext, useEffect, useRef, useState} from "react";
 import Draggable, {DraggableEvent, DraggableCore, DraggableData} from "react-draggable";
+import internal from "stream";
 
 export const NavBar = () => {
 	const Links: ReadonlyArray<{
@@ -21,7 +23,7 @@ export const NavBar = () => {
 
 	const label = { inputProps: { "aria-label": "Scav switch" } };
 
-	let {scavState, setScavState} = useContext(ScavContext);
+	let {scavState, setScavState, headspot1, headspot2} = useContext(ScavContext);
 
 	const apple = useRef<HTMLImageElement>(null);
 	const [walkState, setWalkState] = useState(1);
@@ -80,11 +82,44 @@ export const NavBar = () => {
 		if (!navRect) return;
 		let apRect = ap.getBoundingClientRect();
 
+		let h1: [number, number, number, number] = [-1000, -1000, -1000, -1000];
+		let h2: [number, number, number, number] = [-1000, -1000, -1000, -1000];
+
+		if (headspot1?.current){
+			h1 = [
+				headspot1.current.getBoundingClientRect().left, 
+				headspot1.current.getBoundingClientRect().right,
+				headspot1.current.getBoundingClientRect().top,
+				headspot1.current.getBoundingClientRect().bottom];
+		}
+		if (headspot2?.current){
+			h2 = [
+				headspot2.current.getBoundingClientRect().left, 
+				headspot2.current.getBoundingClientRect().right,
+				headspot2.current.getBoundingClientRect().top,
+				headspot2.current.getBoundingClientRect().bottom];
+		}
+
 		let mouseX = pos.x - (pos.lastX - apRect.right);
 		let mouseY = pos.y - (pos.lastY - apRect.bottom);
 
-		setAppleY(navRect.bottom - mouseY);
-		setAppleX(window.innerWidth - mouseX);
+		let mx = e.clientX;
+		let my = e.clientY;
+
+		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]){
+			setAppleY(navRect.bottom - h1[3] - apRect.height/8);
+			setAppleX(window.innerWidth - ((h1[0] + h1[1]) / 2) - 3*apRect.width/5);
+			console.log('on h1', h1)
+		}
+		else if (mx > h2[0] && mx < h2[1] && my > h2[2] && my < h2[3]){
+			setAppleY(navRect.bottom - h2[3] - apRect.height/8);
+			setAppleX(window.innerWidth - ((h2[0] + h2[1]) / 2) - 3*apRect.width/5);
+			console.log('on h2', h2)
+		}
+		else {
+			setAppleY(navRect.bottom - mouseY);
+			setAppleX(window.innerWidth - mouseX);
+		}
 
 		setAppleImg('applesit');
 	}

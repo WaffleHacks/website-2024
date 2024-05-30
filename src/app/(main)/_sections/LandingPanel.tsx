@@ -175,23 +175,21 @@ export const LandingPanel = () => {
 		
 		// initializa angles
 		// start with velocity of 10
-		setArrowPos({x: 0, y: 0, angle: 0, vx: 10, vy: 0})
+		setArrowPos({x: 0, y: 0, angle: 0, vx: 13, vy: 0})
 
 		arrowInterval.current = setInterval(() => {
 
 			setArrowPos(pos => {
-				console.log('going');
 				let nextX = pos.x + pos.vx;
 				let nextY = pos.y + pos.vy;
 				let nextAngle = Math.atan2(pos.vy, pos.vx) * 180 / Math.PI;
 
 				let aAngle = archerAngle * Math.PI / 180;
 
-				let gravity = [-Math.cos(aAngle), Math.sin(aAngle)];
 				let gravStrength = 0.15;
 
-				let nextVx = pos.vx + gravity[1] * gravStrength;
-				let nextVy = pos.vy - gravity[0] * gravStrength;
+				let nextVx = pos.vx + Math.sin(aAngle) * gravStrength;
+				let nextVy = pos.vy + Math.cos(aAngle) * gravStrength;
 
 				let newPos = {x: nextX, y: nextY, angle: nextAngle, vx: nextVx, vy: nextVy};
 
@@ -285,8 +283,8 @@ export const LandingPanel = () => {
 						</div>
 					</div>
 
-					<div className="absolute bg-blue-300 w-[3%] h-[6%] left-[63.2%] top-[47%] w-[14.85%] h-[14.85%]"></div>
-					<div className="absolute bg-blue-300 w-[3%] h-[6%] left-[81%] top-[9.4%] w-[14.85%] h-[14.85%]"></div>
+					<div ref={ctx.headspot1} className="absolute w-[3%] h-[6%] left-[63.2%] top-[47%] w-[14.85%] h-[14.85%]"></div>
+					<div ref={ctx.headspot2} className="absolute w-[3%] h-[6%] left-[81%] top-[9.4%] w-[14.85%] h-[14.85%]"></div>
 
 					{/* archer */}
 					<div>
