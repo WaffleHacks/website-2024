@@ -4,7 +4,9 @@ import React from "react";
 export const AboutPanel = () => {
 	return (
 		<div className="font-mplus px-8">
-			<h2 className="text-4xl font-extrabold mb-4">About</h2>
+			<h2 className="text-4xl font-extrabold mb-4 w-full sm:text-center md:text-left">
+				About
+			</h2>
 
 			<div className="flex flex-row justify-between">
 				<p className="w-[35rem]">

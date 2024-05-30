@@ -8,6 +8,7 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 			className={`
 				bg-gray-900 text-white
 				py-6 flex flex-col bottom-0
+				w-full
 			`}
 		>
 			<div
@@ -15,7 +16,7 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 					container flex flex-col
 					justify-center items-center px-4
 					pt-12 pb-6 mx-auto sm:px-6 lg:px-8
-					lg:pt-14 max-w-screen-xl
+					lg:pt-14 max-w-screen-2xl
 				`}
 			>
 				<div

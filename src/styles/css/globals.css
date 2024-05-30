@@ -57,7 +57,7 @@
 
     .navbar {
         background: white;
-        transition: var(--scav-transition-dur) ease;
+        transition: var(--scav-transition-dur) ease-in-out;
         backdrop-filter: blur(10px);
     }
 

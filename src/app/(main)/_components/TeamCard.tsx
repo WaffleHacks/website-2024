@@ -17,14 +17,15 @@ import {
 	waffleImageClasses,
 	waffle_png,
 } from "@/constants";
+import { lazyImages } from "@/data/lazyImages";
 import Image from "next/image";
 import type React from "react";
 import { FaFlag, FaGraduationCap } from "react-icons/fa";
 import { FaBookOpenReader } from "react-icons/fa6";
-import { lazyImages } from "@/data/lazyImages";
 const getFirstName = (fullName: string) => {
 	return fullName.split(" ")[0];
 };
+import { usePathname, useRouter } from "next/navigation";
 
 const getMemberImage = (name: string, type: "team" | "waffles") => {
 	const firstName = getFirstName(name) as string;
@@ -54,9 +55,20 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 	const colorClass = name ? colorClasses[name] : "";
 	const team = memberTeamAssociations[name as string];
 
+	const pathName: string = usePathname();
+	const isTeam = pathName.includes("team");
+	const router = useRouter();
+
 	return (
-		<Article className="flex flex-col gap-3 w-[687px] h-[884px] rounded-xl shadow-lg border-none py-10 mx-auto bg-white">
-			<Picture className="w-full h-8 flex flex-col items-center justify-center">
+		<Article
+			className={`
+				flex flex-col gap-3 w-[687px]
+				h-[884px] rounded-xl shadow-lg
+				border-none py-10 mx-auto
+				${isTeam ? "bg-[#F1D6BB]" : "bg-white"}
+			`}
+		>
+			<Picture className="w-full h-8 flex flex-col items-center justify-center mb-2">
 				<img src="/assets/svgs/logo-small.svg" alt="" />
 				<img src="/assets/svgs/line-shadow.svg" alt="" />
 			</Picture>
@@ -80,7 +92,18 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 				</Aside>
 				<Aside>
 					<Header className="flex flex-col gap-3">
-						<h3 className="flex justify-center items-center text-center relative card-title">
+						<h3
+							className={`
+								flex justify-center items-center
+								text-center relative card-title
+								${!isTeam ? "cursor-pointer" : ""}
+							`}
+							onClick={() => {
+								if (!isTeam) {
+									router.push(`/team/${name}`);
+								}
+							}}
+						>
 							<span className="text-3xl font-semibold rounded-[18px] w-[275px] h-[68px] bg-[#ffeebb] text-center flex justify-center items-center relative z-10 text-[#3C2415]">
 								{member.top.name}
 							</span>

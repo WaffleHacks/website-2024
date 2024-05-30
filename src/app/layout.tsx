@@ -24,7 +24,12 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning className={``}>
-			<body className={`box-border overflow-x-hidden`}>
+			<body
+				className={`
+					box-border overflow-x-hidden
+					flex flex-col items-center justify-center w-[100dvw]
+				`}
+			>
 				<>
 					<Providers>
 						<Semantics>{children}</Semantics>
