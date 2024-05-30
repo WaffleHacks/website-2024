@@ -158,8 +158,8 @@ export const LandingPanel = () => {
 		let box_y_middle = boxRect.top + boxRect.height / 2;
 		let box_x_middle = boxRect.left + boxRect.width / 2;
 
-		let mouseX = e.clientX;
-		let mouseY = e.clientY;
+		let mouseX = (e as any).clientX;
+		let mouseY = (e as any).clientY;
 	
 		let angle = Math.atan2(mouseY - box_y_middle, mouseX - box_x_middle);
 		let degrees = angle * (180 / Math.PI);

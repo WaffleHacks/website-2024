@@ -136,8 +136,8 @@ export const NavBar = () => {
 		let mouseX = pos.x - (pos.lastX - apRect.right);
 		let mouseY = pos.y - (pos.lastY - apRect.bottom);
 
-		let mx = e.clientX;
-		let my = e.clientY;
+		let mx = (e as any).clientX;
+		let my = (e as any).clientY;
 
 		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]){
 			setAppleY(navRect.bottom - h1[3] - apRect.height/8);
