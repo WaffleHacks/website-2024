@@ -101,6 +101,9 @@ export const NavBar = () => {
 		if (scavState){
 			interval.current = setInterval(appleInterval, 25);
 		}
+		else {
+			setAppleY(0);
+		}
 		return () => clearInterval(interval.current);
 	}, [scavState]);
 
@@ -170,8 +173,6 @@ export const NavBar = () => {
 			interval.current = setInterval(appleInterval, 25);
 		}
 	}
-
-	
 
 	return (
 		<>

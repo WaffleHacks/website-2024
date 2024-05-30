@@ -11,7 +11,7 @@ export const sponsorsData: ReadonlySponsors = {
 				{
 					name: "Genxyz",
 					image: "/assets/svgs/sponsors/genxyz.svg",
-					link: "https://genxyz.io/",
+					link: "https://gen.xyz/",
 				},
 			],
 		},

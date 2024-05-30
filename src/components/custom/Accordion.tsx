@@ -30,7 +30,7 @@ const AccordionBody: React.FC<AccordionTextProps> = (props) => {
 };
 
 export const Accordion: React.FC<AccordionProps> = ({ data }) => {
-	const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
+	const [expandedIndex, setExpandedIndex] = useState<number | null>(-1);
 	return (
 		<motion.aside
 			initial="exit"

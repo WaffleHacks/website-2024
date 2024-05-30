@@ -9,10 +9,8 @@ import { getTeamColor } from "@/lib";
 import { cn } from "@/lib";
 import { objToArray } from "@/utils";
 import { Button } from "@nextui-org/react";
-import { Skeleton } from "@nextui-org/skeleton";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useMediaQuery } from "usehooks-ts";
@@ -116,6 +114,7 @@ export const TeamPanel = () => {
 				: isSmall
 					? 2
 					: 1;
+	// const howMuchToShow = [isSmall, isMedium, isLarge, isXLarge].indexOf(true) + 2;
 
 	return (
 		<Article
