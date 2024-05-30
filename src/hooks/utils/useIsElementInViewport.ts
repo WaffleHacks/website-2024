@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 export const useIsElementInViewport = (options?: IntersectionObserverInit) => {
 	const elementRef = useRef<
@@ -13,7 +14,7 @@ export const useIsElementInViewport = (options?: IntersectionObserverInit) => {
 		}
 	};
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		const observer = new IntersectionObserver(callback, options);
 		if (elementRef.current) {
 			observer.observe(elementRef.current);

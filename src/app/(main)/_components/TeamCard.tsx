@@ -10,6 +10,7 @@ import {
 	Subtract,
 	Text,
 } from "@/components";
+import { ScavContext } from "@/components";
 import {
 	colorClasses,
 	team_members_png,
@@ -20,8 +21,10 @@ import {
 import { lazyImages } from "@/data/lazyImages";
 import Image from "next/image";
 import type React from "react";
+import { useContext } from "react";
 import { FaFlag, FaGraduationCap } from "react-icons/fa";
 import { FaBookOpenReader } from "react-icons/fa6";
+
 const getFirstName = (fullName: string) => {
 	return fullName.split(" ")[0];
 };
@@ -65,7 +68,7 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 				flex flex-col gap-3 w-[687px]
 				h-[884px] rounded-xl shadow-lg
 				border-none py-10 mx-auto
-				${isTeam ? "bg-[#F1D6BB]" : "bg-white"}
+				bg-[#f5f5f5] relative
 			`}
 		>
 			<Picture className="w-full h-8 flex flex-col items-center justify-center mb-2">

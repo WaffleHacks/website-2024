@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 const useScroll = () => {
 	const [state, setState] = useState({
 		x: 0,
@@ -9,7 +9,7 @@ const useScroll = () => {
 		setState({ x: window.scrollX, y: window.scrollY });
 	};
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		window.addEventListener("scroll", onScroll);
 
 		return () => window.removeEventListener("scroll", onScroll);

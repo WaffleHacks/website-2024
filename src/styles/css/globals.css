@@ -47,12 +47,17 @@
     }
 
     body {
-        background-color: white;
+        background-color: #EDE5C2;
         transition: background-color var(--scav-transition-dur) ease;
+        color: #3C2415
     }
 
     body.scav {
-        background-color: #F1D6BB;
+        background-color: #F2DCC0;
+    }
+
+    a:hover {
+        font-weight: 700;
     }
 
     .navbar {

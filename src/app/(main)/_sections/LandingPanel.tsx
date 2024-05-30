@@ -1,39 +1,14 @@
 "use client";
 import { ScavContext } from "@/components";
-import React, {
-	useEffect,
-	useState,
-	useRef,
-	useLayoutEffect,
-	useContext,
-} from "react";
+import React, { useState, useRef, useLayoutEffect, useContext } from "react";
+
 import {
 	DraggableCore,
 	type DraggableData,
 	type DraggableEvent,
 } from "react-draggable";
 
-const NumberDisplay = ({ number, text }: { number: number; text: string }) => {
-	let num_chars = number.toString();
-	if (num_chars.length < 2) num_chars = "0" + num_chars;
-	return (
-		<header className="flex flex-col items-center relative">
-			<div className="flex flex-row gap-2">
-				{num_chars.split("").map((char, index) => {
-					return (
-						<span
-							key={index}
-							className="numberdisplay-number text-2xl font-extrabold bg-gray-200 rounded-lg py-3 px-3"
-						>
-							{char}
-						</span>
-					);
-				})}
-			</div>
-			<span className="text-base font-medium absolute top-[100%]">{text}</span>
-		</header>
-	);
-};
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 function useWindowSize() {
 	const [size, setSize] = useState([0, 0]);
@@ -49,11 +24,6 @@ function useWindowSize() {
 }
 
 export const LandingPanel = () => {
-	const [daysLeft, setDaysLeft] = useState(0);
-	const [hoursLeft, setHoursLeft] = useState(0);
-	const [minutesLeft, setMinutesLeft] = useState(0);
-	const [secondsLeft, setSecondsLeft] = useState(0);
-
 	const [archerAngle, setArcherAngle] = useState(0);
 	const [arrowPos, setArrowPos] = useState({
 		x: 0,
@@ -72,38 +42,6 @@ export const LandingPanel = () => {
 
 	const ctx = useContext(ScavContext);
 
-	useEffect(() => {
-		function showtime() {
-			const subDate = Date.UTC(2024, 5, 23, 16, 0, 0);
-			const now = Date.now();
-			let subTimeLeft = Math.max(0, subDate - now);
-
-			const daysLeft = Math.floor(subTimeLeft / (1000 * 60 * 60 * 24));
-			subTimeLeft -= daysLeft * 24 * 60 * 60 * 1000;
-
-			const hoursLeft = Math.floor(subTimeLeft / (1000 * 60 * 60));
-			subTimeLeft -= hoursLeft * 60 * 60 * 1000;
-			const minutesLeft = Math.floor(subTimeLeft / (1000 * 60));
-			subTimeLeft -= minutesLeft * 60 * 1000;
-			const secondsLeft = Math.floor(subTimeLeft / 1000);
-
-			setDaysLeft(daysLeft);
-			setHoursLeft(hoursLeft);
-			setMinutesLeft(minutesLeft);
-			setSecondsLeft(secondsLeft);
-		}
-
-		const interval = setInterval(() => {
-			showtime();
-		}, 1000);
-
-		showtime();
-
-		return () => {
-			clearInterval(interval);
-		};
-	}, []);
-
 	function onSizing() {
 		if (container.current && img_box.current) {
 			const img = img_box.current;
@@ -121,7 +59,11 @@ export const LandingPanel = () => {
 		}
 	}
 
-	useEffect(onSizing, [container.current, img_box.current, windowSize]);
+	useIsomorphicLayoutEffect(onSizing, [
+		container.current,
+		img_box.current,
+		windowSize,
+	]);
 	const images = [
 		{
 			src: "/assets/svgs/landing/red_pf.svg",
@@ -172,11 +114,11 @@ export const LandingPanel = () => {
 		const box_y_middle = boxRect.top + boxRect.height / 2;
 		const box_x_middle = boxRect.left + boxRect.width / 2;
 
-		let mouseX = (e as any).clientX;
-		let mouseY = (e as any).clientY;
-	
-		let angle = Math.atan2(mouseY - box_y_middle, mouseX - box_x_middle);
-		let degrees = angle * (180 / Math.PI);
+		const mouseX = (e as any).clientX;
+		const mouseY = (e as any).clientY;
+
+		const angle = Math.atan2(mouseY - box_y_middle, mouseX - box_x_middle);
+		const degrees = angle * (180 / Math.PI);
 		setArcherAngle(degrees);
 	}
 
@@ -189,26 +131,31 @@ export const LandingPanel = () => {
 
 		// initializa angles
 		// start with velocity of 10
-		setArrowPos({x: 0, y: 0, angle: 0, vx: 13, vy: 0})
+		setArrowPos({ x: 0, y: 0, angle: 0, vx: 13, vy: 0 });
 
 		arrowInterval.current = setInterval(() => {
+			setArrowPos((pos) => {
+				const nextX = pos.x + pos.vx;
+				const nextY = pos.y + pos.vy;
+				const nextAngle = (Math.atan2(pos.vy, pos.vx) * 180) / Math.PI;
 
-			setArrowPos(pos => {
-				let nextX = pos.x + pos.vx;
-				let nextY = pos.y + pos.vy;
-				let nextAngle = Math.atan2(pos.vy, pos.vx) * 180 / Math.PI;
+				const aAngle = (archerAngle * Math.PI) / 180;
 
-				let aAngle = archerAngle * Math.PI / 180;
+				const gravStrength = 0.15;
 
-				let gravStrength = 0.15;
+				const nextVx = pos.vx + Math.sin(aAngle) * gravStrength;
+				const nextVy = pos.vy + Math.cos(aAngle) * gravStrength;
 
-				let nextVx = pos.vx + Math.sin(aAngle) * gravStrength;
-				let nextVy = pos.vy + Math.cos(aAngle) * gravStrength;
+				let newPos = {
+					x: nextX,
+					y: nextY,
+					angle: nextAngle,
+					vx: nextVx,
+					vy: nextVy,
+				};
 
-				let newPos = {x: nextX, y: nextY, angle: nextAngle, vx: nextVx, vy: nextVy};
-
-				let ar = arrow.current;
-				if (!ar){
+				const ar = arrow.current;
+				if (!ar) {
 					clearInterval(arrowInterval.current as NodeJS.Timeout);
 					arrowInterval.current = null;
 					newPos = { x: 0, y: 0, angle: 0, vx: 0, vy: 0 };
@@ -233,9 +180,13 @@ export const LandingPanel = () => {
 	}
 
 	return (
-		<div className="font-mplus px-2 sm:px-12 pt-44 h-screen w-full">
-
-			<img id='landing-blob' className="absolute top-24 right-0 h-[50%]" src="/assets/svgs/landing/scav/blob.svg" alt="" />
+		<header className="font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full max-w-screen-2xl mx-auto">
+			<img
+				id="landing-blob"
+				className="absolute top-24 right-0 h-[50%]"
+				src="/assets/svgs/landing/scav/blob.svg"
+				alt=""
+			/>
 
 			<h2 className="text-2xl font-normal">
 				Put your best code forward for the
@@ -335,8 +286,14 @@ export const LandingPanel = () => {
 						</div>
 					</div>
 
-					<div ref={ctx.headspot1} className="absolute w-[3%] h-[6%] left-[63.2%] top-[47%] w-[14.85%] h-[14.85%]"></div>
-					<div ref={ctx.headspot2} className="absolute w-[3%] h-[6%] left-[81%] top-[9.4%] w-[14.85%] h-[14.85%]"></div>
+					<div
+						ref={ctx.headspot1}
+						className="absolute w-[3%] h-[6%] left-[63.2%] top-[47%] w-[14.85%] h-[14.85%]"
+					></div>
+					<div
+						ref={ctx.headspot2}
+						className="absolute w-[3%] h-[6%] left-[81%] top-[9.4%] w-[14.85%] h-[14.85%]"
+					></div>
 
 					{/* archer */}
 					<div>
@@ -381,18 +338,6 @@ export const LandingPanel = () => {
 					</div>
 				</div>
 			</div>
-
-			<div className="flex flex-row justify-end w-full">
-				<div>
-					<span className="text-2xl">Countdown to the WaffleHacks Games</span>
-					<div className="flex text-2xl font-bold gap-2 items-center">
-						<NumberDisplay number={daysLeft} text="Days" /> <span>:</span>
-						<NumberDisplay number={hoursLeft} text="Hours" /> <span>:</span>
-						<NumberDisplay number={minutesLeft} text="Minutes" /> <span>:</span>
-						<NumberDisplay number={secondsLeft} text="Seconds" />
-					</div>
-				</div>
-			</div>
-		</div>
+		</header>
 	);
 };

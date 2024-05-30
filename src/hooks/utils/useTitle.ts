@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 const useTitle = (initialTitle: string) => {
 	const [title, setTitle] = useState(initialTitle);
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		const updateTitle = () => {
 			const htmlTitle = document.querySelector("title") as HTMLTitleElement;
 

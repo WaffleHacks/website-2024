@@ -237,11 +237,9 @@ export const CalendarPanel = () => {
 
 	return (
 		<div className="font-mplus p-8" id="calendar">
-			<h1 className="text-4xl font-extrabold mb-4">Calendar</h1>
-
 			<div className="py-6 px-8 bg-gray-800 rounded-xl flex flex-col">
 				<div className="grid grid-cols-3">
-					<span></span>
+					<span />
 					<span className="text-2xl font-bold text-white text-center">
 						{eventOrder[eventIndex]}
 					</span>
@@ -266,7 +264,7 @@ export const CalendarPanel = () => {
 				</div>
 
 				<div className="calendar-grid w-full mt-4">
-					<span></span>
+					<span />
 					{[
 						"10 AM",
 						"11 AM",

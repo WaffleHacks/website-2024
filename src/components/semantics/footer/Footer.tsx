@@ -12,15 +12,15 @@ export const FooterBar = () => {
 				image: "/assets/svgs/logo.svg",
 				icons: [
 					{
-						icon: <FaLinkedin className={`w-6 h-6 hover:bg- `} />,
+						icon: <FaLinkedin className={`w-6 h-6 hover:bg-[#604020] `} />,
 						href: "https://www.linkedin.com/company/wafflehacks/",
 					},
 					{
-						icon: <FaInstagram className={`w-6 h-6 hover:bg- `} />,
+						icon: <FaInstagram className={`w-6 h-6 hover:bg-[#604020] `} />,
 						href: "https://www.instagram.com/waffle.hacks/",
 					},
 					{
-						icon: <FaXTwitter className={`w-6 h-6 hover:bg- `} />,
+						icon: <FaXTwitter className={`w-6 h-6 hover:bg-[#604020] `} />,
 						href: "https://x.com/WaffleHacks",
 					},
 				],

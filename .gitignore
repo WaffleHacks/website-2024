@@ -43,4 +43,5 @@ next-env.d.ts
 .vercel
 package-lock.json
 
-/public/service-worker.js.map
+# ignore anythign within the public folder which has a .js extension
+public/**/*.js.*

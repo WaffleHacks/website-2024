@@ -11,9 +11,6 @@ export const FaqPanel = () => {
 	return (
 		<div className="bg-white p-8 md:text-left flex justify-center font-mplus mx-8 rounded-xl  backdrop-blur-lg">
 			<div className="block w-full" style={{ maxWidth: "min(100vw, 80rem)" }}>
-				<h2 className="text-4xl font-extrabold mb-4 w-full sm:text-center md:text-left">
-					FAQs
-				</h2>
 				<Tabs
 					className={`
 						flex flex-row justify-center

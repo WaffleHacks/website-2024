@@ -1,11 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 const useFadeIn = (duration = 1, delay = 0) => {
 	const element = useRef<
 		HTMLDivElement | HTMLHeadingElement | HTMLParagraphElement | null
 	>(null);
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		if (element.current) {
 			const { current } = element;
 			current.style.transition = `opacity ${duration}s ease-in-out ${delay}s`;

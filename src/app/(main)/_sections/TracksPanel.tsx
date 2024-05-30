@@ -8,8 +8,6 @@ import { Navigation, Pagination } from "swiper/modules";
 export const TracksPanel = () => {
 	return (
 		<div className="font-mplus p-8" id="tracks">
-			<h1 className="text-4xl font-extrabold mb-4">Tracks</h1>
-
 			<Swiper
 				slidesPerView={"auto"}
 				centeredSlides={true}

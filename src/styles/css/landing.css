@@ -34,3 +34,36 @@ body.scav #stand-bar { top: 61.7%; transition: top 0.4s 0.4s ease; }
 
 #landing-blob { opacity: 0; transition: opacity var(--scav-transition-dur) ease-in-out; }
 body.scav #landing-blob { opacity: 1; }
+
+.header {
+  padding: 10px 16px;
+}
+
+.sticky-2 {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+
+.sticky-2 + .content {
+  padding-top: 102px;
+}
+
+.overlay {
+  max-width: 1140px;
+  max-height: 640px;
+
+/*   padding: 8rem 6rem; */
+  display: flex;
+  align-items: center;
+  background: rgb(255 255 255 / 37.5%);
+  box-shadow: 0 0.75rem 2rem 0 rgb(0 0 0 / 10%);
+  border-radius: 2rem;
+  border: 1px solid rgb(255 255 255 / 12.5%);
+}
+
+.overlay__description {
+  font-size: 1rem;
+  line-height: 1.75rem;
+  margin-bottom: 3rem;
+}
