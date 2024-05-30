@@ -166,6 +166,13 @@ export const LandingPanel = () => {
 		setArcherAngle(degrees);
 	}
 
+	function arrowIntersectsBox(arBox: DOMRect, box: DOMRect){
+		// check if arrow tip intersects box
+		let arX = arBox.left + arBox.width;
+		let arY = arBox.top + arBox.height;
+		return arX >= box.left && arX <= box.right && arY >= box.top && arY <= box.bottom;
+	}
+
 	function shootArrow(){
 		if (!ctx.scavState) return;
 
@@ -201,6 +208,18 @@ export const LandingPanel = () => {
 					return newPos;
 				}
 				let box = ar.getBoundingClientRect();
+
+				let h1 = ctx.archer.headspot1?.current?.getBoundingClientRect();
+				let h2 = ctx.archer.headspot2?.current?.getBoundingClientRect();
+
+				if ((ctx.archer.activeHeadSpot == 1 && h1 && arrowIntersectsBox(box, h1)) || 
+					(ctx.archer.activeHeadSpot == 2 && h2 && arrowIntersectsBox(box, h2))){
+					clearInterval(arrowInterval.current as NodeJS.Timeout);
+					ctx.archer.headshot = true;
+					console.log('hit headshot');
+					return newPos
+				}
+				
 
 				if (box.bottom <= 0 || box.right <= 0 || box.top >= window.innerHeight || box.left >= window.innerWidth) {
 					clearInterval(arrowInterval.current as NodeJS.Timeout);
@@ -283,8 +302,8 @@ export const LandingPanel = () => {
 						</div>
 					</div>
 
-					<div ref={ctx.headspot1} className="absolute w-[3%] h-[6%] left-[63.2%] top-[47%] w-[14.85%] h-[14.85%]"></div>
-					<div ref={ctx.headspot2} className="absolute w-[3%] h-[6%] left-[81%] top-[9.4%] w-[14.85%] h-[14.85%]"></div>
+					<div ref={ctx.archer.headspot1} className="absolute w-[3%] h-[6%] left-[63.2%] top-[47%] w-[14.85%] h-[14.85%]"></div>
+					<div ref={ctx.archer.headspot2} className="absolute w-[3%] h-[6%] left-[81%] top-[9.4%] w-[14.85%] h-[14.85%]"></div>
 
 					{/* archer */}
 					<div>

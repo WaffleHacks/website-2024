@@ -38,7 +38,7 @@ export const NavBar = () => {
 
 	const label = { inputProps: { "aria-label": "Scav switch" } };
 
-	let {scavState, setScavState, headspot1, headspot2} = useContext(ScavContext);
+	let {scavState, setScavState, archer} = useContext(ScavContext);
 
 	const apple = useRef<HTMLImageElement>(null);
 	const [appleImg, setAppleImg] = useState('apple1');
@@ -113,6 +113,9 @@ export const NavBar = () => {
 		if (!navRect) return;
 		let apRect = ap.getBoundingClientRect();
 
+		let headspot1 = archer.headspot1;
+		let headspot2 = archer.headspot2;
+
 		let h1: [number, number, number, number] = [-1000, -1000, -1000, -1000];
 		let h2: [number, number, number, number] = [-1000, -1000, -1000, -1000];
 
@@ -140,12 +143,12 @@ export const NavBar = () => {
 		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]){
 			setAppleY(navRect.bottom - h1[3] - apRect.height/8);
 			setAppleX(window.innerWidth - ((h1[0] + h1[1]) / 2) - 3*apRect.width/5);
-			console.log('on h1', h1)
+			archer.activeHeadSpot = 1;
 		}
 		else if (mx > h2[0] && mx < h2[1] && my > h2[2] && my < h2[3]){
 			setAppleY(navRect.bottom - h2[3] - apRect.height/8);
 			setAppleX(window.innerWidth - ((h2[0] + h2[1]) / 2) - 3*apRect.width/5);
-			console.log('on h2', h2)
+			archer.activeHeadSpot = 2;
 		}
 		else {
 			setAppleY(navRect.bottom - mouseY);
