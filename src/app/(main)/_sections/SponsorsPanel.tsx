@@ -1,11 +1,12 @@
-"use client"
+"use client";
 import { sponsorsData } from "@/constants";
 import { Button } from "@nextui-org/button";
+import { Card, Image } from "@nextui-org/react";
 import Link from "next/link";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
-import { Image, Card } from "@nextui-org/react";
-import { useLoaded } from "@/core";
+
 export const SponsorsPanel: React.FC = () => {
 	const [selectedTier, setSelectedTier] = useState<string>("Platinum");
 	const isXLarge = useMediaQuery("(min-width: 1280px)");
@@ -13,23 +14,10 @@ export const SponsorsPanel: React.FC = () => {
 	const isMedium = useMediaQuery("(min-width: 768px)");
 	const isSmall = useMediaQuery("(min-width: 640px)");
 
-	const getSponsorClass = () => {
-		if (isXLarge) return "w-1/2 h-1/4";
-		if (isLarge) return "w-2/5 h-1/5";
-		if (isMedium) return "w-1/3 h-1/6";
-		if (isSmall) return "w-1/2 h-1/4";
-		return "w-full h-full";
-	};
-
-	const getImageClass = () => {
-		if (isXLarge) return "h-20 w-40";
-		if (isLarge) return "h-16 w-32";
-		if (isMedium) return "h-12 w-24";
-		if (isSmall) return "h-10 w-20";
-		return "h-8 w-16";
-	};
-
-	const getBackgroundColor = (selectedTier: string, tierData: { tier: string }): string => {
+	const getBackgroundColor = (
+		selectedTier: string,
+		tierData: { tier: string },
+	): string => {
 		if (selectedTier === "Platinum" && tierData.tier === "Platinum") {
 			return "bg-gray-300";
 		} else if (selectedTier === "Gold" && tierData.tier === "Gold") {
@@ -41,13 +29,29 @@ export const SponsorsPanel: React.FC = () => {
 		} else {
 			return "bg-gray-300";
 		}
-	}
+	};
 	return (
-		<div className="font-mplus p-8">
-			<h2 className="text-4xl font-extrabold mb-4">Sponsors</h2>
-			<div className="flex flex-row justify-center mb-8" aria-label="Sponsors">
+		<article
+			className="font-mplus p-8 w-full"
+			style={{
+				maxWidth: "1536px",
+			}}
+		>
+			<h2
+				className="text-4xl font-extrabold mb-4 w-full sm:text-center sm:mx-auto sm:w-fit md:text-left"
+				aria-label={`Sponsors`}
+			>
+				Sponsors
+			</h2>
+			<div
+				className={`
+					flex flex-row justify-center
+					mb-8 flex-wrap 
+				`}
+				aria-label={`Sponsors`}
+			>
 				{sponsorsData.tiers.map((tierData, index) => (
-					<ul
+					<menu
 						key={index + 1}
 						className={`flex flex-col items-center justify-center`}
 					>
@@ -55,8 +59,9 @@ export const SponsorsPanel: React.FC = () => {
 							<Button
 								onClick={() => setSelectedTier(tierData.tier)}
 								className={`
-                  mx-2 p-2 border rounded-lg 
+                  mx-2 px-2 py-4 border rounded-lg 
                   flex flex-row items-center
+									justify-center gap-2
                   ${getBackgroundColor(selectedTier, tierData)}
                 `}
 							>
@@ -80,10 +85,15 @@ export const SponsorsPanel: React.FC = () => {
 								sizes="(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px"
 							/>
 						</li>
-					</ul>
+					</menu>
 				))}
 			</div>
-			<div className="flex flex-row items-center justify-center gap-4 relative">
+			<article
+				className={`
+					flex flex-row items-center justify-center gap-4 overflow-x-auto overflow-y-hidden  
+					h-[300px] max-w-screen-xl mx-auto
+				`}
+			>
 				{selectedTier &&
 					sponsorsData.tiers
 						.find((tierData) => tierData.tier === selectedTier)
@@ -97,23 +107,26 @@ export const SponsorsPanel: React.FC = () => {
 								}`}
 								rel="noopener noreferrer"
 								className={`
-                  ${getSponsorClass()}
-                  relative overflow-hidden h-[300px] min-w-[300px] bg-slate-200 hover:bg-slate-400 transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none mx-4
+  
+                  relative h-fit w-fit
+
+									rounded-lg shadow-lg border-none
                 `}
 							>
 								<Card
 									className={`
-                    w-full h-full p-4
-                    ${getImageClass()}
+                    relative p-4
+										h-[175px] w-[300px]
+										flex flex-col items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-105
                   `}
 								>
 									<Image
 										src={sponsor.image}
 										alt={sponsor.name}
 										className={`
-                      ${getImageClass()}
-                      object-fit transition-all
-                      w-full h-full
+												object-fit transition-all
+												w-full h-full
+												overflow-hidden
                     `}
 										fetchPriority={`low`}
 										sizes={`(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px`}
@@ -121,7 +134,7 @@ export const SponsorsPanel: React.FC = () => {
 								</Card>
 							</Link>
 						))}
-			</div>
-		</div>
+			</article>
+		</article>
 	);
 };

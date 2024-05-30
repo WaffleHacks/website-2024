@@ -1,11 +1,15 @@
 "use client";
 
-import { Modal, CustomPicture as Picture } from "@/components";
+import { Article, Modal, CustomPicture as Picture, Slide } from "@/components";
+import { button_style } from "@/components";
 import { team_members_panel_png } from "@/constants";
 import { useOverlay, useTeam } from "@/core";
+import { lazyImages } from "@/data/lazyImages";
 import { getTeamColor } from "@/lib";
+import { cn } from "@/lib";
 import { objToArray } from "@/utils";
 import { Button } from "@nextui-org/react";
+import { Skeleton } from "@nextui-org/skeleton";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -13,8 +17,6 @@ import { useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useMediaQuery } from "usehooks-ts";
 import { TeamCard } from "../_components";
-import { lazyImages } from "@/data/lazyImages";
-
 const MAX_CONCURRENT_REQUESTS = 5;
 const NUM_MEMBERS = 13;
 
@@ -35,12 +37,11 @@ export const TeamPanel = () => {
 	const memberDataMap = useRef(new Map());
 	const requestQueue = useRef<string[]>([]);
 
-	const isXLarge = useMediaQuery("(min-width: 1280px)");
-	const isLarge = useMediaQuery("(min-width: 1024px)");
-	const isMedium = useMediaQuery("(min-width: 768px)");
+	const isXLarge = useMediaQuery("(min-width: 1500px)");
+	const isLarge = useMediaQuery("(min-width: 1200px)");
+	const isMedium = useMediaQuery("(min-width: 890px)");
 	const isSmall = useMediaQuery("(min-width: 640px)");
-
-	const router = useRouter();
+	const isMediumOrLarger = isMedium || isLarge || isXLarge;
 
 	const fileToName = (file: string) =>
 		file.split("/").pop()?.replace(".png", "");
@@ -83,8 +84,7 @@ export const TeamPanel = () => {
 				await Promise.all(
 					requests.map(async (mem) => {
 						if (!memberDataMap.current.has(mem)) {
-							const getMemberName = (mem: string) =>
-								mem.split("/").pop()?.replace(".png", "");
+							const getMemberName = (mem: string) => fileToName(mem);
 							const member = await getTeamMember(getMemberName(mem)!);
 
 							let color = "";
@@ -118,67 +118,82 @@ export const TeamPanel = () => {
 					: 1;
 
 	return (
-		<div className="mt-2 relative">
+		<Article
+			className={`
+				mt-2 px-20 w-full 
+			`}
+			style={{
+				maxWidth: "1536px",
+			}}
+		>
+			<h2
+				className={`
+				        text-4xl font-extrabold mb-4 w-full sm:text-center md:text-left
+
+				`}
+			>
+				Meet the Team
+			</h2>
 			<div className="w-full">
 				<div className="relative">
-					<div className="flex space-x-4">
+					<div className="flex space-x-4 flex-row items-center justify-center mx-auto gap-2">
 						{teamData
 							.slice(currentIndex, currentIndex + howMuchToShow)
 							.map(({ mem, member, color }, index) => (
-								<motion.div
-									className={`
-										relative overflow-hidden h-[300px] min-w-[300px] bg-slate-200 hover:bg-slate-400 transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none mx-4
+								<Slide key={`${mem}-${index}`}>
+									<motion.div
+										className={`
+										relative overflow-hidden h-[280px] min-w-[280px] bg-slate-200 hover:bg-slate-400 transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer
 									`}
-									key={`${mem}-${index}`}
-									onClick={() => {
-										setShowOverlay(mem);
-										setSelectedMember({ mem, member, color });
-										setModalOpen(true);
-									}}
-								>
-									<AnimatePresence>
-										{(modalOpen && selectedMember?.mem) ||
-											(showOverlay === mem && (
-												<motion.div
-													className="absolute left-0 top-0 bottom-0 right-0 z-10 flex justify-center items-center"
-													initial={{ opacity: 0 }}
-													animate={{ opacity: 0.5 }}
-													exit={{ opacity: 0 }}
-												>
-													<div className="absolute bg-black pointer-events-none opacity-50 h-full w-full" />
-												</motion.div>
-											))}
-									</AnimatePresence>
-									<Picture>
-										<Image
-											src={mem}
-											alt={mem}
-											fill={true}
-											fetchPriority="high"
-											className="object-cover"
-											placeholder="blur"
-											blurDataURL={lazyImages[mem.split("/").pop()?.replace(".png", "") as string]}
-											sizes="(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px"
-										/>
-									</Picture>
-								</motion.div>
+										onClick={() => {
+											setShowOverlay(mem);
+											setSelectedMember({ mem, member, color });
+											setModalOpen(true);
+										}}
+									>
+										<AnimatePresence>
+											{(modalOpen && selectedMember?.mem) ||
+												(showOverlay === mem && (
+													<motion.div
+														className="absolute left-0 top-0 bottom-0 right-0 z-10 flex justify-center items-center"
+														initial={{ opacity: 0 }}
+														animate={{ opacity: 0.5 }}
+														exit={{ opacity: 0 }}
+													>
+														<div className="absolute bg-black pointer-events-none opacity-50 h-full w-full" />
+													</motion.div>
+												))}
+										</AnimatePresence>
+										<Picture>
+											<Image
+												src={mem}
+												alt={mem}
+												fill={true}
+												fetchPriority="high"
+												className="object-cover"
+												placeholder="blur"
+												blurDataURL={lazyImages[fileToName(mem) as string]}
+												sizes="(min-width: 1280px) 280px, (min-width: 1024px) 250px, (min-width: 768px) 200px"
+											/>
+										</Picture>
+									</motion.div>
+								</Slide>
 							))}
 					</div>
 				</div>
 			</div>
 			<menu
 				className={`
-				flex items-center justify-between 
+					flex items-center justify-between 
 				bg-gray-100/50 p-4 rounded-md
-				shadow-md mt-6 mx-auto ${isXLarge ? "w-[310px]" : "w-[210px]"}
+					shadow-md mt-6 mx-auto 
+					${isMediumOrLarger ? "w-1/2" : "w-full"}
+
 				`}
 			>
 				{currentIndex > 0 && (
 					<li className="flex">
-						<Button
-							onClick={handlePrev}
-							className="backdrop-filter  backdrop-blur-lg bg-white bg-opacity-20 border border-white border-opacity-20 shadow-lg text-white px-4 py-2 rounded-lg mr-2"
-						>
+						<Button onClick={handlePrev} className={cn(button_style, "mr-2")}>
 							<FaArrowLeft className={`w-10`} color={`black`} />
 						</Button>
 					</li>
@@ -188,32 +203,22 @@ export const TeamPanel = () => {
 				</li>
 				{currentIndex < NUM_MEMBERS - howMuchToShow && (
 					<li>
-						<Button
-							onClick={handleNext}
-							className="backdrop-filter  backdrop-blur-lg bg-white bg-opacity-20 border border-white border-opacity-20 shadow-lg text-white px-4 py-2 rounded-lg"
-						>
+						<Button onClick={handleNext} className={cn(button_style, "ml-2")}>
 							<FaArrowRight className={`w-10`} color={`black`} />
 						</Button>
 					</li>
 				)}
 			</menu>
 			{modalOpen && selectedMember && (
-				<Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-					<TeamCard
-						member={selectedMember.member}
-						color={selectedMember.color}
-					/>
-					<Button
-						onClick={() => {
-							setModalOpen(false);
-							router.push(`/team/${fileToName(selectedMember.mem)}`);
-						}}
-						className="absolute top-4 right-4"
-					>
-						<FaArrowRight className={`w-10`} color={`black`} />
-					</Button>
-				</Modal>
+				<>
+					<Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+						<TeamCard
+							member={selectedMember.member}
+							color={selectedMember.color}
+						/>
+					</Modal>
+				</>
 			)}
-		</div>
+		</Article>
 	);
 };

@@ -87,24 +87,3 @@ export const TracksPanel = () => {
 		</div>
 	);
 };
-
-/**
- * 
- * async function _fetch(url: string, options: any, schema: any) {
-  const response = await fetch(url, options);
-  const data = await response.json();
-
-  // Check if data is an array and handle it accordingly
-  if (Array.isArray(data)) {
-    const result = data.map(item => schema.parse(item));
-    return { success: true, data: result };
-  } else {
-    const result = schema.safeParse(data);
-
-    if (!result.success) {
-      throw new Error(result.error.message);
-    }
-    return { success: true, data: result.data };
-  }
-}
-*/

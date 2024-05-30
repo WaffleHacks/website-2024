@@ -6,7 +6,7 @@ import { NavBar } from "./nav";
 
 export const ScavContext = createContext({
 	scavState: false,
-	setScavState: (state: boolean) => {},
+	setScavState: (_state: boolean) => {},
 });
 
 export const Semantics: React.FC<

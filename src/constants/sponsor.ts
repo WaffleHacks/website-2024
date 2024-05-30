@@ -3,15 +3,15 @@ export const sponsorsData: ReadonlySponsors = {
 		{
 			tier: "Platinum",
 			sponsors: [
-				{ 
-					name: "Wolfram", 
+				{
+					name: "Wolfram",
 					image: "/assets/svgs/sponsors/wolfram.svg",
-					link: "https://www.wolfram.com/"
+					link: "https://www.wolfram.com/",
 				},
-				{ 
-					name: "Genxyz", 
+				{
+					name: "Genxyz",
 					image: "/assets/svgs/sponsors/genxyz.svg",
-					link: "https://genxyz.io/"
+					link: "https://genxyz.io/",
 				},
 			],
 		},
@@ -21,27 +21,27 @@ export const sponsorsData: ReadonlySponsors = {
 				{
 					name: "Balsamiq",
 					image: "/assets/images/sponsors/balsamiq-logo.png",
-					link: "https://balsamiq.com/"
+					link: "https://balsamiq.com/",
 				},
 			],
 		},
 		{
 			tier: "Silver",
 			sponsors: [
-				{ 
-					name: "NordVPN", 
+				{
+					name: "NordVPN",
 					image: "/assets/svgs/sponsors/NordVPN.svg",
-					link: "https://nordvpn.com/"
+					link: "https://nordvpn.com/",
 				},
-				{ 
-					name: "Nordpass", 
-					image: "/assets/images/sponsors/nordpass.png", 
-					link: "https://nordpass.com/"
+				{
+					name: "Nordpass",
+					image: "/assets/images/sponsors/nordpass.png",
+					link: "https://nordpass.com/",
 				},
-				{ 
-					name: "Incogni", 
+				{
+					name: "Incogni",
 					image: "/assets/images/sponsors/incogni.png",
-					link: "https://incogni.io/"
+					link: "https://incogni.io/",
 				},
 			],
 		},

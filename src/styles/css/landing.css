@@ -18,9 +18,6 @@ body.scav .numberdisplay-number {
     user-drag: none;
     -webkit-user-drag: none;
     user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
 }
 
 #stand-logo-inner { transition: top 0.4s 0.4s ease; }

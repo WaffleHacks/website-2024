@@ -1,15 +1,20 @@
 "use client";
 
+import { cn } from "@/lib";
 import { motion } from "framer-motion";
 import { type Dispatch, type SetStateAction, useEffect, useRef } from "react";
 import { fadeInAnimationVariants } from "../constants";
 
 export const Modal = ({
 	children,
+
+	className,
 	isOpen,
 	onClose,
 }: {
 	children: React.ReactNode;
+
+	className?: string;
 	isOpen: boolean;
 	onClose: Dispatch<SetStateAction<boolean>>;
 }) => {
@@ -55,18 +60,21 @@ export const Modal = ({
 	return (
 		<section
 			className={`
-				fixed inset-0 z-50 flex items-center justify-center
-				backdrop:bg-black/60 backdrop:backdrop-blur-sm w-screen h-screen
+				fixed inset-0 z-50 flex flex-col items-center justify-center
+				backdrop:bg-black/80 backdrop:backdrop-blur-sm w-screen h-screen
 				${isOpen ? "block" : "hidden"}
 			`}
 			onClick={(e) => e.stopPropagation()}
 		>
 			<motion.dialog
 				ref={dialogRef}
-				className={`
+				className={cn(
+					`
 					border-none fixed inset-0 z-50 rounded-lg
 					focus:outline-none bg-white
-				`}
+				`,
+					className,
+				)}
 				variants={fadeInAnimationVariants}
 			>
 				{children}

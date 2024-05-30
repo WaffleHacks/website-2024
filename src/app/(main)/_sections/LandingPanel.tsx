@@ -1,7 +1,13 @@
 "use client";
-import React, { useEffect, useState, useRef, useLayoutEffect, useContext } from "react";
-import { DraggableCore, DraggableEvent } from 'react-draggable';
 import { ScavContext } from "@/components";
+import React, {
+	useEffect,
+	useState,
+	useRef,
+	useLayoutEffect,
+	useContext,
+} from "react";
+import { DraggableCore, type DraggableEvent } from "react-draggable";
 
 const NumberDisplay = ({ number, text }: { number: number; text: string }) => {
 	let num_chars = number.toString();
@@ -140,30 +146,42 @@ export const LandingPanel = () => {
 		// 	src: "/assets/svgs/landing/scav/wh_cut.svg",
 		// 	className: "absolute left-[42.9%] top-[7.1%] w-[14.85%]",
 		// },
-		
 	];
 
-
-	function rotateArcher(e: DraggableEvent){
+	function rotateArcher(e: DraggableEvent) {
 		if (!ctx.scavState) return;
 		// center of rotation is at 14.3vw, 5.5vw
-		let box = archerBox.current;
+		const box = archerBox.current;
 		if (!box) return;
-		let box_y_middle = box.getBoundingClientRect().top + box.getBoundingClientRect().height / 2;
-		let box_x_middle = box.getBoundingClientRect().left + box.getBoundingClientRect().width / 2;
+		const box_y_middle =
+			box.getBoundingClientRect().top + box.getBoundingClientRect().height / 2;
+		const box_x_middle =
+			box.getBoundingClientRect().left + box.getBoundingClientRect().width / 2;
 
-		let mouseX = e.clientX;
-		let mouseY = e.clientY;
-	
-		let angle = Math.atan2(mouseY - box_y_middle, mouseX - box_x_middle);
-		let degrees = angle * (180 / Math.PI);
+		const mouseX = e.clientX;
+		const mouseY = e.clientY;
+
+		const angle = Math.atan2(mouseY - box_y_middle, mouseX - box_x_middle);
+		const degrees = angle * (180 / Math.PI);
 		setArcherAngle(degrees);
-	  }
+	}
 
 	return (
-		<div className="font-mplus px-12 pt-44 h-screen w-full">
-
-			<img id='landing-blob' className="absolute top-24 right-0 h-[50%]" src="/assets/svgs/landing/scav/blob.svg" alt="" />
+		<div
+			className={`
+				font-mplus px-12 pt-44
+				h-[70vh] w-full
+			`}
+			style={{
+				maxWidth: "1536px",
+			}}
+		>
+			<img
+				id="landing-blob"
+				className="absolute top-24 right-0 h-[50%]"
+				src="/assets/svgs/landing/scav/blob.svg"
+				alt=""
+			/>
 
 			<h2 className="text-2xl font-normal">
 				Put your best code forward for the
@@ -214,34 +232,89 @@ export const LandingPanel = () => {
 						},
 					)}
 
-
 					{/* WH logo / stand */}
-					<div id='landing-wh-logo'>
-						<div className="absolute left-[42.9%] top-[7.1%] w-[14.85%]" style={{aspectRatio: '1/1'}}>
-						<img id="stand-sign" className="absolute left-[9%] top-[0%] w-[85%]" src="/assets/svgs/landing/scav/stand_sign.svg" alt="Sign" />
+					<div id="landing-wh-logo">
+						<div
+							className="absolute left-[42.9%] top-[7.1%] w-[14.85%]"
+							style={{ aspectRatio: "1/1" }}
+						>
+							<img
+								id="stand-sign"
+								className="absolute left-[9%] top-[0%] w-[85%]"
+								src="/assets/svgs/landing/scav/stand_sign.svg"
+								alt="Sign"
+							/>
 						</div>
 
-						<img id="stand-shadow" className="absolute left-[42.9%] top-[7.1%] w-[14.85%]" src="/assets/svgs/landing/scav/wh_cut_shadow.svg" alt="" />
-						<div className="overflow-hidden absolute left-[42.9%] top-[7.1%] w-[14.85%]" style={{aspectRatio: '1/1'}}>
-							<img className="absolute left-[14.7%] top-[14.9%] w-[70.5%]" src="/assets/svgs/landing/scav/stand_bkg.svg" alt="" />
-							<img id="stand-logo-inner" className="absolute left-[14.7%] top-[14.9%] w-[70.5%]" src="/assets/svgs/landing/scav/wh_inner.svg" alt="" />
-							<img id="stand-bar" className="absolute left-[24%] top-[100%] w-[52%]" src="/assets/svgs/landing/scav/stand_bar.svg" alt="" />
-							<img className="absolute top-0 left-0 w-full h-full" src="/assets/svgs/landing/scav/wh_cut.svg" alt="" />
+						<img
+							id="stand-shadow"
+							className="absolute left-[42.9%] top-[7.1%] w-[14.85%]"
+							src="/assets/svgs/landing/scav/wh_cut_shadow.svg"
+							alt=""
+						/>
+						<div
+							className="overflow-hidden absolute left-[42.9%] top-[7.1%] w-[14.85%]"
+							style={{ aspectRatio: "1/1" }}
+						>
+							<img
+								className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
+								src="/assets/svgs/landing/scav/stand_bkg.svg"
+								alt=""
+							/>
+							<img
+								id="stand-logo-inner"
+								className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
+								src="/assets/svgs/landing/scav/wh_inner.svg"
+								alt=""
+							/>
+							<img
+								id="stand-bar"
+								className="absolute left-[24%] top-[100%] w-[52%]"
+								src="/assets/svgs/landing/scav/stand_bar.svg"
+								alt=""
+							/>
+							<img
+								className="absolute top-0 left-0 w-full h-full"
+								src="/assets/svgs/landing/scav/wh_cut.svg"
+								alt=""
+							/>
 						</div>
 					</div>
 
 					{/* archer */}
 					<div>
-						<img className="absolute left-[30%] top-[63.55%] w-[3.36%]" src="/assets/svgs/landing/archer_lower.svg" alt="" />
-						<DraggableCore onDrag={rotateArcher} >
-						<div ref={archerBox} style={{transformOrigin: 'bottom', transform: `rotateZ(${ctx.scavState ? archerAngle : 0}deg)`}} className="absolute left-[27.25%] top-[40.3%] w-[10.2%] h-[25%]">
-							<img className="no-drag absolute left-[32.5%] top-[60%] w-[74%]" src="/assets/svgs/landing/archer_arrow.svg" alt="" />
-							<img className="no-drag absolute left-[66%] top-0 w-[35.4%]" src="/assets/svgs/landing/archer_bow.svg" alt="" />
-							<img className="no-drag absolute left-0 top-[33%] w-[100%]" src="/assets/svgs/landing/archer_upper.svg" alt="" />
-						</div>
+						<img
+							className="absolute left-[30%] top-[63.55%] w-[3.36%]"
+							src="/assets/svgs/landing/archer_lower.svg"
+							alt=""
+						/>
+						<DraggableCore onDrag={rotateArcher}>
+							<div
+								ref={archerBox}
+								style={{
+									transformOrigin: "bottom",
+									transform: `rotateZ(${ctx.scavState ? archerAngle : 0}deg)`,
+								}}
+								className="absolute left-[27.25%] top-[40.3%] w-[10.2%] h-[25%]"
+							>
+								<img
+									className="no-drag absolute left-[32.5%] top-[60%] w-[74%]"
+									src="/assets/svgs/landing/archer_arrow.svg"
+									alt=""
+								/>
+								<img
+									className="no-drag absolute left-[66%] top-0 w-[35.4%]"
+									src="/assets/svgs/landing/archer_bow.svg"
+									alt=""
+								/>
+								<img
+									className="no-drag absolute left-0 top-[33%] w-[100%]"
+									src="/assets/svgs/landing/archer_upper.svg"
+									alt=""
+								/>
+							</div>
 						</DraggableCore>
 					</div>
-
 				</div>
 			</div>
 

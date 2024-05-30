@@ -14,7 +14,6 @@ import {
 
 export const PageSections = () => {
 	const sections: { [key: string]: string } = {
-		landing: "Home",
 		about: "About",
 		calendar: "Calendar",
 		tracks: "Tracks and Awards",
@@ -27,7 +26,6 @@ export const PageSections = () => {
 		<>
 			{Object.entries(sections).map(([key, value]) => {
 				const Sections = {
-					landing: LandingPanel,
 					about: AboutPanel,
 					calendar: CalendarPanel,
 					tracks: TracksPanel,
@@ -41,7 +39,7 @@ export const PageSections = () => {
 					<section
 						id={Slugify(value.toLowerCase())}
 						key={key}
-						className={`flex items-center justify-center`}
+						className={`flex items-center justify-center border border-red-500 max-w-screen-2xl`}
 					>
 						{Sections && <Sections />}
 					</section>
