@@ -172,11 +172,11 @@ export const LandingPanel = () => {
 		const box_y_middle = boxRect.top + boxRect.height / 2;
 		const box_x_middle = boxRect.left + boxRect.width / 2;
 
-		const mouseX = e.clientX;
-		const mouseY = e.clientY;
-
-		const angle = Math.atan2(mouseY - box_y_middle, mouseX - box_x_middle);
-		const degrees = angle * (180 / Math.PI);
+		let mouseX = (e as any).clientX;
+		let mouseY = (e as any).clientY;
+	
+		let angle = Math.atan2(mouseY - box_y_middle, mouseX - box_x_middle);
+		let degrees = angle * (180 / Math.PI);
 		setArcherAngle(degrees);
 	}
 
@@ -189,33 +189,26 @@ export const LandingPanel = () => {
 
 		// initializa angles
 		// start with velocity of 10
-		setArrowPos({ x: 0, y: 0, angle: 0, vx: 10, vy: 0 });
+		setArrowPos({x: 0, y: 0, angle: 0, vx: 13, vy: 0})
 
 		arrowInterval.current = setInterval(() => {
-			setArrowPos((pos) => {
-				console.log("going");
-				const nextX = pos.x + pos.vx;
-				const nextY = pos.y + pos.vy;
-				const nextAngle = (Math.atan2(pos.vy, pos.vx) * 180) / Math.PI;
 
-				const aAngle = (archerAngle * Math.PI) / 180;
+			setArrowPos(pos => {
+				let nextX = pos.x + pos.vx;
+				let nextY = pos.y + pos.vy;
+				let nextAngle = Math.atan2(pos.vy, pos.vx) * 180 / Math.PI;
 
-				const gravity = [-Math.cos(aAngle), Math.sin(aAngle)];
-				const gravStrength = 0.15;
+				let aAngle = archerAngle * Math.PI / 180;
 
-				const nextVx = pos.vx + gravity[1] * gravStrength;
-				const nextVy = pos.vy - gravity[0] * gravStrength;
+				let gravStrength = 0.15;
 
-				let newPos = {
-					x: nextX,
-					y: nextY,
-					angle: nextAngle,
-					vx: nextVx,
-					vy: nextVy,
-				};
+				let nextVx = pos.vx + Math.sin(aAngle) * gravStrength;
+				let nextVy = pos.vy + Math.cos(aAngle) * gravStrength;
 
-				const ar = arrow.current;
-				if (!ar) {
+				let newPos = {x: nextX, y: nextY, angle: nextAngle, vx: nextVx, vy: nextVy};
+
+				let ar = arrow.current;
+				if (!ar){
 					clearInterval(arrowInterval.current as NodeJS.Timeout);
 					arrowInterval.current = null;
 					newPos = { x: 0, y: 0, angle: 0, vx: 0, vy: 0 };
@@ -240,13 +233,9 @@ export const LandingPanel = () => {
 	}
 
 	return (
-		<div className="font-mplus px-12 pt-44 h-screen w-full">
-			<img
-				id="landing-blob"
-				className="absolute top-24 right-0 h-[50%]"
-				src="/assets/svgs/landing/scav/blob.svg"
-				alt=""
-			/>
+		<div className="font-mplus px-2 sm:px-12 pt-44 h-screen w-full">
+
+			<img id='landing-blob' className="absolute top-24 right-0 h-[50%]" src="/assets/svgs/landing/scav/blob.svg" alt="" />
 
 			<h2 className="text-2xl font-normal">
 				Put your best code forward for the
@@ -345,6 +334,9 @@ export const LandingPanel = () => {
 							/>
 						</div>
 					</div>
+
+					<div ref={ctx.headspot1} className="absolute w-[3%] h-[6%] left-[63.2%] top-[47%] w-[14.85%] h-[14.85%]"></div>
+					<div ref={ctx.headspot2} className="absolute w-[3%] h-[6%] left-[81%] top-[9.4%] w-[14.85%] h-[14.85%]"></div>
 
 					{/* archer */}
 					<div>

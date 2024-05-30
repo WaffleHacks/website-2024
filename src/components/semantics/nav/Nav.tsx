@@ -1,25 +1,34 @@
 "use client";
-import { ScavContext } from "@/components/semantics/Semantics";
+
+import type React from "react";
+import { useContext, useRef, useState } from "react";
+
+import { ScavContext } from "@/components";
+
+import Image from "next/image";
+import Link from "next/link";
+
 import Switch from "@mui/material/Switch";
-import { Button } from "@nextui-org/button";
 import {
 	Navbar,
-	NavbarBrand,
 	NavbarContent,
 	NavbarItem,
 	NavbarMenu,
 	NavbarMenuItem,
 	NavbarMenuToggle,
 } from "@nextui-org/navbar";
-import Image from "next/image";
-import Link from "next/link";
-import type React from "react";
-import { useContext, useEffect, useRef, useState } from "react";
-import Draggable, {
-	type DraggableEvent,
+
+import { motion } from "framer-motion";
+
+import { Tooltip } from "@nextui-org/tooltip";
+
+import {
 	DraggableCore,
 	type DraggableData,
+	type DraggableEvent,
 } from "react-draggable";
+
+import { cn } from "@/lib";
 import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
 
 export const NavBar = () => {
@@ -35,23 +44,31 @@ export const NavBar = () => {
 		{ href: "#apply", text: "Apply Now" },
 	];
 
+	const [scrollTop, setScrollTop] = useState<number>(0);
+	const [navHide, setNavHide] = useState<boolean>(false);
+
+	useIsomorphicLayoutEffect(() => {
+		function onScroll(e: any) {
+			setScrollTop(e.target.documentElement.scrollTop);
+			if (scrollTop > 100) {
+				setNavHide(true);
+			} else setNavHide(false);
+		}
+		window.addEventListener("scroll", onScroll);
+
+		return () => window.removeEventListener("scroll", onScroll);
+	}, [scrollTop]);
+
 	const label = { inputProps: { "aria-label": "Scav switch" } };
 
-	const { scavState, setScavState } = useContext(ScavContext);
+	const { scavState, setScavState, headspot1, headspot2 } =
+		useContext(ScavContext);
 
 	const apple = useRef<HTMLImageElement>(null);
-	const [walkState, setWalkState] = useState(1);
 	const [appleImg, setAppleImg] = useState("apple1");
-	const [appleX, setAppleX] = useState(-100);
-	const [appleY, setAppleY] = useState(0);
+	const [appleX, setAppleX] = useState<number>(-100);
+	const [appleY, setAppleY] = useState<number>(0);
 	const interval = useRef<NodeJS.Timeout>();
-
-	function setScav(e: React.ChangeEvent<HTMLInputElement>) {
-		setScavState(e.target.checked);
-		if (e.target.checked) document.body.classList.add("scav");
-		else document.body.classList.remove("scav");
-		// console.log(e.target.checked);
-	}
 
 	const isMediumOrLarger = useMediaQuery("(min-width: 768px)");
 
@@ -76,13 +93,15 @@ export const NavBar = () => {
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
-	function appleInterval() {
-		const files: string[] = ["apple1", "apple2", "apple3", "apple2"];
-		setWalkState((walk) => {
-			const nextWalk: number = (walk + 1) % 4;
+	function setScav(e: React.ChangeEvent<HTMLInputElement>) {
+		setScavState(e.target.checked);
+		if (e.target.checked) document.body.classList.add("scav");
+		else document.body.classList.remove("scav");
+		console.log(e.target.checked);
+	}
 
-			return nextWalk;
-		});
+	function appleInterval() {
+		const files = ["apple1", "apple2", "apple3", "apple2"];
 
 		setAppleX((x) => {
 			let nextX = x + 1;
@@ -117,11 +136,48 @@ export const NavBar = () => {
 		if (!navRect) return;
 		const apRect = ap.getBoundingClientRect();
 
+		let h1: [number, number, number, number] = [-1000, -1000, -1000, -1000];
+		let h2: [number, number, number, number] = [-1000, -1000, -1000, -1000];
+
+		if (headspot1?.current) {
+			h1 = [
+				headspot1.current.getBoundingClientRect().left,
+				headspot1.current.getBoundingClientRect().right,
+				headspot1.current.getBoundingClientRect().top,
+				headspot1.current.getBoundingClientRect().bottom,
+			];
+		}
+		if (headspot2?.current) {
+			h2 = [
+				headspot2.current.getBoundingClientRect().left,
+				headspot2.current.getBoundingClientRect().right,
+				headspot2.current.getBoundingClientRect().top,
+				headspot2.current.getBoundingClientRect().bottom,
+			];
+		}
+
 		const mouseX = pos.x - (pos.lastX - apRect.right);
 		const mouseY = pos.y - (pos.lastY - apRect.bottom);
 
-		setAppleY(navRect.bottom - mouseY);
-		setAppleX(window.innerWidth - mouseX);
+		const mx = (e as any).clientX;
+		const my = (e as any).clientY;
+
+		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]) {
+			setAppleY(navRect.bottom - h1[3] - apRect.height / 8);
+			setAppleX(
+				window.innerWidth - (h1[0] + h1[1]) / 2 - (3 * apRect.width) / 5,
+			);
+			console.log("on h1", h1);
+		} else if (mx > h2[0] && mx < h2[1] && my > h2[2] && my < h2[3]) {
+			setAppleY(navRect.bottom - h2[3] - apRect.height / 8);
+			setAppleX(
+				window.innerWidth - (h2[0] + h2[1]) / 2 - (3 * apRect.width) / 5,
+			);
+			console.log("on h2", h2);
+		} else {
+			setAppleY(navRect.bottom - mouseY);
+			setAppleX(window.innerWidth - mouseX);
+		}
 
 		setAppleImg("applesit");
 	}
@@ -140,80 +196,100 @@ export const NavBar = () => {
 	}
 
 	return (
-		<Navbar
-			className="navbar fixed top-0 left-0 z-50 py-6 shadow-lg font-semibold bg-white flex justify-between items-center px-4 md:px-8 w-full transition-all duration-300 ease-in-out"
-			disableAnimation
-			isBordered
-		>
+		<>
+			<Navbar
+				className={cn(
+					"",
+					`
+					navbar fixed top-0 z-50
+					w-full flex flex-row h-[100px] p-4
+					shadow-lg font-semibold items-center
+					justify-center px-4 mx-auto
+				`,
+				)}
+			>
+				<motion.div
+					transition={{ duration: 0.5, type: "tween", ease: "easeInOut" }}
+					initial={{ y: "-100%" }}
+					animate={{ y: "0%" }}
+					className={`
+						flex items-center justify-between 
+						p-5 w-full max-w-screen-xl mx-auto
+					`}
+				>
+					<div className="flex gap-8 justify-center items-center">
+						<Image
+							src={`/assets/svgs/header.png`}
+							alt={``}
+							height={80}
+							width={80}
+						/>
+						{Links.map((link, index) => (
+							<NavbarItem key={index} className="hidden sm:flex">
+								<Link href={link.href}>
+									<p>{link.text}</p>
+								</Link>
+							</NavbarItem>
+						))}
+					</div>
+					<div
+						className={`
 
-			<NavbarContent className="sm:hidden pr-3" justify="center">
-				<NavbarBrand>
-					<Image src={`/assets/svgs/header.png`} alt={`ACME`} height={80} width={80} />
-					<p className="font-bold text-inherit">ACME</p>
-				</NavbarBrand>
-			</NavbarContent>
+					`}
+					>
+						<form className="sm:flex justify-end mr-8 items-center hidden">
+							<Tooltip
+								placement="bottom"
+								content="Toggle Scavenger Hunt Mode"
+								color="primary"
+								offset={-5}
+							>
+								<Switch {...label} onChange={setScav} value={scavState} />
+							</Tooltip>
+						</form>
+						<NavbarContent className="sm:hidden flex" justify="start">
+							<NavbarMenuToggle />
+						</NavbarContent>
 
-			<NavbarContent className="hidden sm:flex gap-4" justify="center">
-				<NavbarBrand>
-					<Image src={`/assets/svgs/header.png`} alt={`ACME`} height={80} width={80} />
-					<p className="font-bold text-inherit">ACME</p>
-				</NavbarBrand>
-				{Links.slice(0, 3).map((link, index) => (
-					<NavbarItem key={index}>
-						<Link href={link.href}>
-							<p>{link.text}</p>
-						</Link>
-					</NavbarItem>
-				))}
-				<Image src={`/assets/svgs/header.png`} alt={`ACME`} height={80} width={80} />
-				{Links.slice(3).map((link, index) => (
-					<NavbarItem key={index}>
-						<Link href={link.href}>
-							<p>{link.text}</p>
-						</Link>
-					</NavbarItem>
-				))}
-			</NavbarContent>
+						<NavbarMenu className="">
+							{Links.map((link, index) => (
+								<NavbarMenuItem key={index}>
+									<Link href={link.href}>
+										<p className="text-lg">{link.text}</p>
+									</Link>
+								</NavbarMenuItem>
+							))}
+							<form className="justify-end mr-8 items-center">
+								<Tooltip
+									placement="bottom"
+									content="Toggle Scavenger Hunt Mode"
+									color="primary"
+									offset={-5}
+								>
+									<Switch {...label} onChange={setScav} value={scavState} />
+								</Tooltip>
+							</form>
+						</NavbarMenu>
+					</div>
 
-
-			<NavbarMenu>
-				{Links.map((item, index) => (
-					<NavbarMenuItem key={index}>
-						<Link
-							className="w-full"
-							color={index === 2 ? "warning" : index === Links.length - 1 ? "danger" : "foreground"}
-							href={item.href}
-						>
-							{item.text}
-						</Link>
-					</NavbarMenuItem>
-				))}
-			</NavbarMenu>
-
-			<NavbarContent className="sm:hidden" justify="start">
-				<NavbarMenuToggle />
-				<form action="">
-					<Switch {...label} onChange={setScav} checked={scavState}/>
-					<label>Scavenger Hunt</label>
-				</form>
-			</NavbarContent>
-
-			{scavState && (
-				<DraggableCore onDrag={appleDrag} onStop={appleDragStop}>
-					<img
-						ref={apple}
-						src={`/assets/svgs/nav/${appleImg}.svg`}
-						alt="apple"
-						className="no-drag"
-						style={{
-							position: "absolute",
-							bottom: appleY + "px",
-							width: "4rem",
-							right: appleX + "px",
-						}}
-					/>
-				</DraggableCore>
-			)}
-		</Navbar>
+					{scavState && (
+						<DraggableCore onDrag={appleDrag} onStop={appleDragStop}>
+							<img
+								ref={apple}
+								src={`/assets/svgs/nav/${appleImg}.svg`}
+								alt="apple"
+								className="no-drag"
+								style={{
+									position: "absolute",
+									bottom: `${appleY}px`,
+									width: "4rem",
+									right: `${appleX}px`,
+								}}
+							/>
+						</DraggableCore>
+					)}
+				</motion.div>
+			</Navbar>
+		</>
 	);
 };
