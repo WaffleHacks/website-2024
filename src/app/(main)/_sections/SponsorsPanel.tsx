@@ -19,11 +19,11 @@ export const SponsorsPanel: React.FC = () => {
 		tierData: { tier: string },
 	): string => {
 		if (selectedTier === "Platinum" && tierData.tier === "Platinum") {
-			return "bg-gray-300";
+			return "bg-blue-300";
 		} else if (selectedTier === "Gold" && tierData.tier === "Gold") {
 			return "bg-yellow-300";
 		} else if (selectedTier === "Silver" && tierData.tier === "Silver") {
-			return "bg-gray-500";
+			return "bg-gray-400";
 		} else if (selectedTier === "Bronze" && tierData.tier === "Bronze") {
 			return "bg-orange-300";
 		} else {
@@ -32,7 +32,7 @@ export const SponsorsPanel: React.FC = () => {
 	};
 	return (
 		<article
-			className="font-mplus p-8 w-full"
+			className="font-mplus p-8 w-screen"
 			style={{
 				maxWidth: "1536px",
 			}}
@@ -44,26 +44,20 @@ export const SponsorsPanel: React.FC = () => {
 				Sponsors
 			</h2>
 			<div
-				className={`
-					flex flex-row justify-center
-					mb-8 flex-wrap 
-				`}
+				className="flex flex-row justify-center mb-8 flex-wrap"
 				aria-label={`Sponsors`}
 			>
 				{sponsorsData.tiers.map((tierData, index) => (
 					<menu
 						key={index + 1}
-						className={`flex flex-col items-center justify-center`}
+						className="flex flex-col items-center justify-center"
 					>
 						<li>
 							<Button
 								onClick={() => setSelectedTier(tierData.tier)}
-								className={`
-                  mx-2 px-2 py-4 border rounded-lg 
-                  flex flex-row items-center
-									justify-center gap-2
-                  ${getBackgroundColor(selectedTier, tierData)}
-                `}
+								className={`mx-2 px-2 py-4 border rounded-lg flex flex-row items-center justify-center gap-2
+											${getBackgroundColor(selectedTier, tierData)}
+										`}
 							>
 								<Image
 									src={`/assets/svgs/sponsors/tier/${tierData.tier.toLowerCase()}.svg`}
@@ -89,10 +83,7 @@ export const SponsorsPanel: React.FC = () => {
 				))}
 			</div>
 			<article
-				className={`
-					flex flex-row items-center justify-center gap-4 overflow-x-auto overflow-y-hidden  
-					h-[300px] max-w-screen-xl mx-auto
-				`}
+				className="flex flex-row flex-wrap items-center justify-center p-4 gap-4"
 			>
 				{selectedTier &&
 					sponsorsData.tiers
@@ -106,28 +97,15 @@ export const SponsorsPanel: React.FC = () => {
 										: `https://www.google.com/search?q=${sponsor.name}`
 								}`}
 								rel="noopener noreferrer"
-								className={`
-  
-                  relative h-fit w-fit
-
-									rounded-lg shadow-lg border-none
-                `}
+								className="relative h-fit w-fit rounded-lg shadow-lg border-none"
 							>
 								<Card
-									className={`
-                    relative p-4
-										h-[175px] w-[300px]
-										flex flex-col items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-105
-                  `}
+									className="relative p-4 h-[175px] w-[300px] flex flex-col items-center justify-center transition-all duration-300 hover:scale-105"
 								>
 									<Image
 										src={sponsor.image}
 										alt={sponsor.name}
-										className={`
-												object-fit transition-all
-												w-full h-full
-												overflow-hidden
-                    `}
+										className="object-fit transition-all w-full h-full overflow-hidden"
 										fetchPriority={`low`}
 										sizes={`(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px`}
 									/>
