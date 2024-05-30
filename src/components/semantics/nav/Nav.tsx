@@ -42,14 +42,7 @@ export const NavBar = () => {
 	const [appleX, setAppleX] = useState(-100);
 	const [appleY, setAppleY] = useState(0);
 	const interval = useRef<NodeJS.Timeout>();
-
-
-	function setScav(e: React.ChangeEvent<HTMLInputElement>) {
-		setScavState(e.target.checked);
-		if (e.target.checked) document.body.classList.add("scav");
-		else document.body.classList.remove("scav");
-		console.log(e.target.checked);
-	}
+	const lastMousePos = useRef({x: 0, y: 0});
 
 	const isMediumOrLarger = useMediaQuery("(min-width: 768px)");
 
@@ -73,11 +66,19 @@ export const NavBar = () => {
 		window.addEventListener("scroll", handleScroll);
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
+
+
+	function setScav(e: React.ChangeEvent<HTMLInputElement>) {
+		setScavState(e.target.checked);
+		if (e.target.checked) document.body.classList.add("scav");
+		else document.body.classList.remove("scav");
+		console.log(e.target.checked);
+	}
+
 	function appleInterval() {
 		let files = ['apple1', 'apple2', 'apple3', 'apple2'];
 		setWalkState(walk => {
 			let nextWalk = (walk + 1) % 4
-			
 			return nextWalk
 		});
 		
@@ -105,7 +106,6 @@ export const NavBar = () => {
 		return () => clearInterval(interval.current);
 	}, [scavState]);
 
-	
 	function appleDrag(e: DraggableEvent, pos: DraggableData){
 		clearInterval(interval.current);
 
@@ -170,15 +170,14 @@ export const NavBar = () => {
 		}
 	}
 
-
 	return (
 		<>
-			<Navbar
+			<nav
 				className={`
-					navbar fixed top-0 left-0 z-50
+					navbar absolute top-0 left-0 z-50
 					py-6 shadow-lg font-semibold
-				bg-white flex justify-between
-					items-center px-4 md:px-8 w-full
+					bg-white flex justify-between
+					items-center px-4 md:px-8 w-screen
 					transition-all duration-300 ease-in-out
 				`}
 			>
@@ -238,7 +237,7 @@ export const NavBar = () => {
 					</DraggableCore>
 				}
 				
-			</Navbar>
+			</nav>
 		</>
 	);
 };
