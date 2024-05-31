@@ -148,6 +148,7 @@ export const NavBar = () => {
 		else {
 			setAppleY(navRect.bottom - mouseY);
 			setAppleX(window.innerWidth - mouseX);
+			archer.activeHeadSpot = -1;
 		}
 
 		setAppleImg("applesit");

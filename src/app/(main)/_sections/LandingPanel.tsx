@@ -36,12 +36,15 @@ export const LandingPanel = () => {
 	const arrow = useRef<HTMLImageElement>(null);
 	const arrowInterval = useRef<NodeJS.Timeout | null>(null);
 
+	const swordElement = useRef<HTMLImageElement>(null);
+
 	const road = useRef<HTMLImageElement>(null);
 	const backWheel = useRef<HTMLImageElement>(null);
 	const frontWheel = useRef<HTMLImageElement>(null);
 	const biker = useRef<HTMLDivElement>(null);
 	const [bikingForwards, setBikingForwards] = useState(false);
 	const [bikerPos, setBikerPos] = useState({x: 0, y: 0, falling: false});
+	const [bikerGone, setBikerGone] = useState(false);
 	const bikerInterval = useRef<NodeJS.Timeout | null>(null);
 	const tennisPlayer = useRef<HTMLImageElement>(null);
 	const tennisPf = useRef<HTMLImageElement>(null);
@@ -181,7 +184,6 @@ export const LandingPanel = () => {
 				) {
 					clearInterval(arrowInterval.current as NodeJS.Timeout);
 					ctx.archer.headshot = true;
-					console.log("hit headshot");
 					return newPos;
 				}
 
@@ -202,7 +204,8 @@ export const LandingPanel = () => {
 	}
 
 	function dragSword(e: DraggableEvent){
-		let sword = e.target as HTMLImageElement;
+		if (!swordElement.current) return;
+		let sword = swordElement.current;
 		let swordRect = sword.getBoundingClientRect();
 		// get left middle
 		let swordX = swordRect.left;
@@ -232,7 +235,6 @@ export const LandingPanel = () => {
 			bikerInterval.current = null;
 			return;
 		}
-		console.log('going', ctx.scavState);
 		setBikerPos(prevPos => {
 			if (!bikingForwards) return prevPos;
 			if (!road.current || !tennisPf.current) return prevPos;
@@ -240,7 +242,6 @@ export const LandingPanel = () => {
 			if (!frontWheel.current || !backWheel.current) return prevPos;
 			if (!tennisPlayer.current) return prevPos;
 			
-
 			// if both wheels are popped, stop
 			if(ctx.biker.frontWheelPopped && ctx.biker.backWheelPopped){
 				setBikingForwards(false);
@@ -251,7 +252,6 @@ export const LandingPanel = () => {
 
 			let bikerRect = biker.current.getBoundingClientRect();
 			let frontWheelRect = frontWheel.current.getBoundingClientRect();
-			let backWheelRect = backWheel.current.getBoundingClientRect();
 			let tennisPlayerRect = tennisPlayer.current.getBoundingClientRect();
 			let roadRect = road.current.getBoundingClientRect();
 			let tennisPfRect = tennisPf.current.getBoundingClientRect();
@@ -274,6 +274,13 @@ export const LandingPanel = () => {
 
 			let nextY = bikerPos.y;
 			if (falling) nextY += 1;
+
+			if (bikerPos.y > window.innerHeight) {
+				setBikerGone(true);
+				setBikingForwards(false);
+				clearInterval(bikerInterval.current as NodeJS.Timeout);
+				bikerInterval.current = null;
+			}
 
 			return {x: nextX, y: nextY, falling: falling};
 		}
@@ -490,6 +497,7 @@ export const LandingPanel = () => {
 							transformOrigin: "bottom center",
 							top: ctx.scavState ? `calc(${bikerPos.y}% + 13.7%)` : "13.7%",
 							left: ctx.scavState ? `calc(${bikerPos.x}% + 9.4%)` : "9.4%",
+							display: (ctx.scavState && bikerGone) ? "none" : "block"
 						}}
 					>
 						<img 
@@ -525,6 +533,7 @@ export const LandingPanel = () => {
 					{/* stabby */}
 					<Draggable onDrag={e => dragSword(e)} disabled={!ctx.scavState} position={ctx.scavState ? undefined : {x: 0, y: 0}}>
 						<img 
+							ref={swordElement}
 							className="no-drag absolute left-[72.2%] top-[22.5%] w-[5.8%]"
 							src="/assets/svgs/landing/fencer_sword.svg" 
 							alt="" />
