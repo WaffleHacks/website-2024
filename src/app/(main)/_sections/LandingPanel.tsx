@@ -35,6 +35,7 @@ export const LandingPanel = () => {
 	const archerBox = useRef<HTMLDivElement>(null);
 	const arrow = useRef<HTMLImageElement>(null);
 	const arrowInterval = useRef<NodeJS.Timeout | null>(null);
+	const gotHeadshot = useRef(false);
 
 	const swordElement = useRef<HTMLImageElement>(null);
 
@@ -47,7 +48,6 @@ export const LandingPanel = () => {
 	const [bikerGone, setBikerGone] = useState(false);
 	const bikerInterval = useRef<NodeJS.Timeout | null>(null);
 	const tennisPlayer = useRef<HTMLImageElement>(null);
-	const tennisPf = useRef<HTMLImageElement>(null);
 
 	const container = useRef<HTMLDivElement>(null);
 	const img_box = useRef<HTMLDivElement>(null);
@@ -182,9 +182,10 @@ export const LandingPanel = () => {
 						arrowIntersectsBox(box, h1)) ||
 					(ctx.archer.activeHeadSpot == 2 && h2 && arrowIntersectsBox(box, h2))
 				) {
-					clearInterval(arrowInterval.current as NodeJS.Timeout);
-					ctx.archer.headshot = true;
-					return newPos;
+					// clearInterval(arrowInterval.current as NodeJS.Timeout);
+					gotHeadshot.current = true;
+					// ctx.archer.setHeadshot(true);
+					// return newPos;
 				}
 
 				if (
@@ -237,7 +238,7 @@ export const LandingPanel = () => {
 		}
 		setBikerPos(prevPos => {
 			if (!bikingForwards) return prevPos;
-			if (!road.current || !tennisPf.current) return prevPos;
+			if (!road.current || !ctx.archer.landing1?.current) return prevPos;
 			if (!biker.current) return prevPos;
 			if (!frontWheel.current || !backWheel.current) return prevPos;
 			if (!tennisPlayer.current) return prevPos;
@@ -254,7 +255,7 @@ export const LandingPanel = () => {
 			let frontWheelRect = frontWheel.current.getBoundingClientRect();
 			let tennisPlayerRect = tennisPlayer.current.getBoundingClientRect();
 			let roadRect = road.current.getBoundingClientRect();
-			let tennisPfRect = tennisPf.current.getBoundingClientRect();
+			let tennisPfRect = ctx.archer.landing1.current.getBoundingClientRect();
 
 			// if biker intersects tennis player while the apple is on their head, stop
 			if(boxesIntersect(bikerRect, tennisPlayerRect) && ctx.archer.activeHeadSpot == 1){
@@ -299,6 +300,12 @@ export const LandingPanel = () => {
 			
 		}
 	}
+
+	useEffect(() => {
+		if (gotHeadshot.current && !ctx.archer.headshot){
+			ctx.archer.setHeadshot(true);
+		}
+	}, [arrowPos, ctx.archer.headshot]);
 
 	useEffect(() => {
 		if (!ctx.scavState) {
@@ -354,9 +361,17 @@ export const LandingPanel = () => {
 						className="absolute left-[-0.2%] top-[31.5%] w-[32.9%]"
 					/>
 
+					{/* fencer platform */}
+					<img
+						ref={ctx.archer.landing2}
+						src="/assets/svgs/landing/fencer_pf.svg"
+						className="no-drag absolute left-[68.2%] top-[31.5%] w-[31%]"
+						alt="road"
+					/>
+
 					{/* tennis platform */}
 					<img
-						ref={tennisPf}
+						ref={ctx.archer.landing1}
 						src="/assets/svgs/landing/tennis_pf.svg"
 						className="no-drag absolute left-[50.05%] top-[67.9%] w-[31%]"
 						alt="road"

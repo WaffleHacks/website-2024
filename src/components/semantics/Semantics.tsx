@@ -11,7 +11,10 @@ interface ScavContextParameters {
 	archer: {
 		headspot1: React.MutableRefObject<HTMLDivElement | null> | null;
 		headspot2: React.MutableRefObject<HTMLDivElement | null> | null;
+		landing1: React.MutableRefObject<HTMLImageElement | null> | null;
+		landing2: React.MutableRefObject<HTMLImageElement | null> | null;
 		headshot: boolean;
+		setHeadshot: (state: boolean) => void;
 		activeHeadSpot: number;
 	};
 	biker: {
@@ -28,8 +31,11 @@ export const ScavContext = createContext<ScavContextParameters>({
 	archer: {
 		headspot1: null,
 		headspot2: null,
+		landing1: null,
+		landing2: null,
 		headshot: false,
-		activeHeadSpot: -1,
+		setHeadshot: (state: boolean) => {},
+		activeHeadSpot: -1
 	},
 	biker: {
 		backWheelPopped: false,
@@ -47,6 +53,7 @@ export const Semantics: React.FC<
 	const [scavState, setScavState] = useState<boolean>(false);
 	const [backWheelPopped, setBackWheelPopped] = useState<boolean>(false);
 	const [frontWheelPopped, setFrontWheelPopped] = useState<boolean>(false);
+	const [headshot, setHeadshot] = useState<boolean>(false);
 
 	return (
 		<>
@@ -57,7 +64,10 @@ export const Semantics: React.FC<
 					archer: {
 						headspot1: useRef<HTMLDivElement | null>(null),
 						headspot2: useRef<HTMLDivElement | null>(null),
-						headshot: false,
+						landing1: useRef<HTMLImageElement | null>(null),
+						landing2: useRef<HTMLImageElement | null>(null),
+						headshot,
+						setHeadshot,
 						activeHeadSpot: -1,
 					},
 					biker: {

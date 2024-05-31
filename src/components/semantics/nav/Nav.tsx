@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { ScavContext } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,6 +30,8 @@ export const NavBar = () => {
 		{ href: "#apply", text: "Apply Now" },
 	];
 
+	const [mobileDown, setMobileDown] = useState(false);
+
 	const label = { inputProps: { "aria-label": "Scav switch" } };
 
 	let {scavState, setScavState, archer} = useContext(ScavContext);
@@ -38,7 +40,9 @@ export const NavBar = () => {
 	const [appleImg, setAppleImg] = useState("apple1");
 	const [appleX, setAppleX] = useState<number>(-100);
 	const [appleY, setAppleY] = useState<number>(0);
-	const interval = useRef<NodeJS.Timeout>();
+	const walkIinterval = useRef<NodeJS.Timeout>();
+	const fallInterval = useRef<NodeJS.Timeout | null>();
+	const fallSpeed = useRef(1);
 
 	const [_scrollDirection, setScrollDirection] = useState("scroll-up");
 
@@ -85,20 +89,20 @@ export const NavBar = () => {
 	}
 
 	useIsomorphicLayoutEffect(() => {
-		if (interval.current) {
-			clearInterval(interval.current);
+		if (walkIinterval.current) {
+			clearInterval(walkIinterval.current);
 		}
 		if (scavState) {
-			interval.current = setInterval(appleInterval, 25);
+			walkIinterval.current = setInterval(appleInterval, 25);
 		}
 		else {
 			setAppleY(0);
 		}
-		return () => clearInterval(interval.current);
+		return () => clearInterval(walkIinterval.current);
 	}, [scavState]);
 
 	function appleDrag(e: DraggableEvent, pos: DraggableData) {
-		clearInterval(interval.current);
+		clearInterval(walkIinterval.current);
 
 		const ap = apple.current;
 		if (!ap) return;
@@ -163,11 +167,49 @@ export const NavBar = () => {
 			ap.style.bottom = "0";
 			ap.style.top = "unset";
 			setAppleY(0);
-			interval.current = setInterval(appleInterval, 25);
+			walkIinterval.current = setInterval(appleInterval, 25);
 		}
 	}
 
-	const [mobileDown, setMobileDown] = useState(false);
+	function appleFall() {
+		if (!apple.current) return;
+		if (!archer.headshot) return;
+		if (!archer.landing1?.current || !archer.landing2?.current) return;
+
+		const landing1 = archer.landing1.current.getBoundingClientRect();
+		const landing2 = archer.landing2.current.getBoundingClientRect();
+		const ap = apple.current.getBoundingClientRect();
+
+		let l1_mid = landing1.top + landing1.height/2;
+		let l2_mid = landing2.top + landing2.height/2;
+
+		// fall to center of landing
+		// check for head 1 (tennis, lower)
+		if ((ap.left > landing1.left && ap.right < landing1.right && ap.bottom < l1_mid) || 
+			(ap.left > landing2.left && ap.right < landing2.right && ap.bottom < l2_mid)) {
+			setAppleY(y => y - fallSpeed.current);
+			fallSpeed.current += 0.5;
+		}
+		else {
+			clearInterval(fallInterval.current as NodeJS.Timeout);
+			fallInterval.current = null;
+		}
+
+	}
+
+	useEffect(() => {
+		if (!scavState) return () => {
+			clearInterval(fallInterval.current as NodeJS.Timeout);
+			fallInterval.current = null;
+		};
+
+		if (archer.headshot && !fallInterval.current) {
+			fallSpeed.current = 1;
+			fallInterval.current = setInterval(appleFall, 25);
+		}
+	}, [scavState, archer.headshot]);
+
+	
 
 	return (
 		<div>
@@ -232,7 +274,7 @@ export const NavBar = () => {
 					</button>
 
 					{scavState && (
-						<DraggableCore onDrag={appleDrag} onStop={appleDragStop}>
+						<DraggableCore onDrag={appleDrag} onStop={appleDragStop} disabled={archer.headshot}>
 							<img
 								ref={apple}
 								src={`/assets/svgs/nav/${appleImg}.svg`}
