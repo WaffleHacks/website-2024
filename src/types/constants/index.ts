@@ -1,4 +1,5 @@
 import type { HTMLMotionProps } from "framer-motion";
+import { Key } from "react";
 
 export interface LegalLinks {
 	href: string;
@@ -28,7 +29,7 @@ export interface SemanticProps<T extends Semantics>
 	element?: T;
 	framerProps?: HTMLMotionProps<T>;
 	attributes?: JSX.IntrinsicElements[T];
-	key?: string | number;
+	key?: Key | null | undefined;
 	style?: React.CSSProperties;
 	className?: string;
 }

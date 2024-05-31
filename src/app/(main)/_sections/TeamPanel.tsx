@@ -132,7 +132,7 @@ export const TeamPanel = () => {
 								<Slide key={`${mem}-${index}`} delay={(index + 1) * 0.1}>
 									<motion.div
 										className={`
-											relative overflow-hidden h-[280px] min-w-[280px] bg-slate-200 hover:bg-slate-400 transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer
+											relative overflow-hidden h-[280px] min-w-[280px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer
 										`}
 										onClick={() => {
 											setShowOverlay(mem);
@@ -159,7 +159,7 @@ export const TeamPanel = () => {
 												alt={mem}
 												fill={true}
 												fetchPriority="high"
-												className="object-cover"
+												className="object-cover mix-blend-multiply"
 												placeholder="blur"
 												blurDataURL={lazyImages[fileToName(mem) as string]}
 												sizes="(min-width: 1280px) 280px, (min-width: 1024px) 250px, (min-width: 768px) 200px"

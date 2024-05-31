@@ -73,11 +73,12 @@
     font-size: 1.15rem;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .swiper-slide {
         width: min(90vw, 25rem) !important;
         flex-direction: column;
     }
+
     .track-photo {
         width: 80%;
         height: unset;

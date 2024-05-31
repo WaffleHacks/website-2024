@@ -1,13 +1,13 @@
 "use client";
 import { sponsorsData } from "@/constants";
+import { Slugify } from "@/utils";
 import { Button } from "@nextui-org/button";
-import { Card, Image } from "@nextui-org/react";
+import { Card, CardBody, Image } from "@nextui-org/react";
 import Link from "next/link";
 import type React from "react";
 import { useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
-
-export const SponsorsPanel: React.FC = () => {
+export const SponsorsPanel = () => {
 	const [selectedTier, setSelectedTier] = useState<string>("Platinum");
 	const isXLarge = useMediaQuery("(min-width: 1280px)");
 	const isLarge = useMediaQuery("(min-width: 1024px)");
@@ -31,19 +31,14 @@ export const SponsorsPanel: React.FC = () => {
 		}
 	};
 	return (
-		<article
-			className="font-mplus p-8 w-screen"
-			style={{
-				maxWidth: "1536px",
-			}}
-		>
+		<article className="font-mplus p-8 w-screen-2xl mx-auto">
 			<div
-				className="flex flex-row justify-center mb-8 flex-wrap"
+				className="flex flex-row justify-center mb-8 flex-wrap max-w-screen-2xl mx-auto"
 				aria-label={`Sponsors`}
 			>
 				{sponsorsData.tiers.map((tierData, index) => (
 					<menu
-						key={index + 1}
+						key={Slugify((index + 1).toString())}
 						className="flex flex-col items-center justify-center"
 					>
 						<li>
@@ -76,40 +71,60 @@ export const SponsorsPanel: React.FC = () => {
 					</menu>
 				))}
 			</div>
-			<article
-				className="flex flex-row flex-wrap items-center justify-center p-4 gap-4"
-			>
+			<article className="flex flex-row flex-wrap items-center justify-center p-4 gap-4">
 				{selectedTier &&
 					sponsorsData.tiers
 						.find((tierData) => tierData.tier === selectedTier)
-						?.sponsors.map((sponsor, sponsorIndex) => (
-							<Link
-								key={sponsorIndex + 1}
-								href={`${
-									sponsor.link
-										? sponsor.link
-										: `https://www.google.com/search?q=${sponsor.name}`
-								}`}
-								target={`_blank`}
-								rel="noopener noreferrer"
-								className={`
-                  relative h-fit w-fit
-									rounded-lg shadow-lg border-none
-                `}
-							>
-								<Card
-									className="relative p-4 h-[175px] w-[300px] flex flex-col items-center justify-center transition-all duration-300 hover:scale-105"
-								>
-									<Image
-										src={sponsor.image}
-										alt={sponsor.name}
-										className="object-fit transition-all w-full h-full overflow-hidden"
-										fetchPriority={`low`}
-										sizes={`(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px`}
-									/>
-								</Card>
-							</Link>
-						))}
+						?.sponsors.map((sponsor, sponsorIndex) => {
+							return (
+								<>
+									{Object.keys(sponsor).length === 0 &&
+									sponsor.constructor === Object ? (
+										<>
+											<Card
+												key={sponsorIndex + 1}
+												className="relative p-4 h-[175px] w-[300px] flex flex-col items-center justify-center transition-all duration-300 hover:scale-105"
+											>
+												<CardBody>
+													<>
+														<h3 className="text-lg font-bold">
+															{selectedTier}
+														</h3>
+													</>
+												</CardBody>
+											</Card>
+										</>
+									) : (
+										<>
+											<Link
+												key={sponsorIndex + 1}
+												href={`${
+													sponsor.link
+														? sponsor.link
+														: `https://www.google.com/search?q=${sponsor.name}`
+												}`}
+												target={`_blank`}
+												rel="noopener noreferrer"
+												className={`
+										relative h-fit w-fit
+										rounded-lg shadow-lg border-none
+              		  `}
+											>
+												<Card className="relative p-4 h-[175px] w-[300px] flex flex-col items-center justify-center transition-all duration-300 hover:scale-105">
+													<Image
+														src={sponsor.image}
+														alt={sponsor.name}
+														className="object-fit transition-all w-full h-full overflow-hidden mix-blend-multiply"
+														fetchPriority={`low`}
+														sizes={`(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px`}
+													/>
+												</Card>
+											</Link>
+										</>
+									)}
+								</>
+							);
+						})}
 			</article>
 		</article>
 	);

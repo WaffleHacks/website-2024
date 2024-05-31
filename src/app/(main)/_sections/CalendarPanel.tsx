@@ -2,6 +2,9 @@
 import React, { useState } from "react";
 import CalendarDescription from "./CalendarDescription";
 import { CalendarDescriptionType as CDT } from "./CalendarDescription";
+import { Button } from "@nextui-org/button";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { Picture } from "@/components";
 
 interface EventStructure {
 	title: string;
@@ -12,11 +15,13 @@ interface EventStructure {
 }
 
 interface EventList {
-	[key: string]: (EventStructure | null)[];
+	[key: string]: (EventStructure | unknown)[];
 }
 
+const calendarButton: string = "flex items-center justify-center rounded-lg bg-yellow-500 w-10 h-10";
+
 export const CalendarPanel = () => {
-	const [eventIndex, setEventIndex] = useState(0);
+	const [eventIndex, setEventIndex] = useState<number>(0);
 	const eventOrder: string[] = [
 		"Friday, June 21st",
 		"Saturday, June 22nd",
@@ -25,13 +30,13 @@ export const CalendarPanel = () => {
 	const events: { [key: string]: EventList } = {
 		"Friday, June 21st": {
 			Ceremonies: [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 				{
 					title: "Opening Ceremony",
 					description: "Welcome to WaffleHacks 2023!",
@@ -39,137 +44,137 @@ export const CalendarPanel = () => {
 					link: "",
 					type: "ceremony",
 				},
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 			],
 			Workshops: [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 			],
 			Panels: [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 			],
 			"Other / Fun": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 			],
 		},
 		"Saturday, June 22nd": {
 			Ceremonies: [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 			],
 			Workshops: [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 			],
 			Panels: [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 			],
 			"Other / Fun": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 			],
 		},
 		"Sunday, June 23rd": {
 			Ceremonies: [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 				{
 					title: "Closing Ceremony",
 					description: "Thank you for attending WaffleHacks 2023!",
@@ -177,89 +182,112 @@ export const CalendarPanel = () => {
 					link: "",
 					type: "ceremony",
 				},
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 			],
 			Workshops: [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 			],
 			Panels: [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 			],
 			"Other / Fun": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 			],
 		},
 	};
 
 	return (
-		<div className="font-mplus p-8" id="calendar">
-			<div className="py-6 px-8 bg-gray-800 rounded-xl flex flex-col">
-				<div className="grid grid-cols-3">
+		<div 
+			className={`
+				font-mplus p-8
+			`}
+		>
+			<div
+				className={`
+					py-6 px-8 bg-gray-800
+					rounded-xl flex flex-col
+				`}	
+			>
+				<div
+					className={`
+						grid grid-cols-3
+					`}
+				>
 					<span />
-					<span className="text-2xl font-bold text-white text-center">
+					<span 
+						className={`
+							text-2xl font-bold text-white
+							text-center
+						`}
+					>
 						{eventOrder[eventIndex]}
 					</span>
-					<div className="text-2xl font-bold text-white text-center flex justify-end gap-4">
-						<button
-							className="flex items-center justify-center rounded-lg bg-yellow-500 w-10 h-10"
+					<div
+						className={`
+							text-2xl font-bold text-white
+							text-center flex justify-end gap-4
+						`}
+					>
+						<Button
+							className={calendarButton}
 							onClick={() => {
 								setEventIndex(Math.max(0, eventIndex - 1));
 							}}
 						>
-							&lt;
-						</button>
-						<button
-							className="flex items-center justify-center rounded-lg bg-yellow-500 w-10 h-10"
+							<FaArrowLeft size={20} />
+						</Button>
+						<Button
+							className={calendarButton}
 							onClick={() => {
 								setEventIndex(Math.min(eventOrder.length - 1, eventIndex + 1));
 							}}
 						>
-							&gt;
-						</button>
+							<FaArrowRight size={20} />
+						</Button>
 					</div>
 				</div>
 
@@ -293,9 +321,9 @@ export const CalendarPanel = () => {
 					<span className="calendar-title-cell text-xl text-white font-bold">
 						Ceremonies
 					</span>
-					{events[eventOrder[eventIndex]]["Ceremonies"].map((event, index) => {
+					{events[eventOrder[eventIndex]]["Ceremonies"].map((event: any, index: React.Key | null | undefined) => {
 						return (
-							<div
+							<Picture
 								key={index}
 								className={
 									"calendar-grid-cell text-center" +
@@ -303,16 +331,16 @@ export const CalendarPanel = () => {
 								}
 							>
 								{event ? <img src="/assets/svgs/calendar/curtains.svg" /> : ""}
-							</div>
+							</Picture>
 						);
 					})}
 
 					<span className="calendar-title-cell text-xl text-white font-bold">
 						Workshops
 					</span>
-					{events[eventOrder[eventIndex]]["Workshops"].map((event, index) => {
+					{events[eventOrder[eventIndex]]["Workshops"].map((event: any, index: React.Key | null | undefined) => {
 						return (
-							<div
+							<Picture
 								key={index}
 								className={
 									"calendar-grid-cell text-center" +
@@ -320,16 +348,21 @@ export const CalendarPanel = () => {
 								}
 							>
 								{event ? <img src="/assets/svgs/calendar/wrench.svg" /> : ""}
-							</div>
+							</Picture>
 						);
 					})}
 
-					<span className="calendar-title-cell text-xl text-white font-bold">
+					<span
+						className={`
+							calendar-title-cell text-xl text-white
+							font-bold
+						`}
+					>
 						Panels
 					</span>
-					{events[eventOrder[eventIndex]]["Panels"].map((event, index) => {
+					{events[eventOrder[eventIndex]]["Panels"].map((event: any, index: React.Key | null | undefined) => {
 						return (
-							<div
+							<Picture
 								key={index}
 								className={
 									"calendar-grid-cell text-center" +
@@ -337,16 +370,16 @@ export const CalendarPanel = () => {
 								}
 							>
 								{event ? <img src="/assets/svgs/calendar/panel.svg" /> : ""}
-							</div>
+							</Picture>
 						);
 					})}
 
 					<span className="calendar-title-cell text-xl text-white font-bold">
 						Other / Fun
 					</span>
-					{events[eventOrder[eventIndex]]["Other / Fun"].map((event, index) => {
+					{events[eventOrder[eventIndex]]["Other / Fun"].map((event: any, index: React.Key | null | undefined) => {
 						return (
-							<div
+							<Picture
 								key={index}
 								className={
 									"calendar-grid-cell text-center" +
@@ -354,7 +387,7 @@ export const CalendarPanel = () => {
 								}
 							>
 								{event ? <img src="/assets/svgs/calendar/other.svg" /> : ""}
-							</div>
+							</Picture>
 						);
 					})}
 				</div>

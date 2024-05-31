@@ -1,8 +1,8 @@
 "use client";
+import React from "react";
 import { heading_style } from "@/components";
 import { cn } from "@/lib";
 import { Slugify } from "@/utils";
-import React from "react";
 import {
 	AboutPanel,
 	ApplyPanel,
@@ -39,12 +39,16 @@ export const PageSections = () => {
 				return (
 					<section
 						id={Slugify(value.toLowerCase())}
-						key={key}
-						className={`flex items-center justify-center border max-w-screen-2xl flex-col`}
+						key={Slugify(value.toLowerCase())}
+						className={`
+							flex items-center justify-center
+							max-w-screen-2xl flex-col
+							border border-red-400
+						`}
 					>
 						{value !== "About" && value !== "Apply Now" && (
 							<h2
-								className={cn(heading_style, ``)}
+								className={cn(heading_style, `mx-8`)}
 								aria-label={`Section: ${value}`}
 							>
 								{value}

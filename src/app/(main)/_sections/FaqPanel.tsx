@@ -9,12 +9,22 @@ export const FaqPanel = () => {
 	const [selectedSection, setSelectedSection] = useState<string | null>(null);
 	const { scavState } = useContext(ScavContext);
 	return (
-		<div className="bg-white p-8 md:text-left flex justify-center font-mplus mx-8 rounded-xl  backdrop-blur-lg">
-			<div className="block w-full" style={{ maxWidth: "min(100vw, 80rem)" }}>
+		<article
+			className={`
+				bg-[#f5f5f5] p-8 md:text-left
+				flex justify-center font-mplus mx-8
+				rounded-xl  backdrop-blur-lg relative
+			`}
+		>
+			<div
+				className={`
+					block w-full
+				`}
+			>
 				<Tabs
 					className={`
 						flex flex-row justify-center
-						mb-8 flex-wrap
+						mb-8 flex-wrap right-0 relative
 					`}
 					aria-label="FAQ Sections"
 					items={[
@@ -22,7 +32,12 @@ export const FaqPanel = () => {
 							id: "all",
 							label: "Show All",
 							content: (
-								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+								<div
+									className={`
+										grid grid-cols-1 md:grid-cols-2
+										gap-4
+									`}
+								>
 									{Faqs.map((faq, index) => (
 										<Accordion key={index} data={faq.items} />
 									))}
@@ -33,7 +48,12 @@ export const FaqPanel = () => {
 							id: section,
 							label: section,
 							content: (
-								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+								<div
+									className={`
+										grid grid-cols-1 md:grid-cols-2
+										gap-4
+									`}
+								>
 									{Faqs.filter((faq) => faq.section === section).map(
 										(faq, index) => (
 											<Accordion key={index} data={faq.items} />
@@ -45,12 +65,18 @@ export const FaqPanel = () => {
 					]}
 				>
 					{(item) => (
-						<Tab key={item.id} title={item.label}>
+						<Tab
+							key={item.id}
+							title={item.label}
+							className={`
+
+							`}
+						>
 							{item.content}
 						</Tab>
 					)}
 				</Tabs>
 			</div>
-		</div>
+		</article>
 	);
 };
