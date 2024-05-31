@@ -1,13 +1,5 @@
 
-#svg-biker:hover .bike-wheel-rotate {
-    animation: rotate 5s 0.5s linear infinite;
-}
 
-@keyframes rotate {
-    100% {
-        transform: rotate(360deg);
-    }
-}
 
 .calendar-grid {
     display: grid;

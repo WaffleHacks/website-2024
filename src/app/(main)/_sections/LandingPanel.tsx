@@ -36,6 +36,9 @@ export const LandingPanel = () => {
 	const arrow = useRef<HTMLImageElement>(null);
 	const arrowInterval = useRef<NodeJS.Timeout | null>(null);
 
+	const backWheel = useRef<HTMLImageElement>(null);
+	const frontWheel = useRef<HTMLImageElement>(null);
+
 	const container = useRef<HTMLDivElement>(null);
 	const img_box = useRef<HTMLDivElement>(null);
 	const windowSize = useWindowSize();
@@ -73,10 +76,6 @@ export const LandingPanel = () => {
 			src: "/assets/svgs/landing/fencer_pf.svg",
 			className: "no-drag absolute left-[68.2%] top-[31.5%] w-[31%]",
 		},
-		// {
-		// 	src: "/assets/svgs/landing/fencer.svg",
-		// 	className: "no-drag absolute left-[72.4%] top-[15.3%] w-[17%]",
-		// },
 		{
 			src: "/assets/svgs/landing/fencer_body.svg",
 			className: "no-drag absolute left-[77.8%] top-[15.2%] w-[11.6%]",
@@ -85,10 +84,6 @@ export const LandingPanel = () => {
 			src: "/assets/svgs/landing/archer_pf.svg",
 			className: "no-drag absolute left-[16.2%] top-[67.5%] w-[31%]",
 		},
-		// {
-		// 	src: "/assets/svgs/landing/archer.svg",
-		// 	className: "absolute left-[27.3%] top-[40.55%] w-[10.8%]",
-		// },
 		{
 			src: "/assets/svgs/landing/tennis_pf.svg",
 			className: "no-drag absolute left-[50.05%] top-[67.9%] w-[31%]",
@@ -199,6 +194,31 @@ export const LandingPanel = () => {
 		}, 15);
 	}
 
+	function dragSword(e: DraggableEvent){
+		let sword = e.target as HTMLImageElement;
+		let swordRect = sword.getBoundingClientRect();
+		// get left middle
+		let swordX = swordRect.left;
+		let swordY = swordRect.top + swordRect.height / 2;
+		// check intersection with front wheel
+		let frontWheelRect = frontWheel.current?.getBoundingClientRect();
+		if(frontWheelRect){
+			if(swordX >= frontWheelRect.left && swordX <= frontWheelRect.right &&
+				swordY >= frontWheelRect.top && swordY <= frontWheelRect.bottom){
+				ctx.biker.setFrontWheelPopped(true);
+			}
+		}
+		// check intersection with back wheel
+		let backWheelRect = backWheel.current?.getBoundingClientRect();
+		if(backWheelRect){
+			if(swordX >= backWheelRect.left && swordX <= backWheelRect.right &&
+				swordY >= backWheelRect.top && swordY <= backWheelRect.bottom){
+				ctx.biker.setBackWheelPopped(true);
+			}
+		}
+
+	}
+
 	return (
 		<header className="font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full max-w-screen-2xl mx-auto">
 			<img
@@ -223,34 +243,14 @@ export const LandingPanel = () => {
 					className="absolute"
 					style={{ aspectRatio: 1510 / 599 }}
 				>
+
+					{/* Biker road */}
 					<img
 						src="/assets/svgs/landing/road.svg"
 						alt="road"
 						className="absolute left-[-0.2%] top-[31.5%] w-[32.9%]"
 					/>
-					<div id="svg-biker">
-						{[
-							{
-								src: "/assets/svgs/landing/wheel.svg",
-								alt: "wheel",
-								className:
-									"bike-wheel-rotate absolute left-[9.4%] top-[32.4%] w-[5.5%]",
-							},
-							{
-								src: "/assets/svgs/landing/wheel.svg",
-								alt: "wheel",
-								className:
-									"bike-wheel-rotate absolute left-[17.8%] top-[32.4%] w-[5.5%]",
-							},
-							{
-								src: "/assets/svgs/landing/biker.svg",
-								alt: "biker",
-								className: "absolute left-[13.7%] top-[14%] w-[7%]",
-							},
-						].map(({ src, alt, className }, index) => (
-							<img key={index} src={src} alt={alt} className={className} />
-						))}
-					</div>
+					
 					{images.map(
 						({ src, className }: { src: string; className: string }, index) => {
 							return <img key={index} src={src} alt="" className={className} />;
@@ -306,14 +306,20 @@ export const LandingPanel = () => {
 						</div>
 					</div>
 
-					<div
-						ref={ctx.archer.headspot1}
-						className="absolute w-[3%] h-[6%] left-[63.2%] top-[47%] w-[14.85%] h-[14.85%]"
-					></div>
-					<div
-						ref={ctx.archer.headspot2}
-						className="absolute w-[3%] h-[6%] left-[81%] top-[9.4%] w-[14.85%] h-[14.85%]"
-					></div>
+					{/* archer headspots */}
+					{
+						ctx.scavState && <>
+							<div
+								ref={ctx.archer.headspot1}
+								className="absolute w-[3%] h-[6%] left-[63.2%] top-[47%] w-[14.85%] h-[14.85%]"
+							></div>
+							<div
+								ref={ctx.archer.headspot2}
+								className="absolute w-[3%] h-[6%] left-[81%] top-[9.4%] w-[14.85%] h-[14.85%]"
+							></div>
+						</>
+					}
+					
 
 					{/* archer */}
 					<div>
@@ -358,12 +364,60 @@ export const LandingPanel = () => {
 					</div>
 
 
+					{/* biker */}
+					{/* <div id="svg-biker" style={{
+						transform: `rotate(${(ctx.biker.backWheelPopped ? 30 : 0) + (ctx.biker.frontWheelPopped ? -30 : 0)}deg)`,
+						transformOrigin: "center"
+					}}>
+						<img 
+							ref={backWheel}
+							src="/assets/svgs/landing/wheel.svg" 
+							alt={"bike back wheel"} 
+							className="no-drag bike-wheel-rotate absolute left-[9.4%] top-[32.4%] w-[5.5%]"
+							style={{height: ctx.biker.backWheelPopped ? "8%" : "13.865%"}}
+						/>
+						<img 
+							ref={frontWheel}
+							src="/assets/svgs/landing/wheel.svg" 
+							alt={"bike front wheel"} 
+							className="no-drag bike-wheel-rotate absolute left-[17.8%] top-[32.4%] w-[5.5%]"
+							style={{height: ctx.biker.frontWheelPopped ? "8%" : "13.865%"}}
+						/>
+						<img src="/assets/svgs/landing/biker.svg" alt={"bike biker wheel"} className="no-drag absolute left-[13.7%] top-[14%] w-[7%]" />
+					</div> */}
+
+					<div id="svg-biker" 
+						className="absolute left-[9.4%] top-[13.7%] w-[14%] h-[33%]"
+					
+					style={{
+						transform: `rotate(${(ctx.biker.backWheelPopped ? -15 : 0) + (ctx.biker.frontWheelPopped ? 15 : 0)}deg)`,
+						transition: "transform 0.5s ease-in",
+						transformOrigin: "bottom center"
+					}}>
+						<img 
+							ref={backWheel}
+							src="/assets/svgs/landing/wheel.svg" 
+							alt={"bike back wheel"} 
+							className="no-drag bike-wheel-rotate absolute left-0 top-[56.8%] w-[40%] h-[42%]"
+							style={{height: ctx.biker.backWheelPopped ? "24%" : "42.5%"}} 
+						/>
+						<img 
+							ref={frontWheel}
+							src="/assets/svgs/landing/wheel.svg" 
+							alt={"bike front wheel"} 
+							className="no-drag bike-wheel-rotate absolute left-[59.8%] top-[56.8%] w-[40%]"
+							style={{height: ctx.biker.frontWheelPopped ? "24%" : "42.5%"}} 
+						/>
+						<img src="/assets/svgs/landing/biker.svg" alt={"bike biker wheel"} className="no-drag absolute left-[30%] top-0 w-[51%]" />
+					</div>
+
+
 					{/* stabby */}
-					<Draggable>
-					<img 
-						className="no-drag absolute left-[72.2%] top-[22.5%] w-[5.8%]"
-						src="/assets/svgs/landing/fencer_sword.svg" 
-						alt="" />
+					<Draggable onDrag={e => dragSword(e)}>
+						<img 
+							className="no-drag absolute left-[72.2%] top-[22.5%] w-[5.8%]"
+							src="/assets/svgs/landing/fencer_sword.svg" 
+							alt="" />
 					</Draggable>
 
 				</div>

@@ -14,6 +14,12 @@ interface ScavContextParameters {
 		headshot: boolean;
 		activeHeadSpot: number;
 	};
+	biker: {
+		backWheelPopped: boolean;
+		frontWheelPopped: boolean;
+		setBackWheelPopped: (state: boolean) => void;
+		setFrontWheelPopped: (state: boolean) => void;
+	}
 }
 
 export const ScavContext = createContext<ScavContextParameters>({
@@ -25,6 +31,12 @@ export const ScavContext = createContext<ScavContextParameters>({
 		headshot: false,
 		activeHeadSpot: -1,
 	},
+	biker: {
+		backWheelPopped: false,
+		frontWheelPopped: false,
+		setBackWheelPopped: (state: boolean) => {},
+		setFrontWheelPopped: (state: boolean) => {},
+	}
 });
 
 export const Semantics: React.FC<
@@ -33,6 +45,8 @@ export const Semantics: React.FC<
 	}>
 > = ({ children }) => {
 	const [scavState, setScavState] = useState<boolean>(false);
+	const [backWheelPopped, setBackWheelPopped] = useState<boolean>(false);
+	const [frontWheelPopped, setFrontWheelPopped] = useState<boolean>(false);
 
 	return (
 		<>
@@ -46,6 +60,12 @@ export const Semantics: React.FC<
 						headshot: false,
 						activeHeadSpot: -1,
 					},
+					biker: {
+						backWheelPopped,
+						frontWheelPopped,
+						setBackWheelPopped,
+						setFrontWheelPopped,
+					}
 				}}
 			>
 				<NavBar />
