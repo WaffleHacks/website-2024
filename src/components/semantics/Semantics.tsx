@@ -3,6 +3,7 @@ import type React from "react";
 import { createContext, useRef, useState } from "react";
 import { FooterBar } from "./footer";
 import { NavBar } from "./nav";
+import { UnusedNavBar } from "./nav/UnusedNav";
 
 interface ScavContextParameters {
 	scavState: boolean;

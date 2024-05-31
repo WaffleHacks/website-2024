@@ -40,7 +40,7 @@ export const useLocalStorage = (key: string, defaultValue: any) =>
 					key + "=" + JSON.stringify(newValue) + ";" + expires + ";path=/";
 			}
 		},
-	}));
+}));
 
 type SessionStorageStore = {
 	value: any;
