@@ -1,6 +1,6 @@
 "use client";
 import { ScavContext } from "@/components";
-import React, { useState, useRef, useLayoutEffect, useContext } from "react";
+import React, { useState, useRef, useLayoutEffect, useContext, useEffect } from "react";
 
 import Draggable, {
 	DraggableCore,
@@ -36,8 +36,15 @@ export const LandingPanel = () => {
 	const arrow = useRef<HTMLImageElement>(null);
 	const arrowInterval = useRef<NodeJS.Timeout | null>(null);
 
+	const road = useRef<HTMLImageElement>(null);
 	const backWheel = useRef<HTMLImageElement>(null);
 	const frontWheel = useRef<HTMLImageElement>(null);
+	const biker = useRef<HTMLDivElement>(null);
+	const [bikingForwards, setBikingForwards] = useState(false);
+	const [bikerPos, setBikerPos] = useState({x: 0, y: 0, falling: false});
+	const bikerInterval = useRef<NodeJS.Timeout | null>(null);
+	const tennisPlayer = useRef<HTMLImageElement>(null);
+	const tennisPf = useRef<HTMLImageElement>(null);
 
 	const container = useRef<HTMLDivElement>(null);
 	const img_box = useRef<HTMLDivElement>(null);
@@ -83,15 +90,7 @@ export const LandingPanel = () => {
 		{
 			src: "/assets/svgs/landing/archer_pf.svg",
 			className: "no-drag absolute left-[16.2%] top-[67.5%] w-[31%]",
-		},
-		{
-			src: "/assets/svgs/landing/tennis_pf.svg",
-			className: "no-drag absolute left-[50.05%] top-[67.9%] w-[31%]",
-		},
-		{
-			src: "/assets/svgs/landing/tennis.svg",
-			className: "no-drag absolute left-[60.4%] top-[48.8%] w-[8.4%]",
-		},
+		}
 	];
 
 	function rotateArcher(e: DraggableEvent, pos: DraggableData) {
@@ -119,6 +118,14 @@ export const LandingPanel = () => {
 		const arY = arBox.top + arBox.height;
 		return (
 			arX >= box.left && arX <= box.right && arY >= box.top && arY <= box.bottom
+		);
+	}
+	function boxesIntersect(box1: DOMRect, box2: DOMRect) {
+		return !(
+			box2.left >= box1.right ||
+			box2.right <= box1.left ||
+			box2.top >= box1.bottom ||
+			box2.bottom <= box1.top
 		);
 	}
 
@@ -219,6 +226,94 @@ export const LandingPanel = () => {
 
 	}
 
+	function bikeForwardsInterval(){
+		if (!ctx.scavState){
+			clearInterval(bikerInterval.current as NodeJS.Timeout);
+			bikerInterval.current = null;
+			return;
+		}
+		console.log('going', ctx.scavState);
+		setBikerPos(prevPos => {
+			if (!bikingForwards) return prevPos;
+			if (!road.current || !tennisPf.current) return prevPos;
+			if (!biker.current) return prevPos;
+			if (!frontWheel.current || !backWheel.current) return prevPos;
+			if (!tennisPlayer.current) return prevPos;
+			
+
+			// if both wheels are popped, stop
+			if(ctx.biker.frontWheelPopped && ctx.biker.backWheelPopped){
+				setBikingForwards(false);
+				clearInterval(bikerInterval.current as NodeJS.Timeout);
+				bikerInterval.current = null;
+				return prevPos;
+			}
+
+			let bikerRect = biker.current.getBoundingClientRect();
+			let frontWheelRect = frontWheel.current.getBoundingClientRect();
+			let backWheelRect = backWheel.current.getBoundingClientRect();
+			let tennisPlayerRect = tennisPlayer.current.getBoundingClientRect();
+			let roadRect = road.current.getBoundingClientRect();
+			let tennisPfRect = tennisPf.current.getBoundingClientRect();
+
+			// if biker intersects tennis player while the apple is on their head, stop
+			if(boxesIntersect(bikerRect, tennisPlayerRect) && ctx.archer.activeHeadSpot == 1){
+				return prevPos;
+			}
+
+			let nextX = bikerPos.x + 0.25;
+			let falling = false;
+			// check intersection of front wheel with road
+			if (!boxesIntersect(frontWheelRect, roadRect)) {
+				falling = true;
+			}
+			// check intersection of front wheel with tennis pf
+			if (boxesIntersect(frontWheelRect, tennisPfRect) && frontWheelRect.bottom > tennisPfRect.top + tennisPfRect.height/2){
+				falling = false;
+			}
+
+			let nextY = bikerPos.y;
+			if (falling) nextY += 1;
+
+			return {x: nextX, y: nextY, falling: falling};
+		}
+		);
+	}
+
+	function liftFlag(e: DraggableEvent){
+		if (!road.current) return;
+		const roadRect = road.current.getBoundingClientRect();
+		let target = e.target as HTMLImageElement;
+		let targetRect = target.getBoundingClientRect();
+		// check intersection with road
+		if(targetRect.bottom <= roadRect.top && !bikingForwards && !bikerInterval.current){
+			// lift flag
+			setBikingForwards(true);
+			
+		}
+	}
+
+	useEffect(() => {
+		if (!ctx.scavState) {
+			clearInterval(arrowInterval.current as NodeJS.Timeout);
+			arrowInterval.current = null;
+			return;
+		}
+		if (!bikerInterval.current && bikingForwards){
+			bikerInterval.current = setInterval(bikeForwardsInterval, 15);
+		}
+		return () => {
+			clearInterval(bikerInterval.current as NodeJS.Timeout);
+			bikerInterval.current = null;
+		}
+	}, [bikingForwards, bikerPos, ctx.scavState]);
+
+	useEffect(() => {
+		if(!ctx.scavState){
+			setArrowPos({ x: 0, y: 0, angle: 0, vx: 0, vy: 0 });
+		}
+	}, [ctx.scavState]);
+
 	return (
 		<header className="font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full max-w-screen-2xl mx-auto">
 			<img
@@ -246,9 +341,18 @@ export const LandingPanel = () => {
 
 					{/* Biker road */}
 					<img
+						ref={road}
 						src="/assets/svgs/landing/road.svg"
 						alt="road"
 						className="absolute left-[-0.2%] top-[31.5%] w-[32.9%]"
+					/>
+
+					{/* tennis platform */}
+					<img
+						ref={tennisPf}
+						src="/assets/svgs/landing/tennis_pf.svg"
+						className="no-drag absolute left-[50.05%] top-[67.9%] w-[31%]"
+						alt="road"
 					/>
 					
 					{images.map(
@@ -256,6 +360,13 @@ export const LandingPanel = () => {
 							return <img key={index} src={src} alt="" className={className} />;
 						},
 					)}
+
+					{/* tennis player */}
+					<img 
+						ref={tennisPlayer}
+						src="/assets/svgs/landing/tennis.svg"
+						className= "no-drag absolute left-[60.4%] top-[48.8%] w-[8.4%]"
+						alt="" />
 
 					{/* WH logo / stand */}
 					<div id="landing-wh-logo">
@@ -365,55 +476,54 @@ export const LandingPanel = () => {
 
 
 					{/* biker */}
-					{/* <div id="svg-biker" style={{
-						transform: `rotate(${(ctx.biker.backWheelPopped ? 30 : 0) + (ctx.biker.frontWheelPopped ? -30 : 0)}deg)`,
-						transformOrigin: "center"
-					}}>
-						<img 
-							ref={backWheel}
-							src="/assets/svgs/landing/wheel.svg" 
-							alt={"bike back wheel"} 
-							className="no-drag bike-wheel-rotate absolute left-[9.4%] top-[32.4%] w-[5.5%]"
-							style={{height: ctx.biker.backWheelPopped ? "8%" : "13.865%"}}
-						/>
-						<img 
-							ref={frontWheel}
-							src="/assets/svgs/landing/wheel.svg" 
-							alt={"bike front wheel"} 
-							className="no-drag bike-wheel-rotate absolute left-[17.8%] top-[32.4%] w-[5.5%]"
-							style={{height: ctx.biker.frontWheelPopped ? "8%" : "13.865%"}}
-						/>
-						<img src="/assets/svgs/landing/biker.svg" alt={"bike biker wheel"} className="no-drag absolute left-[13.7%] top-[14%] w-[7%]" />
-					</div> */}
-
-					<div id="svg-biker" 
-						className="absolute left-[9.4%] top-[13.7%] w-[14%] h-[33%]"
-					
-					style={{
-						transform: `rotate(${(ctx.biker.backWheelPopped ? -15 : 0) + (ctx.biker.frontWheelPopped ? 15 : 0)}deg)`,
-						transition: "transform 0.5s ease-in",
-						transformOrigin: "bottom center"
-					}}>
+					<div 
+						ref={biker}
+						id="svg-biker" 
+						className="absolute w-[14%] h-[33%]"
+						style={{
+							transform: `rotate(${
+									((ctx.scavState && ctx.biker.backWheelPopped) ? -15 : 0) + 
+									((ctx.scavState && ctx.biker.frontWheelPopped) ? 15 : 0) +
+									((ctx.scavState && bikerPos.falling) ? 30 : 0)
+								}deg)`,
+							transition: "transform 0.5s ease-in",
+							transformOrigin: "bottom center",
+							top: ctx.scavState ? `calc(${bikerPos.y}% + 13.7%)` : "13.7%",
+							left: ctx.scavState ? `calc(${bikerPos.x}% + 9.4%)` : "9.4%",
+						}}
+					>
 						<img 
 							ref={backWheel}
 							src="/assets/svgs/landing/wheel.svg" 
 							alt={"bike back wheel"} 
 							className="no-drag bike-wheel-rotate absolute left-0 top-[56.8%] w-[40%] h-[42%]"
-							style={{height: ctx.biker.backWheelPopped ? "24%" : "42.5%"}} 
+							style={{height: (ctx.scavState && ctx.biker.backWheelPopped) ? "24%" : "42.5%"}} 
 						/>
 						<img 
 							ref={frontWheel}
 							src="/assets/svgs/landing/wheel.svg" 
 							alt={"bike front wheel"} 
 							className="no-drag bike-wheel-rotate absolute left-[59.8%] top-[56.8%] w-[40%]"
-							style={{height: ctx.biker.frontWheelPopped ? "24%" : "42.5%"}} 
+							style={{height: (ctx.scavState && ctx.biker.frontWheelPopped) ? "24%" : "42.5%"}} 
 						/>
 						<img src="/assets/svgs/landing/biker.svg" alt={"bike biker wheel"} className="no-drag absolute left-[30%] top-0 w-[51%]" />
 					</div>
 
+					{/* biker flag */}
+					{
+						ctx.scavState && 
+						<Draggable axis="y" onDrag={liftFlag}>
+							<img 
+								className="biker-flag no-drag absolute left-[29.4%] bottom-[53%]"
+								src="/assets/svgs/landing/scav/bike_flag.svg" 
+								alt="" />
+						</Draggable>
+					}
+					
+
 
 					{/* stabby */}
-					<Draggable onDrag={e => dragSword(e)}>
+					<Draggable onDrag={e => dragSword(e)} disabled={!ctx.scavState} position={ctx.scavState ? undefined : {x: 0, y: 0}}>
 						<img 
 							className="no-drag absolute left-[72.2%] top-[22.5%] w-[5.8%]"
 							src="/assets/svgs/landing/fencer_sword.svg" 

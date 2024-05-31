@@ -18,6 +18,20 @@ body.scav .numberdisplay-number {
   transition: height 0.5s ease;
 }
 
+.biker-flag {
+  width: 0;
+  animation: bikerFlagWidth 0.5s ease;
+  animation-fill-mode: forwards;
+}
+@keyframes bikerFlagWidth {
+  0% { width: 0; }
+  100% { width: 3%; }
+}
+
+#svg-biker {
+  transition: transform 2s ease;
+}
+
 #svg-biker:hover .bike-wheel-rotate {
   animation: rotate 5s 0.5s linear infinite;
 }

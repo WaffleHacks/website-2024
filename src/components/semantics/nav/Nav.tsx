@@ -65,7 +65,6 @@ export const NavBar = () => {
 		setScavState(e.target.checked);
 		if (e.target.checked) document.body.classList.add("scav");
 		else document.body.classList.remove("scav");
-		console.log(e.target.checked);
 	}
 
 	function appleInterval() {
