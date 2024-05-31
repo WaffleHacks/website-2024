@@ -11,9 +11,10 @@ import { objToArray } from "@/utils";
 import { Button } from "@nextui-org/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useMediaQuery } from "usehooks-ts";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 import { TeamCard } from "../_components";
 const MAX_CONCURRENT_REQUESTS = 5;
 const NUM_MEMBERS = 13;
@@ -56,7 +57,7 @@ export const TeamPanel = () => {
 		setCurrentIndex(0);
 	}
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		const uniqueTeam = Array.from(new Set(team));
 		const queue: string[] = [];
 
@@ -72,7 +73,7 @@ export const TeamPanel = () => {
 		}
 	}, [team]);
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		const processQueue = async () => {
 			if (processingQueue && requestQueue.current.length > 0) {
 				const requests = requestQueue.current.splice(
@@ -119,31 +120,20 @@ export const TeamPanel = () => {
 	return (
 		<Article
 			className={`
-				mt-2 px-20 w-full 
+				mt-2 px-10 w-full 
 			`}
-			style={{
-				maxWidth: "1536px",
-			}}
 		>
-			<h2
-				className={`
-				        text-4xl font-extrabold mb-4 w-full sm:text-center md:text-left
-
-				`}
-			>
-				Meet the Team
-			</h2>
 			<div className="w-full">
 				<div className="relative">
 					<div className="flex space-x-4 flex-row items-center justify-center mx-auto gap-2">
 						{teamData
 							.slice(currentIndex, currentIndex + howMuchToShow)
 							.map(({ mem, member, color }, index) => (
-								<Slide key={`${mem}-${index}`}>
+								<Slide key={`${mem}-${index}`} delay={(index + 1) * 0.1}>
 									<motion.div
 										className={`
-										relative overflow-hidden h-[280px] min-w-[280px] bg-slate-200 hover:bg-slate-400 transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer
-									`}
+											relative overflow-hidden h-[280px] min-w-[280px] bg-slate-200 hover:bg-slate-400 transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer
+										`}
 										onClick={() => {
 											setShowOverlay(mem);
 											setSelectedMember({ mem, member, color });

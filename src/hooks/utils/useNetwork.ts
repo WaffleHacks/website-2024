@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 const useNetwork = (onChange: (online: boolean) => void) => {
 	const [status, setStatus] = useState(navigator.onLine);
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		const handleChange = () => {
 			onChange(navigator.onLine);
 			setStatus(navigator.onLine);

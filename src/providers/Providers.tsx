@@ -10,8 +10,8 @@ export const Providers: React.FC<{
 	return (
 		<ProviderStack
 			providers={[
-				// [NextUIProvider, {}],
-				// [RootStyleRegistry, {}],
+				[NextUIProvider, {}],
+				[RootStyleRegistry, {}],
 				[Events, {}],
 			]}
 		>

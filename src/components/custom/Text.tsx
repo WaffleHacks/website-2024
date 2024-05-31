@@ -12,14 +12,13 @@ export const Text: React.FC<Readonly<TextProps>> = ({ text, className }) => {
 	return (
 		<>
 			{Array.isArray(text) ? (
-				() =>
-					text.map((t, i: Index) => (
-						<p className={cn("", className)} key={i}>
-							{t}
-						</p>
-					))
+				text.map((t, i: Index) => (
+					<p className={cn("text-[#604020]", className)} key={i}>
+						{t}
+					</p>
+				))
 			) : (
-				<p className={cn("", className)}>{text}</p>
+				<p className={cn("text-[#604020]", className)}>{text}</p>
 			)}
 		</>
 	);

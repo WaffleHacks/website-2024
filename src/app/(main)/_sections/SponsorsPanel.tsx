@@ -37,12 +37,6 @@ export const SponsorsPanel: React.FC = () => {
 				maxWidth: "1536px",
 			}}
 		>
-			<h2
-				className="text-4xl font-extrabold mb-4 w-full sm:text-center sm:mx-auto sm:w-fit md:text-left"
-				aria-label={`Sponsors`}
-			>
-				Sponsors
-			</h2>
 			<div
 				className="flex flex-row justify-center mb-8 flex-wrap"
 				aria-label={`Sponsors`}
@@ -96,8 +90,12 @@ export const SponsorsPanel: React.FC = () => {
 										? sponsor.link
 										: `https://www.google.com/search?q=${sponsor.name}`
 								}`}
+								target={`_blank`}
 								rel="noopener noreferrer"
-								className="relative h-fit w-fit rounded-lg shadow-lg border-none"
+								className={`
+                  relative h-fit w-fit
+									rounded-lg shadow-lg border-none
+                `}
 							>
 								<Card
 									className="relative p-4 h-[175px] w-[300px] flex flex-col items-center justify-center transition-all duration-300 hover:scale-105"

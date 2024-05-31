@@ -2,7 +2,8 @@
 
 import { cn } from "@/lib";
 import { motion } from "framer-motion";
-import { type Dispatch, type SetStateAction, useEffect, useRef } from "react";
+import { type Dispatch, type SetStateAction, useRef } from "react";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 import { fadeInAnimationVariants } from "../constants";
 
 export const Modal = ({
@@ -22,7 +23,7 @@ export const Modal = ({
 		null,
 	) as React.MutableRefObject<React.ElementRef<"dialog">>;
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		if (isOpen) {
 			dialogRef.current?.showModal();
 		} else {
@@ -30,7 +31,8 @@ export const Modal = ({
 		}
 	}, [isOpen]);
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
+		document.body.classList.toggle("no-scroll", isOpen);
 		const handleClickOutside = (e: MouseEvent) => {
 			const dialogDimensions = dialogRef.current?.getBoundingClientRect();
 			if (
@@ -45,15 +47,14 @@ export const Modal = ({
 		};
 
 		if (isOpen) {
-			// document.body.classList.toggle("no-scroll");
 			document.addEventListener("mousedown", handleClickOutside);
 		} else {
-			// document.body.classList.remove("no-scroll");
 			document.removeEventListener("mousedown", handleClickOutside);
 		}
 
 		return () => {
 			dialogRef.current?.removeEventListener("click", handleClickOutside);
+			document.body.classList.remove("no-scroll");
 		};
 	}, [isOpen, onClose]);
 
@@ -61,8 +62,7 @@ export const Modal = ({
 		<section
 			className={`
 				fixed inset-0 z-50 flex flex-col items-center justify-center
-				backdrop:bg-black/80 backdrop:backdrop-blur-sm w-screen h-screen
-				${isOpen ? "block" : "hidden"}
+				backdrop:bg-black/80 backdrop:backdrop-blur-sm w-[100dvw] h-[100dvh]
 			`}
 			onClick={(e) => e.stopPropagation()}
 		>

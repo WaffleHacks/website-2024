@@ -1,8 +1,9 @@
 "use client";
 
 import { animate, motion, useMotionValue } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useMeasure from "react-use-measure";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 export const InfiniteHorizontalScroll: React.FC<{
 	children: React.ReactNode;
@@ -17,7 +18,7 @@ export const InfiniteHorizontalScroll: React.FC<{
 	const [mustFinish, setMustFinish] = useState(false);
 	const [rerender, setRerender] = useState(false);
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		let controls;
 		const finalPosition = -width / 2 - 8;
 		console.log(finalPosition);

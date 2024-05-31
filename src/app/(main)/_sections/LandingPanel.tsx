@@ -1,29 +1,14 @@
 "use client";
-import React, { useEffect, useState, useRef, useLayoutEffect, useContext } from "react";
-import { DraggableCore, DraggableData, DraggableEvent } from 'react-draggable';
 import { ScavContext } from "@/components";
+import React, { useState, useRef, useLayoutEffect, useContext } from "react";
 
-const NumberDisplay = ({ number, text }: { number: number; text: string }) => {
-	let num_chars = number.toString();
-	if (num_chars.length < 2) num_chars = "0" + num_chars;
-	return (
-		<header className="flex flex-col items-center relative">
-			<div className="flex flex-row gap-2">
-				{num_chars.split("").map((char, index) => {
-					return (
-						<span
-							key={index}
-							className="numberdisplay-number text-2xl font-extrabold bg-gray-200 rounded-lg py-3 px-3"
-						>
-							{char}
-						</span>
-					);
-				})}
-			</div>
-			<span className="text-base font-medium absolute top-[100%]">{text}</span>
-		</header>
-	);
-};
+import {
+	DraggableCore,
+	type DraggableData,
+	type DraggableEvent,
+} from "react-draggable";
+
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 function useWindowSize() {
 	const [size, setSize] = useState([0, 0]);
@@ -39,13 +24,14 @@ function useWindowSize() {
 }
 
 export const LandingPanel = () => {
-	const [daysLeft, setDaysLeft] = useState(0);
-	const [hoursLeft, setHoursLeft] = useState(0);
-	const [minutesLeft, setMinutesLeft] = useState(0);
-	const [secondsLeft, setSecondsLeft] = useState(0);
-
 	const [archerAngle, setArcherAngle] = useState(0);
-	const [arrowPos, setArrowPos] = useState({x: 0, y: 0, angle: 0, vx: 0, vy: 0}) 
+	const [arrowPos, setArrowPos] = useState({
+		x: 0,
+		y: 0,
+		angle: 0,
+		vx: 0,
+		vy: 0,
+	});
 	const archerBox = useRef<HTMLDivElement>(null);
 	const arrow = useRef<HTMLImageElement>(null);
 	const arrowInterval = useRef<NodeJS.Timeout | null>(null);
@@ -55,38 +41,6 @@ export const LandingPanel = () => {
 	const windowSize = useWindowSize();
 
 	const ctx = useContext(ScavContext);
-
-	useEffect(() => {
-		function showtime() {
-			const subDate = Date.UTC(2024, 5, 23, 16, 0, 0);
-			const now = Date.now();
-			let subTimeLeft = Math.max(0, subDate - now);
-
-			const daysLeft = Math.floor(subTimeLeft / (1000 * 60 * 60 * 24));
-			subTimeLeft -= daysLeft * 24 * 60 * 60 * 1000;
-
-			const hoursLeft = Math.floor(subTimeLeft / (1000 * 60 * 60));
-			subTimeLeft -= hoursLeft * 60 * 60 * 1000;
-			const minutesLeft = Math.floor(subTimeLeft / (1000 * 60));
-			subTimeLeft -= minutesLeft * 60 * 1000;
-			const secondsLeft = Math.floor(subTimeLeft / 1000);
-
-			setDaysLeft(daysLeft);
-			setHoursLeft(hoursLeft);
-			setMinutesLeft(minutesLeft);
-			setSecondsLeft(secondsLeft);
-		}
-
-		const interval = setInterval(() => {
-			showtime();
-		}, 1000);
-
-		showtime();
-
-		return () => {
-			clearInterval(interval);
-		};
-	}, []);
 
 	function onSizing() {
 		if (container.current && img_box.current) {
@@ -105,7 +59,11 @@ export const LandingPanel = () => {
 		}
 	}
 
-	useEffect(onSizing, [container.current, img_box.current, windowSize]);
+	useIsomorphicLayoutEffect(onSizing, [
+		container.current,
+		img_box.current,
+		windowSize,
+	]);
 	const images = [
 		{
 			src: "/assets/svgs/landing/red_pf.svg",
@@ -143,26 +101,24 @@ export const LandingPanel = () => {
 		// 	src: "/assets/svgs/landing/scav/wh_cut.svg",
 		// 	className: "absolute left-[42.9%] top-[7.1%] w-[14.85%]",
 		// },
-		
 	];
 
-
-	function rotateArcher(e: DraggableEvent, pos: DraggableData){
+	function rotateArcher(e: DraggableEvent, pos: DraggableData) {
 		if (!ctx.scavState) return;
 		// center of rotation is at 14.3vw, 5.5vw
-		let box = archerBox.current;
+		const box = archerBox.current;
 		if (!box) return;
 
-		let boxRect = box.getBoundingClientRect();
+		const boxRect = box.getBoundingClientRect();
 
-		let box_y_middle = boxRect.top + boxRect.height / 2;
-		let box_x_middle = boxRect.left + boxRect.width / 2;
+		const box_y_middle = boxRect.top + boxRect.height / 2;
+		const box_x_middle = boxRect.left + boxRect.width / 2;
 
-		let mouseX = (e as any).clientX;
-		let mouseY = (e as any).clientY;
-	
-		let angle = Math.atan2(mouseY - box_y_middle, mouseX - box_x_middle);
-		let degrees = angle * (180 / Math.PI);
+		const mouseX = (e as any).clientX;
+		const mouseY = (e as any).clientY;
+
+		const angle = Math.atan2(mouseY - box_y_middle, mouseX - box_x_middle);
+		const degrees = angle * (180 / Math.PI);
 		setArcherAngle(degrees);
 	}
 
@@ -176,38 +132,43 @@ export const LandingPanel = () => {
 	function shootArrow(){
 		if (!ctx.scavState) return;
 
-		if (arrowInterval.current){
+		if (arrowInterval.current) {
 			clearInterval(arrowInterval.current);
 		}
-		
+
 		// initializa angles
 		// start with velocity of 10
-		setArrowPos({x: 0, y: 0, angle: 0, vx: 13, vy: 0})
+		setArrowPos({ x: 0, y: 0, angle: 0, vx: 13, vy: 0 });
 
 		arrowInterval.current = setInterval(() => {
+			setArrowPos((pos) => {
+				const nextX = pos.x + pos.vx;
+				const nextY = pos.y + pos.vy;
+				const nextAngle = (Math.atan2(pos.vy, pos.vx) * 180) / Math.PI;
 
-			setArrowPos(pos => {
-				let nextX = pos.x + pos.vx;
-				let nextY = pos.y + pos.vy;
-				let nextAngle = Math.atan2(pos.vy, pos.vx) * 180 / Math.PI;
+				const aAngle = (archerAngle * Math.PI) / 180;
 
-				let aAngle = archerAngle * Math.PI / 180;
+				const gravStrength = 0.15;
 
-				let gravStrength = 0.15;
+				const nextVx = pos.vx + Math.sin(aAngle) * gravStrength;
+				const nextVy = pos.vy + Math.cos(aAngle) * gravStrength;
 
-				let nextVx = pos.vx + Math.sin(aAngle) * gravStrength;
-				let nextVy = pos.vy + Math.cos(aAngle) * gravStrength;
+				let newPos = {
+					x: nextX,
+					y: nextY,
+					angle: nextAngle,
+					vx: nextVx,
+					vy: nextVy,
+				};
 
-				let newPos = {x: nextX, y: nextY, angle: nextAngle, vx: nextVx, vy: nextVy};
-
-				let ar = arrow.current;
-				if (!ar){
+				const ar = arrow.current;
+				if (!ar) {
 					clearInterval(arrowInterval.current as NodeJS.Timeout);
 					arrowInterval.current = null;
-					newPos = {x: 0, y: 0, angle: 0, vx: 0, vy: 0};
+					newPos = { x: 0, y: 0, angle: 0, vx: 0, vy: 0 };
 					return newPos;
 				}
-				let box = ar.getBoundingClientRect();
+				const box = ar.getBoundingClientRect();
 
 				let h1 = ctx.archer.headspot1?.current?.getBoundingClientRect();
 				let h2 = ctx.archer.headspot2?.current?.getBoundingClientRect();
@@ -224,19 +185,22 @@ export const LandingPanel = () => {
 				if (box.bottom <= 0 || box.right <= 0 || box.top >= window.innerHeight || box.left >= window.innerWidth) {
 					clearInterval(arrowInterval.current as NodeJS.Timeout);
 					arrowInterval.current = null;
-					newPos = {x: 0, y: 0, angle: 0, vx: 0, vy: 0};
+					newPos = { x: 0, y: 0, angle: 0, vx: 0, vy: 0 };
 				}
 
 				return newPos;
 			});
-
 		}, 15);
 	}
 
 	return (
-		<div className="font-mplus px-2 sm:px-12 pt-44 h-screen w-full">
-
-			<img id='landing-blob' className="absolute top-24 right-0 h-[50%]" src="/assets/svgs/landing/scav/blob.svg" alt="" />
+		<header className="font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full max-w-screen-2xl mx-auto">
+			<img
+				id="landing-blob"
+				className="absolute top-24 right-0 h-[50%]"
+				src="/assets/svgs/landing/scav/blob.svg"
+				alt=""
+			/>
 
 			<h2 className="text-2xl font-normal">
 				Put your best code forward for the
@@ -288,17 +252,51 @@ export const LandingPanel = () => {
 					)}
 
 					{/* WH logo / stand */}
-					<div id='landing-wh-logo'>
-						<div className="absolute left-[42.9%] top-[7.1%] w-[14.85%]" style={{aspectRatio: '1/1'}}>
-						<img id="stand-sign" className="absolute left-[9%] top-[0%] w-[85%]" src="/assets/svgs/landing/scav/stand_sign.svg" alt="Sign" />
+					<div id="landing-wh-logo">
+						<div
+							className="absolute left-[42.9%] top-[7.1%] w-[14.85%]"
+							style={{ aspectRatio: "1/1" }}
+						>
+							<img
+								id="stand-sign"
+								className="absolute left-[9%] top-[0%] w-[85%]"
+								src="/assets/svgs/landing/scav/stand_sign.svg"
+								alt="Sign"
+							/>
 						</div>
 
-						<img id="stand-shadow" className="absolute left-[42.9%] top-[7.1%] w-[14.85%]" src="/assets/svgs/landing/scav/wh_cut_shadow.svg" alt="" />
-						<div className="overflow-hidden absolute left-[42.9%] top-[7.1%] w-[14.85%]" style={{aspectRatio: '1/1'}}>
-							<img className="absolute left-[14.7%] top-[14.9%] w-[70.5%]" src="/assets/svgs/landing/scav/stand_bkg.svg" alt="" />
-							<img id="stand-logo-inner" className="absolute left-[14.7%] top-[14.9%] w-[70.5%]" src="/assets/svgs/landing/scav/wh_inner.svg" alt="" />
-							<img id="stand-bar" className="absolute left-[24%] top-[100%] w-[52%]" src="/assets/svgs/landing/scav/stand_bar.svg" alt="" />
-							<img className="absolute top-0 left-0 w-full h-full" src="/assets/svgs/landing/scav/wh_cut.svg" alt="" />
+						<img
+							id="stand-shadow"
+							className="absolute left-[42.9%] top-[7.1%] w-[14.85%]"
+							src="/assets/svgs/landing/scav/wh_cut_shadow.svg"
+							alt=""
+						/>
+						<div
+							className="overflow-hidden absolute left-[42.9%] top-[7.1%] w-[14.85%]"
+							style={{ aspectRatio: "1/1" }}
+						>
+							<img
+								className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
+								src="/assets/svgs/landing/scav/stand_bkg.svg"
+								alt=""
+							/>
+							<img
+								id="stand-logo-inner"
+								className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
+								src="/assets/svgs/landing/scav/wh_inner.svg"
+								alt=""
+							/>
+							<img
+								id="stand-bar"
+								className="absolute left-[24%] top-[100%] w-[52%]"
+								src="/assets/svgs/landing/scav/stand_bar.svg"
+								alt=""
+							/>
+							<img
+								className="absolute top-0 left-0 w-full h-full"
+								src="/assets/svgs/landing/scav/wh_cut.svg"
+								alt=""
+							/>
 						</div>
 					</div>
 
@@ -307,35 +305,47 @@ export const LandingPanel = () => {
 
 					{/* archer */}
 					<div>
-						<img className="absolute left-[30%] top-[63.55%] w-[3.36%]" src="/assets/svgs/landing/archer_lower.svg" alt="" />
-						<DraggableCore onDrag={rotateArcher} onStop={shootArrow} >
-						<div ref={archerBox} style={{transformOrigin: 'bottom', transform: `rotateZ(${ctx.scavState ? archerAngle : 0}deg)`}} className="absolute left-[27.25%] top-[40.3%] w-[10.2%] h-[25%]">
-							<img 
-								className="no-drag absolute left-[32.5%] top-[60%] w-[74%]"
-								ref={arrow}
-								style={{left: `calc(32.5% + ${arrowPos.x}px)`, top: `calc(60% + ${arrowPos.y}px)`, transformOrigin: 'center', transform: `rotateZ(${arrowPos.angle}deg)`}}
-								src="/assets/svgs/landing/archer_arrow.svg" 
-								alt="" />
-							<img className="no-drag absolute left-[66%] top-0 w-[35.4%]" src="/assets/svgs/landing/archer_bow.svg" alt="" />
-							<img className="no-drag absolute left-0 top-[33%] w-[100%]" src="/assets/svgs/landing/archer_upper.svg" alt="" />
-						</div>
+						<img
+							className="absolute left-[30%] top-[63.55%] w-[3.36%]"
+							src="/assets/svgs/landing/archer_lower.svg"
+							alt=""
+						/>
+						<DraggableCore onDrag={rotateArcher} onStop={shootArrow}>
+							<div
+								ref={archerBox}
+								style={{
+									transformOrigin: "bottom",
+									transform: `rotateZ(${ctx.scavState ? archerAngle : 0}deg)`,
+								}}
+								className="absolute left-[27.25%] top-[40.3%] w-[10.2%] h-[25%]"
+							>
+								<img
+									className="no-drag absolute left-[32.5%] top-[60%] w-[74%]"
+									ref={arrow}
+									style={{
+										left: `calc(32.5% + ${arrowPos.x}px)`,
+										top: `calc(60% + ${arrowPos.y}px)`,
+										transformOrigin: "center",
+										transform: `rotateZ(${arrowPos.angle}deg)`,
+									}}
+									src="/assets/svgs/landing/archer_arrow.svg"
+									alt=""
+								/>
+								<img
+									className="no-drag absolute left-[66%] top-0 w-[35.4%]"
+									src="/assets/svgs/landing/archer_bow.svg"
+									alt=""
+								/>
+								<img
+									className="no-drag absolute left-0 top-[33%] w-[100%]"
+									src="/assets/svgs/landing/archer_upper.svg"
+									alt=""
+								/>
+							</div>
 						</DraggableCore>
 					</div>
-
 				</div>
 			</div>
-
-			<div className="flex flex-row justify-end w-full">
-				<div>
-					<span className="text-2xl">Countdown to the WaffleHacks Games</span>
-					<div className="flex text-2xl font-bold gap-2 items-center">
-						<NumberDisplay number={daysLeft} text="Days" /> <span>:</span>
-						<NumberDisplay number={hoursLeft} text="Hours" /> <span>:</span>
-						<NumberDisplay number={minutesLeft} text="Minutes" /> <span>:</span>
-						<NumberDisplay number={secondsLeft} text="Seconds" />
-					</div>
-				</div>
-			</div>
-		</div>
+		</header>
 	);
 };

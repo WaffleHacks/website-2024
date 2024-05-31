@@ -1,9 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 const useClick = (onClick: () => void) => {
 	const element = useRef<HTMLDivElement | null>(null);
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		const { current } = element;
 
 		if (current) {

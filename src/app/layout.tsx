@@ -1,6 +1,5 @@
 import { Semantics } from "@/components";
 import { Providers } from "@/providers";
-import Scripts from "@/scripts";
 import { constructMetadata, constructViewport } from "@/utils";
 import type { NextWebVitalsMetric } from "next/app";
 import type React from "react";
@@ -11,11 +10,11 @@ import "@/styles/sass/globals.scss";
 export const metadata = constructMetadata();
 export const viewport = constructViewport();
 
-export function reportWebVitals(metric: NextWebVitalsMetric) {
+export const reportWebVitals = (metric: NextWebVitalsMetric) => {
 	if (metric.label === "web-vital") {
 		console.log(metric);
 	}
-}
+};
 
 export default function RootLayout({
 	children,

@@ -47,18 +47,47 @@
     }
 
     body {
-        background-color: white;
+        background-color: #EDE5C2;
         transition: background-color var(--scav-transition-dur) ease;
+        color: #3C2415
     }
 
     body.scav {
-        background-color: #F1D6BB;
+        background-color: #F2DCC0;
+    }
+
+    a:hover {
+        font-weight: 700;
     }
 
     .navbar {
-        background: white;
+        background-color: rgba(255, 255, 255, 0.7);
         transition: var(--scav-transition-dur) ease-in-out;
+    }
+    .navbar::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         backdrop-filter: blur(10px);
+        z-index: -1;
+    }
+
+    .mobile-nav-slide {
+        background-color: rgba(255, 255, 255, 0.7);
+        transition: height 0.3s ease-in-out;
+    }
+    .mobile-nav-slide::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(10px);
+        z-index: -1;
     }
 
     body.scav .navbar {

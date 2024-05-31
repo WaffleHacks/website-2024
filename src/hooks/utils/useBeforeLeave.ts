@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 const useBeforeLeave = (onBefore: () => void) => {
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		const handle = (e: MouseEvent) => {
 			const { clientY } = e;
 			if (clientY <= 0) {

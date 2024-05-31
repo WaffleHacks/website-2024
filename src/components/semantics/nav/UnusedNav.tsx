@@ -2,10 +2,24 @@
 
 import type React from "react";
 import { useContext, useRef, useState } from "react";
+
 import { ScavContext } from "@/components";
+
 import Image from "next/image";
 import Link from "next/link";
+
 import Switch from "@mui/material/Switch";
+import {
+	Navbar,
+	NavbarContent,
+	NavbarItem,
+	NavbarMenu,
+	NavbarMenuItem,
+	NavbarMenuToggle,
+} from "@nextui-org/navbar";
+
+import { motion } from "framer-motion";
+
 import { Tooltip } from "@nextui-org/tooltip";
 
 import {
@@ -17,7 +31,7 @@ import {
 import { cn } from "@/lib";
 import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
 
-export const NavBar = () => {
+export const UnusedNavBar = () => {
 	const Links: ReadonlyArray<{
 		href: string;
 		text: string;
@@ -182,33 +196,24 @@ export const NavBar = () => {
 		}
 	}
 
-	const [mobileDown, setMobileDown] = useState(false);
-
 	return (
-		<div>
-			{/* mobile dropdown menu */}
-			<div style={{height: mobileDown ? '21.25rem' : '0'}} className="mobile-nav-slide fixed z-40 top-[100px] left-0 w-full shadow-lg overflow-hidden sm:hidden">
-				{Links.map((link, index) => (
-					<div key={index} className="text-center py-4">
-						<Link href={link.href} onClick={() => setMobileDown(false)}>
-							<p>{link.text}</p>
-						</Link>
-					</div>
-				))}
-			</div>
-			<nav
+		<>
+			<Navbar
 				className={cn(
 					"",
 					`navbar fixed top-0 z-50
-					w-full flex flex-row justify-between h-[100px] p-4
+					w-full flex flex-row h-[100px] p-4
 					shadow-lg font-semibold items-center
-					justify-center px-4`
+					justify-center px-4 mx-auto`
 				)}
 			>
-				<div
+				<motion.div
+					transition={{ duration: 0.5, type: "tween", ease: "easeInOut" }}
+					initial={{ y: "-100%" }}
+					animate={{ y: "0%" }}
 					className={`
 						flex items-center justify-between 
-						p-5 w-full max-w-screen-lg mx-auto
+						p-5 w-full max-w-screen-xl mx-auto
 					`}
 				>
 					<div className="flex gap-8 justify-center items-center">
@@ -219,30 +224,52 @@ export const NavBar = () => {
 							width={80}
 						/>
 						{Links.map((link, index) => (
-							<div key={index} className="hidden sm:flex">
+							<NavbarItem key={index} className="hidden sm:flex">
 								<Link href={link.href}>
 									<p>{link.text}</p>
 								</Link>
-							</div>
+							</NavbarItem>
 						))}
 					</div>
-					{/* Scavenger hunt toggle */}
-					<form className="sm:flex justify-end mr-8 items-center hidden">
-						<Tooltip
-							placement="bottom"
-							content="Toggle Scavenger Hunt Mode"
-							color="primary"
-							offset={-5}
-						>
-							<Switch {...label} onChange={setScav} value={scavState} />
-						</Tooltip>
-					</form>
+					<div
+						className={`
 
-					{/* Mobile menu toggle */}
-					<button className="sm:hidden w-12 h-12 relative" onClick={() => setMobileDown(!mobileDown)}>
-						<div className="absolute bg-black w-full h-[3px] transition-all duration-300" style={{top: mobileDown ? 'calc(50% - 1.5px)' : '33%', transform: mobileDown ? 'rotate(45deg)' : ''}}></div>
-						<div className="absolute bg-black w-full h-[3px] transition-all duration-300" style={{bottom: mobileDown ? 'calc(50% - 1.5px)' : '33%', transform: mobileDown ? 'rotate(-45deg)' : ''}}></div>
-					</button>
+					`}
+					>
+						<form className="sm:flex justify-end mr-8 items-center hidden">
+							<Tooltip
+								placement="bottom"
+								content="Toggle Scavenger Hunt Mode"
+								color="primary"
+								offset={-5}
+							>
+								<Switch {...label} onChange={setScav} value={scavState} />
+							</Tooltip>
+						</form>
+						<NavbarContent className="sm:hidden flex" justify="start">
+							<NavbarMenuToggle />
+						</NavbarContent>
+
+						<NavbarMenu className="">
+							{Links.map((link, index) => (
+								<NavbarMenuItem key={index}>
+									<Link href={link.href}>
+										<p className="text-lg">{link.text}</p>
+									</Link>
+								</NavbarMenuItem>
+							))}
+							<form className="justify-end mr-8 items-center">
+								<Tooltip
+									placement="bottom"
+									content="Toggle Scavenger Hunt Mode"
+									color="primary"
+									offset={-5}
+								>
+									<Switch {...label} onChange={setScav} value={scavState} />
+								</Tooltip>
+							</form>
+						</NavbarMenu>
+					</div>
 
 					{scavState && (
 						<DraggableCore onDrag={appleDrag} onStop={appleDragStop}>
@@ -260,8 +287,8 @@ export const NavBar = () => {
 							/>
 						</DraggableCore>
 					)}
-				</div>
-			</nav>
-		</div>
+				</motion.div>
+			</Navbar>
+		</>
 	);
 };

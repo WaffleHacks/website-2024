@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 const useScrollFadeIn = (direction = "up", duration = 1, delay = 0) => {
 	const element = useRef<
@@ -35,7 +36,7 @@ const useScrollFadeIn = (direction = "up", duration = 1, delay = 0) => {
 		[delay, duration],
 	);
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		let observer: IntersectionObserver;
 		const { current } = element;
 

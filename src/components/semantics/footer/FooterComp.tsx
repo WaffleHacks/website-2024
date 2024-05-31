@@ -6,9 +6,10 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 	return (
 		<footer
 			className={`
-				bg-gray-900 text-white
-				py-6 flex flex-col bottom-0
-				w-full
+			text-[#3C2415] py-6 flex
+				flex-col bottom-0 w-full  bg-gradient-to-t
+				from-[#3C2415]/50 to-[#CDC5A2]
+				backdrop-blur-[10px] backdrop-filter bg-opacity-50
 			`}
 		>
 			<div
@@ -46,7 +47,12 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 									className="mr-4"
 								/>
 							</Picture>
-							<div className="flex flex-row gap-4 flex-wrap justify-center">
+							<div
+								className={`
+									flex flex-row gap-4
+									flex-wrap justify-center
+								`}
+							>
 								{top.left.icons.map((icon, index) => (
 									<Link
 										key={index}
@@ -79,7 +85,7 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 				<div
 					className={`
 						text-center lg:text-left flex flex-col
-						justify-center items-center w-full border-t border-gray-100 gap-3
+						justify-center items-center w-full border-t gap-3
 					`}
 				>
 					<div
@@ -95,7 +101,7 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 								target={`_self`}
 								rel={`noopener noreferrer`}
 							>
-								<span className="mr-4 hover:text-gray-300">{link.text}</span>
+								<span className="mr-4">{link.text}</span>
 							</Link>
 						))}
 					</div>

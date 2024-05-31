@@ -1,7 +1,7 @@
 await import("./src/env.js");
 import pwa from "@ducanh2912/next-pwa";
-import MillionLint from "@million/lint";
-import million from "million/compiler";
+// import MillionLint from "@million/lint";
+// import million from "million/compiler";
 
 const withPwa = pwa({
 	cacheOnFrontEndNav: true,
