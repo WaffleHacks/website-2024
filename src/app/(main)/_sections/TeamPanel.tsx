@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useContext } from "react";
 import { Article, Modal, CustomPicture as Picture, Slide } from "@/components";
 import { button_style } from "@/components";
 import { team_members_panel_png } from "@/constants";
@@ -16,6 +17,8 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useMediaQuery } from "usehooks-ts";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
 import { TeamCard } from "../_components";
+import { ScavContext } from "@/components";
+
 const MAX_CONCURRENT_REQUESTS = 5;
 const NUM_MEMBERS = 13;
 
@@ -41,6 +44,8 @@ export const TeamPanel = () => {
 	const isMedium = useMediaQuery("(min-width: 890px)");
 	const isSmall = useMediaQuery("(min-width: 640px)");
 	const isMediumOrLarger = isMedium || isLarge || isXLarge;
+
+	const ctx = useContext(ScavContext);
 
 	const fileToName = (file: string) =>
 		file.split("/").pop()?.replace(".png", "");
@@ -126,7 +131,7 @@ export const TeamPanel = () => {
 			<div className="w-full">
 				<div className="relative">
 					<div className="flex space-x-4 flex-row items-center justify-center mx-auto gap-2">
-						{teamData
+						{(ctx.scavState ? teamData.slice().reverse() : teamData)
 							.slice(currentIndex, currentIndex + howMuchToShow)
 							.map(({ mem, member, color }, index) => (
 								<Slide key={`${mem}-${index}`} delay={(index + 1) * 0.1}>

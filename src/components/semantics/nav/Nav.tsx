@@ -30,21 +30,6 @@ export const NavBar = () => {
 		{ href: "#apply", text: "Apply Now" },
 	];
 
-	const [scrollTop, setScrollTop] = useState<number>(0);
-	const [navHide, setNavHide] = useState<boolean>(false);
-
-	useIsomorphicLayoutEffect(() => {
-		function onScroll(e: any) {
-			setScrollTop(e.target.documentElement.scrollTop);
-			if (scrollTop > 100) {
-				setNavHide(true);
-			} else setNavHide(false);
-		}
-		window.addEventListener("scroll", onScroll);
-
-		return () => window.removeEventListener("scroll", onScroll);
-	}, [scrollTop]);
-
 	const label = { inputProps: { "aria-label": "Scav switch" } };
 
 	let {scavState, setScavState, archer} = useContext(ScavContext);
@@ -212,12 +197,14 @@ export const NavBar = () => {
 					`}
 				>
 					<div className="flex gap-8 justify-center items-center">
-						<Image
-							src={`/assets/svgs/header.png`}
-							alt={``}
-							height={80}
-							width={80}
-						/>
+						<Link href='/'>
+							<Image
+								src={`/assets/svgs/header.png`}
+								alt={``}
+								height={80}
+								width={80}
+							/>
+						</Link>
 						{Links.map((link, index) => (
 							<div key={index} className="hidden sm:flex">
 								<Link href={link.href}>

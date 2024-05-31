@@ -55,6 +55,14 @@
     border-radius: 0 0 0.5rem;
 }
 
+.calendar-grid-cell button {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+
 .calendar-grid-cell img {
     width: 80%;
 }
@@ -63,4 +71,15 @@
     background: #f6ad55;
     border-right: 1px solid #e2e8f0;
     height: 6rem;
+}
+
+.calendar-desc-card {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    max-width: 25rem;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0 0.5rem 0.5rem 0.5rem;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.2);
 }

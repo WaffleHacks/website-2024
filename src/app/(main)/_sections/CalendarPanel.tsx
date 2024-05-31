@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import CalendarDescription from "./CalendarDescription";
 import { CalendarDescriptionType as CDT } from "./CalendarDescription";
 import { Button } from "@nextui-org/button";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { Picture } from "@/components";
+import { button } from "@nextui-org/theme";
 
 interface EventStructure {
 	title: string;
@@ -40,7 +41,7 @@ export const CalendarPanel = () => {
 				{
 					title: "Opening Ceremony",
 					description: "Welcome to WaffleHacks 2023!",
-					time: "5:00 PM",
+					time: "5:00 PM - 6:00 PM",
 					link: "",
 					type: "ceremony",
 				},
@@ -240,38 +241,36 @@ export const CalendarPanel = () => {
 		},
 	};
 
+	const calendar_box = useRef<HTMLDivElement>(null);
+	const [descPos, setDescPos] = useState({ x: -1, y: -1 });
+	const [descDetails, setDescDetails] = useState<EventStructure | null>(null);
+
+	function setDesc(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, event: EventStructure) {
+		if (!calendar_box.current) return;
+
+		let rect = calendar_box.current.getBoundingClientRect();
+		let x = e.clientX;
+		let y = e.clientY;
+		// get x and y relative to calendar bounds
+		x -= rect.left;
+		y -= rect.top;
+
+		if (x + 300 > rect.x + rect.width) x = rect.x + rect.width - 300;
+
+		setDescPos({ x, y });
+		setDescDetails(event);
+		e.stopPropagation();
+	}
+
 	return (
-		<div 
-			className={`
-				font-mplus p-8
-			`}
-		>
-			<div
-				className={`
-					py-6 px-8 bg-gray-800
-					rounded-xl flex flex-col
-				`}	
-			>
-				<div
-					className={`
-						grid grid-cols-3
-					`}
-				>
+		<div ref={calendar_box} className="font-mplus p-8 relative" onClick={() => setDescPos({x: -1, y: -1})}>
+			<div className="py-6 px-8 bg-gray-800 rounded-xl flex flex-col">
+				<div className="grid grid-cols-3">
 					<span />
-					<span 
-						className={`
-							text-2xl font-bold text-white
-							text-center
-						`}
-					>
+					<span className="text-2xl font-bold text-white text-center">
 						{eventOrder[eventIndex]}
 					</span>
-					<div
-						className={`
-							text-2xl font-bold text-white
-							text-center flex justify-end gap-4
-						`}
-					>
+					<div className="text-2xl font-bold text-white text-center flex justify-end gap-4">
 						<Button
 							className={calendarButton}
 							onClick={() => {
@@ -294,20 +293,7 @@ export const CalendarPanel = () => {
 				<div className="calendar-grid w-full mt-4">
 					<span />
 					{[
-						"10 AM",
-						"11 AM",
-						"12 PM",
-						"1 PM",
-						"2 PM",
-						"3 PM",
-						"4 PM",
-						"5 PM",
-						"6 PM",
-						"7 PM",
-						"8 PM",
-						"9 PM",
-						"10 PM",
-						"11 PM",
+						"10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM",
 					].map((time, index) => {
 						return (
 							<div
@@ -323,15 +309,21 @@ export const CalendarPanel = () => {
 					</span>
 					{events[eventOrder[eventIndex]]["Ceremonies"].map((event: any, index: React.Key | null | undefined) => {
 						return (
-							<Picture
+							<div
 								key={index}
 								className={
 									"calendar-grid-cell text-center" +
 									(event ? " calendar-ceremony event" : "")
 								}
 							>
-								{event ? <img src="/assets/svgs/calendar/curtains.svg" /> : ""}
-							</Picture>
+								{
+									event && 
+									<button onClick={e => setDesc(e, event as EventStructure)}>
+										<img src="/assets/svgs/calendar/curtains.svg" />
+									</button>
+									
+								}
+							</div>
 						);
 					})}
 
@@ -394,10 +386,12 @@ export const CalendarPanel = () => {
 			</div>
 			<CalendarDescription
 				type={CDT.CEREMONY}
-				title="Opening Ceremony"
-				description="Welcome to WaffleHacks 2023!"
-				time="5:00 PM"
-				link=""
+				title={descDetails?.title || ""}
+				description={descDetails?.description || ""}
+				time={descDetails?.time || ""}
+				link={descDetails?.link || ""}
+				show={descPos.x !== -1 && descPos.y !== -1}
+				position={descPos}
 			/>
 		</div>
 	);

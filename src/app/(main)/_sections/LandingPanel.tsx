@@ -2,7 +2,7 @@
 import { ScavContext } from "@/components";
 import React, { useState, useRef, useLayoutEffect, useContext } from "react";
 
-import {
+import Draggable, {
 	DraggableCore,
 	type DraggableData,
 	type DraggableEvent,
@@ -67,19 +67,23 @@ export const LandingPanel = () => {
 	const images = [
 		{
 			src: "/assets/svgs/landing/red_pf.svg",
-			className: "absolute left-[34.5%] top-[31.5%] w-[31%]",
+			className: "no-drag absolute left-[34.5%] top-[31.5%] w-[31%]",
 		},
 		{
 			src: "/assets/svgs/landing/fencer_pf.svg",
-			className: "absolute left-[68.2%] top-[31.5%] w-[31%]",
+			className: "no-drag absolute left-[68.2%] top-[31.5%] w-[31%]",
 		},
+		// {
+		// 	src: "/assets/svgs/landing/fencer.svg",
+		// 	className: "no-drag absolute left-[72.4%] top-[15.3%] w-[17%]",
+		// },
 		{
-			src: "/assets/svgs/landing/fencer.svg",
-			className: "absolute left-[72.4%] top-[15.3%] w-[17%]",
+			src: "/assets/svgs/landing/fencer_body.svg",
+			className: "no-drag absolute left-[77.8%] top-[15.2%] w-[11.6%]",
 		},
 		{
 			src: "/assets/svgs/landing/archer_pf.svg",
-			className: "absolute left-[16.2%] top-[67.5%] w-[31%]",
+			className: "no-drag absolute left-[16.2%] top-[67.5%] w-[31%]",
 		},
 		// {
 		// 	src: "/assets/svgs/landing/archer.svg",
@@ -87,20 +91,12 @@ export const LandingPanel = () => {
 		// },
 		{
 			src: "/assets/svgs/landing/tennis_pf.svg",
-			className: "absolute left-[50.05%] top-[67.9%] w-[31%]",
+			className: "no-drag absolute left-[50.05%] top-[67.9%] w-[31%]",
 		},
 		{
 			src: "/assets/svgs/landing/tennis.svg",
-			className: "absolute left-[60.4%] top-[48.8%] w-[8.4%]",
+			className: "no-drag absolute left-[60.4%] top-[48.8%] w-[8.4%]",
 		},
-		// {
-		// 	src: "/assets/svgs/landing/scav/wh_inner.svg",
-		// 	className: "absolute left-[45.06%] top-[12.65%] w-[10.47%]",
-		// },
-		// {
-		// 	src: "/assets/svgs/landing/scav/wh_cut.svg",
-		// 	className: "absolute left-[42.9%] top-[7.1%] w-[14.85%]",
-		// },
 	];
 
 	function rotateArcher(e: DraggableEvent, pos: DraggableData) {
@@ -360,6 +356,16 @@ export const LandingPanel = () => {
 							</div>
 						</DraggableCore>
 					</div>
+
+
+					{/* stabby */}
+					<Draggable>
+					<img 
+						className="no-drag absolute left-[72.2%] top-[22.5%] w-[5.8%]"
+						src="/assets/svgs/landing/fencer_sword.svg" 
+						alt="" />
+					</Draggable>
+
 				</div>
 			</div>
 		</header>
