@@ -48,6 +48,11 @@ export const LandingPanel = () => {
 	const [bikerPos, setBikerPos] = useState({x: 0, y: 0, falling: false});
 	const [bikerGone, setBikerGone] = useState(false);
 	const bikerInterval = useRef<NodeJS.Timeout | null>(null);
+	const bikerGoals = useRef({
+		started: false,
+		fell: false,
+		stopped: false
+	})
 	const tennisPlayer = useRef<HTMLImageElement>(null);
 
 	const container = useRef<HTMLDivElement>(null);
@@ -245,6 +250,7 @@ export const LandingPanel = () => {
 			bikerInterval.current = null;
 			return;
 		}
+		bikerGoals.current.started = true;
 		setBikerPos(prevPos => {
 			if (!bikingForwards) return prevPos;
 			if (!road.current || !ctx.archer.landing1?.current) return prevPos;
@@ -268,6 +274,7 @@ export const LandingPanel = () => {
 
 			// if biker intersects tennis player while the apple is on their head, stop
 			if(boxesIntersect(bikerRect, tennisPlayerRect) && ctx.archer.activeHeadSpot.current == 1 && !ctx.archer.headshot){
+				bikerGoals.current.stopped = true;
 				return prevPos;
 			}
 
@@ -276,6 +283,7 @@ export const LandingPanel = () => {
 			// check intersection of front wheel with road
 			if (!boxesIntersect(frontWheelRect, roadRect)) {
 				falling = true;
+				bikerGoals.current.fell = true;
 			}
 			// check intersection of front wheel with tennis pf
 			if (boxesIntersect(frontWheelRect, tennisPfRect) && frontWheelRect.bottom > tennisPfRect.top + tennisPfRect.height/2){
@@ -368,7 +376,9 @@ export const LandingPanel = () => {
 			carrakatuInterval.current = null;
 			return;
 		}
-		if (ctx.archer.headshot && ctx.biker.frontWheelPopped && ctx.biker.backWheelPopped){
+		if (ctx.archer.headshot && ctx.biker.frontWheelPopped && ctx.biker.backWheelPopped
+			&& bikerGoals.current.started && bikerGoals.current.fell && bikerGoals.current.stopped
+		){
 			if (!carrakatuInterval.current){
 				
 				let bikerPos = biker.current?.getBoundingClientRect();
