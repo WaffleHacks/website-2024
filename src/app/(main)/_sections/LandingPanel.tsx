@@ -9,6 +9,7 @@ import Draggable, {
 } from "react-draggable";
 
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
+import { set } from "zod";
 
 function useWindowSize() {
 	const [size, setSize] = useState([0, 0]);
@@ -56,10 +57,13 @@ export const LandingPanel = () => {
 	const carrakatu = useRef<HTMLImageElement>(null);
 	const [carrakatuPos, setCarrakatuPos] = useState({x: 0, y: -500});
 	const [carrakatuSetPosition, setCarrakatuSetPosition] = useState({
-		from: {x: 0, y: -500},
-		to: {x: 0, y: -500},
+		from: {x: 1000, y: -500},
+		to: {x: 1000, y: -500},
+		at: 0
 	});
 	const carrakatuInterval = useRef<NodeJS.Timeout | null>(null);
+	const carrakatuPickedUp = useRef(false);
+	const carrakatuDroppedOff = useRef(false);
 
 	const ctx = useContext(ScavContext);
 
@@ -183,7 +187,7 @@ export const LandingPanel = () => {
 
 				const h1 = ctx.archer.headspot1?.current?.getBoundingClientRect();
 				const h2 = ctx.archer.headspot2?.current?.getBoundingClientRect();
-				
+
 				if (
 					(ctx.archer.activeHeadSpot.current == 1 &&
 						h1 &&
@@ -317,10 +321,12 @@ export const LandingPanel = () => {
 
 	function lakatuBringsBikerBack(){
 		if (!ctx.scavState) return;
-		
+		if (!road.current) return;
+		setCarrakatuSetPosition(pos => {
+			let nextT = pos.at + 0.01;
+			return {...pos, at: nextT};
+		});
 	}
-
-	
 
 	// set headshot after getting a headshot
 	useEffect(() => {
@@ -355,9 +361,90 @@ export const LandingPanel = () => {
 		}
 	}, [ctx.scavState]);
 
-	
+	// get carrakatu to go when: headshot, both tires popped, apple fell
+	useEffect(() => {
+		if (!ctx.scavState) {
+			clearInterval(carrakatuInterval.current as NodeJS.Timeout);
+			carrakatuInterval.current = null;
+			return;
+		}
+		if (ctx.archer.headshot && ctx.biker.frontWheelPopped && ctx.biker.backWheelPopped){
+			if (!carrakatuInterval.current){
+				
+				let bikerPos = biker.current?.getBoundingClientRect();
+				if (!bikerPos) return;
+				console.log('getting carrakatu');
+				setCarrakatuSetPosition({
+					...carrakatuSetPosition, to: {x: bikerPos.left + bikerPos.width/2, y: bikerPos.top + bikerPos.height/2}
+				});
+				carrakatuInterval.current = setInterval(lakatuBringsBikerBack, 15);
+			}
+		}
+		return () => {
+			clearInterval(carrakatuInterval.current as NodeJS.Timeout);
+			carrakatuInterval.current = null;
+		}
+	}, [ctx.scavState, ctx.archer.headshot, ctx.biker.frontWheelPopped, ctx.biker.backWheelPopped]);
 
+	useEffect(() => {
+		if (!ctx.scavState) return;
+		if (!carrakatuInterval.current) return;
+		if (!road.current) return;
+		if (!biker.current) return;
+		if (!img_box.current) return;
 
+		let containerRect = img_box.current.getBoundingClientRect();
+		let bikerPos = biker.current.getBoundingClientRect();
+
+		let t = carrakatuSetPosition.at;
+		let {x, y} = interpolateWithCurve(carrakatuSetPosition.from, carrakatuSetPosition.to, t);
+		setCarrakatuPos({x, y});
+
+		if (carrakatuPickedUp.current && !carrakatuDroppedOff.current){
+			let bikerX = (x - bikerPos.width - containerRect.left) * 100 / containerRect.width;
+			let bikerY = (y - bikerPos.height - containerRect.top) * 100 / containerRect.height;
+			setBikerPos({x: bikerX, y: bikerY, falling: false});
+		}
+
+		if (!carrakatuPickedUp.current && t >= 1){
+			carrakatuPickedUp.current = true;
+			let roadRect = road.current.getBoundingClientRect();
+			let nextPos = {x: roadRect.left + roadRect.width/2, y: roadRect.top + roadRect.height/2};
+			setCarrakatuSetPosition({
+				from: {x, y},
+				to: nextPos,
+				at: 0
+			});
+			clearInterval(carrakatuInterval.current as NodeJS.Timeout);
+			carrakatuInterval.current = null;
+
+			setTimeout(() => {
+				carrakatuInterval.current = setInterval(lakatuBringsBikerBack, 15);
+			}, 500);
+		}
+		else if (carrakatuPickedUp.current && !carrakatuDroppedOff.current && t >= 1){
+			// move to the right by biker_width
+			carrakatuDroppedOff.current = true
+			let nextPos = {x: x + bikerPos.width, y: y};
+			setCarrakatuSetPosition({
+				from: {x, y},
+				to: nextPos,
+				at: 0
+			});
+			clearInterval(carrakatuInterval.current as NodeJS.Timeout);
+			carrakatuInterval.current = null;
+
+			setTimeout(() => {
+				carrakatuInterval.current = setInterval(lakatuBringsBikerBack, 15);
+			}, 500);
+		}
+		else if (carrakatuDroppedOff.current && t >= 1){
+			clearInterval(carrakatuInterval.current as NodeJS.Timeout);
+			carrakatuInterval.current = null;
+		}
+		
+
+	}, [carrakatuSetPosition]);
 
 	return (
 		<header className="font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full max-w-screen-2xl mx-auto">
@@ -583,16 +670,17 @@ export const LandingPanel = () => {
 							alt="" />
 					</Draggable>
 
-					{/* carrakatu */}
-					<img 
-						ref={carrakatu}
-						className="no-drag absolute w-[12%]"
-						style={{top: carrakatuPos.y + 'px', left: carrakatuPos.x + 'px'}}
-						src="/assets/svgs/landing/scav/carrakatu.svg" 
-						alt="" />
+					
 
 				</div>
 			</div>
+			{/* carrakatu */}
+			<img 
+				ref={carrakatu}
+				className="no-drag absolute w-[12%]"
+				style={{top: carrakatuPos.y + 'px', left: carrakatuPos.x + 'px', transform: 'translateY(-100%'}}
+				src="/assets/svgs/landing/scav/carrakatu.svg" 
+				alt="" />
 		</header>
 	);
 };
