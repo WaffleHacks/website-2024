@@ -13,7 +13,8 @@ export const FaqPanel = () => {
 			className={`
 				bg-[#f5f5f5] p-8 md:text-left
 				flex justify-center font-mplus mx-8
-				rounded-xl  backdrop-blur-lg relative
+				rounded-xl backdrop-blur-lg relative
+				shadow-xl
 			`}
 		>
 			<div

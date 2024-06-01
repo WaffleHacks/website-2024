@@ -72,6 +72,10 @@ export const NavBar = () => {
 	}
 
 	function appleInterval() {
+		if (archer.headshot) {
+			clearInterval(walkIinterval.current);
+			return;
+		}
 		const files = ["apple1", "apple2", "apple3", "apple2"];
 
 		setAppleX((x) => {

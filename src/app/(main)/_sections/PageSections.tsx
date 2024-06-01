@@ -43,7 +43,6 @@ export const PageSections = () => {
 						className={`
 							flex items-center justify-center
 							max-w-screen-2xl flex-col
-							border border-red-400
 						`}
 					>
 						{value !== "About" && value !== "Apply Now" && (

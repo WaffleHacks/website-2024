@@ -53,6 +53,14 @@ export const LandingPanel = () => {
 	const img_box = useRef<HTMLDivElement>(null);
 	const windowSize = useWindowSize();
 
+	const carrakatu = useRef<HTMLImageElement>(null);
+	const [carrakatuPos, setCarrakatuPos] = useState({x: 0, y: -500});
+	const [carrakatuSetPosition, setCarrakatuSetPosition] = useState({
+		from: {x: 0, y: -500},
+		to: {x: 0, y: -500},
+	});
+	const carrakatuInterval = useRef<NodeJS.Timeout | null>(null);
+
 	const ctx = useContext(ScavContext);
 
 	function onSizing() {
@@ -182,10 +190,7 @@ export const LandingPanel = () => {
 						arrowIntersectsBox(box, h1)) ||
 					(ctx.archer.activeHeadSpot == 2 && h2 && arrowIntersectsBox(box, h2))
 				) {
-					// clearInterval(arrowInterval.current as NodeJS.Timeout);
 					gotHeadshot.current = true;
-					// ctx.archer.setHeadshot(true);
-					// return newPos;
 				}
 
 				if (
@@ -258,7 +263,7 @@ export const LandingPanel = () => {
 			let tennisPfRect = ctx.archer.landing1.current.getBoundingClientRect();
 
 			// if biker intersects tennis player while the apple is on their head, stop
-			if(boxesIntersect(bikerRect, tennisPlayerRect) && ctx.archer.activeHeadSpot == 1){
+			if(boxesIntersect(bikerRect, tennisPlayerRect) && ctx.archer.activeHeadSpot == 1 && !ctx.archer.headshot){
 				return prevPos;
 			}
 
@@ -301,16 +306,37 @@ export const LandingPanel = () => {
 		}
 	}
 
+	function interpolateWithCurve(from: {x: number, y: number}, to: {x: number, y: number}, t: number){
+		// rounded curve from t = 0 to 1, with variation in x and y
+		let curve = Math.sin(t * Math.PI/2);
+		let x = from.x + (to.x - from.x) * t;
+		let y = from.y + (to.y - from.y) * curve;
+		return {x, y};
+
+	}
+
+	function lakatuBringsBikerBack(){
+		if (!ctx.scavState) return;
+		
+	}
+
+	
+
+	// set headshot after getting a headshot
 	useEffect(() => {
 		if (gotHeadshot.current && !ctx.archer.headshot){
 			ctx.archer.setHeadshot(true);
 		}
 	}, [arrowPos, ctx.archer.headshot]);
-
+	
+	// control biker
 	useEffect(() => {
 		if (!ctx.scavState) {
 			clearInterval(arrowInterval.current as NodeJS.Timeout);
 			arrowInterval.current = null;
+
+			clearInterval(bikerInterval.current as NodeJS.Timeout);
+			bikerInterval.current = null;
 			return;
 		}
 		if (!bikerInterval.current && bikingForwards){
@@ -320,13 +346,18 @@ export const LandingPanel = () => {
 			clearInterval(bikerInterval.current as NodeJS.Timeout);
 			bikerInterval.current = null;
 		}
-	}, [bikingForwards, bikerPos, ctx.scavState]);
+	}, [bikingForwards, bikerPos, ctx.scavState, ctx.archer.headshot]);
 
+	// reset arrow position when going out of scav
 	useEffect(() => {
 		if(!ctx.scavState){
 			setArrowPos({ x: 0, y: 0, angle: 0, vx: 0, vy: 0 });
 		}
 	}, [ctx.scavState]);
+
+	
+
+
 
 	return (
 		<header className="font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full max-w-screen-2xl mx-auto">
@@ -542,8 +573,6 @@ export const LandingPanel = () => {
 								alt="" />
 						</Draggable>
 					}
-					
-
 
 					{/* stabby */}
 					<Draggable onDrag={e => dragSword(e)} disabled={!ctx.scavState} position={ctx.scavState ? undefined : {x: 0, y: 0}}>
@@ -553,6 +582,14 @@ export const LandingPanel = () => {
 							src="/assets/svgs/landing/fencer_sword.svg" 
 							alt="" />
 					</Draggable>
+
+					{/* carrakatu */}
+					<img 
+						ref={carrakatu}
+						className="no-drag absolute w-[12%]"
+						style={{top: carrakatuPos.y + 'px', left: carrakatuPos.x + 'px'}}
+						src="/assets/svgs/landing/scav/carrakatu.svg" 
+						alt="" />
 
 				</div>
 			</div>
