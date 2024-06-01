@@ -1,6 +1,6 @@
 "use client";
 import type React from "react";
-import { createContext, useRef, useState } from "react";
+import { createContext, use, useRef, useState } from "react";
 import { FooterBar } from "./footer";
 import { NavBar } from "./nav";
 import { UnusedNavBar } from "./nav/UnusedNav";
@@ -15,7 +15,7 @@ interface ScavContextParameters {
 		landing2: React.MutableRefObject<HTMLImageElement | null> | null;
 		headshot: boolean;
 		setHeadshot: (state: boolean) => void;
-		activeHeadSpot: number;
+		activeHeadSpot: React.MutableRefObject<number>;
 	};
 	biker: {
 		backWheelPopped: boolean;
@@ -35,7 +35,7 @@ export const ScavContext = createContext<ScavContextParameters>({
 		landing2: null,
 		headshot: false,
 		setHeadshot: (state: boolean) => {},
-		activeHeadSpot: -1
+		activeHeadSpot: { current: -1 }
 	},
 	biker: {
 		backWheelPopped: false,
@@ -68,7 +68,7 @@ export const Semantics: React.FC<
 						landing2: useRef<HTMLImageElement | null>(null),
 						headshot,
 						setHeadshot,
-						activeHeadSpot: -1,
+						activeHeadSpot: useRef<number>(-1),
 					},
 					biker: {
 						backWheelPopped,

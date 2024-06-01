@@ -183,12 +183,12 @@ export const LandingPanel = () => {
 
 				const h1 = ctx.archer.headspot1?.current?.getBoundingClientRect();
 				const h2 = ctx.archer.headspot2?.current?.getBoundingClientRect();
-
+				
 				if (
-					(ctx.archer.activeHeadSpot == 1 &&
+					(ctx.archer.activeHeadSpot.current == 1 &&
 						h1 &&
 						arrowIntersectsBox(box, h1)) ||
-					(ctx.archer.activeHeadSpot == 2 && h2 && arrowIntersectsBox(box, h2))
+					(ctx.archer.activeHeadSpot.current == 2 && h2 && arrowIntersectsBox(box, h2))
 				) {
 					gotHeadshot.current = true;
 				}
@@ -263,7 +263,7 @@ export const LandingPanel = () => {
 			let tennisPfRect = ctx.archer.landing1.current.getBoundingClientRect();
 
 			// if biker intersects tennis player while the apple is on their head, stop
-			if(boxesIntersect(bikerRect, tennisPlayerRect) && ctx.archer.activeHeadSpot == 1 && !ctx.archer.headshot){
+			if(boxesIntersect(bikerRect, tennisPlayerRect) && ctx.archer.activeHeadSpot.current == 1 && !ctx.archer.headshot){
 				return prevPos;
 			}
 

@@ -146,17 +146,17 @@ export const NavBar = () => {
 		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]){
 			setAppleY(navRect.bottom - h1[3] - apRect.height/8);
 			setAppleX(window.innerWidth - ((h1[0] + h1[1]) / 2) - 3*apRect.width/5);
-			archer.activeHeadSpot = 1;
+			archer.activeHeadSpot.current = 1;
 		}
 		else if (mx > h2[0] && mx < h2[1] && my > h2[2] && my < h2[3]){
 			setAppleY(navRect.bottom - h2[3] - apRect.height/8);
 			setAppleX(window.innerWidth - ((h2[0] + h2[1]) / 2) - 3*apRect.width/5);
-			archer.activeHeadSpot = 2;
+			archer.activeHeadSpot.current = 2;
 		}
 		else {
 			setAppleY(navRect.bottom - mouseY);
 			setAppleX(window.innerWidth - mouseX);
-			archer.activeHeadSpot = -1;
+			archer.activeHeadSpot.current = -1;
 		}
 
 		setAppleImg("applesit");
