@@ -10,6 +10,7 @@ import Draggable, {
 } from "react-draggable";
 
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
+import { NumberDisplay } from "../_components";
 import { set } from "zod";
 
 function useWindowSize() {
@@ -473,7 +474,7 @@ export const LandingPanel = () => {
 	}
 
 	return (
-		<header className="font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full max-w-screen-2xl mx-auto">
+		<header className="font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full h-screen box-border max-w-screen-2xl mx-auto">
 			{/* TODO */}
 			{/* <img
 				id="landing-blob"
@@ -715,6 +716,8 @@ export const LandingPanel = () => {
 					style={{bottom: `calc(${window.innerHeight - carrakatuPos.y}px + 11vw)`, right: (window.innerWidth - carrakatuPos.x) + 'px'}}
 				/>
 			}
+
+			<NumberDisplay className="absolute right-4 sm:right-12" />
 			
 		</header>
 	);

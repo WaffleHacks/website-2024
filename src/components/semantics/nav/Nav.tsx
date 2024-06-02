@@ -93,8 +93,8 @@ export const NavBar = () => {
 			lastScroll = currentScroll;
 		};
 
-		window.addEventListener("scroll", handleScroll);
-		return () => window.removeEventListener("scroll", handleScroll);
+		// window.addEventListener("scroll", handleScroll);
+		// return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
 	function setScav(e: React.ChangeEvent<HTMLInputElement>) {

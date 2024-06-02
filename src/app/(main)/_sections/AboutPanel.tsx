@@ -32,7 +32,7 @@ export const AboutPanel = () => {
 					/>
 				</div>
 			</article>
-			<Picture className="flex flex-row justify-center items-center rounded-2xl shadow-xl transition-transform duration-300 transform w-64 h-64 md:w-96 md:h-96 lg:w-128 lg:h-128 xl:w-144 xl:h-144">
+			<Picture className="flex flex-row justify-center items-center transition-transform duration-300 transform w-64 h-64 md:w-96 md:h-96 lg:w-128 lg:h-128 xl:w-144 xl:h-144">
 				<Image
 					src="/assets/images/about.png"
 					alt=""
