@@ -42,7 +42,7 @@ export const NavBar = () => {
 	const [appleImg, setAppleImg] = useState("apple1");
 	const [appleX, setAppleX] = useState<number>(-100);
 	const [appleY, setAppleY] = useState<number>(0);
-	const walkIinterval = useRef<NodeJS.Timeout>();
+	const walkInterval = useRef<NodeJS.Timeout | null>();
 	const fallInterval = useRef<NodeJS.Timeout | null>();
 	const fallSpeed = useRef(1);
 	const [appleGone, setAppleGone] = useState(false);
@@ -105,7 +105,8 @@ export const NavBar = () => {
 
 	function appleInterval() {
 		if (archer.headshot && !appleHasTalked.current) {
-			clearInterval(walkIinterval.current);
+			clearInterval(walkInterval.current as NodeJS.Timeout);
+			walkInterval.current = null;
 			return;
 		}
 		const files = ["apple1", "apple2", "apple3", "apple2"];
@@ -141,20 +142,22 @@ export const NavBar = () => {
 	};
 
 	useIsomorphicLayoutEffect(() => {
-		if (walkIinterval.current) {
-			clearInterval(walkIinterval.current);
+		if (walkInterval.current) {
+			clearInterval(walkInterval.current);
+			walkInterval.current = null;
 		}
 		if (scavState) {
-			walkIinterval.current = setInterval(appleInterval, 25);
+			walkInterval.current = setInterval(appleInterval, 25);
 		} else {
 			setAppleY(0);
 			clearInterval(fallInterval.current as NodeJS.Timeout);
 		}
-		return () => clearInterval(walkIinterval.current);
+		return () => clearInterval(walkInterval.current as NodeJS.Timeout);
 	}, [scavState]);
 
 	function appleDrag(e: DraggableEvent, pos: DraggableData) {
-		clearInterval(walkIinterval.current);
+		clearInterval(walkInterval.current as NodeJS.Timeout);
+		walkInterval.current = null;
 
 		const ap = apple.current;
 		if (!ap) return;
@@ -223,8 +226,8 @@ export const NavBar = () => {
 			setAppleY(0);
 			if (!appleHasTalked.current && archer.headshot) {
 				setAppleTalking(true);
-			} else {
-				walkIinterval.current = setInterval(appleInterval, 25);
+			} else if (!walkInterval.current) {
+				walkInterval.current = setInterval(appleInterval, 25);
 			}
 		} else if (archer.headshot && !fallInterval.current) {
 			fallSpeed.current = 1;
@@ -282,15 +285,26 @@ export const NavBar = () => {
 			};
 
 		if (archer.headshot && !fallInterval.current) {
-			fallSpeed.current = 1;
-			fallInterval.current = setInterval(appleFall, 25);
+
+			// check if apple should fall
+			const ap = apple.current;
+			if (!ap) return;
+			const appleRect = ap.getBoundingClientRect();
+			const navRect = document.querySelector("nav")?.getBoundingClientRect();
+			if (!navRect) return;
+			if (appleRect.bottom > navRect.bottom) {
+				fallSpeed.current = 1;
+				fallInterval.current = setInterval(appleFall, 25);
+			}
 		}
 	}, [scavState, archer.headshot]);
 
 	function appyFinishTalking() {
 		setAppleTalking(false);
 		appleHasTalked.current = true;
-		walkIinterval.current = setInterval(appleInterval, 25);
+		if (!walkInterval.current){
+			walkInterval.current = setInterval(appleInterval, 25);
+		}
 	}
 
 	return (
@@ -413,6 +427,7 @@ export const NavBar = () => {
 										backgroundColor: "#3C2415",
 									},
 								}}
+								disabled={true}
 							/>
 						</Tooltip>
 					</form>
