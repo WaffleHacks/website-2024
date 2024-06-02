@@ -31,11 +31,14 @@ const TrackSlide: React.FC<{
 	return (
 		<EnterAnimation>
 			<Section
-				className={cn(`
+				className={cn(
+					`
 					p-4 mx-2 h-auto rounded-lg ${card_style}
-					`, `
+					`,
+					`
 					
-				`)}
+				`,
+				)}
 			>
 				<Article
 					className={`

@@ -1,6 +1,12 @@
 "use client";
 import { ScavContext } from "@/components";
-import React, { useState, useRef, useLayoutEffect, useContext, useEffect } from "react";
+import React, {
+	useState,
+	useRef,
+	useLayoutEffect,
+	useContext,
+	useEffect,
+} from "react";
 import CarrakatuDialog from "../_components/CarrakatuDialog";
 
 import Draggable, {
@@ -11,7 +17,6 @@ import Draggable, {
 
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
 import { NumberDisplay } from "../_components";
-
 
 function useWindowSize() {
 	const [size, setSize] = useState([0, 0]);
@@ -505,18 +510,18 @@ export const LandingPanel = () => {
 		}
 	}, [carrakatuSetPosition]);
 
-	function finishWithCarry(){
+	function finishWithCarry() {
 		setCarrySpeaking(false);
-		let {x, y} = carrakatuPos;
-			let to = {x: 1000, y: -500};
-			setCarrakatuSetPosition({
-				from: {x, y},
-				to,
-				at: 0
-			});
-			setTimeout(() => {
-				carrakatuInterval.current = setInterval(lakatuBringsBikerBack, 15);
-			}, 500);
+		const { x, y } = carrakatuPos;
+		const to = { x: 1000, y: -500 };
+		setCarrakatuSetPosition({
+			from: { x, y },
+			to,
+			at: 0,
+		});
+		setTimeout(() => {
+			carrakatuInterval.current = setInterval(lakatuBringsBikerBack, 15);
+		}, 500);
 	}
 
 	return (
@@ -752,31 +757,40 @@ export const LandingPanel = () => {
 						<img
 							ref={swordElement}
 							className="no-drag absolute left-[72.2%] top-[22.5%] w-[5.8%]"
-							src="/assets/svgs/landing/fencer_sword.svg" 
-							alt="" />
-					</Draggable>	
-
+							src="/assets/svgs/landing/fencer_sword.svg"
+							alt=""
+						/>
+					</Draggable>
 				</div>
 			</div>
 			{/* carrakatu */}
 			<img
 				ref={carrakatu}
 				className="no-drag absolute w-[12%]"
-				style={{top: carrakatuPos.y + 'px', left: carrakatuPos.x + 'px', transform: 'translateY(-100%'}}
-				src="/assets/svgs/landing/scav/carrakatu.svg" 
-				alt="" />
-			
-			{
-				carrySpeaking &&
-				<CarrakatuDialog 
+				style={{
+					top: carrakatuPos.y + "px",
+					left: carrakatuPos.x + "px",
+					transform: "translateY(-100%",
+				}}
+				src="/assets/svgs/landing/scav/carrakatu.svg"
+				alt=""
+			/>
+
+			{carrySpeaking && (
+				<CarrakatuDialog
 					whenDone={finishWithCarry}
 					className="bg-white rounded-lg shadow-lg p-4 max-w-[16rem]"
-					style={{bottom: `calc(${window.innerHeight - carrakatuPos.y}px + 11vw)`, right: (window.innerWidth - carrakatuPos.x) + 'px'}}
+					style={{
+						bottom: `calc(${window.innerHeight - carrakatuPos.y}px + 11vw)`,
+						right: window.innerWidth - carrakatuPos.x + "px",
+					}}
 				/>
-			}
+			)}
 
-			<NumberDisplay className="absolute right-4 sm:right-12" style={{bottom: '2rem'}} />
-			
+			<NumberDisplay
+				className="absolute right-4 sm:right-12"
+				style={{ bottom: "2rem" }}
+			/>
 		</header>
 	);
 };

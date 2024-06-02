@@ -101,8 +101,9 @@ body.scav #landing-blob { opacity: 1; }
 .speech-bubble {
   background: #fff;
   border-radius: 0.4rem;
-  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 0.5em rgb(0 0 0 / 60%);
 }
+
 .speech-bubble::after {
   content: '';
   display: inline-block;

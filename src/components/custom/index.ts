@@ -6,4 +6,4 @@ export * from "./Dialog";
 export * from "./modal";
 export * from "./Accordion";
 export * from "./PaginationButton";
-export * from './CardNoise'
+export * from "./CardNoise";
