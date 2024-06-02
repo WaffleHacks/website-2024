@@ -19,7 +19,8 @@ interface EventList {
 	[key: string]: (EventStructure | unknown)[];
 }
 
-const calendarButton: string = "flex items-center justify-center rounded-lg bg-yellow-500 w-10 h-10";
+const calendarButton: string =
+	"flex items-center justify-center rounded-lg bg-yellow-500 w-10 h-10";
 
 export const CalendarPanel = () => {
 	const [eventIndex, setEventIndex] = useState<number>(0);
@@ -52,120 +53,15 @@ export const CalendarPanel = () => {
 				"",
 				"",
 			],
-			Workshops: [
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-			],
-			Panels: [
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-			],
-			"Other / Fun": [
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-			],
+			Workshops: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+			Panels: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+			"Other / Fun": ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
 		},
 		"Saturday, June 22nd": {
-			Ceremonies: [
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-			],
-			Workshops: [
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-			],
-			Panels: [
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-			],
-			"Other / Fun": [
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-			],
+			Ceremonies: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+			Workshops: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+			Panels: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+			"Other / Fun": ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
 		},
 		"Sunday, June 23rd": {
 			Ceremonies: [
@@ -330,19 +226,21 @@ export const CalendarPanel = () => {
 					<span className="calendar-title-cell text-xl text-white font-bold">
 						Workshops
 					</span>
-					{events[eventOrder[eventIndex]]["Workshops"].map((event: any, index: React.Key | null | undefined) => {
-						return (
-							<Picture
-								key={index}
-								className={
-									"calendar-grid-cell text-center" +
-									(event ? " calendar-workshop" : "")
-								}
-							>
-								{event ? <img src="/assets/svgs/calendar/wrench.svg" /> : ""}
-							</Picture>
-						);
-					})}
+					{events[eventOrder[eventIndex]]["Workshops"].map(
+						(event: any, index: React.Key | null | undefined) => {
+							return (
+								<Picture
+									key={index}
+									className={
+										"calendar-grid-cell text-center" +
+										(event ? " calendar-workshop" : "")
+									}
+								>
+									{event ? <img src="/assets/svgs/calendar/wrench.svg" /> : ""}
+								</Picture>
+							);
+						},
+					)}
 
 					<span
 						className={`
@@ -352,36 +250,40 @@ export const CalendarPanel = () => {
 					>
 						Panels
 					</span>
-					{events[eventOrder[eventIndex]]["Panels"].map((event: any, index: React.Key | null | undefined) => {
-						return (
-							<Picture
-								key={index}
-								className={
-									"calendar-grid-cell text-center" +
-									(event ? " calendar-panel" : "")
-								}
-							>
-								{event ? <img src="/assets/svgs/calendar/panel.svg" /> : ""}
-							</Picture>
-						);
-					})}
+					{events[eventOrder[eventIndex]]["Panels"].map(
+						(event: any, index: React.Key | null | undefined) => {
+							return (
+								<Picture
+									key={index}
+									className={
+										"calendar-grid-cell text-center" +
+										(event ? " calendar-panel" : "")
+									}
+								>
+									{event ? <img src="/assets/svgs/calendar/panel.svg" /> : ""}
+								</Picture>
+							);
+						},
+					)}
 
 					<span className="calendar-title-cell text-xl text-white font-bold">
 						Other / Fun
 					</span>
-					{events[eventOrder[eventIndex]]["Other / Fun"].map((event: any, index: React.Key | null | undefined) => {
-						return (
-							<Picture
-								key={index}
-								className={
-									"calendar-grid-cell text-center" +
-									(event ? " calendar-other" : "")
-								}
-							>
-								{event ? <img src="/assets/svgs/calendar/other.svg" /> : ""}
-							</Picture>
-						);
-					})}
+					{events[eventOrder[eventIndex]]["Other / Fun"].map(
+						(event: any, index: React.Key | null | undefined) => {
+							return (
+								<Picture
+									key={index}
+									className={
+										"calendar-grid-cell text-center" +
+										(event ? " calendar-other" : "")
+									}
+								>
+									{event ? <img src="/assets/svgs/calendar/other.svg" /> : ""}
+								</Picture>
+							);
+						},
+					)}
 				</div>
 			</div>
 			<CalendarDescription

@@ -474,12 +474,13 @@ export const LandingPanel = () => {
 
 	return (
 		<header className="font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full max-w-screen-2xl mx-auto">
-			<img
+			{/* TODO */}
+			{/* <img
 				id="landing-blob"
-				className="absolute top-24 right-0 h-[50%]"
+				className="absolute top-24 right-0 h-[50%] z-[-1]"
 				src="/assets/svgs/landing/scav/blob.svg"
 				alt=""
-			/>
+			/> */}
 
 			<h2 className="text-2xl font-normal">
 				Put your best code forward for the

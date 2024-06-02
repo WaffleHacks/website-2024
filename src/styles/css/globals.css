@@ -22,6 +22,7 @@
     :host,html {
         line-height: 1.5;
         text-size-adjust: 100%;
+        -webkit-font-smoothing: antialiased;
         font-family: 'M PLUS Rounded 1c',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
         font-feature-settings: normal;
         font-variation-settings: normal;
@@ -56,14 +57,19 @@
         background-color: #F2DCC0;
     }
 
+    .MuiAccordionSummary-root {
+        color: #3C2415;
+    }
+
     a:hover {
         font-weight: 700;
     }
 
     .navbar {
-        background-color: rgba(255, 255, 255, 0.7);
+        background-color: rgb(255 255 255 / 70%);
         transition: var(--scav-transition-dur) ease-in-out;
     }
+
     .navbar::before {
         content: '';
         position: absolute;
@@ -76,9 +82,10 @@
     }
 
     .mobile-nav-slide {
-        background-color: rgba(255, 255, 255, 0.7);
+        background-color: rgb(255 255 255 / 70%);
         transition: height 0.3s ease-in-out;
     }
+
     .mobile-nav-slide::before {
         content: '';
         position: absolute;
@@ -92,6 +99,35 @@
 
     body.scav .navbar {
         background: rgb(255 255 255 / 70%);
+    }
+
+    .card {
+        position: relative;
+        margin: auto;
+        padding: 20px;
+        width: fit-content;
+        height: fit-content;
+        background: linear-gradient(
+            to bottom right,
+            rgb(229 228 226 / 80%),
+            rgb(255 223 0 / 10%),
+            rgb(192 192 192 / 70%),
+            rgb(205 127 50 / 80%)
+        );
+        backdrop-filter: blur(12px);
+        border-radius: 10px;
+        border-top: 1px solid rgb(255 255 255 / 60%);
+        border-left: 1px solid rgb(255 255 255 / 60%);
+        box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    }
+
+    .card::before {
+        content: "";
+        position: absolute;
+        top: -10%;
+        left: -10%;
+        width: 600px;
+        height: 400px;
     }
 }
 

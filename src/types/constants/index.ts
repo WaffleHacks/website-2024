@@ -1,5 +1,5 @@
 import type { HTMLMotionProps } from "framer-motion";
-import { Key } from "react";
+import type { Key } from "react";
 
 export interface LegalLinks {
 	href: string;

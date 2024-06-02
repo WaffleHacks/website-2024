@@ -33,6 +33,7 @@
 		"@tailwindcss/aspect-ratio": "^0.4.2",
 		"@tailwindcss/line-clamp": "^0.4.4",
 		"@tailwindcss/typography": "^0.5.13",
+		"blaze-slider": "^1.9.3",
 		"class-variance-authority": "^0.7.0",
 		"concurrently": "^8.2.2",
 		"framer-motion": "^11.2.6",

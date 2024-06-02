@@ -7,6 +7,7 @@ export const NumberDisplay = () => {
 	const [hoursLeft, setHoursLeft] = React.useState(0);
 	const [minutesLeft, setMinutesLeft] = React.useState(0);
 	const [secondsLeft, setSecondsLeft] = React.useState(0);
+	const stickyHeaderRef = React.useRef<HTMLDivElement>(null);
 
 	useIsomorphicLayoutEffect(() => {
 		function showtime() {
@@ -39,8 +40,27 @@ export const NumberDisplay = () => {
 			clearInterval(interval);
 		};
 	}, []);
+
+	useIsomorphicLayoutEffect(() => {
+		function handleScroll() {
+			if (stickyHeaderRef.current) {
+				if (window.scrollY > 0) {
+					stickyHeaderRef.current.classList.add("sticky");
+				} else {
+					stickyHeaderRef.current.classList.remove("sticky");
+				}
+			}
+		}
+
+		window.addEventListener("scroll", handleScroll);
+
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
+
 	return (
-		<div className="flex flex-row justify-end w-full">
+		<div className="flex flex-row justify-end w-full header">
 			<div>
 				<span className="text-2xl">Countdown to the WaffleHacks Games</span>
 				<div className="flex text-2xl font-bold gap-2 items-center">

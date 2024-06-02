@@ -43,5 +43,5 @@ next-env.d.ts
 .vercel
 package-lock.json
 
-# ignore anythign within the public folder which has a .js extension
 public/**/*.js.*
+public/**/*.js

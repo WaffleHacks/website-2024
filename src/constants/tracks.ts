@@ -1,106 +1,46 @@
 export const Tracks: ReadonlyTracks = [
 	{
-		1: {
-			slides: [
-				{
-					image: "/assets/images/tracks/1.jpg",
-					prizes: {
-						images: ["/assets/images/prizes/1.jpg"],
-					},
-					description: "Track 1 description",
-				},
-			],
-		},
+		title: "Wellness",
+		description:
+			"Mental and physical health is a huge aspect of student life. This category is very broad and open to hacks of all different forms, including software, hardware, and design. Teams can choose to create solutions for areas such as healthcare, accessibility, stress and productivity, awareness for different causes, and more!",
+		prize: "TBD",
+		trackImage: "https://github.com/WomB0ComB0.png",
+		prizeImages: [
+			"https://github.com/WomB0ComB0.png",
+			"https://github.com/WomB0ComB0.png",
+		],
 	},
 	{
-		2: {
-			slides: [
-				{
-					image: "/assets/images/tracks/2.jpg",
-					prizes: {
-						images: ["/assets/images/prizes/2.jpg"],
-					},
-					description: "Track 2 description",
-				},
-			],
-		},
+		title: "Diversity & Inclusion",
+		description:
+			"Innovate for inclusivity! This track honors projects that champion diversity, whether through software, hardware, or design. Judges seek impactful, innovative solutions promoting inclusivity in tangible, real-world ways.",
+		prize: "TBD",
+		trackImage: "https://github.com/WomB0ComB0.png",
+		prizeImages: [
+			"https://github.com/WomB0ComB0.png",
+			"https://github.com/WomB0ComB0.png",
+		],
 	},
 	{
-		3: {
-			slides: [
-				{
-					image: "/assets/images/tracks/3.jpg",
-					prizes: {
-						images: ["/assets/images/prizes/3.jpg"],
-					},
-					description: "Track 3 description",
-				},
-			],
-		},
+		title: "Community",
+		description:
+			"In this track, we're looking for the most creative and impactful hacks that bring communities together. Whether it's a virtual platform for neighbors to connect, an app that promotes local business, or an initiative that...",
+		prize: "TBD",
+		trackImage: "https://github.com/WomB0ComB0.png",
+		prizeImages: [
+			"https://github.com/WomB0ComB0.png",
+			"https://github.com/WomB0ComB0.png",
+		],
 	},
 	{
-		4: {
-			slides: [
-				{
-					image: "/assets/images/tracks/4.jpg",
-					prizes: {
-						images: ["/assets/images/prizes/4.jpg"],
-					},
-					description: "Track 4 description",
-				},
-			],
-		},
-	},
-	{
-		5: {
-			slides: [
-				{
-					image: "/assets/images/tracks/5.jpg",
-					prizes: {
-						images: ["/assets/images/prizes/5.jpg"],
-					},
-					description: "Track 5 description",
-				},
-			],
-		},
-	},
-	{
-		6: {
-			slides: [
-				{
-					image: "/assets/images/tracks/6.jpg",
-					prizes: {
-						images: ["/assets/images/prizes/6.jpg"],
-					},
-					description: "Track 6 description",
-				},
-			],
-		},
-	},
-	{
-		7: {
-			slides: [
-				{
-					image: "/assets/images/tracks/7.jpg",
-					prizes: {
-						images: ["/assets/images/prizes/7.jpg"],
-					},
-					description: "Track 7 description",
-				},
-			],
-		},
-	},
-	{
-		8: {
-			slides: [
-				{
-					image: "/assets/images/tracks/8.jpg",
-					prizes: {
-						images: ["/assets/images/prizes/8.jpg"],
-					},
-					description: "Track 8 description",
-				},
-			],
-		},
+		title: "Food Insecurity",
+		description:
+			"Innovative solutions are needed to end student food insecurity! By utilizing technology to connect students with resources, we can revamp campus dining and create sustainable food assistance programs. There are endless possibilities, and we're ready to help college and university students find affordable, nutritious meals.",
+		prize: "TBD",
+		trackImage: "https://github.com/WomB0ComB0.png",
+		prizeImages: [
+			"https://github.com/WomB0ComB0.png",
+			"https://github.com/WomB0ComB0.png",
+		],
 	},
 ];

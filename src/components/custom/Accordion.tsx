@@ -1,18 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-import * as Acc from "@mui/joy/Accordion";
-import AccordionDetails from "@mui/joy/AccordionDetails";
-import AccordionGroup from "@mui/joy/AccordionGroup";
-import AccordionSummary from "@mui/joy/AccordionSummary";
 import type React from "react";
 import { useState } from "react";
 
-import { useMediaQuery } from "usehooks-ts";
+import {
+	Accordion as Acc,
+	AccordionDetails,
+	AccordionGroup,
+	AccordionSummary,
+} from "@mui/joy";
 
 const AccordionBody: React.FC<AccordionTextProps> = (props) => {
-	const isMobile = useMediaQuery("(max-width: 640px)");
 	const { title, description, expandedIndex, index, setExpandedIndex } = props;
 	const isExpanded = expandedIndex === index;
 
@@ -20,12 +19,33 @@ const AccordionBody: React.FC<AccordionTextProps> = (props) => {
 		setExpandedIndex(isExpanded ? null : index);
 	};
 	return (
-		<Acc.default expanded={isExpanded} onChange={toggleAccordion}>
-			<AccordionSummary>{title}</AccordionSummary>
-			<AccordionDetails className="mb-2 overflow-hidden duration-700 ease-in-out transition-max-height">
+		<Acc expanded={isExpanded} onChange={toggleAccordion}>
+			<AccordionSummary
+				aria-controls="faq-content"
+				id="panel1a-header"
+				sx={{
+					"&.MuiAccordionSummary-root": {
+						color: "#3C2415",
+					},
+				}}
+			>
+				{title}
+			</AccordionSummary>
+			<AccordionDetails
+				className={`
+					mb-2 overflow-hidden duration-700
+					ease-in-out transition-max-height
+				`}
+				sx={{
+					"&.MuiAccordionDetails-root": {
+						color: "#3C2415",
+					},
+				}}
+				color={`primary`}
+			>
 				{description}
 			</AccordionDetails>
-		</Acc.default>
+		</Acc>
 	);
 };
 
@@ -70,8 +90,19 @@ export const Accordion: React.FC<AccordionProps> = ({ data }) => {
 					},
 				},
 			}}
+			className={`
+				min-w-[300px] max-w-[400px] 
+			`}
 		>
-			<AccordionGroup>
+			<AccordionGroup
+				sx={{
+					"&.MuiAccordionSummary-button": {
+						"&:hover": {
+							color: "#3C2415",
+						},
+					},
+				}}
+			>
 				{data.map((item, index) => (
 					<AccordionBody
 						key={index}

@@ -16,15 +16,16 @@ interface Slide {
 	prizes: {
 		images: [string, ...string[]];
 	};
-	description: string;
+	description: string | string[];
 }
 
-type Tracks = Record<
-	number | string,
-	{
-		slides: Array<Slide>;
-	}
->;
+type Tracks = {
+	title: string;
+	description: string;
+	prize: string;
+	trackImage: string;
+	prizeImages: string[];
+};
 
 type ReadonlyTracks = ReadonlyArray<Tracks>;
 

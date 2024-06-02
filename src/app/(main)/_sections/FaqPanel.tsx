@@ -1,32 +1,29 @@
 "use client";
-import { Accordion, ScavContext } from "@/components";
+import { Accordion, card_style } from "@/components";
 import { Faqs } from "@/constants";
 import { Tab, Tabs } from "@nextui-org/tabs";
-import { useContext, useState } from "react";
 
 export const FaqPanel = () => {
 	const sections = Faqs.map((faq) => faq.section);
-	const [selectedSection, setSelectedSection] = useState<string | null>(null);
-	const { scavState } = useContext(ScavContext);
 	return (
 		<article
 			className={`
-				bg-[#f5f5f5] p-8 md:text-left
-				flex justify-center font-mplus mx-8
-				rounded-xl backdrop-blur-lg relative
-				shadow-xl
+				flex justify-center 
+				${card_style}
 			`}
 		>
-			<div
-				className={`
-					block w-full
-				`}
-			>
+			<div className={`block w-full`}>
 				<Tabs
 					className={`
 						flex flex-row justify-center
 						mb-8 flex-wrap right-0 relative
+						text-[#3C2415]
 					`}
+					style={{
+						color: "#3C2415",
+						borderRadius: "10px",
+					}}
+					color={`primary`}
 					aria-label="FAQ Sections"
 					items={[
 						{
@@ -36,7 +33,7 @@ export const FaqPanel = () => {
 								<div
 									className={`
 										grid grid-cols-1 md:grid-cols-2
-										gap-4
+									text-[#3C2415] gap-4 
 									`}
 								>
 									{Faqs.map((faq, index) => (
@@ -51,7 +48,7 @@ export const FaqPanel = () => {
 							content: (
 								<div
 									className={`
-										grid grid-cols-1 md:grid-cols-2
+										grid grid-cols-1 
 										gap-4
 									`}
 								>
@@ -70,8 +67,12 @@ export const FaqPanel = () => {
 							key={item.id}
 							title={item.label}
 							className={`
-
+								text-[#3C2415]
 							`}
+							style={{
+								backgroundColor: "#F7F7F770",
+								color: "#3C2415",
+							}}
 						>
 							{item.content}
 						</Tab>

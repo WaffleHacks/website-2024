@@ -22,11 +22,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" suppressHydrationWarning className={``}>
+		<html lang="en" suppressHydrationWarning>
 			<body
 				className={`
-					box-border overflow-x-hidden 
-					flex flex-col items-center justify-center w-[100dvw]
+					box-border overflow-x-hidden flex flex-col
+					items-center justify-center w-[100dvw]
+					relative
 				`}
 			>
 				<>
