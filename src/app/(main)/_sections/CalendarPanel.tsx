@@ -173,7 +173,7 @@ export const CalendarPanel = () => {
 	}
 
 	return (
-		<div ref={calendar_box} className="font-mplus p-8 relative" onClick={() => setDescPos({x: -1, y: -1})}>
+		<div ref={calendar_box} className="font-mplus p-8 relative w-[90vw] md:w-[unset]" onClick={() => setDescPos({x: -1, y: -1})}>
 			<div className="py-6 px-8 bg-gray-800 rounded-xl flex flex-col">
 				{/* header with day and buttons */}
 				<div className="flex flex-col gap-2 sm:gap-0 items-center sm:grid sm:grid-cols-2 md:grid-cols-3">

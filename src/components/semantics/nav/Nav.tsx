@@ -285,8 +285,17 @@ export const NavBar = () => {
 			};
 
 		if (archer.headshot && !fallInterval.current) {
-			fallSpeed.current = 1;
-			fallInterval.current = setInterval(appleFall, 25);
+
+			// check if apple should fall
+			const ap = apple.current;
+			if (!ap) return;
+			const appleRect = ap.getBoundingClientRect();
+			const navRect = document.querySelector("nav")?.getBoundingClientRect();
+			if (!navRect) return;
+			if (appleRect.bottom > navRect.bottom) {
+				fallSpeed.current = 1;
+				fallInterval.current = setInterval(appleFall, 25);
+			}
 		}
 	}, [scavState, archer.headshot]);
 

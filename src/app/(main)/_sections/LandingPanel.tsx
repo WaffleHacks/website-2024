@@ -77,6 +77,8 @@ export const LandingPanel = () => {
 	const carrakatuPickedUp = useRef(false);
 	const carrakatuDroppedOff = useRef(false);
 	const [carrySpeaking, setCarrySpeaking] = useState(false);
+	const carrySpeakingDone = useRef(false);
+	const [carryDone, setCarryDone] = useState(false);
 
 	const ctx = useContext(ScavContext);
 
@@ -416,7 +418,6 @@ export const LandingPanel = () => {
 			if (!carrakatuInterval.current) {
 				const bikerPos = biker.current?.getBoundingClientRect();
 				if (!bikerPos) return;
-				console.log("getting carrakatu");
 				setCarrakatuSetPosition({
 					...carrakatuSetPosition,
 					to: {
@@ -445,6 +446,7 @@ export const LandingPanel = () => {
 		if (!road.current) return;
 		if (!biker.current) return;
 		if (!img_box.current) return;
+		if (carryDone) return;
 
 		const containerRect = img_box.current.getBoundingClientRect();
 		const bikerPos = biker.current.getBoundingClientRect();
@@ -506,12 +508,18 @@ export const LandingPanel = () => {
 		} else if (carrakatuDroppedOff.current && t >= 1) {
 			clearInterval(carrakatuInterval.current as NodeJS.Timeout);
 			carrakatuInterval.current = null;
-			setCarrySpeaking(true);
+			if (!carrySpeakingDone.current) {
+				setCarrySpeaking(true);
+			}
+			else {
+				setCarryDone(true);
+			}
 		}
-	}, [carrakatuSetPosition]);
+	}, [carrakatuSetPosition, carryDone]);
 
 	function finishWithCarry() {
 		setCarrySpeaking(false);
+		carrySpeakingDone.current = true;
 		const { x, y } = carrakatuPos;
 		const to = { x: 1000, y: -500 };
 		setCarrakatuSetPosition({
