@@ -1,21 +1,22 @@
+import { CenterLayout, TransitionAnimation } from "@/components";
 import type React from "react";
-import { CenterLayout, TransitionAnimation,  } from "@/components";
+import "@/styles/css/globals.css";
+import "@/styles/sass/globals.scss";
+
 export default function LegalBaseLayout({
-	children
+	children,
 }: {
-	children: React.ReactNode
+	children: React.ReactNode;
 }) {
 	return (
 		<CenterLayout
-			Element={`main`}
+			Element={`section`}
 			className={` h-screen flex items-center justify-center overflow-y-scroll
 				my-auto mx-auto w-screen
-				text-[#3c2415]
+				*:text-[#3c2415]
 			`}
 		>
-			<TransitionAnimation>
-				{children}
-			</TransitionAnimation>
+			<TransitionAnimation>{children}</TransitionAnimation>
 		</CenterLayout>
-	)
+	);
 }

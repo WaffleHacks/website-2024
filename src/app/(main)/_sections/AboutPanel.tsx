@@ -1,18 +1,19 @@
 "use client";
-import { CustomPicture as Picture, Text, heading_style } from "@/components";
-import { cn } from "@/lib";
-import { CardHeader } from "@mui/material";
-import { Card, CardBody } from "@nextui-org/card";
+import { CustomPicture as Picture, Text } from "@/components";
+import { Skeleton } from "@nextui-org/skeleton";
 import Image from "next/image";
 import React from "react";
-import { useMediaQuery } from "usehooks-ts";
+import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
 export const AboutPanel = () => {
+	const [loading, setLoading] = React.useState(true);
+
 	const isXLarge = useMediaQuery("(min-width: 1280px)");
 	const isLarge = useMediaQuery("(min-width: 1024px)");
 	const isMedium = useMediaQuery("(min-width: 768px)");
-	const isSmall = useMediaQuery("(min-width: 640px)");
-	const isXSmall = useMediaQuery("(min-width: 480px)");
-	const isXXSmall = useMediaQuery("(min-width: 320px)");
+
+	useIsomorphicLayoutEffect(() => {
+		setLoading(false);
+	}, []);
 	return (
 		<article
 			className={`
@@ -72,15 +73,21 @@ export const AboutPanel = () => {
 					</span>
 				</div>
 			</article>
-			<Picture className="flex flex-row justify-center items-center transition-transform duration-300 transform w-64 h-64 md:w-96 md:h-96 lg:w-128 lg:h-128 xl:w-144 xl:h-144 flex-1 pt-5 sm:pt-0">
-				<Image
-					src="/assets/images/about.png"
-					alt=""
-					className="rounded-2xl object-contain object-center w-full h-full"
-					width={isXLarge ? 500 : isLarge ? 400 : isMedium ? 300 : 200}
-					height={isXLarge ? 500 : isLarge ? 400 : isMedium ? 300 : 200}
-				/>
-			</Picture>
+			{loading ? (
+				<Skeleton className="flex flex-row justify-center items-center transition-transform duration-300 transform w-64 h-64 md:w-96 md:h-96 lg:w-128 lg:h-128 xl:w-144 xl:h-144 flex-1 pt-5 sm:pt-0" />
+			) : (
+				<Picture className="flex flex-row justify-center items-center transition-transform duration-300 transform w-64 h-64 md:w-96 md:h-96 lg:w-128 lg:h-128 xl:w-144 xl:h-144 flex-1 pt-5 sm:pt-0">
+					<Image
+						src="/assets/images/about.png"
+						alt=""
+						className="rounded-2xl object-contain object-center w-full h-full"
+						fetchPriority={`high`}
+						loading={`eager`}
+						width={isXLarge ? 500 : isLarge ? 400 : isMedium ? 300 : 200}
+						height={isXLarge ? 500 : isLarge ? 400 : isMedium ? 300 : 200}
+					/>
+				</Picture>
+			)}
 		</article>
 	);
 };

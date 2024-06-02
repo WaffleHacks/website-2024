@@ -510,8 +510,7 @@ export const LandingPanel = () => {
 			carrakatuInterval.current = null;
 			if (!carrySpeakingDone.current) {
 				setCarrySpeaking(true);
-			}
-			else {
+			} else {
 				setCarryDone(true);
 			}
 		}

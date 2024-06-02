@@ -16,7 +16,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
 
@@ -73,7 +73,7 @@ export const TeamPanel = () => {
 		setCurrentIndex(0);
 	}
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		setLoading(false);
 	}, []);
 
@@ -136,6 +136,19 @@ export const TeamPanel = () => {
 					? 2
 					: 1;
 
+	const howMuchToShowFunc = (): number => {
+		if (isXLarge) {
+			return 5;
+		} else if (isLarge) {
+			return 4;
+		} else if (isMedium) {
+			return 3;
+		} else if (isSmall) {
+			return 2;
+		} else {
+			return 1;
+		}
+	};
 	return (
 		<Article
 			className={`
@@ -146,16 +159,14 @@ export const TeamPanel = () => {
 				<div className="relative">
 					<div className="flex space-x-4 flex-row items-center justify-center mx-auto gap-2">
 						{loading
-							? Array.from({ length: howMuchToShow }, (_, index) => index).map(
-									(index) => (
-										<Skeleton
-											key={index}
-											className={`
-										relative overflow-hidden h-[280px] min-w-[280px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer
+							? Array.from({ length: 3 }, (_, index) => index).map((index) => (
+									<Skeleton
+										key={index}
+										className={`
+										relative overflow-hidden h-[210px] min-w-[210px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer
 									`}
-										/>
-									),
-								)
+									/>
+								))
 							: teamData
 									.slice(currentIndex, currentIndex + howMuchToShow)
 									.map(({ mem, member, color }, index) => (

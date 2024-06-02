@@ -60,6 +60,39 @@
     body.scav {
         background-color: #F2DCC0;
     }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'M PLUS Rounded 1c',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-weight: 700;
+        line-height: 1.2;
+        color: #3C2415;
+    }
+
+    p {
+        font-family: 'M PLUS Rounded 1c',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-weight: 400;
+        line-height: 1.5;
+        color: #3C2415;
+    }
+
+    a {
+        color: #3C2415;
+        text-decoration: none;
+        transition: color var(--scav-transition-dur) ease;
+    }
+
+    a:hover {
+        font-weight: 700;
+    }
+
+    span {
+        font-family: 'M PLUS Rounded 1c',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-weight: 400;
+        line-height: 1.5;
+        color: #3C2415;
+    }
+
+    
 }
 
 @layer base {

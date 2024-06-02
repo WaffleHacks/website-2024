@@ -137,7 +137,7 @@ export const CalendarPanel = () => {
 			className="font-mplus p-8 relative text-[#3C2415]"
 			onClick={() => setDescPos({ x: -1, y: -1 })}
 		>
-			<div 
+			<div
 				className={`
 					py-6 px-8 bg-[#bb8653]/80
 					rounded-xl flex flex-col
@@ -216,7 +216,7 @@ export const CalendarPanel = () => {
 										<button
 											onClick={(e) => setDesc(e, event as EventStructure)}
 										>
-											<img src="/assets/svgs/calendar/curtains.svg" />
+											<img src="/assets/svgs/calendar/curtains.svg" alt="" />
 										</button>
 									)}
 								</div>

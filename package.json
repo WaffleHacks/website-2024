@@ -28,6 +28,7 @@
 		"@nextui-org/system": "^2.2.0",
 		"@nextui-org/tabs": "^2.0.30",
 		"@nextui-org/theme": "^2.2.4",
+		"@radix-ui/react-scroll-area": "^1.0.5",
 		"@svgr/webpack": "^8.1.0",
 		"@t3-oss/env-nextjs": "^0.10.1",
 		"@tailwindcss/aspect-ratio": "^0.4.2",

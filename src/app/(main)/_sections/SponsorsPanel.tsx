@@ -1,13 +1,18 @@
 "use client";
 import { sponsorsData } from "@/constants";
 import { Slugify } from "@/utils";
-import { Button } from "@nextui-org/button";
-import { Card, CardBody, Image } from "@nextui-org/react";
+import { Card, Image, Skeleton } from "@nextui-org/react";
 import Link from "next/link";
 import { useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 export const SponsorsPanel = () => {
+	const [loading, setLoading] = useState(true);
+
+	useIsomorphicLayoutEffect(() => {
+		setLoading(false);
+	}, []);
+
 	const getBackgroundColor = (tier: string): string => {
 		switch (tier) {
 			case "Platinum":
@@ -91,29 +96,40 @@ export const SponsorsPanel = () => {
 						</div>
 					</section>
 					<div className="flex flex-row flex-wrap items-center justify-center p-4 gap-4">
-						{tierData.sponsors.map((sponsor, sponsorIndex) => (
-							<Link
-								key={sponsorIndex}
-								href={
-									sponsor.link
-										? sponsor.link
-										: `https://www.google.com/search?q=${sponsor.name}`
-								}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="relative h-fit w-fit rounded-lg shadow-lg border-none"
-							>
-								<Card className="relative p-4 h-[175px] w-[300px] flex flex-col items-center justify-center transition-all duration-300 hover:scale-105">
-									<Image
-										src={sponsor.image}
-										alt={sponsor.name}
-										className="object-fit transition-all w-full h-full overflow-hidden mix-blend-multiply"
-										fetchPriority="low"
-										sizes="(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px"
-									/>
-								</Card>
-							</Link>
-						))}
+						{tierData.sponsors.map((sponsor, sponsorIndex) => {
+							return loading ? (
+								<Skeleton
+									key={sponsorIndex}
+									className={`
+                    relative overflow-hidden h-[175px] w-[300px]
+                    bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800
+                    rounded-lg shadow-lg border-none cursor-pointer
+                    `}
+								/>
+							) : (
+								<Link
+									key={sponsorIndex}
+									href={
+										sponsor.link
+											? sponsor.link
+											: `https://www.google.com/search?q=${sponsor.name}`
+									}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="relative h-fit w-fit rounded-lg shadow-lg border-none"
+								>
+									<Card className="relative p-4 h-[175px] w-[300px] flex flex-col items-center justify-center transition-all duration-300 hover:scale-105">
+										<Image
+											src={sponsor.image}
+											alt={sponsor.name}
+											className="object-fit transition-all w-full h-full overflow-hidden mix-blend-multiply"
+											fetchPriority="low"
+											sizes="(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px"
+										/>
+									</Card>
+								</Link>
+							);
+						})}
 					</div>
 				</div>
 			))}

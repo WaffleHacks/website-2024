@@ -1,8 +1,10 @@
 "use client";
 import { Picture } from "@/components/templates";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
+	const router = useRouter();
 	return (
 		<footer
 			className={`
@@ -40,12 +42,8 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 								sm:w-auto
 							`}
 						>
-							<Picture>
-								<img
-									src={top.left.image}
-									alt={top.right.sponsor}
-									className="mr-4"
-								/>
+							<Picture onClick={() => router.push("/")}>
+								<img src={top.left.image} alt={`Logo`} className="mr-4" />
 							</Picture>
 							<div
 								className={`

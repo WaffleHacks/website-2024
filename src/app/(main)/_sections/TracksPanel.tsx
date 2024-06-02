@@ -49,14 +49,14 @@ const TrackSlide: React.FC<{
 						className={`
 						w-full max-w-[450px]
 						h-auto rounded-md
-					`}
+						`}
 					>
 						<Image
 							src={track.trackImage}
 							alt={`${track.title} image`}
 							className={`
 							object-cover object-center
-						`}
+							`}
 							width={450}
 							height={450}
 							sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
@@ -93,22 +93,22 @@ const TrackSlide: React.FC<{
 							>
 								Prize(s)
 							</h4>
-							{loading && <Skeleton className="h-16 w-full" />}
+
 							<Picture
 								className={`
 								flex flex-row flex-wrap gap-2
 								w-full relative rounded-sm mt-2
-							`}
+								`}
 							>
-								{track.prizeImages.map((image, index) => (
+								{track.prizeImages.map((image: string, index: number) => (
 									<Image
 										key={index}
 										src={image}
 										alt={`Prize ${index + 1}`}
 										className={`
-											rounded-lg w-[100px] h-[100px]
-											md:w-[175px] md:h-[175px]
-										`}
+												rounded-lg w-[100px] h-[100px]
+												md:w-[175px] md:h-[175px]
+											`}
 										width={175}
 										height={175}
 										sizes="(max-width: 768px) 100, (min-width: 768px) 175"
@@ -123,8 +123,9 @@ const TrackSlide: React.FC<{
 	);
 };
 
-const CustomSlider: React.FC<{ slidesToShow: number }> = ({ slidesToShow }) => {
+const CustomSlider = () => {
 	const [currentSlide, setCurrentSlide] = useState(0);
+	const [loading, setLoading] = useState(true);
 	const totalSlides = Tracks.length;
 
 	const nextSlide = () => {
@@ -139,9 +140,10 @@ const CustomSlider: React.FC<{ slidesToShow: number }> = ({ slidesToShow }) => {
 		setCurrentSlide(index);
 	};
 
-	const isXXSmall = useMediaQuery("(max-width: 320px)");
-	const isXSmall = useMediaQuery("(max-width: 480px)");
-	const isSmall = useMediaQuery("(max-width: 640px)");
+	useIsomorphicLayoutEffect(() => {
+		setLoading(false);
+	}, []);
+
 	const isMedium = useMediaQuery("(max-width: 768px)");
 
 	return (
@@ -155,17 +157,26 @@ const CustomSlider: React.FC<{ slidesToShow: number }> = ({ slidesToShow }) => {
 					overflow-hidden relative mx-auto
 				`}
 			>
-				<Section
-					key={currentSlide}
-					className={`
-						flex-shrink-0 w-full
+				{loading ? (
+					<Skeleton
+						className={`
+						w-full h-[450px]
+						rounded-lg
 					`}
-				>
-					<TrackSlide
-						key={Slugify(Tracks[currentSlide]!.title)}
-						track={Tracks[currentSlide]!}
 					/>
-				</Section>
+				) : (
+					<Section
+						key={currentSlide}
+						className={`
+					flex-shrink-0 w-full
+					`}
+					>
+						<TrackSlide
+							key={Slugify(Tracks[currentSlide]!.title)}
+							track={Tracks[currentSlide]!}
+						/>
+					</Section>
+				)}
 			</div>
 			<div
 				className={`
@@ -214,32 +225,14 @@ const CustomSlider: React.FC<{ slidesToShow: number }> = ({ slidesToShow }) => {
 	);
 };
 
-export const TracksPanel: React.FC = () => {
-	const [loading, setLoading] = useState(true);
-
-	const isLarge = useMediaQuery("(max-width: 1024px)");
-	const isXLarge = useMediaQuery("(max-width: 1280px)");
-	const itemsToShow = isXLarge ? 3 : isLarge ? 2 : 1;
-
-	useIsomorphicLayoutEffect(() => {
-		setLoading(false);
-	}, []);
-
+export const TracksPanel = () => {
 	return (
 		<div
 			className={`
 				font-mplus p-8
 			`}
 		>
-			{loading ? (
-				<Skeleton
-					className={`
-						h-64 w-full
-					`}
-				/>
-			) : (
-				<CustomSlider slidesToShow={itemsToShow} />
-			)}
+			<CustomSlider />
 		</div>
 	);
 };
