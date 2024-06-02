@@ -149,6 +149,7 @@ export const NavBar = () => {
 		}
 		else {
 			setAppleY(0);
+			clearInterval(fallInterval.current as NodeJS.Timeout);
 		}
 		return () => clearInterval(walkIinterval.current);
 	}, [scavState]);

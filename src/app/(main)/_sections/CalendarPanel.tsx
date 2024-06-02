@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CalendarDescription from "./CalendarDescription";
 import { CalendarDescriptionType as CDT } from "./CalendarDescription";
 import { Button } from "@nextui-org/button";
@@ -16,7 +16,10 @@ interface EventStructure {
 }
 
 interface EventList {
-	[key: string]: (EventStructure | unknown)[];
+	Ceremonies: (EventStructure | unknown)[];
+	Workshops: (EventStructure | unknown)[];
+	Panels: (EventStructure | unknown)[];
+	"Other / Fun": (EventStructure | unknown)[];
 }
 
 const calendarButton: string =
@@ -29,8 +32,8 @@ export const CalendarPanel = () => {
 		"Saturday, June 22nd",
 		"Sunday, June 23rd",
 	];
-	const events: { [key: string]: EventList } = {
-		"Friday, June 21st": {
+	const events: EventList[] = [
+		{
 			Ceremonies: [
 				"",
 				"",
@@ -57,13 +60,13 @@ export const CalendarPanel = () => {
 			Panels: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
 			"Other / Fun": ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
 		},
-		"Saturday, June 22nd": {
+		{
 			Ceremonies: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
 			Workshops: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
 			Panels: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
 			"Other / Fun": ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
 		},
-		"Sunday, June 23rd": {
+		{
 			Ceremonies: [
 				"",
 				"",
@@ -135,11 +138,12 @@ export const CalendarPanel = () => {
 				"",
 			],
 		},
-	};
+	];
 
 	const calendar_box = useRef<HTMLDivElement>(null);
 	const [descPos, setDescPos] = useState({ x: -1, y: -1 });
 	const [descDetails, setDescDetails] = useState<EventStructure | null>(null);
+	const [openNum, setOpenNum] = useState(-1);
 
 	function setDesc(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, event: EventStructure) {
 		if (!calendar_box.current) return;
@@ -158,11 +162,23 @@ export const CalendarPanel = () => {
 		e.stopPropagation();
 	}
 
+	function collapseDay(section: EventList){
+		let items = [];
+		for (let i = 0; i < section.Ceremonies.length; i++){
+			if (section.Ceremonies[i]) items.push(section.Ceremonies[i]);
+			if (section.Workshops[i]) items.push(section.Workshops[i]);
+			if (section.Panels[i]) items.push(section.Panels[i]);
+			if (section["Other / Fun"][i]) items.push(section["Other / Fun"][i]);
+		}
+		return items;
+	}
+
 	return (
 		<div ref={calendar_box} className="font-mplus p-8 relative" onClick={() => setDescPos({x: -1, y: -1})}>
 			<div className="py-6 px-8 bg-gray-800 rounded-xl flex flex-col">
-				<div className="grid grid-cols-3">
-					<span />
+				{/* header with day and buttons */}
+				<div className="flex flex-col gap-2 sm:gap-0 items-center sm:grid sm:grid-cols-2 md:grid-cols-3">
+					<span className="hidden md:inline-block" />
 					<span className="text-2xl font-bold text-white text-center">
 						{eventOrder[eventIndex]}
 					</span>
@@ -186,7 +202,8 @@ export const CalendarPanel = () => {
 					</div>
 				</div>
 
-				<div className="calendar-grid w-full mt-4">
+				{/* large screen calendar grid */}
+				<div className="calendar-grid w-full mt-4 hidden md:grid">
 					<span />
 					{[
 						"10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM",
@@ -203,7 +220,7 @@ export const CalendarPanel = () => {
 					<span className="calendar-title-cell text-xl text-white font-bold">
 						Ceremonies
 					</span>
-					{events[eventOrder[eventIndex]]["Ceremonies"].map((event: any, index: React.Key | null | undefined) => {
+					{(events[eventIndex] as EventList)["Ceremonies"].map((event: any, index: React.Key | null | undefined) => {
 						return (
 							<div
 								key={index}
@@ -226,7 +243,7 @@ export const CalendarPanel = () => {
 					<span className="calendar-title-cell text-xl text-white font-bold">
 						Workshops
 					</span>
-					{events[eventOrder[eventIndex]]["Workshops"].map(
+					{(events[eventIndex] as EventList)["Workshops"].map(
 						(event: any, index: React.Key | null | undefined) => {
 							return (
 								<Picture
@@ -250,7 +267,7 @@ export const CalendarPanel = () => {
 					>
 						Panels
 					</span>
-					{events[eventOrder[eventIndex]]["Panels"].map(
+					{(events[eventIndex] as EventList)["Panels"].map(
 						(event: any, index: React.Key | null | undefined) => {
 							return (
 								<Picture
@@ -269,7 +286,7 @@ export const CalendarPanel = () => {
 					<span className="calendar-title-cell text-xl text-white font-bold">
 						Other / Fun
 					</span>
-					{events[eventOrder[eventIndex]]["Other / Fun"].map(
+					{(events[eventIndex] as EventList)["Other / Fun"].map(
 						(event: any, index: React.Key | null | undefined) => {
 							return (
 								<Picture
@@ -285,6 +302,40 @@ export const CalendarPanel = () => {
 						},
 					)}
 				</div>
+
+				{/* small screen calendar list*/}
+				<div className="flex flex-col mt-4 md:hidden">
+					{collapseDay(events[eventIndex] as EventList).map((event: any, index: number) => {
+						return (
+							<button
+								key={index}
+								onClick={e => setOpenNum(n => (index == n) ? -1 : index)}
+								className={
+									"calendar-list-cell text-center text-black bg-white/75 hover:bg-white transition-colors duration-300 rounded-lg p-4" +
+									(event ? " event" : "")
+								}
+							>
+								<h2 className="text-xl font-bold">
+									{event.title}
+								</h2>
+
+								{(index == openNum) && 
+									(
+									<div className="text-left">
+										<p>{event.description}</p>
+										<p className="mt-2">Time: {event.time}</p>
+										{
+											event.link && <a href={event.link}>Link Here</a>
+										}
+									</div>
+									)
+								}
+							</button>
+						);
+					})}
+
+				</div>
+
 			</div>
 			<CalendarDescription
 				type={CDT.CEREMONY}
