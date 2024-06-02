@@ -28,6 +28,7 @@ const AccordionBody: React.FC<AccordionTextProps> = (props) => {
 						color: "#3C2415",
 					},
 				}}
+				aria-label={`Expand ${title}`}
 			>
 				{title}
 			</AccordionSummary>

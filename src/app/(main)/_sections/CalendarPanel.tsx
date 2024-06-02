@@ -6,7 +6,6 @@ import { useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import CalendarDescription from "./CalendarDescription";
 import { CalendarDescriptionType as CDT } from "./CalendarDescription";
-
 interface EventStructure {
 	title: string;
 	description: string;
@@ -157,6 +156,7 @@ export const CalendarPanel = () => {
 							onClick={() => {
 								setEventIndex(Math.max(0, eventIndex - 1));
 							}}
+							arial-label="Previous Day"
 						>
 							<FaArrowLeft size={20} />
 						</Button>
@@ -165,6 +165,7 @@ export const CalendarPanel = () => {
 							onClick={() => {
 								setEventIndex(Math.min(eventOrder.length - 1, eventIndex + 1));
 							}}
+							arial-label="Next Day"
 						>
 							<FaArrowRight size={20} />
 						</Button>
@@ -215,6 +216,7 @@ export const CalendarPanel = () => {
 									{event && (
 										<button
 											onClick={(e) => setDesc(e, event as EventStructure)}
+											aria-label={event.title}
 										>
 											<img src="/assets/svgs/calendar/curtains.svg" alt="" />
 										</button>

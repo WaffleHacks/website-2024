@@ -57,6 +57,7 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 										href={icon.href}
 										target={`_blank`}
 										rel={`noopener noreferrer`}
+										aria-label={icon.href.replace(/https?:\/\/(www\.)?/, '').split('/')[0]}
 									>
 										{icon.icon}
 									</Link>
