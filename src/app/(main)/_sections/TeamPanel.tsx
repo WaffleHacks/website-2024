@@ -150,9 +150,11 @@ export const TeamPanel = () => {
 		}
 	};
 	return (
+		<>
+		<h2 className="text-4xl font-bold mb-4">Meet The Team</h2>
 		<Article
 			className={`
-				mt-2 px-10 w-full my-20
+				mt-2 px-10 w-full mb-8
 			`}
 		>
 			<div className="w-full">
@@ -254,5 +256,6 @@ export const TeamPanel = () => {
 				)}
 			</menu>
 		</Article>
+		</>
 	);
 };
