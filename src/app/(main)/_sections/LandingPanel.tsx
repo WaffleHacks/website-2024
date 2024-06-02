@@ -476,12 +476,12 @@ export const LandingPanel = () => {
 	return (
 		<header className="relative font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full h-screen box-border max-w-screen-2xl mx-auto">
 			{/* TODO */}
-			{/* <img
+			<img
 				id="landing-blob"
-				className="absolute top-24 right-0 h-[50%] z-[-1]"
+				className="absolute top-24 right-0 h-[60%]"
 				src="/assets/svgs/landing/scav/blob.svg"
 				alt=""
-			/> */}
+			/>
 
 			<h2 className="text-2xl font-normal">
 				Put your best code forward for the
@@ -717,7 +717,7 @@ export const LandingPanel = () => {
 				/>
 			}
 
-			<NumberDisplay className="absolute right-4 sm:right-12" style={{bottom: '2rem'}} />
+			<NumberDisplay className="absolute right-4 sm:right-12" />
 			
 		</header>
 	);
