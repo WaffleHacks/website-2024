@@ -96,3 +96,22 @@ body.scav #landing-blob { opacity: 1; }
   line-height: 1.75rem;
   margin-bottom: 3rem;
 }
+
+
+.speech-bubble {
+  background: #fff;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.6);
+}
+.speech-bubble::after {
+  content: '';
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background: #fff;
+  position: absolute;
+  bottom: -0.5rem;
+  left: calc(100% - 0.5rem);
+  transform: rotate(-45deg);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}

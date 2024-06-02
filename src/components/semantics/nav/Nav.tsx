@@ -15,7 +15,8 @@ import {
 } from "react-draggable";
 
 import { cn } from "@/lib";
-import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
+import AppleDialog from "@/app/(main)/_components/AppleDialog";
 
 export const NavBar = () => {
 	const Links: ReadonlyArray<{
@@ -44,6 +45,11 @@ export const NavBar = () => {
 	const walkIinterval = useRef<NodeJS.Timeout>();
 	const fallInterval = useRef<NodeJS.Timeout | null>();
 	const fallSpeed = useRef(1);
+	const [appleGone, setAppleGone] = useState(false);
+	const [appleTalking, setAppleTalking] = useState(false);
+	const appleHasTalked = useRef(false);
+
+	const [_scrollDirection, setScrollDirection] = useState("scroll-up");
 
 	useIsomorphicLayoutEffect(() => {
 		const body: HTMLBodyElement = document.querySelector(
@@ -87,8 +93,8 @@ export const NavBar = () => {
 			lastScroll = currentScroll;
 		};
 
-		window.addEventListener("scroll", handleScroll);
-		return () => window.removeEventListener("scroll", handleScroll);
+		// window.addEventListener("scroll", handleScroll);
+		// return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
 	function setScav(e: React.ChangeEvent<HTMLInputElement>) {
@@ -98,7 +104,7 @@ export const NavBar = () => {
 	}
 
 	function appleInterval() {
-		if (archer.headshot) {
+		if (archer.headshot && !appleHasTalked.current) {
 			clearInterval(walkIinterval.current);
 			return;
 		}
@@ -204,8 +210,7 @@ export const NavBar = () => {
 
 		setAppleImg("applesit");
 	}
-
-	function appleDragStop(e: DraggableEvent) {
+	function appleDragStop() {
 		const ap = apple.current;
 		if (!ap) return;
 		const appleRect = ap.getBoundingClientRect();
@@ -215,7 +220,16 @@ export const NavBar = () => {
 			ap.style.bottom = "0";
 			ap.style.top = "unset";
 			setAppleY(0);
-			walkIinterval.current = setInterval(appleInterval, 25);
+			if (!appleHasTalked.current && archer.headshot){
+				setAppleTalking(true);
+			}
+			else {
+				walkIinterval.current = setInterval(appleInterval, 25);
+			}
+		}
+		else if (archer.headshot && !fallInterval.current)  {
+			fallSpeed.current = 1;
+			fallInterval.current = setInterval(appleFall, 25);
 		}
 	}
 
@@ -231,17 +245,21 @@ export const NavBar = () => {
 		const l1_mid = landing1.top + landing1.height / 2;
 		const l2_mid = landing2.top + landing2.height / 2;
 
-		// fall to center of landing
-		// check for head 1 (tennis, lower)
-		if (
-			(ap.left > landing1.left &&
-				ap.right < landing1.right &&
-				ap.bottom < l1_mid) ||
-			(ap.left > landing2.left &&
-				ap.right < landing2.right &&
-				ap.bottom < l2_mid)
-		) {
-			setAppleY((y) => y - fallSpeed.current);
+		let ap_mid_x = ap.left + ap.width/2;
+
+		let fall = true;
+
+		if ((ap_mid_x > landing1.left && ap_mid_x < landing1.right && ap.bottom >= l1_mid && ap.bottom < landing1.bottom) ||
+			(ap_mid_x > landing2.left && ap_mid_x < landing2.right && ap.bottom >= l2_mid && ap.bottom < landing2.bottom)){
+				fall = false;
+		}
+		if (ap.top > window.innerHeight){
+			fall = false;
+			setAppleGone(true);
+		}
+
+		if (fall){
+			setAppleY(y => y - fallSpeed.current);
 			fallSpeed.current += 0.5;
 		} else {
 			clearInterval(fallInterval.current as NodeJS.Timeout);
@@ -261,6 +279,12 @@ export const NavBar = () => {
 			fallInterval.current = setInterval(appleFall, 25);
 		}
 	}, [scavState, archer.headshot]);
+
+	function appyFinishTalking() {
+		setAppleTalking(false);
+		appleHasTalked.current = true;
+		walkIinterval.current = setInterval(appleInterval, 25);
+	}
 
 	return (
 		<>
@@ -407,12 +431,8 @@ export const NavBar = () => {
 						></div>
 					</button>
 
-					{scavState && (
-						<DraggableCore
-							onDrag={appleDrag}
-							onStop={appleDragStop}
-							disabled={archer.headshot}
-						>
+					{scavState && !appleGone &&  (
+						<DraggableCore onDrag={appleDrag} onStop={appleDragStop}>
 							<img
 								ref={apple}
 								src={`/assets/svgs/nav/${appleImg}.svg`}
@@ -426,6 +446,14 @@ export const NavBar = () => {
 								}}
 							/>
 						</DraggableCore>
+					)}
+
+					{scavState && appleTalking && (
+						<AppleDialog 
+							whenDone={appyFinishTalking}
+							className="absolute top-[100%] bg-white rounded-lg shadow-lg p-4 max-w-[16rem]"
+							style={{right: (appleX + 80) + 'px', top: `calc(100% - 30px)`}}
+							 />
 					)}
 				</div>
 			</nav>

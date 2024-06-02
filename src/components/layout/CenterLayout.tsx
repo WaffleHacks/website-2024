@@ -15,7 +15,7 @@ export const CenterLayout = ({
 	return (
 		<Element
 			className={cn(
-				"px-4 pt-16 pb-6 mx-auto sm:px-6 lg:px-8 lg:pt-24",
+				"px-4 pb-6 mx-auto sm:px-6 lg:px-8",
 				className,
 			)}
 		>

@@ -1,13 +1,18 @@
 "use client";
 import React from "react";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
+import { twMerge } from "tailwind-merge";
 
-export const NumberDisplay = () => {
+interface NumberDisplayProps {
+	className?: string;
+	style?: React.CSSProperties;
+}
+
+export const NumberDisplay = ({className, style}: NumberDisplayProps) => {
 	const [daysLeft, setDaysLeft] = React.useState(0);
 	const [hoursLeft, setHoursLeft] = React.useState(0);
 	const [minutesLeft, setMinutesLeft] = React.useState(0);
 	const [secondsLeft, setSecondsLeft] = React.useState(0);
-	const stickyHeaderRef = React.useRef<HTMLDivElement>(null);
 
 	useIsomorphicLayoutEffect(() => {
 		function showtime() {
@@ -41,29 +46,11 @@ export const NumberDisplay = () => {
 		};
 	}, []);
 
-	useIsomorphicLayoutEffect(() => {
-		function handleScroll() {
-			if (stickyHeaderRef.current) {
-				if (window.scrollY > 0) {
-					stickyHeaderRef.current.classList.add("sticky");
-				} else {
-					stickyHeaderRef.current.classList.remove("sticky");
-				}
-			}
-		}
-
-		window.addEventListener("scroll", handleScroll);
-
-		return () => {
-			window.removeEventListener("scroll", handleScroll);
-		};
-	}, []);
-
 	return (
-		<div className="flex flex-row justify-end w-full header">
+		<div className={twMerge("flex flex-row", className)} style={style}>
 			<div>
-				<span className="text-2xl">Countdown to the WaffleHacks Games</span>
-				<div className="flex text-2xl font-bold gap-2 items-center">
+				<span className="text-xl text-right text-wrap max-w-full sm:text-2xl">Countdown to the WaffleHacks Games</span>
+				<div className="flex text-lg justify-end sm:text-2xl font-bold gap-2 items-center">
 					<Clock number={daysLeft} text="Days" /> <span>:</span>
 					<Clock number={hoursLeft} text="Hours" /> <span>:</span>
 					<Clock number={minutesLeft} text="Minutes" /> <span>:</span>
@@ -84,7 +71,7 @@ const Clock = ({ number, text }: { number: number; text: string }) => {
 					return (
 						<span
 							key={index}
-							className="numberdisplay-number text-2xl font-extrabold bg-gray-200 rounded-lg py-3 px-3"
+							className="numberdisplay-number text-lg sm:text-2xl font-extrabold bg-gray-200 rounded-lg py-2 sm:py-3 px-2 sm:px-3"
 						>
 							{char}
 						</span>
