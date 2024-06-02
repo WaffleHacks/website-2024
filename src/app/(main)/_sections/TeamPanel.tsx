@@ -47,6 +47,8 @@ export const TeamPanel = () => {
 	const isSmall = useMediaQuery("(min-width: 640px)");
 	const isMediumOrLarger = isMedium || isLarge || isXLarge;
 
+	const ctx = useContext(ScavContext);
+
 	const fileToName = (file: string) =>
 		file.split("/").pop()?.replace(".png", "");
 

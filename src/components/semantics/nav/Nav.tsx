@@ -6,7 +6,7 @@ import { Tooltip } from "@nextui-org/tooltip";
 import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import {
 	DraggableCore,
@@ -31,17 +31,19 @@ export const NavBar = () => {
 		{ href: "#apply", text: "Apply" },
 	];
 
-	const label = {
-		inputProps: { "aria-label": "Scavenger hunt switch" },
-	};
+	const [mobileDown, setMobileDown] = useState(false);
 
-	const { scavState, setScavState, archer } = useContext(ScavContext);
+	const label = { inputProps: { "aria-label": "Scav switch" } };
+
+	let {scavState, setScavState, archer} = useContext(ScavContext);
 
 	const apple = useRef<HTMLImageElement>(null);
 	const [appleImg, setAppleImg] = useState("apple1");
 	const [appleX, setAppleX] = useState<number>(-100);
 	const [appleY, setAppleY] = useState<number>(0);
-	const interval = useRef<NodeJS.Timeout>();
+	const walkIinterval = useRef<NodeJS.Timeout>();
+	const fallInterval = useRef<NodeJS.Timeout | null>();
+	const fallSpeed = useRef(1);
 
 	useIsomorphicLayoutEffect(() => {
 		const body: HTMLBodyElement = document.querySelector(
@@ -93,10 +95,13 @@ export const NavBar = () => {
 		setScavState(e.target.checked);
 		if (e.target.checked) document.body.classList.add("scav");
 		else document.body.classList.remove("scav");
-		console.log(e.target.checked);
 	}
 
 	function appleInterval() {
+		if (archer.headshot) {
+			clearInterval(walkIinterval.current);
+			return;
+		}
 		const files = ["apple1", "apple2", "apple3", "apple2"];
 
 		setAppleX((x) => {
@@ -130,19 +135,20 @@ export const NavBar = () => {
 	};
 
 	useIsomorphicLayoutEffect(() => {
-		if (interval.current) {
-			clearInterval(interval.current);
+		if (walkIinterval.current) {
+			clearInterval(walkIinterval.current);
 		}
 		if (scavState) {
-			interval.current = setInterval(appleInterval, 25);
-		} else {
+			walkIinterval.current = setInterval(appleInterval, 25);
+		}
+		else {
 			setAppleY(0);
 		}
-		return () => clearInterval(interval.current);
+		return () => clearInterval(walkIinterval.current);
 	}, [scavState]);
 
 	function appleDrag(e: DraggableEvent, pos: DraggableData) {
-		clearInterval(interval.current);
+		clearInterval(walkIinterval.current);
 
 		const ap = apple.current;
 		if (!ap) return;
@@ -179,21 +185,20 @@ export const NavBar = () => {
 		const mx = (e as any).clientX;
 		const my = (e as any).clientY;
 
-		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]) {
-			setAppleY(navRect.bottom - h1[3] - apRect.height / 8);
-			setAppleX(
-				window.innerWidth - (h1[0] + h1[1]) / 2 - (3 * apRect.width) / 5,
-			);
-			archer.activeHeadSpot = 1;
-		} else if (mx > h2[0] && mx < h2[1] && my > h2[2] && my < h2[3]) {
-			setAppleY(navRect.bottom - h2[3] - apRect.height / 8);
-			setAppleX(
-				window.innerWidth - (h2[0] + h2[1]) / 2 - (3 * apRect.width) / 5,
-			);
-			archer.activeHeadSpot = 2;
-		} else {
+		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]){
+			setAppleY(navRect.bottom - h1[3] - apRect.height/8);
+			setAppleX(window.innerWidth - ((h1[0] + h1[1]) / 2) - 3*apRect.width/5);
+			archer.activeHeadSpot.current = 1;
+		}
+		else if (mx > h2[0] && mx < h2[1] && my > h2[2] && my < h2[3]){
+			setAppleY(navRect.bottom - h2[3] - apRect.height/8);
+			setAppleX(window.innerWidth - ((h2[0] + h2[1]) / 2) - 3*apRect.width/5);
+			archer.activeHeadSpot.current = 2;
+		}
+		else {
 			setAppleY(navRect.bottom - mouseY);
 			setAppleX(window.innerWidth - mouseX);
+			archer.activeHeadSpot.current = -1;
 		}
 
 		setAppleImg("applesit");
@@ -209,11 +214,49 @@ export const NavBar = () => {
 			ap.style.bottom = "0";
 			ap.style.top = "unset";
 			setAppleY(0);
-			interval.current = setInterval(appleInterval, 25);
+			walkIinterval.current = setInterval(appleInterval, 25);
 		}
 	}
 
-	const [mobileDown, setMobileDown] = useState(false);
+	function appleFall() {
+		if (!apple.current) return;
+		if (!archer.headshot) return;
+		if (!archer.landing1?.current || !archer.landing2?.current) return;
+
+		const landing1 = archer.landing1.current.getBoundingClientRect();
+		const landing2 = archer.landing2.current.getBoundingClientRect();
+		const ap = apple.current.getBoundingClientRect();
+
+		let l1_mid = landing1.top + landing1.height/2;
+		let l2_mid = landing2.top + landing2.height/2;
+
+		// fall to center of landing
+		// check for head 1 (tennis, lower)
+		if ((ap.left > landing1.left && ap.right < landing1.right && ap.bottom < l1_mid) || 
+			(ap.left > landing2.left && ap.right < landing2.right && ap.bottom < l2_mid)) {
+			setAppleY(y => y - fallSpeed.current);
+			fallSpeed.current += 0.5;
+		}
+		else {
+			clearInterval(fallInterval.current as NodeJS.Timeout);
+			fallInterval.current = null;
+		}
+
+	}
+
+	useEffect(() => {
+		if (!scavState) return () => {
+			clearInterval(fallInterval.current as NodeJS.Timeout);
+			fallInterval.current = null;
+		};
+
+		if (archer.headshot && !fallInterval.current) {
+			fallSpeed.current = 1;
+			fallInterval.current = setInterval(appleFall, 25);
+		}
+	}, [scavState, archer.headshot]);
+
+	
 
 	return (
 		<>
@@ -361,7 +404,7 @@ export const NavBar = () => {
 					</button>
 
 					{scavState && (
-						<DraggableCore onDrag={appleDrag} onStop={appleDragStop}>
+						<DraggableCore onDrag={appleDrag} onStop={appleDragStop} disabled={archer.headshot}>
 							<img
 								ref={apple}
 								src={`/assets/svgs/nav/${appleImg}.svg`}

@@ -48,7 +48,7 @@
     }
 
     body {
-        background-color: #EDE5C2;
+        background-color: #f6fbe9;
         transition: background-color var(--scav-transition-dur) ease;
         color: #3C2415
     }
