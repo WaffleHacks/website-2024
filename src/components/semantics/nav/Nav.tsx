@@ -427,6 +427,7 @@ export const NavBar = () => {
 										backgroundColor: "#3C2415",
 									},
 								}}
+								disabled={true}
 							/>
 						</Tooltip>
 					</form>
