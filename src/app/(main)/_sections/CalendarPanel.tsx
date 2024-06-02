@@ -1,11 +1,10 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import CalendarDescription from "./CalendarDescription";
 import { CalendarDescriptionType as CDT } from "./CalendarDescription";
 import { Button } from "@nextui-org/button";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { Picture } from "@/components";
-import { button } from "@nextui-org/theme";
 
 interface EventStructure {
 	title: string;
