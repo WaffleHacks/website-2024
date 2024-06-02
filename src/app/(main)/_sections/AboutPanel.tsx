@@ -14,7 +14,7 @@ export const AboutPanel = () => {
 	const isXSmall = useMediaQuery("(min-width: 480px)");
 	const isXXSmall = useMediaQuery("(min-width: 320px)");
 	return (
-		<article className="font-mplus px-8 flex flex-col md:flex-row justify-center items-center gap-4 bg-opacity-40 shadow-md rounded-xl w-full max-w-screen-2xl mx-auto my-8 md:my-16 lg:my-24 xl:my-32 ">
+		<article className="font-mplus pr-8 flex flex-col md:flex-row justify-center items-center gap-4 bg-opacity-40 shadow-md rounded-xl w-full max-w-screen-2xl mx-auto my-8 md:my-16 lg:my-24 xl:my-32 ">
 			<article className="flex flex-col justify-between shadow-xl back drop-blur-lg p-4 md:p-8 rounded-2xl transition-transform duration-300 transform max-w-md md:max-w-9xl overlay">
 				<>
 					<h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl leading-11 font-bold tracking-tighter mb-4 md:mb-8 bg-gradient-to-r from-[#CD9E71]/70 via-[#AF7F4E] to-[#CD9E71]/70 bg-clip-text text-transparent">
