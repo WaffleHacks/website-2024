@@ -14,25 +14,65 @@ export const AboutPanel = () => {
 	const isXSmall = useMediaQuery("(min-width: 480px)");
 	const isXXSmall = useMediaQuery("(min-width: 320px)");
 	return (
-		<article className="font-mplus pr-8 flex flex-col md:flex-row justify-center items-center gap-4 bg-opacity-40 shadow-md rounded-xl w-full max-w-screen-2xl mx-auto my-8 md:my-16 lg:my-24 xl:my-32 ">
-			<article className="flex flex-col justify-between shadow-xl back drop-blur-lg p-4 md:p-8 rounded-2xl transition-transform duration-300 transform max-w-md md:max-w-9xl overlay">
-				<>
-					<h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl leading-11 font-bold tracking-tighter mb-4 md:mb-8 bg-gradient-to-r from-[#CD9E71]/70 via-[#AF7F4E] to-[#CD9E71]/70 bg-clip-text text-transparent">
-						WaffleHacks 2024: Empowering Communities and Small Businesses
-						through Tech Solutions
+		<article
+			className={`
+				font-mplus flex flex-col md:flex-row
+				justify-center items-center gap-2
+				w-full max-w-screen-2xl mx-auto
+				my-8 md:my-16 lg:my-24 xl:my-32 px-10
+			`}
+		>
+			<article
+				className={`
+					flex flex-col justify-between rounded-2xl
+					transition-transform duration-300 transform max-w-screen-2xl
+					md:max-w-9xl flex-1
+				`}
+			>
+				<hgroup
+					className={`
+					text-[#3C2415]
+            w-full flex items-center justify-center flex-col
+            text-left 
+        `}
+				>
+					<h2
+						className={`
+                text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl
+                leading-11 font-bold tracking-tighter mb-2  w-full
+            `}
+					>
+						WaffleHacks 2024
 					</h2>
-				</>
-				<div className="flex flex-col justify-between gap-2">
+					<h3
+						className={`
+                w-full text-xl md:text-2xl lg:text-3xl xl:text-4xl
+                font-bold tracking-tighter leading-11 mb-9
+            `}
+					>
+						Let the Hacking Begin!
+					</h3>
+				</hgroup>
+				<div className="flex flex-col justify-between gap-8">
 					<Text
-						className="text-xs md:text-sm lg:text-md xl:text-lg font-semibold text-left"
+						className="text-lg font-normal text-left"
 						text={[
-							"We welcome all students, of high school level and beyond, and of all technical proficiency levels, to join us on June 23th - 25th, 2023.",
-							"WaffleHacks is a 48-hour student-organized hackathon working to bring technical solutions to your local communities and small businesses.",
+							"Wafflehacks is a 48 - hour student - organized hackathon working to inspire high school and university students of all technical backgrounds to learn and create solutions that impact local communities and small businesses.",
+							"This year, gear up for our hottest competition yet. With pre-hackathon workshops on  June 19th & 20th, we’ll make sure you’re in tip-top shape to compete in the hackathon weekend from June 21st - 23rd.",
 						]}
 					/>
+					<span
+						className={`
+                text-[#3C2415]
+                sm:text-md text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl
+                font-bold tracking-tighter leading-11 mt-4
+            `}
+					>
+						Start training everyone - it's game time!
+					</span>
 				</div>
 			</article>
-			<Picture className="flex flex-row justify-center items-center transition-transform duration-300 transform w-64 h-64 md:w-96 md:h-96 lg:w-128 lg:h-128 xl:w-144 xl:h-144">
+			<Picture className="flex flex-row justify-center items-center transition-transform duration-300 transform w-64 h-64 md:w-96 md:h-96 lg:w-128 lg:h-128 xl:w-144 xl:h-144 flex-1 pt-5 sm:pt-0">
 				<Image
 					src="/assets/images/about.png"
 					alt=""

@@ -2,11 +2,9 @@
 
 import {
 	Article,
-	Modal,
 	CustomPicture as Picture,
 	ScavContext,
 	Slide,
-	button_style,
 } from "@/components";
 import { team_members_panel_png } from "@/constants";
 import { useOverlay, useTeam } from "@/core";
@@ -16,10 +14,11 @@ import { objToArray } from "@/utils";
 import { Button, Card, Skeleton } from "@nextui-org/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { Fragment, useContext, useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
-import { TeamCard } from "../_components";
 
 const MAX_CONCURRENT_REQUESTS: number = 5;
 const NUM_MEMBERS: number = 15;
@@ -33,7 +32,6 @@ export const TeamPanel = () => {
 	const [selectedMember, setSelectedMember] = useState<any>(null);
 
 	const { showOverlay, setShowOverlay } = useOverlay();
-	const [modalOpen, setModalOpen] = useState(false);
 	const [loading, setLoading] = useState(true);
 
 	const team = objToArray(team_members_panel_png);
@@ -49,6 +47,8 @@ export const TeamPanel = () => {
 	const isMediumOrLarger = isMedium || isLarge || isXLarge;
 
 	const ctx = useContext(ScavContext);
+
+	const router = useRouter();
 
 	const fileToName = (file: string) =>
 		file.split("/").pop()?.replace(".png", "");
@@ -139,7 +139,7 @@ export const TeamPanel = () => {
 	return (
 		<Article
 			className={`
-				mt-2 px-10 w-full 
+				mt-2 px-10 w-full my-20
 			`}
 		>
 			<div className="w-full">
@@ -160,44 +160,48 @@ export const TeamPanel = () => {
 									.slice(currentIndex, currentIndex + howMuchToShow)
 									.map(({ mem, member, color }, index) => (
 										<Slide key={`${mem}-${index}`} delay={(index + 1) * 0.1}>
-											<Card
-												className={`
-												relative overflow-hidden h-[280px] min-w-[280px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer
+											<Link href={`/team/${fileToName(mem)}`}>
+												<Card
+													className={`
+												relative overflow-hidden h-[210px] min-w-[210px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer
 											`}
-												onClick={() => {
-													setShowOverlay(mem);
-													setSelectedMember({ mem, member, color });
-													setModalOpen(true);
-												}}
-											>
-												<AnimatePresence>
-													{(modalOpen && selectedMember?.mem) ||
-														(showOverlay === mem && (
-															<motion.div
-																className="absolute left-0 top-0 bottom-0 right-0 z-10 flex justify-center items-center"
-																initial={{ opacity: 0 }}
-																animate={{ opacity: 0.5 }}
-																exit={{ opacity: 0 }}
-															>
-																<div className="absolute bg-black pointer-events-none opacity-50 h-full w-full" />
-															</motion.div>
-														))}
-												</AnimatePresence>
-												<Picture
-													className={`absolute top-0 left-0 right-0 bottom-0 w-full h-full rounded-xl overflow-hidden mix-blend-multiply`}
+													onClick={() => {
+														setShowOverlay(mem);
+														setSelectedMember({ mem, member, color });
+														router.push(`/team/${fileToName(mem)}`);
+													}}
 												>
-													<Image
-														src={mem}
-														alt={mem}
-														fill={true}
-														fetchPriority="high"
-														className="object-cover mix-blend-multiply relative"
-														placeholder="blur"
-														blurDataURL={lazyImages[fileToName(mem) as string]}
-														sizes="(min-width: 1280px) 280px, (min-width: 1024px) 250px, (min-width: 768px) 200px"
-													/>
-												</Picture>
-											</Card>
+													<AnimatePresence>
+														{selectedMember?.mem ||
+															(showOverlay === mem && (
+																<motion.div
+																	className="absolute left-0 top-0 bottom-0 right-0 z-10 flex justify-center items-center"
+																	initial={{ opacity: 0 }}
+																	animate={{ opacity: 0.5 }}
+																	exit={{ opacity: 0 }}
+																>
+																	<div className="absolute bg-black pointer-events-none opacity-50 h-full w-full" />
+																</motion.div>
+															))}
+													</AnimatePresence>
+													<Picture
+														className={`absolute top-0 left-0 right-0 bottom-0 w-full h-full rounded-xl overflow-hidden mix-blend-multiply`}
+													>
+														<Image
+															src={mem}
+															alt={mem}
+															fill={true}
+															fetchPriority="high"
+															className="object-cover mix-blend-multiply relative"
+															placeholder="blur"
+															blurDataURL={
+																lazyImages[fileToName(mem) as string]
+															}
+															sizes="(min-width: 1280px) 280px, (min-width: 1024px) 250px, (min-width: 768px) 200px"
+														/>
+													</Picture>
+												</Card>
+											</Link>
 										</Slide>
 									))}
 					</div>
@@ -219,7 +223,7 @@ export const TeamPanel = () => {
 							className={cn("", "mr-2")}
 							color={`primary`}
 						>
-							<FaArrowLeft className={`w-10`} color={`black`} />
+							<FaArrowLeft className={`w-10`} color={`#3c2415`} />
 						</Button>
 					</li>
 				)}
@@ -230,24 +234,14 @@ export const TeamPanel = () => {
 					<li>
 						<Button
 							onClick={handleNext}
-							className={cn('', "ml-2")}
+							className={cn("", "ml-2")}
 							color={`primary`}
 						>
-							<FaArrowRight className={`w-10`} color={`black`} />
+							<FaArrowRight className={`w-10`} color={`#3c2415`} />
 						</Button>
 					</li>
 				)}
 			</menu>
-			{modalOpen && selectedMember && (
-				<>
-					<Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-						<TeamCard
-							member={selectedMember.member}
-							color={selectedMember.color}
-						/>
-					</Modal>
-				</>
-			)}
 		</Article>
 	);
 };

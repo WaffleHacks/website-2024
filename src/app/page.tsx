@@ -6,7 +6,7 @@ export default async function Home() {
 			<LandingPanel />
 			<CenterLayout
 				Element={`main`}
-				className="flex flex-col w-screen items-center justify-center gap-14 top-0"
+				className="flex flex-col w-screen items-center justify-center gap-20 top-0"
 			>
 				<PageSections />
 			</CenterLayout>

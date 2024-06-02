@@ -15,6 +15,10 @@
         @apply tabular-nums box-border;
     }
 
+    img {
+        @apply select-none;
+    }
+
     :root {
         --scav-transition-dur: 0.5s;
     }
@@ -135,9 +139,6 @@
     .cardNoise {
         position: absolute;
         z-index: 10;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         user-select: none;
         max-width: 600px;
         padding: 48px;

@@ -24,8 +24,8 @@ export const NavBar = () => {
 		text: string;
 	}> = [
 		{ href: "#about", text: "About" },
-		{ href: "#tracks-and-awards", text: "Tracks" },
 		{ href: "#calendar", text: "Calendar" },
+		{ href: "#tracks-and-awards", text: "Tracks" },
 		{ href: "#meet-the-team", text: "Team" },
 		{ href: "#sponsors", text: "Sponsors" },
 		{ href: "#faqs", text: "FAQs" },
@@ -342,7 +342,7 @@ export const NavBar = () => {
 				<div
 					className={`
 						flex items-center justify-between 
-						p-5 w-full max-w-screen-lg mx-auto
+						p-5 w-full max-w-screen-2xl mx-auto
 					`}
 				>
 					<div className="flex gap-8 justify-center items-center">

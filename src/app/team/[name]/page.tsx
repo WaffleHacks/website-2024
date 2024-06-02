@@ -6,7 +6,7 @@ import React from "react";
 export const generateMetadata = ({
 	params: { name },
 }: { params: { name: string } }) => ({
-	title: `Team | ${name.charAt(0).toUpperCase() + name.slice(1)}`,
+	title: `${name.charAt(0).toUpperCase() + name.slice(1)}`,
 	description: `${memberDescription[name]}`,
 });
 

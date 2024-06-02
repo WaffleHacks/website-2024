@@ -10,7 +10,6 @@ import {
 import { Tracks } from "@/constants";
 import { cn } from "@/lib";
 import { Slugify } from "@/utils";
-import { Typography } from "@mui/joy";
 import { Button } from "@nextui-org/button";
 import { Skeleton } from "@nextui-org/skeleton";
 import Image from "next/image";
@@ -33,10 +32,10 @@ const TrackSlide: React.FC<{
 			<Section
 				className={cn(
 					`
-					p-4 mx-2 h-auto rounded-lg ${card_style}
+					p-4 mx-2 h-auto rounded-lg 
 					`,
 					`
-					
+					bg-[#f5f5f5] shadow-lg
 				`,
 				)}
 			>
@@ -149,16 +148,12 @@ const CustomSlider: React.FC<{ slidesToShow: number }> = ({ slidesToShow }) => {
 		<div
 			className={`
 				relative w-full overflow-hidden
-				border border-blue-500
 			`}
 		>
 			<div
 				className={`
 					overflow-hidden relative mx-auto
 				`}
-				style={{
-					maxWidth: "80%",
-				}}
 			>
 				<Section
 					key={currentSlide}
@@ -178,37 +173,42 @@ const CustomSlider: React.FC<{ slidesToShow: number }> = ({ slidesToShow }) => {
 					w-full mx-auto mt-4 px-4
 				`}
 			>
-				{isSmall && (
-					<Button
-						onClick={prevSlide}
-						className={`
-
-					`}
-					>
-						<FaArrowLeft size={20} />
-					</Button>
-				)}
+				<Button onClick={prevSlide} className={`bg-[#bb8653]`}>
+					<FaArrowLeft size={20} color={`#3c2415`} className={`bg-[#bb8653]`} />
+				</Button>
 				<div
 					className={`
 						pagination w-full
 					`}
 				>
-					{Array.from({ length: totalSlides }).map((_, index) => (
-						<div
-							key={index}
-							className={`
-								pagination-button 
-								${currentSlide === index ? "active" : ""}
-							`}
-							onClick={() => goToSlide(index)}
-						/>
-					))}
+					{!isMedium && (
+						<>
+							{Array.from({ length: Math.min(3, totalSlides) }).map(
+								(_, index) => {
+									const slideIndex = currentSlide - 1 + index;
+									if (slideIndex < 0 || slideIndex >= totalSlides) return null;
+									return (
+										<div
+											key={slideIndex}
+											className={`
+                pagination-button 
+                ${currentSlide === slideIndex ? "active" : ""}
+            `}
+											onClick={() => goToSlide(slideIndex)}
+										/>
+									);
+								},
+							)}
+						</>
+					)}
 				</div>
-				{isSmall && (
-					<Button onClick={nextSlide}>
-						<FaArrowRight size={20} />
-					</Button>
-				)}
+				<Button onClick={nextSlide} className={`bg-[#bb8653]`}>
+					<FaArrowRight
+						size={20}
+						color={`#3c2415`}
+						className={`bg-[#bb8653]`}
+					/>
+				</Button>
 			</div>
 		</div>
 	);
@@ -228,8 +228,7 @@ export const TracksPanel: React.FC = () => {
 	return (
 		<div
 			className={`
-				font-mplus p-8 border border-red-400
-
+				font-mplus p-8
 			`}
 		>
 			{loading ? (

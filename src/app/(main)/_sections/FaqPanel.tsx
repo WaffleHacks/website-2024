@@ -10,6 +10,8 @@ export const FaqPanel = () => {
 			className={`
 				flex justify-center 
 				${card_style}
+				text-lg p-[50px]
+				bg-[#F7F7F7]
 			`}
 		>
 			<div className={`block w-full`}>

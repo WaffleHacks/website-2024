@@ -47,7 +47,7 @@ export const PageSections = () => {
 					>
 						{value !== "About" && value !== "Apply" && (
 							<h2
-								className={cn(heading_style, `mx-8`)}
+								className={cn(heading_style, `mx-8 sr-only`)}
 								aria-label={`Section: ${value}`}
 							>
 								{value}

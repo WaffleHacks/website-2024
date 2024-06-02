@@ -6,7 +6,7 @@ import type React from "react";
 
 export const Accessibility = () => {
 	return (
-		<Container sx={{ my: 3 }} maxWidth={`sm`}>
+		<Container sx={{ my: 3, color: "#3c2415"}} maxWidth={`sm`}>
 			<Typography gutterBottom>Website Accessibility Policy</Typography>
 			<Typography gutterBottom>
 				{app.name} is committed to making our website,{" "}

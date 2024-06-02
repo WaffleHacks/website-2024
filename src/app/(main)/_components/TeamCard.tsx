@@ -152,7 +152,7 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 							</h4>
 							<Text
 								text={`"${member.middle.looking_forward}"`}
-								className="text-[#3C2415] font-semibold text-left"
+								className="text-[#3C2415] font-normal text-left mr-4"
 							/>
 						</Article>
 						<div
