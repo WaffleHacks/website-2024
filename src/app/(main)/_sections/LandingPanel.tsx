@@ -525,7 +525,7 @@ export const LandingPanel = () => {
 	}
 
 	return (
-		<header className="relative font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full h-screen box-border max-w-screen-2xl mx-auto">
+		<header className="relative font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-screen h-screen overflow-x-hidden box-border mx-auto">
 			{/* TODO */}
 			<img
 				id="landing-blob"
