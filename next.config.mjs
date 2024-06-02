@@ -23,11 +23,11 @@ const config = {
 		ignoreBuildErrors: true,
 	},
 	reactStrictMode: true,
-	// logging: {
-	// 	fetches: {
-	// 		fullUrl: true,
-	// 	},
-	// },
+	logging: {
+		fetches: {
+			fullUrl: true,
+		},
+	},
 	images: {
 		remotePatterns: [
 			{
