@@ -223,14 +223,14 @@ export const TeamPanel = () => {
 						</Button>
 					</li>
 				)}
-				<li className="text-lg font-semibold">
+				<li className="text-lg font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis">
 					{currentIndex + 1} - {currentIndex + howMuchToShow} of {NUM_MEMBERS}
 				</li>
 				{currentIndex < NUM_MEMBERS - howMuchToShow && (
 					<li>
 						<Button
 							onClick={handleNext}
-							className={cn(button_style, "ml-2")}
+							className={cn('', "ml-2")}
 							color={`primary`}
 						>
 							<FaArrowRight className={`w-10`} color={`black`} />
