@@ -9,6 +9,7 @@ export const FaqPanel = () => {
 		<>
 			<h2 className="text-4xl font-bold mb-4">FAQs</h2>
 			<article
+				id="faq-box"
 				className={`
 					flex justify-center 
 					${card_style}

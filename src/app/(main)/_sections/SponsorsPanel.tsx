@@ -44,7 +44,7 @@ export const SponsorsPanel = () => {
 		<h2 className="text-4xl font-bold mb-4">Sponsors</h2>
 		<article className="card mb-8">
 			{sponsorsData.tiers.map((tierData, index) => (
-				<div key={Slugify((index + 1).toString())}>
+				<div key={Slugify((index + 1).toString())} className="mb-8">
 					<section
 						className={`
 							flex flex-row justify-center items-center
@@ -89,17 +89,15 @@ export const SponsorsPanel = () => {
 								}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="relative h-fit w-fit rounded-lg shadow-lg border-none"
+								className="relative h-fit w-fit"
 							>
-								<Card className="relative p-4 h-[175px] w-[300px] flex flex-col items-center justify-center transition-all duration-300 hover:scale-105">
-									<Image
-										src={sponsor.image}
-										alt={sponsor.name}
-										className="object-fit transition-all w-full h-full overflow-hidden mix-blend-multiply"
-										fetchPriority="low"
-										sizes="(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px"
-									/>
-								</Card>
+								<Image
+									src={sponsor.image}
+									alt={sponsor.name}
+									className="object-fit transition-all w-full h-full overflow-hidden mix-blend-multiply max-h-[5rem]"
+									fetchPriority="low"
+									sizes="(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px"
+								/>
 							</Link>
 						))}
 					</div>

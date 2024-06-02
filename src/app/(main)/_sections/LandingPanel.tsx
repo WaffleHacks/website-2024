@@ -533,7 +533,7 @@ export const LandingPanel = () => {
 	}
 
 	return (
-		<header className="relative font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full h-screen box-border">
+		<header className="relative font-mplus pt-44 h-[70vh] w-full h-screen box-border">
 			{/* TODO: Bigger screens edge case */}
 			<img
 				id="landing-blob"
@@ -542,10 +542,15 @@ export const LandingPanel = () => {
 				alt=""
 			/>
 
-			<h2 className="text-2xl font-normal">
-				Put your best code forward for the
-			</h2>
-			<h1 className="text-[2.5rem] font-medium">WaffleHacks games!</h1>
+			<div className="w-full flex justify-center px-9">
+				<div className="w-full max-w-screen-2xl">
+					<h2 className="text-2xl font-normal">
+					Put your best code forward for the
+					</h2>
+					<h1 className="text-[2.5rem] font-medium">WaffleHacks games!</h1>
+				</div>
+			</div>
+			
 
 			<div
 				ref={container}

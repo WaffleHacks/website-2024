@@ -23,7 +23,7 @@ interface EventList {
 }
 
 const calendarButton: string =
-	"flex items-center justify-center rounded-lg bg-yellow-900 w-10 h-10 text-[#bb8653]";
+	"flex items-center justify-center rounded-lg bg-white w-10 h-10 text-black";
 
 export const CalendarPanel = () => {
 	const [eventIndex, setEventIndex] = useState<number>(0);
@@ -133,14 +133,14 @@ export const CalendarPanel = () => {
 
 	return (
 		<>
-		<h2 className="text-4xl font-bold mb-4">Calendar</h2>
+		<h2 className="text-[45px] font-bold mb-4 lext-left w-full pl-8">Schedule</h2>
 		<div
 			ref={calendar_box}
 			className="font-mplus p-8 pt-0 relative w-[100vw] md:w-[unset]"
 			onClick={() => setDescPos({ x: -1, y: -1 })}
 		>
 			<div 
-				className="py-6 px-8 bg-[#bb8653]/80 rounded-xl flex flex-col backdrop-filter backdrop-blur-xl text-black"
+				className="py-6 px-8 bg-[#d0d0d0] rounded-xl flex flex-col backdrop-filter backdrop-blur-xl text-black"
 			>
 				{/* header with day and buttons */}
 				<div className="flex flex-col gap-2 sm:gap-0 items-center sm:grid sm:grid-cols-2 md:grid-cols-3">

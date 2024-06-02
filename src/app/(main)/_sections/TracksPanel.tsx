@@ -227,7 +227,7 @@ export const TracksPanel: React.FC = () => {
 
 	return (
 		<>
-		<h2 className="text-4xl font-bold mb-4">Tracks / Prizes</h2>
+		<h2 className="text-[45px] font-bold mb-4 lext-left w-full pl-8">Tracks &amp; Prizes</h2>
 		<div
 			className={`
 				font-mplus p-8 pt-0

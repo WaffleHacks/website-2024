@@ -24,8 +24,8 @@ export const NavBar = () => {
 		text: string;
 	}> = [
 		{ href: "#about", text: "About" },
-		{ href: "#calendar", text: "Calendar" },
-		{ href: "#tracks-and-awards", text: "Tracks" },
+		{ href: "#calendar", text: "Schedule" },
+		{ href: "#tracks-and-awards", text: "Tracks & Prizes" },
 		{ href: "#meet-the-team", text: "Team" },
 		{ href: "#sponsors", text: "Sponsors" },
 		{ href: "#faqs", text: "FAQs" },
@@ -347,18 +347,13 @@ export const NavBar = () => {
 			<nav
 				className={cn(
 					"",
-					`navbar fixed top-0 z-50 peek-a-boo
+					`navbar fixed top-0 z-50
 					w-full flex flex-row justify-between h-[100px] p-4
 					shadow-lg font-semibold items-center
 					px-4`,
 				)}
 			>
-				<div
-					className={`
-						flex items-center justify-between 
-						p-5 w-full max-w-screen-2xl mx-auto
-					`}
-				>
+				<div className="flex items-center justify-between p-5 w-full max-w-screen-2xl mx-auto">
 					<div className="flex gap-8 justify-center items-center">
 						<Picture
 							className={`
@@ -380,7 +375,7 @@ export const NavBar = () => {
 						</Picture>
 						<ul
 							className={`
-								hidden sm:flex 
+								hidden sm:flex flex-wrap
 							`}
 						>
 							{Links.map((link, index) => (
@@ -427,7 +422,7 @@ export const NavBar = () => {
 										backgroundColor: "#3C2415",
 									},
 								}}
-								disabled={true}
+								disabled={false}
 							/>
 						</Tooltip>
 					</form>
