@@ -13,12 +13,7 @@ export const CenterLayout = ({
 	className?: string;
 }>) => {
 	return (
-		<Element
-			className={cn(
-				"px-4 pb-6 mx-auto sm:px-6 lg:px-8",
-				className,
-			)}
-		>
+		<Element className={cn("px-4 pb-6 mx-auto sm:px-6 lg:px-8", className)}>
 			{children}
 		</Element>
 	);

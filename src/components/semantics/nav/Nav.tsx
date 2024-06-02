@@ -14,9 +14,9 @@ import {
 	type DraggableEvent,
 } from "react-draggable";
 
+import AppleDialog from "@/app/(main)/_components/AppleDialog";
 import { cn } from "@/lib";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
-import AppleDialog from "@/app/(main)/_components/AppleDialog";
 
 export const NavBar = () => {
 	const Links: ReadonlyArray<{
@@ -36,7 +36,7 @@ export const NavBar = () => {
 
 	const label = { inputProps: { "aria-label": "Scav switch" } };
 
-	let {scavState, setScavState, archer} = useContext(ScavContext);
+	const { scavState, setScavState, archer } = useContext(ScavContext);
 
 	const apple = useRef<HTMLImageElement>(null);
 	const [appleImg, setAppleImg] = useState("apple1");
@@ -146,8 +146,7 @@ export const NavBar = () => {
 		}
 		if (scavState) {
 			walkIinterval.current = setInterval(appleInterval, 25);
-		}
-		else {
+		} else {
 			setAppleY(0);
 			clearInterval(fallInterval.current as NodeJS.Timeout);
 		}
@@ -192,17 +191,19 @@ export const NavBar = () => {
 		const mx = (e as any).clientX;
 		const my = (e as any).clientY;
 
-		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]){
-			setAppleY(navRect.bottom - h1[3] - apRect.height/8);
-			setAppleX(window.innerWidth - ((h1[0] + h1[1]) / 2) - 3*apRect.width/5);
+		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]) {
+			setAppleY(navRect.bottom - h1[3] - apRect.height / 8);
+			setAppleX(
+				window.innerWidth - (h1[0] + h1[1]) / 2 - (3 * apRect.width) / 5,
+			);
 			archer.activeHeadSpot.current = 1;
-		}
-		else if (mx > h2[0] && mx < h2[1] && my > h2[2] && my < h2[3]){
-			setAppleY(navRect.bottom - h2[3] - apRect.height/8);
-			setAppleX(window.innerWidth - ((h2[0] + h2[1]) / 2) - 3*apRect.width/5);
+		} else if (mx > h2[0] && mx < h2[1] && my > h2[2] && my < h2[3]) {
+			setAppleY(navRect.bottom - h2[3] - apRect.height / 8);
+			setAppleX(
+				window.innerWidth - (h2[0] + h2[1]) / 2 - (3 * apRect.width) / 5,
+			);
 			archer.activeHeadSpot.current = 2;
-		}
-		else {
+		} else {
 			setAppleY(navRect.bottom - mouseY);
 			setAppleX(window.innerWidth - mouseX);
 			archer.activeHeadSpot.current = -1;
@@ -220,14 +221,12 @@ export const NavBar = () => {
 			ap.style.bottom = "0";
 			ap.style.top = "unset";
 			setAppleY(0);
-			if (!appleHasTalked.current && archer.headshot){
+			if (!appleHasTalked.current && archer.headshot) {
 				setAppleTalking(true);
-			}
-			else {
+			} else {
 				walkIinterval.current = setInterval(appleInterval, 25);
 			}
-		}
-		else if (archer.headshot && !fallInterval.current)  {
+		} else if (archer.headshot && !fallInterval.current) {
 			fallSpeed.current = 1;
 			fallInterval.current = setInterval(appleFall, 25);
 		}
@@ -242,38 +241,45 @@ export const NavBar = () => {
 		const landing2 = archer.landing2.current.getBoundingClientRect();
 		const ap = apple.current.getBoundingClientRect();
 
-		let l1_mid = landing1.top + landing1.height/2;
-		let l2_mid = landing2.top + landing2.height/2;
+		const l1_mid = landing1.top + landing1.height / 2;
+		const l2_mid = landing2.top + landing2.height / 2;
 
-		let ap_mid_x = ap.left + ap.width/2;
+		const ap_mid_x = ap.left + ap.width / 2;
 
 		let fall = true;
 
-		if ((ap_mid_x > landing1.left && ap_mid_x < landing1.right && ap.bottom >= l1_mid && ap.bottom < landing1.bottom) ||
-			(ap_mid_x > landing2.left && ap_mid_x < landing2.right && ap.bottom >= l2_mid && ap.bottom < landing2.bottom)){
-				fall = false;
+		if (
+			(ap_mid_x > landing1.left &&
+				ap_mid_x < landing1.right &&
+				ap.bottom >= l1_mid &&
+				ap.bottom < landing1.bottom) ||
+			(ap_mid_x > landing2.left &&
+				ap_mid_x < landing2.right &&
+				ap.bottom >= l2_mid &&
+				ap.bottom < landing2.bottom)
+		) {
+			fall = false;
 		}
-		if (ap.top > window.innerHeight){
+		if (ap.top > window.innerHeight) {
 			fall = false;
 			setAppleGone(true);
 		}
 
-		if (fall){
-			setAppleY(y => y - fallSpeed.current);
+		if (fall) {
+			setAppleY((y) => y - fallSpeed.current);
 			fallSpeed.current += 0.5;
-		}
-		else {
+		} else {
 			clearInterval(fallInterval.current as NodeJS.Timeout);
 			fallInterval.current = null;
 		}
-
 	}
 
 	useEffect(() => {
-		if (!scavState) return () => {
-			clearInterval(fallInterval.current as NodeJS.Timeout);
-			fallInterval.current = null;
-		};
+		if (!scavState)
+			return () => {
+				clearInterval(fallInterval.current as NodeJS.Timeout);
+				fallInterval.current = null;
+			};
 
 		if (archer.headshot && !fallInterval.current) {
 			fallSpeed.current = 1;
@@ -432,7 +438,7 @@ export const NavBar = () => {
 						></div>
 					</button>
 
-					{scavState && !appleGone &&  (
+					{scavState && !appleGone && (
 						<DraggableCore onDrag={appleDrag} onStop={appleDragStop}>
 							<img
 								ref={apple}
@@ -450,11 +456,11 @@ export const NavBar = () => {
 					)}
 
 					{scavState && appleTalking && (
-						<AppleDialog 
+						<AppleDialog
 							whenDone={appyFinishTalking}
 							className="absolute top-[100%] bg-white rounded-lg shadow-lg p-4 max-w-[16rem]"
-							style={{right: (appleX + 80) + 'px', top: `calc(100% - 30px)`}}
-							 />
+							style={{ right: appleX + 80 + "px", top: `calc(100% - 30px)` }}
+						/>
 					)}
 				</div>
 			</nav>

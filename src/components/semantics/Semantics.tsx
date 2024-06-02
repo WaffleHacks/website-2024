@@ -22,7 +22,7 @@ interface ScavContextParameters {
 		frontWheelPopped: boolean;
 		setBackWheelPopped: (state: boolean) => void;
 		setFrontWheelPopped: (state: boolean) => void;
-	}
+	};
 }
 
 export const ScavContext = createContext<ScavContextParameters>({
@@ -35,14 +35,14 @@ export const ScavContext = createContext<ScavContextParameters>({
 		landing2: null,
 		headshot: false,
 		setHeadshot: (state: boolean) => {},
-		activeHeadSpot: { current: -1 }
+		activeHeadSpot: { current: -1 },
 	},
 	biker: {
 		backWheelPopped: false,
 		frontWheelPopped: false,
 		setBackWheelPopped: (state: boolean) => {},
 		setFrontWheelPopped: (state: boolean) => {},
-	}
+	},
 });
 
 export const Semantics: React.FC<
@@ -75,7 +75,7 @@ export const Semantics: React.FC<
 						frontWheelPopped,
 						setBackWheelPopped,
 						setFrontWheelPopped,
-					}
+					},
 				}}
 			>
 				<NavBar />

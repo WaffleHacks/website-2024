@@ -23,6 +23,7 @@ body.scav .numberdisplay-number {
   animation: bikerFlagWidth 0.5s ease;
   animation-fill-mode: forwards;
 }
+
 @keyframes bikerFlagWidth {
   0% { width: 0; }
   100% { width: 3%; }
@@ -100,8 +101,9 @@ body.scav #landing-blob { opacity: 1; }
 .speech-bubble {
   background: #fff;
   border-radius: 0.4rem;
-  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 0.5em rgb(0 0 0 / 60%);
 }
+
 .speech-bubble::after {
   content: '';
   display: inline-block;

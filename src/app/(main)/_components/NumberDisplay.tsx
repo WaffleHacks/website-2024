@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
-import { useIsomorphicLayoutEffect } from "usehooks-ts";
 import { twMerge } from "tailwind-merge";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 interface NumberDisplayProps {
 	className?: string;
 	style?: React.CSSProperties;
 }
 
-export const NumberDisplay = ({className, style}: NumberDisplayProps) => {
+export const NumberDisplay = ({ className, style }: NumberDisplayProps) => {
 	const [daysLeft, setDaysLeft] = React.useState(0);
 	const [hoursLeft, setHoursLeft] = React.useState(0);
 	const [minutesLeft, setMinutesLeft] = React.useState(0);
@@ -49,7 +49,9 @@ export const NumberDisplay = ({className, style}: NumberDisplayProps) => {
 	return (
 		<div className={twMerge("flex flex-row", className)} style={style}>
 			<div>
-				<span className="text-xl text-right text-wrap max-w-full sm:text-2xl">Countdown to the WaffleHacks Games</span>
+				<span className="text-xl text-right text-wrap max-w-full sm:text-2xl">
+					Countdown to the WaffleHacks Games
+				</span>
 				<div className="flex text-lg justify-end sm:text-2xl font-bold gap-2 items-center">
 					<Clock number={daysLeft} text="Days" /> <span>:</span>
 					<Clock number={hoursLeft} text="Hours" /> <span>:</span>
