@@ -28,6 +28,16 @@ const config = {
 			fullUrl: true,
 		},
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "github.com",
+				port: "",
+			},
+		],
+	},
+
 	experimental: {
 		turbo: {
 			rules: {

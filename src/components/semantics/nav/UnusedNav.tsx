@@ -41,7 +41,7 @@ export const UnusedNavBar = () => {
 		{ href: "#calendar", text: "Calendar" },
 		{ href: "#sponsors", text: "Sponsors" },
 		{ href: "#faqs", text: "FAQs" },
-		{ href: "#apply", text: "Apply Now" },
+		{ href: "#apply", text: "Apply" },
 	];
 
 	const [scrollTop, setScrollTop] = useState<number>(0);
@@ -61,7 +61,7 @@ export const UnusedNavBar = () => {
 
 	const label = { inputProps: { "aria-label": "Scav switch" } };
 
-	let {scavState, setScavState, archer} = useContext(ScavContext);
+	const { scavState, setScavState, archer } = useContext(ScavContext);
 
 	const apple = useRef<HTMLImageElement>(null);
 	const [appleImg, setAppleImg] = useState("apple1");
@@ -120,8 +120,7 @@ export const UnusedNavBar = () => {
 		}
 		if (scavState) {
 			interval.current = setInterval(appleInterval, 25);
-		}
-		else {
+		} else {
 			setAppleY(0);
 		}
 		return () => clearInterval(interval.current);
@@ -136,8 +135,8 @@ export const UnusedNavBar = () => {
 		if (!navRect) return;
 		const apRect = ap.getBoundingClientRect();
 
-		let headspot1 = archer.headspot1;
-		let headspot2 = archer.headspot2;
+		const headspot1 = archer.headspot1;
+		const headspot2 = archer.headspot2;
 
 		let h1: [number, number, number, number] = [-1000, -1000, -1000, -1000];
 		let h2: [number, number, number, number] = [-1000, -1000, -1000, -1000];
@@ -165,17 +164,19 @@ export const UnusedNavBar = () => {
 		const mx = (e as any).clientX;
 		const my = (e as any).clientY;
 
-		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]){
-			setAppleY(navRect.bottom - h1[3] - apRect.height/8);
-			setAppleX(window.innerWidth - ((h1[0] + h1[1]) / 2) - 3*apRect.width/5);
+		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]) {
+			setAppleY(navRect.bottom - h1[3] - apRect.height / 8);
+			setAppleX(
+				window.innerWidth - (h1[0] + h1[1]) / 2 - (3 * apRect.width) / 5,
+			);
 			archer.activeHeadSpot = 1;
-		}
-		else if (mx > h2[0] && mx < h2[1] && my > h2[2] && my < h2[3]){
-			setAppleY(navRect.bottom - h2[3] - apRect.height/8);
-			setAppleX(window.innerWidth - ((h2[0] + h2[1]) / 2) - 3*apRect.width/5);
+		} else if (mx > h2[0] && mx < h2[1] && my > h2[2] && my < h2[3]) {
+			setAppleY(navRect.bottom - h2[3] - apRect.height / 8);
+			setAppleX(
+				window.innerWidth - (h2[0] + h2[1]) / 2 - (3 * apRect.width) / 5,
+			);
 			archer.activeHeadSpot = 2;
-		}
-		else {
+		} else {
 			setAppleY(navRect.bottom - mouseY);
 			setAppleX(window.innerWidth - mouseX);
 		}
@@ -204,7 +205,7 @@ export const UnusedNavBar = () => {
 					`navbar fixed top-0 z-50
 					w-full flex flex-row h-[100px] p-4
 					shadow-lg font-semibold items-center
-					justify-center px-4 mx-auto`
+					justify-center px-4 mx-auto`,
 				)}
 			>
 				<motion.div

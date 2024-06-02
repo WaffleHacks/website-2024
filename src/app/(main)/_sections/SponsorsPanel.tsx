@@ -4,9 +4,9 @@ import { Slugify } from "@/utils";
 import { Button } from "@nextui-org/button";
 import { Card, CardBody, Image } from "@nextui-org/react";
 import Link from "next/link";
-import type React from "react";
 import { useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
+
 export const SponsorsPanel = () => {
 	const [selectedTier, setSelectedTier] = useState<string>("Platinum");
 	const isXLarge = useMediaQuery("(min-width: 1280px)");
@@ -27,48 +27,54 @@ export const SponsorsPanel = () => {
 		} else if (selectedTier === "Bronze" && tierData.tier === "Bronze") {
 			return "bg-orange-300";
 		} else {
-			return "bg-gray-300";
+			return "bg-[#fff]";
 		}
 	};
+
 	return (
-		<article className="font-mplus p-8 w-screen-2xl mx-auto">
+		<article
+			className={`
+				card
+			`}
+		>
 			<div
-				className="flex flex-row justify-center mb-8 flex-wrap max-w-screen-2xl mx-auto"
+				className="flex flex-row justify-center mb-4 flex-wrap max-w-screen-2xl mx-auto gap-1"
 				aria-label={`Sponsors`}
 			>
 				{sponsorsData.tiers.map((tierData, index) => (
-					<menu
-						key={Slugify((index + 1).toString())}
-						className="flex flex-col items-center justify-center"
-					>
-						<li>
-							<Button
-								onClick={() => setSelectedTier(tierData.tier)}
-								className={`mx-2 px-2 py-4 border rounded-lg flex flex-row items-center justify-center gap-2
-											${getBackgroundColor(selectedTier, tierData)}
-										`}
-							>
-								<Image
-									src={`/assets/svgs/sponsors/tier/${tierData.tier.toLowerCase()}.svg`}
-									alt={tierData.tier}
-									className="h-10"
-									width={40}
-									height={40}
-								/>
-								{tierData.tier}
-							</Button>
-						</li>
-						<li>
+					<>
+						<Button
+							key={Slugify((index + 1).toString())}
+							onClick={() => setSelectedTier(tierData.tier)}
+							className={`
+									px-2 py-4 border
+									w-[150px] h-[50px]
+									rounded-lg flex flex-row 
+									items-center justify-center gap-2
+                  ${getBackgroundColor(selectedTier, tierData)}
+								`}
+						>
 							<Image
-								src={`/assets/svgs/sponsors/tier/strip/gold.svg`}
-								className={``}
-								alt=""
-								width={100}
-								height={100}
-								sizes="(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px"
+								src={`/assets/svgs/sponsors/tier/${tierData.tier.toLowerCase()}.svg`}
+								alt={tierData.tier}
+								className="h-10"
+								width={40}
+								height={40}
 							/>
-						</li>
-					</menu>
+							<span
+								className={`
+										text-lg font-semibold
+										${
+											selectedTier === tierData.tier
+												? "text-[#f5f5f5]"
+												: "text-[#3C2415]"
+										}
+									`}
+							>
+								{tierData.tier}
+							</span>
+						</Button>
+					</>
 				))}
 			</div>
 			<article className="flex flex-row flex-wrap items-center justify-center p-4 gap-4">
@@ -77,52 +83,27 @@ export const SponsorsPanel = () => {
 						.find((tierData) => tierData.tier === selectedTier)
 						?.sponsors.map((sponsor, sponsorIndex) => {
 							return (
-								<>
-									{Object.keys(sponsor).length === 0 &&
-									sponsor.constructor === Object ? (
-										<>
-											<Card
-												key={sponsorIndex + 1}
-												className="relative p-4 h-[175px] w-[300px] flex flex-col items-center justify-center transition-all duration-300 hover:scale-105"
-											>
-												<CardBody>
-													<>
-														<h3 className="text-lg font-bold">
-															{selectedTier}
-														</h3>
-													</>
-												</CardBody>
-											</Card>
-										</>
-									) : (
-										<>
-											<Link
-												key={sponsorIndex + 1}
-												href={`${
-													sponsor.link
-														? sponsor.link
-														: `https://www.google.com/search?q=${sponsor.name}`
-												}`}
-												target={`_blank`}
-												rel="noopener noreferrer"
-												className={`
-										relative h-fit w-fit
-										rounded-lg shadow-lg border-none
-              		  `}
-											>
-												<Card className="relative p-4 h-[175px] w-[300px] flex flex-col items-center justify-center transition-all duration-300 hover:scale-105">
-													<Image
-														src={sponsor.image}
-														alt={sponsor.name}
-														className="object-fit transition-all w-full h-full overflow-hidden mix-blend-multiply"
-														fetchPriority={`low`}
-														sizes={`(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px`}
-													/>
-												</Card>
-											</Link>
-										</>
-									)}
-								</>
+								<Link
+									key={sponsorIndex}
+									href={
+										sponsor.link
+											? sponsor.link
+											: `https://www.google.com/search?q=${sponsor.name}`
+									}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="relative h-fit w-fit rounded-lg shadow-lg border-none"
+								>
+									<Card className="relative p-4 h-[175px] w-[300px] flex flex-col items-center justify-center transition-all duration-300 hover:scale-105">
+										<Image
+											src={sponsor.image}
+											alt={sponsor.name}
+											className="object-fit transition-all w-full h-full overflow-hidden mix-blend-multiply"
+											fetchPriority="low"
+											sizes="(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px"
+										/>
+									</Card>
+								</Link>
 							);
 						})}
 			</article>

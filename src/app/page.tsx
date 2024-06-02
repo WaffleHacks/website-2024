@@ -2,14 +2,14 @@ import { CenterLayout } from "@/components";
 import { LandingPanel, PageSections } from "./(main)/_sections";
 export default async function Home() {
 	return (
-		<>
+		<div className="flex flex-col items-center justify-center overflow-x-hidden relative">
 			<LandingPanel />
 			<CenterLayout
 				Element={`main`}
-				className="flex flex-col w-screen items-center justify-center gap-14"
+				className="flex flex-col w-screen items-center justify-center gap-14 top-0"
 			>
 				<PageSections />
 			</CenterLayout>
-		</>
+		</div>
 	);
 }

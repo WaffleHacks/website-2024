@@ -1,12 +1,12 @@
 "use client";
 
-import type React from "react";
-import { useContext, useRef, useState } from "react";
-import { ScavContext } from "@/components";
-import Image from "next/image";
-import Link from "next/link";
+import { CustomPicture as Picture, ScavContext } from "@/components";
 import Switch from "@mui/material/Switch";
 import { Tooltip } from "@nextui-org/tooltip";
+import Image from "next/image";
+import Link from "next/link";
+import type React from "react";
+import { useContext, useRef, useState } from "react";
 
 import {
 	DraggableCore,
@@ -23,31 +23,19 @@ export const NavBar = () => {
 		text: string;
 	}> = [
 		{ href: "#about", text: "About" },
-		{ href: "#tracks", text: "Tracks" },
+		{ href: "#tracks-and-awards", text: "Tracks" },
 		{ href: "#calendar", text: "Calendar" },
+		{ href: "#meet-the-team", text: "Team" },
 		{ href: "#sponsors", text: "Sponsors" },
 		{ href: "#faqs", text: "FAQs" },
-		{ href: "#apply", text: "Apply Now" },
+		{ href: "#apply", text: "Apply" },
 	];
 
-	const [scrollTop, setScrollTop] = useState<number>(0);
-	const [navHide, setNavHide] = useState<boolean>(false);
+	const label = {
+		inputProps: { "aria-label": "Scavenger hunt switch" },
+	};
 
-	useIsomorphicLayoutEffect(() => {
-		function onScroll(e: any) {
-			setScrollTop(e.target.documentElement.scrollTop);
-			if (scrollTop > 100) {
-				setNavHide(true);
-			} else setNavHide(false);
-		}
-		window.addEventListener("scroll", onScroll);
-
-		return () => window.removeEventListener("scroll", onScroll);
-	}, [scrollTop]);
-
-	const label = { inputProps: { "aria-label": "Scav switch" } };
-
-	let {scavState, setScavState, archer} = useContext(ScavContext);
+	const { scavState, setScavState, archer } = useContext(ScavContext);
 
 	const apple = useRef<HTMLImageElement>(null);
 	const [appleImg, setAppleImg] = useState("apple1");
@@ -55,20 +43,45 @@ export const NavBar = () => {
 	const [appleY, setAppleY] = useState<number>(0);
 	const interval = useRef<NodeJS.Timeout>();
 
-	const [_scrollDirection, setScrollDirection] = useState("scroll-up");
-
 	useIsomorphicLayoutEffect(() => {
+		const body: HTMLBodyElement = document.querySelector(
+			"body",
+		)! as HTMLBodyElement;
+		const targetElement: HTMLElement = document.querySelector(
+			"#target-element",
+		)! as HTMLElement;
 		let lastScroll = 0;
 
 		const handleScroll = () => {
 			const currentScroll = window.scrollY;
+			const targetPosition =
+				targetElement.getBoundingClientRect().top + window.scrollY;
+
 			if (currentScroll <= 0) {
-				setScrollDirection("scroll-up");
-			} else if (currentScroll > lastScroll) {
-				setScrollDirection("scroll-down");
-			} else if (currentScroll < lastScroll) {
-				setScrollDirection("scroll-up");
+				body.classList.remove("scroll-up");
+				return;
 			}
+
+			if (
+				currentScroll > lastScroll &&
+				!body.classList.contains("scroll-down")
+			) {
+				body.classList.remove("scroll-up");
+				body.classList.add("scroll-down");
+			} else if (
+				currentScroll < lastScroll &&
+				body.classList.contains("scroll-down")
+			) {
+				body.classList.remove("scroll-down");
+				body.classList.add("scroll-up");
+			}
+
+			if (currentScroll >= targetPosition) {
+				body.classList.add("hide-nav");
+			} else {
+				body.classList.remove("hide-nav");
+			}
+
 			lastScroll = currentScroll;
 		};
 
@@ -100,14 +113,29 @@ export const NavBar = () => {
 		});
 	}
 
+	const ScrollIntoCenterView = (href: string) => {
+		const element = document.querySelector(href);
+		if (element) {
+			const elementRect = element.getBoundingClientRect();
+			const absoluteElementTop = elementRect.top + window.scrollY;
+			const middle =
+				absoluteElementTop +
+				Math.floor(elementRect.height / 2) -
+				Math.floor(window.innerHeight / 2);
+			window.scrollTo({
+				top: middle,
+				behavior: "smooth",
+			});
+		}
+	};
+
 	useIsomorphicLayoutEffect(() => {
 		if (interval.current) {
 			clearInterval(interval.current);
 		}
 		if (scavState) {
 			interval.current = setInterval(appleInterval, 25);
-		}
-		else {
+		} else {
 			setAppleY(0);
 		}
 		return () => clearInterval(interval.current);
@@ -122,8 +150,8 @@ export const NavBar = () => {
 		if (!navRect) return;
 		const apRect = ap.getBoundingClientRect();
 
-		let headspot1 = archer.headspot1;
-		let headspot2 = archer.headspot2;
+		const headspot1 = archer.headspot1;
+		const headspot2 = archer.headspot2;
 
 		let h1: [number, number, number, number] = [-1000, -1000, -1000, -1000];
 		let h2: [number, number, number, number] = [-1000, -1000, -1000, -1000];
@@ -151,23 +179,26 @@ export const NavBar = () => {
 		const mx = (e as any).clientX;
 		const my = (e as any).clientY;
 
-		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]){
-			setAppleY(navRect.bottom - h1[3] - apRect.height/8);
-			setAppleX(window.innerWidth - ((h1[0] + h1[1]) / 2) - 3*apRect.width/5);
+		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]) {
+			setAppleY(navRect.bottom - h1[3] - apRect.height / 8);
+			setAppleX(
+				window.innerWidth - (h1[0] + h1[1]) / 2 - (3 * apRect.width) / 5,
+			);
 			archer.activeHeadSpot = 1;
-		}
-		else if (mx > h2[0] && mx < h2[1] && my > h2[2] && my < h2[3]){
-			setAppleY(navRect.bottom - h2[3] - apRect.height/8);
-			setAppleX(window.innerWidth - ((h2[0] + h2[1]) / 2) - 3*apRect.width/5);
+		} else if (mx > h2[0] && mx < h2[1] && my > h2[2] && my < h2[3]) {
+			setAppleY(navRect.bottom - h2[3] - apRect.height / 8);
+			setAppleX(
+				window.innerWidth - (h2[0] + h2[1]) / 2 - (3 * apRect.width) / 5,
+			);
 			archer.activeHeadSpot = 2;
-		}
-		else {
+		} else {
 			setAppleY(navRect.bottom - mouseY);
 			setAppleX(window.innerWidth - mouseX);
 		}
 
 		setAppleImg("applesit");
 	}
+
 	function appleDragStop(e: DraggableEvent) {
 		const ap = apple.current;
 		if (!ap) return;
@@ -185,24 +216,49 @@ export const NavBar = () => {
 	const [mobileDown, setMobileDown] = useState(false);
 
 	return (
-		<div>
+		<>
 			{/* mobile dropdown menu */}
-			<div style={{height: mobileDown ? '21.25rem' : '0'}} className="mobile-nav-slide fixed z-40 top-[100px] left-0 w-full shadow-lg overflow-hidden sm:hidden">
-				{Links.map((link, index) => (
-					<div key={index} className="text-center py-4">
-						<Link href={link.href} onClick={() => setMobileDown(false)}>
-							<p>{link.text}</p>
-						</Link>
-					</div>
-				))}
+			<div
+				style={{ height: mobileDown ? "100%" : "0" }}
+				className={`
+					mobile-nav-slide fixed z-40 top-[100px]
+					left-0 w-full shadow-lg overflow-hidden
+					sm:hidden text-[#3C2415]
+				`}
+			>
+				<ul>
+					{Links.map((link, index) => (
+						<li
+							key={index}
+							className={`
+							text-center py-4
+							hover:bg-[#f5f5f5]
+						`}
+						>
+							<Link
+								href={link.href}
+								onClick={(e) => {
+									e.preventDefault();
+									setMobileDown(false);
+									ScrollIntoCenterView(link.href);
+								}}
+								className={`
+								text-semibold text-lg
+								`}
+							>
+								<p>{link.text}</p>
+							</Link>
+						</li>
+					))}
+				</ul>
 			</div>
 			<nav
 				className={cn(
 					"",
-					`navbar fixed top-0 z-50
+					`navbar fixed top-0 z-50 peek-a-boo
 					w-full flex flex-row justify-between h-[100px] p-4
 					shadow-lg font-semibold items-center
-					justify-center px-4`
+					px-4`,
 				)}
 			>
 				<div
@@ -212,36 +268,96 @@ export const NavBar = () => {
 					`}
 				>
 					<div className="flex gap-8 justify-center items-center">
-						<Image
-							src={`/assets/svgs/header.png`}
-							alt={``}
-							height={80}
-							width={80}
-						/>
-						{Links.map((link, index) => (
-							<div key={index} className="hidden sm:flex">
-								<Link href={link.href}>
-									<p>{link.text}</p>
-								</Link>
-							</div>
-						))}
+						<Picture
+							className={`
+								w-20 h-20
+							`}
+							onClick={() => window.location.reload()}
+						>
+							<Image
+								src={`/assets/svgs/header.png`}
+								alt={``}
+								height={80}
+								width={80}
+								className={`
+									cursor-pointer
+									object-cover object-center
+									rounded-full
+								`}
+							/>
+						</Picture>
+						<ul
+							className={`
+								hidden sm:flex 
+							`}
+						>
+							{Links.map((link, index) => (
+								<li
+									key={index}
+									className={`
+										ml-0 sm:ml-4
+									`}
+								>
+									<Link
+										href={link.href}
+										onClick={(e) => {
+											e.preventDefault();
+											ScrollIntoCenterView(link.href);
+										}}
+									>
+										<p>{link.text}</p>
+									</Link>
+								</li>
+							))}
+						</ul>
 					</div>
+
 					{/* Scavenger hunt toggle */}
-					<form className="sm:flex justify-end mr-8 items-center hidden">
+					<form className="ml-auto sm:flex justify-end items-center hidden">
 						<Tooltip
 							placement="bottom"
 							content="Toggle Scavenger Hunt Mode"
 							color="primary"
 							offset={-5}
 						>
-							<Switch {...label} onChange={setScav} value={scavState} />
+							<Switch
+								{...label}
+								onChange={setScav}
+								value={scavState}
+								sx={{
+									"& .MuiSwitch-switchBase.Mui-checked": {
+										color: "#3C2415",
+										"&:hover": {
+											backgroundColor: "rgba(60,36,21,0.08)",
+										},
+									},
+									"& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+										backgroundColor: "#3C2415",
+									},
+								}}
+							/>
 						</Tooltip>
 					</form>
 
 					{/* Mobile menu toggle */}
-					<button className="sm:hidden w-12 h-12 relative" onClick={() => setMobileDown(!mobileDown)}>
-						<div className="absolute bg-black w-full h-[3px] transition-all duration-300" style={{top: mobileDown ? 'calc(50% - 1.5px)' : '33%', transform: mobileDown ? 'rotate(45deg)' : ''}}></div>
-						<div className="absolute bg-black w-full h-[3px] transition-all duration-300" style={{bottom: mobileDown ? 'calc(50% - 1.5px)' : '33%', transform: mobileDown ? 'rotate(-45deg)' : ''}}></div>
+					<button
+						className={`sm:hidden w-12 h-12 relative p-4`}
+						onClick={() => setMobileDown(!mobileDown)}
+					>
+						<div
+							className="absolute bg-black w-full h-[3px] transition-all duration-300"
+							style={{
+								top: mobileDown ? "calc(50% - 1.5px)" : "33%",
+								transform: mobileDown ? "rotate(45deg)" : "",
+							}}
+						></div>
+						<div
+							className="absolute bg-black w-full h-[3px] transition-all duration-300"
+							style={{
+								bottom: mobileDown ? "calc(50% - 1.5px)" : "33%",
+								transform: mobileDown ? "rotate(-45deg)" : "",
+							}}
+						></div>
 					</button>
 
 					{scavState && (
@@ -262,6 +378,6 @@ export const NavBar = () => {
 					)}
 				</div>
 			</nav>
-		</div>
+		</>
 	);
 };

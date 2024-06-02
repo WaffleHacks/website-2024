@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
 import { heading_style } from "@/components";
 import { cn } from "@/lib";
 import { Slugify } from "@/utils";
+import React from "react";
 import {
 	AboutPanel,
 	ApplyPanel,
@@ -21,7 +21,7 @@ export const PageSections = () => {
 		team: "Meet the Team",
 		sponsors: "Sponsors",
 		faqs: "FAQs",
-		apply: "Apply Now",
+		apply: "Apply",
 	};
 	return (
 		<>
@@ -43,10 +43,9 @@ export const PageSections = () => {
 						className={`
 							flex items-center justify-center
 							max-w-screen-2xl flex-col
-							border border-red-400
 						`}
 					>
-						{value !== "About" && value !== "Apply Now" && (
+						{value !== "About" && value !== "Apply" && (
 							<h2
 								className={cn(heading_style, `mx-8`)}
 								aria-label={`Section: ${value}`}

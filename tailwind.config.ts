@@ -42,7 +42,7 @@ export default {
 			}),
 			colors: {
 				primary: {
-					DEFAULT: "#f2994a",
+					DEFAULT: "#bb8653",
 					light: "#fddc79",
 					dark: "#3c2415",
 					contrastText: "#a47556",

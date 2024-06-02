@@ -1,5 +1,6 @@
 "use client";
 import { Semantics } from "@/components";
+import { theme } from "@/utils";
 import { NextUIProvider } from "@nextui-org/react";
 import type React from "react";
 import { Events } from "./events";

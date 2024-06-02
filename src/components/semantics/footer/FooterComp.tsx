@@ -8,7 +8,7 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 			className={`
 			text-[#3C2415] py-6 flex
 				flex-col bottom-0 w-full  bg-gradient-to-t
-				from-[#3C2415]/60 to-transparent
+				from-[#f5f5f5] to-[#f5f5f5]
 				backdrop-blur-[10px] backdrop-filter bg-opacity-50
 			`}
 		>

@@ -21,7 +21,6 @@ export const InfiniteHorizontalScroll: React.FC<{
 	useIsomorphicLayoutEffect(() => {
 		let controls;
 		const finalPosition = -width / 2 - 8;
-		console.log(finalPosition);
 		if (mustFinish) {
 			controls = animate(xTranslation, [xTranslation.get(), finalPosition], {
 				ease: "linear",

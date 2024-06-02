@@ -1,8 +1,8 @@
 "use client";
 import { CenterLayout, Picture } from "@/components";
 import { Container, Typography } from "@mui/joy";
-import Image from "next/image";
 import { Button } from "@nextui-org/button";
+import Image from "next/image";
 
 export default function NotFound() {
 	return (
@@ -30,13 +30,12 @@ export default function NotFound() {
 					z-[-10]
 				`}
 			>
-				<Image 
-					src="/assets/svgs/dom/404.svg" 
+				<Image
+					src="/assets/svgs/dom/404.svg"
 					className={``}
-					alt="404" 
-					width={300} 
+					alt="404"
+					width={300}
 					height={300}
-					
 				/>
 			</Picture>
 		</CenterLayout>

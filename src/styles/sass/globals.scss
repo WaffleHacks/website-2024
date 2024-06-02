@@ -1,11 +1,11 @@
 .scroll-down {
-  .navbar {
+  .peek-a-boo {
     transform: translate3d(0, -100%, 0);
   }
 }
 
 .scroll-up {
-  .navbar {
+  .peek-a-boo {
     filter: drop-shadow(0 -10px 20px rgb(170 170 170));
   }
 }
@@ -13,7 +13,18 @@
 .menu-is-open {
   overflow: hidden;
 
-  .navbar {
+  .peek-a-boo {
     filter: none;
   }
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+  transition: transform 0.3s;
 }
