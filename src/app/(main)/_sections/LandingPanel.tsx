@@ -474,7 +474,7 @@ export const LandingPanel = () => {
 	}
 
 	return (
-		<header className="font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full h-screen box-border max-w-screen-2xl mx-auto">
+		<header className="relative font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full h-screen box-border max-w-screen-2xl mx-auto">
 			{/* TODO */}
 			{/* <img
 				id="landing-blob"
@@ -717,7 +717,7 @@ export const LandingPanel = () => {
 				/>
 			}
 
-			<NumberDisplay className="absolute right-4 sm:right-12" />
+			<NumberDisplay className="absolute right-4 sm:right-12" style={{bottom: '2rem'}} />
 			
 		</header>
 	);

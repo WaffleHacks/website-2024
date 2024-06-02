@@ -6,7 +6,6 @@ import { twMerge } from "tailwind-merge";
 interface NumberDisplayProps {
 	className?: string;
 	style?: React.CSSProperties;
-
 }
 
 export const NumberDisplay = ({className, style}: NumberDisplayProps) => {
@@ -14,7 +13,6 @@ export const NumberDisplay = ({className, style}: NumberDisplayProps) => {
 	const [hoursLeft, setHoursLeft] = React.useState(0);
 	const [minutesLeft, setMinutesLeft] = React.useState(0);
 	const [secondsLeft, setSecondsLeft] = React.useState(0);
-	const stickyHeaderRef = React.useRef<HTMLDivElement>(null);
 
 	useIsomorphicLayoutEffect(() => {
 		function showtime() {
@@ -46,24 +44,6 @@ export const NumberDisplay = ({className, style}: NumberDisplayProps) => {
 		return () => {
 			clearInterval(interval);
 		};
-	}, []);
-
-	useIsomorphicLayoutEffect(() => {
-		function handleScroll() {
-			if (stickyHeaderRef.current) {
-				if (window.scrollY > 0) {
-					stickyHeaderRef.current.classList.add("sticky");
-				} else {
-					stickyHeaderRef.current.classList.remove("sticky");
-				}
-			}
-		}
-
-		// window.addEventListener("scroll", handleScroll);
-
-		// return () => {
-		// 	window.removeEventListener("scroll", handleScroll);
-		// };
 	}, []);
 
 	return (
