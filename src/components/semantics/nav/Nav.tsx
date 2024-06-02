@@ -173,6 +173,12 @@ export const NavBar = () => {
 			setAppleY(0);
 			walkIinterval.current = setInterval(appleInterval, 25);
 		}
+		else {
+			if (archer.headshot && !fallInterval.current) {
+			fallSpeed.current = 1;
+			fallInterval.current = setInterval(appleFall, 25);
+		}
+		}
 	}
 
 	function appleFall() {
@@ -278,7 +284,7 @@ export const NavBar = () => {
 					</button>
 
 					{scavState && (
-						<DraggableCore onDrag={appleDrag} onStop={appleDragStop} disabled={archer.headshot}>
+						<DraggableCore onDrag={appleDrag} onStop={appleDragStop}>
 							<img
 								ref={apple}
 								src={`/assets/svgs/nav/${appleImg}.svg`}
