@@ -16,7 +16,7 @@ interface CalendarDescriptionProps {
 	time: string;
 	link?: string;
 	show: boolean;
-	position: {x: number, y: number};
+	position: { x: number; y: number };
 }
 
 const CalendarDescription = ({
@@ -26,7 +26,7 @@ const CalendarDescription = ({
 	time,
 	link,
 	show,
-	position
+	position,
 }: CalendarDescriptionProps) => {
 	const colors = {
 		[CalendarDescriptionType.CEREMONY]: "bg-yellow-600",
@@ -45,7 +45,10 @@ const CalendarDescription = ({
 		[CalendarDescriptionType.OTHER]: "Other",
 	};
 	return (
-		<div className={"calendar-desc-card" + (!show ? " hidden" : "")} style={{top: position.y, left: position.x}}>
+		<div
+			className={"calendar-desc-card" + (!show ? " hidden" : "")}
+			style={{ top: position.y, left: position.x }}
+		>
 			<div className="flex gap-2">
 				{/* dot of color */}
 				<div className={`h-4 w-4 rounded-full ${colors[type]}`}></div>
@@ -54,13 +57,14 @@ const CalendarDescription = ({
 			</div>
 			<h2 className="font-bold text-xl mb-4">{title}</h2>
 			<p className="text-base mb-4">{description}</p>
-			
+
 			<span>Time: {time}</span>
 
 			<div className="mt-4">
-				<a href={link} className="bg-[#2258A2] text-white px-4 py-2 rounded-lg">{link == "" ? "Link Coming Soon" : "Link"}</a>
+				<a href={link} className="bg-[#2258A2] text-white px-4 py-2 rounded-lg">
+					{link == "" ? "Link Coming Soon" : "Link"}
+				</a>
 			</div>
-			
 		</div>
 	);
 };

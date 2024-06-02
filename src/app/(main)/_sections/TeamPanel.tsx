@@ -4,6 +4,7 @@ import {
 	Article,
 	Modal,
 	CustomPicture as Picture,
+	ScavContext,
 	Slide,
 	button_style,
 } from "@/components";
@@ -15,7 +16,7 @@ import { objToArray } from "@/utils";
 import { Button, Card, Skeleton } from "@nextui-org/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
 import { TeamCard } from "../_components";

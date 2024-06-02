@@ -8,6 +8,7 @@ import {
 	card_style,
 } from "@/components";
 import { Tracks } from "@/constants";
+import { cn } from "@/lib";
 import { Slugify } from "@/utils";
 import { Typography } from "@mui/joy";
 import { Button } from "@nextui-org/button";
@@ -30,10 +31,11 @@ const TrackSlide: React.FC<{
 	return (
 		<EnterAnimation>
 			<Section
-				className={`
-			p-4 mx-2 h-auto 
-				rounded-lg card
-			`}
+				className={cn(`
+					p-4 mx-2 h-auto rounded-lg ${card_style}
+					`, `
+					
+				`)}
 			>
 				<Article
 					className={`
@@ -159,8 +161,8 @@ const CustomSlider: React.FC<{ slidesToShow: number }> = ({ slidesToShow }) => {
 					`}
 				>
 					<TrackSlide
-						key={Slugify(Tracks[currentSlide].title)}
-						track={Tracks[currentSlide]}
+						key={Slugify(Tracks[currentSlide]!.title)}
+						track={Tracks[currentSlide]!}
 					/>
 				</Section>
 			</div>

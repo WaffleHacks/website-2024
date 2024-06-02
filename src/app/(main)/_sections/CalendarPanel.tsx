@@ -1,11 +1,12 @@
 "use client";
-import React, { useRef, useState } from "react";
+import { Picture } from "@/components";
+import { Button } from "@nextui-org/button";
+import { button } from "@nextui-org/theme";
+import type React from "react";
+import { useRef, useState } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import CalendarDescription from "./CalendarDescription";
 import { CalendarDescriptionType as CDT } from "./CalendarDescription";
-import { Button } from "@nextui-org/button";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
-import { Picture } from "@/components";
-import { button } from "@nextui-org/theme";
 
 interface EventStructure {
 	title: string;
@@ -86,54 +87,9 @@ export const CalendarPanel = () => {
 				"",
 				"",
 			],
-			Workshops: [
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-			],
-			Panels: [
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-			],
-			"Other / Fun": [
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-			],
+			Workshops: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+			Panels: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+			"Other / Fun": ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
 		},
 	};
 
@@ -141,10 +97,13 @@ export const CalendarPanel = () => {
 	const [descPos, setDescPos] = useState({ x: -1, y: -1 });
 	const [descDetails, setDescDetails] = useState<EventStructure | null>(null);
 
-	function setDesc(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, event: EventStructure) {
+	function setDesc(
+		e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+		event: EventStructure,
+	) {
 		if (!calendar_box.current) return;
 
-		let rect = calendar_box.current.getBoundingClientRect();
+		const rect = calendar_box.current.getBoundingClientRect();
 		let x = e.clientX;
 		let y = e.clientY;
 		// get x and y relative to calendar bounds
@@ -159,7 +118,11 @@ export const CalendarPanel = () => {
 	}
 
 	return (
-		<div ref={calendar_box} className="font-mplus p-8 relative" onClick={() => setDescPos({x: -1, y: -1})}>
+		<div
+			ref={calendar_box}
+			className="font-mplus p-8 relative"
+			onClick={() => setDescPos({ x: -1, y: -1 })}
+		>
 			<div className="py-6 px-8 bg-gray-800 rounded-xl flex flex-col">
 				<div className="grid grid-cols-3">
 					<span />
@@ -189,7 +152,20 @@ export const CalendarPanel = () => {
 				<div className="calendar-grid w-full mt-4">
 					<span />
 					{[
-						"10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM",
+						"10 AM",
+						"11 AM",
+						"12 PM",
+						"1 PM",
+						"2 PM",
+						"3 PM",
+						"4 PM",
+						"5 PM",
+						"6 PM",
+						"7 PM",
+						"8 PM",
+						"9 PM",
+						"10 PM",
+						"11 PM",
 					].map((time, index) => {
 						return (
 							<div
@@ -203,25 +179,27 @@ export const CalendarPanel = () => {
 					<span className="calendar-title-cell text-xl text-white font-bold">
 						Ceremonies
 					</span>
-					{events[eventOrder[eventIndex]]["Ceremonies"].map((event: any, index: React.Key | null | undefined) => {
-						return (
-							<div
-								key={index}
-								className={
-									"calendar-grid-cell text-center" +
-									(event ? " calendar-ceremony event" : "")
-								}
-							>
-								{
-									event && 
-									<button onClick={e => setDesc(e, event as EventStructure)}>
-										<img src="/assets/svgs/calendar/curtains.svg" />
-									</button>
-									
-								}
-							</div>
-						);
-					})}
+					{events[eventOrder[eventIndex]]["Ceremonies"].map(
+						(event: any, index: React.Key | null | undefined) => {
+							return (
+								<div
+									key={index}
+									className={
+										"calendar-grid-cell text-center" +
+										(event ? " calendar-ceremony event" : "")
+									}
+								>
+									{event && (
+										<button
+											onClick={(e) => setDesc(e, event as EventStructure)}
+										>
+											<img src="/assets/svgs/calendar/curtains.svg" />
+										</button>
+									)}
+								</div>
+							);
+						},
+					)}
 
 					<span className="calendar-title-cell text-xl text-white font-bold">
 						Workshops

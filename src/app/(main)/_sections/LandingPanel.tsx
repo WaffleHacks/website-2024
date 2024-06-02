@@ -1,6 +1,12 @@
 "use client";
 import { ScavContext } from "@/components";
-import React, { useState, useRef, useLayoutEffect, useContext, useEffect } from "react";
+import React, {
+	useState,
+	useRef,
+	useLayoutEffect,
+	useContext,
+	useEffect,
+} from "react";
 
 import Draggable, {
 	DraggableCore,
@@ -45,14 +51,14 @@ export const LandingPanel = () => {
 	const frontWheel = useRef<HTMLImageElement>(null);
 	const biker = useRef<HTMLDivElement>(null);
 	const [bikingForwards, setBikingForwards] = useState(false);
-	const [bikerPos, setBikerPos] = useState({x: 0, y: 0, falling: false});
+	const [bikerPos, setBikerPos] = useState({ x: 0, y: 0, falling: false });
 	const [bikerGone, setBikerGone] = useState(false);
 	const bikerInterval = useRef<NodeJS.Timeout | null>(null);
 	const bikerGoals = useRef({
 		started: false,
 		fell: false,
-		stopped: false
-	})
+		stopped: false,
+	});
 	const tennisPlayer = useRef<HTMLImageElement>(null);
 
 	const container = useRef<HTMLDivElement>(null);
@@ -60,11 +66,11 @@ export const LandingPanel = () => {
 	const windowSize = useWindowSize();
 
 	const carrakatu = useRef<HTMLImageElement>(null);
-	const [carrakatuPos, setCarrakatuPos] = useState({x: 0, y: -500});
+	const [carrakatuPos, setCarrakatuPos] = useState({ x: 0, y: -500 });
 	const [carrakatuSetPosition, setCarrakatuSetPosition] = useState({
-		from: {x: 1000, y: -500},
-		to: {x: 1000, y: -500},
-		at: 0
+		from: { x: 1000, y: -500 },
+		to: { x: 1000, y: -500 },
+		at: 0,
 	});
 	const carrakatuInterval = useRef<NodeJS.Timeout | null>(null);
 	const carrakatuPickedUp = useRef(false);
@@ -110,7 +116,7 @@ export const LandingPanel = () => {
 		{
 			src: "/assets/svgs/landing/archer_pf.svg",
 			className: "no-drag absolute left-[16.2%] top-[67.5%] w-[31%]",
-		}
+		},
 	];
 
 	function rotateArcher(e: DraggableEvent, pos: DraggableData) {
@@ -197,7 +203,9 @@ export const LandingPanel = () => {
 					(ctx.archer.activeHeadSpot.current == 1 &&
 						h1 &&
 						arrowIntersectsBox(box, h1)) ||
-					(ctx.archer.activeHeadSpot.current == 2 && h2 && arrowIntersectsBox(box, h2))
+					(ctx.archer.activeHeadSpot.current == 2 &&
+						h2 &&
+						arrowIntersectsBox(box, h2))
 				) {
 					gotHeadshot.current = true;
 				}
@@ -218,67 +226,78 @@ export const LandingPanel = () => {
 		}, 15);
 	}
 
-	function dragSword(e: DraggableEvent){
+	function dragSword(e: DraggableEvent) {
 		if (!swordElement.current) return;
-		let sword = swordElement.current;
-		let swordRect = sword.getBoundingClientRect();
+		const sword = swordElement.current;
+		const swordRect = sword.getBoundingClientRect();
 		// get left middle
-		let swordX = swordRect.left;
-		let swordY = swordRect.top + swordRect.height / 2;
+		const swordX = swordRect.left;
+		const swordY = swordRect.top + swordRect.height / 2;
 		// check intersection with front wheel
-		let frontWheelRect = frontWheel.current?.getBoundingClientRect();
-		if(frontWheelRect){
-			if(swordX >= frontWheelRect.left && swordX <= frontWheelRect.right &&
-				swordY >= frontWheelRect.top && swordY <= frontWheelRect.bottom){
+		const frontWheelRect = frontWheel.current?.getBoundingClientRect();
+		if (frontWheelRect) {
+			if (
+				swordX >= frontWheelRect.left &&
+				swordX <= frontWheelRect.right &&
+				swordY >= frontWheelRect.top &&
+				swordY <= frontWheelRect.bottom
+			) {
 				ctx.biker.setFrontWheelPopped(true);
 			}
 		}
 		// check intersection with back wheel
-		let backWheelRect = backWheel.current?.getBoundingClientRect();
-		if(backWheelRect){
-			if(swordX >= backWheelRect.left && swordX <= backWheelRect.right &&
-				swordY >= backWheelRect.top && swordY <= backWheelRect.bottom){
+		const backWheelRect = backWheel.current?.getBoundingClientRect();
+		if (backWheelRect) {
+			if (
+				swordX >= backWheelRect.left &&
+				swordX <= backWheelRect.right &&
+				swordY >= backWheelRect.top &&
+				swordY <= backWheelRect.bottom
+			) {
 				ctx.biker.setBackWheelPopped(true);
 			}
 		}
-
 	}
 
-	function bikeForwardsInterval(){
-		if (!ctx.scavState){
+	function bikeForwardsInterval() {
+		if (!ctx.scavState) {
 			clearInterval(bikerInterval.current as NodeJS.Timeout);
 			bikerInterval.current = null;
 			return;
 		}
 		bikerGoals.current.started = true;
-		setBikerPos(prevPos => {
+		setBikerPos((prevPos) => {
 			if (!bikingForwards) return prevPos;
 			if (!road.current || !ctx.archer.landing1?.current) return prevPos;
 			if (!biker.current) return prevPos;
 			if (!frontWheel.current || !backWheel.current) return prevPos;
 			if (!tennisPlayer.current) return prevPos;
-			
+
 			// if both wheels are popped, stop
-			if(ctx.biker.frontWheelPopped && ctx.biker.backWheelPopped){
+			if (ctx.biker.frontWheelPopped && ctx.biker.backWheelPopped) {
 				setBikingForwards(false);
 				clearInterval(bikerInterval.current as NodeJS.Timeout);
 				bikerInterval.current = null;
 				return prevPos;
 			}
 
-			let bikerRect = biker.current.getBoundingClientRect();
-			let frontWheelRect = frontWheel.current.getBoundingClientRect();
-			let tennisPlayerRect = tennisPlayer.current.getBoundingClientRect();
-			let roadRect = road.current.getBoundingClientRect();
-			let tennisPfRect = ctx.archer.landing1.current.getBoundingClientRect();
+			const bikerRect = biker.current.getBoundingClientRect();
+			const frontWheelRect = frontWheel.current.getBoundingClientRect();
+			const tennisPlayerRect = tennisPlayer.current.getBoundingClientRect();
+			const roadRect = road.current.getBoundingClientRect();
+			const tennisPfRect = ctx.archer.landing1.current.getBoundingClientRect();
 
 			// if biker intersects tennis player while the apple is on their head, stop
-			if(boxesIntersect(bikerRect, tennisPlayerRect) && ctx.archer.activeHeadSpot.current == 1 && !ctx.archer.headshot){
+			if (
+				boxesIntersect(bikerRect, tennisPlayerRect) &&
+				ctx.archer.activeHeadSpot.current == 1 &&
+				!ctx.archer.headshot
+			) {
 				bikerGoals.current.stopped = true;
 				return prevPos;
 			}
 
-			let nextX = bikerPos.x + 0.25;
+			const nextX = bikerPos.x + 0.25;
 			let falling = false;
 			// check intersection of front wheel with road
 			if (!boxesIntersect(frontWheelRect, roadRect)) {
@@ -286,7 +305,10 @@ export const LandingPanel = () => {
 				bikerGoals.current.fell = true;
 			}
 			// check intersection of front wheel with tennis pf
-			if (boxesIntersect(frontWheelRect, tennisPfRect) && frontWheelRect.bottom > tennisPfRect.top + tennisPfRect.height/2){
+			if (
+				boxesIntersect(frontWheelRect, tennisPfRect) &&
+				frontWheelRect.bottom > tennisPfRect.top + tennisPfRect.height / 2
+			) {
 				falling = false;
 			}
 
@@ -300,49 +322,54 @@ export const LandingPanel = () => {
 				bikerInterval.current = null;
 			}
 
-			return {x: nextX, y: nextY, falling: falling};
-		}
-		);
+			return { x: nextX, y: nextY, falling: falling };
+		});
 	}
 
-	function liftFlag(e: DraggableEvent){
+	function liftFlag(e: DraggableEvent) {
 		if (!road.current) return;
 		const roadRect = road.current.getBoundingClientRect();
-		let target = e.target as HTMLImageElement;
-		let targetRect = target.getBoundingClientRect();
+		const target = e.target as HTMLImageElement;
+		const targetRect = target.getBoundingClientRect();
 		// check intersection with road
-		if(targetRect.bottom <= roadRect.top && !bikingForwards && !bikerInterval.current){
+		if (
+			targetRect.bottom <= roadRect.top &&
+			!bikingForwards &&
+			!bikerInterval.current
+		) {
 			// lift flag
 			setBikingForwards(true);
-			
 		}
 	}
 
-	function interpolateWithCurve(from: {x: number, y: number}, to: {x: number, y: number}, t: number){
+	function interpolateWithCurve(
+		from: { x: number; y: number },
+		to: { x: number; y: number },
+		t: number,
+	) {
 		// rounded curve from t = 0 to 1, with variation in x and y
-		let curve = Math.sin(t * Math.PI/2);
-		let x = from.x + (to.x - from.x) * t;
-		let y = from.y + (to.y - from.y) * curve;
-		return {x, y};
-
+		const curve = Math.sin((t * Math.PI) / 2);
+		const x = from.x + (to.x - from.x) * t;
+		const y = from.y + (to.y - from.y) * curve;
+		return { x, y };
 	}
 
-	function lakatuBringsBikerBack(){
+	function lakatuBringsBikerBack() {
 		if (!ctx.scavState) return;
 		if (!road.current) return;
-		setCarrakatuSetPosition(pos => {
-			let nextT = pos.at + 0.01;
-			return {...pos, at: nextT};
+		setCarrakatuSetPosition((pos) => {
+			const nextT = pos.at + 0.01;
+			return { ...pos, at: nextT };
 		});
 	}
 
 	// set headshot after getting a headshot
 	useEffect(() => {
-		if (gotHeadshot.current && !ctx.archer.headshot){
+		if (gotHeadshot.current && !ctx.archer.headshot) {
 			ctx.archer.setHeadshot(true);
 		}
 	}, [arrowPos, ctx.archer.headshot]);
-	
+
 	// control biker
 	useEffect(() => {
 		if (!ctx.scavState) {
@@ -353,18 +380,18 @@ export const LandingPanel = () => {
 			bikerInterval.current = null;
 			return;
 		}
-		if (!bikerInterval.current && bikingForwards){
+		if (!bikerInterval.current && bikingForwards) {
 			bikerInterval.current = setInterval(bikeForwardsInterval, 15);
 		}
 		return () => {
 			clearInterval(bikerInterval.current as NodeJS.Timeout);
 			bikerInterval.current = null;
-		}
+		};
 	}, [bikingForwards, bikerPos, ctx.scavState, ctx.archer.headshot]);
 
 	// reset arrow position when going out of scav
 	useEffect(() => {
-		if(!ctx.scavState){
+		if (!ctx.scavState) {
 			setArrowPos({ x: 0, y: 0, angle: 0, vx: 0, vy: 0 });
 		}
 	}, [ctx.scavState]);
@@ -376,16 +403,24 @@ export const LandingPanel = () => {
 			carrakatuInterval.current = null;
 			return;
 		}
-		if (ctx.archer.headshot && ctx.biker.frontWheelPopped && ctx.biker.backWheelPopped
-			&& bikerGoals.current.started && bikerGoals.current.fell && bikerGoals.current.stopped
-		){
-			if (!carrakatuInterval.current){
-				
-				let bikerPos = biker.current?.getBoundingClientRect();
+		if (
+			ctx.archer.headshot &&
+			ctx.biker.frontWheelPopped &&
+			ctx.biker.backWheelPopped &&
+			bikerGoals.current.started &&
+			bikerGoals.current.fell &&
+			bikerGoals.current.stopped
+		) {
+			if (!carrakatuInterval.current) {
+				const bikerPos = biker.current?.getBoundingClientRect();
 				if (!bikerPos) return;
-				console.log('getting carrakatu');
+				console.log("getting carrakatu");
 				setCarrakatuSetPosition({
-					...carrakatuSetPosition, to: {x: bikerPos.left + bikerPos.width/2, y: bikerPos.top + bikerPos.height/2}
+					...carrakatuSetPosition,
+					to: {
+						x: bikerPos.left + bikerPos.width / 2,
+						y: bikerPos.top + bikerPos.height / 2,
+					},
 				});
 				carrakatuInterval.current = setInterval(lakatuBringsBikerBack, 15);
 			}
@@ -393,8 +428,13 @@ export const LandingPanel = () => {
 		return () => {
 			clearInterval(carrakatuInterval.current as NodeJS.Timeout);
 			carrakatuInterval.current = null;
-		}
-	}, [ctx.scavState, ctx.archer.headshot, ctx.biker.frontWheelPopped, ctx.biker.backWheelPopped]);
+		};
+	}, [
+		ctx.scavState,
+		ctx.archer.headshot,
+		ctx.biker.frontWheelPopped,
+		ctx.biker.backWheelPopped,
+	]);
 
 	useEffect(() => {
 		if (!ctx.scavState) return;
@@ -403,27 +443,37 @@ export const LandingPanel = () => {
 		if (!biker.current) return;
 		if (!img_box.current) return;
 
-		let containerRect = img_box.current.getBoundingClientRect();
-		let bikerPos = biker.current.getBoundingClientRect();
+		const containerRect = img_box.current.getBoundingClientRect();
+		const bikerPos = biker.current.getBoundingClientRect();
 
-		let t = carrakatuSetPosition.at;
-		let {x, y} = interpolateWithCurve(carrakatuSetPosition.from, carrakatuSetPosition.to, t);
-		setCarrakatuPos({x, y});
+		const t = carrakatuSetPosition.at;
+		const { x, y } = interpolateWithCurve(
+			carrakatuSetPosition.from,
+			carrakatuSetPosition.to,
+			t,
+		);
+		setCarrakatuPos({ x, y });
 
-		if (carrakatuPickedUp.current && !carrakatuDroppedOff.current){
-			let bikerX = (x - bikerPos.width - containerRect.left) * 100 / containerRect.width;
-			let bikerY = (y - bikerPos.height - containerRect.top) * 100 / containerRect.height;
-			setBikerPos({x: bikerX, y: bikerY, falling: false});
+		if (carrakatuPickedUp.current && !carrakatuDroppedOff.current) {
+			const bikerX =
+				((x - bikerPos.width - containerRect.left) * 100) / containerRect.width;
+			const bikerY =
+				((y - bikerPos.height - containerRect.top) * 100) /
+				containerRect.height;
+			setBikerPos({ x: bikerX, y: bikerY, falling: false });
 		}
 
-		if (!carrakatuPickedUp.current && t >= 1){
+		if (!carrakatuPickedUp.current && t >= 1) {
 			carrakatuPickedUp.current = true;
-			let roadRect = road.current.getBoundingClientRect();
-			let nextPos = {x: roadRect.left + roadRect.width/2, y: roadRect.top + roadRect.height/2};
+			const roadRect = road.current.getBoundingClientRect();
+			const nextPos = {
+				x: roadRect.left + roadRect.width / 2,
+				y: roadRect.top + roadRect.height / 2,
+			};
 			setCarrakatuSetPosition({
-				from: {x, y},
+				from: { x, y },
 				to: nextPos,
-				at: 0
+				at: 0,
 			});
 			clearInterval(carrakatuInterval.current as NodeJS.Timeout);
 			carrakatuInterval.current = null;
@@ -431,15 +481,18 @@ export const LandingPanel = () => {
 			setTimeout(() => {
 				carrakatuInterval.current = setInterval(lakatuBringsBikerBack, 15);
 			}, 500);
-		}
-		else if (carrakatuPickedUp.current && !carrakatuDroppedOff.current && t >= 1){
+		} else if (
+			carrakatuPickedUp.current &&
+			!carrakatuDroppedOff.current &&
+			t >= 1
+		) {
 			// move to the right by biker_width
-			carrakatuDroppedOff.current = true
-			let nextPos = {x: x + bikerPos.width, y: y};
+			carrakatuDroppedOff.current = true;
+			const nextPos = { x: x + bikerPos.width, y: y };
 			setCarrakatuSetPosition({
-				from: {x, y},
+				from: { x, y },
 				to: nextPos,
-				at: 0
+				at: 0,
 			});
 			clearInterval(carrakatuInterval.current as NodeJS.Timeout);
 			carrakatuInterval.current = null;
@@ -447,13 +500,10 @@ export const LandingPanel = () => {
 			setTimeout(() => {
 				carrakatuInterval.current = setInterval(lakatuBringsBikerBack, 15);
 			}, 500);
-		}
-		else if (carrakatuDroppedOff.current && t >= 1){
+		} else if (carrakatuDroppedOff.current && t >= 1) {
 			clearInterval(carrakatuInterval.current as NodeJS.Timeout);
 			carrakatuInterval.current = null;
 		}
-		
-
 	}, [carrakatuSetPosition]);
 
 	return (
@@ -481,7 +531,6 @@ export const LandingPanel = () => {
 					className="absolute"
 					style={{ aspectRatio: 1510 / 599 }}
 				>
-
 					{/* Biker road */}
 					<img
 						ref={road}
@@ -505,7 +554,7 @@ export const LandingPanel = () => {
 						className="no-drag absolute left-[50.05%] top-[67.9%] w-[31%]"
 						alt="road"
 					/>
-					
+
 					{images.map(
 						({ src, className }: { src: string; className: string }, index) => {
 							return <img key={index} src={src} alt="" className={className} />;
@@ -513,11 +562,12 @@ export const LandingPanel = () => {
 					)}
 
 					{/* tennis player */}
-					<img 
+					<img
 						ref={tennisPlayer}
 						src="/assets/svgs/landing/tennis.svg"
-						className= "no-drag absolute left-[60.4%] top-[48.8%] w-[8.4%]"
-						alt="" />
+						className="no-drag absolute left-[60.4%] top-[48.8%] w-[8.4%]"
+						alt=""
+					/>
 
 					{/* WH logo / stand */}
 					<div id="landing-wh-logo">
@@ -569,8 +619,8 @@ export const LandingPanel = () => {
 					</div>
 
 					{/* archer headspots */}
-					{
-						ctx.scavState && <>
+					{ctx.scavState && (
+						<>
 							<div
 								ref={ctx.archer.headspot1}
 								className="absolute w-[3%] h-[6%] left-[63.2%] top-[47%] w-[14.85%] h-[14.85%]"
@@ -580,8 +630,7 @@ export const LandingPanel = () => {
 								className="absolute w-[3%] h-[6%] left-[81%] top-[9.4%] w-[14.85%] h-[14.85%]"
 							></div>
 						</>
-					}
-					
+					)}
 
 					{/* archer */}
 					<div>
@@ -625,73 +674,89 @@ export const LandingPanel = () => {
 						</DraggableCore>
 					</div>
 
-
 					{/* biker */}
-					<div 
+					<div
 						ref={biker}
-						id="svg-biker" 
+						id="svg-biker"
 						className="absolute w-[14%] h-[33%]"
 						style={{
 							transform: `rotate(${
-									((ctx.scavState && ctx.biker.backWheelPopped) ? -15 : 0) + 
-									((ctx.scavState && ctx.biker.frontWheelPopped) ? 15 : 0) +
-									((ctx.scavState && bikerPos.falling) ? 30 : 0)
-								}deg)`,
+								(ctx.scavState && ctx.biker.backWheelPopped ? -15 : 0) +
+								(ctx.scavState && ctx.biker.frontWheelPopped ? 15 : 0) +
+								(ctx.scavState && bikerPos.falling ? 30 : 0)
+							}deg)`,
 							transition: "transform 0.5s ease-in",
 							transformOrigin: "bottom center",
 							top: ctx.scavState ? `calc(${bikerPos.y}% + 13.7%)` : "13.7%",
 							left: ctx.scavState ? `calc(${bikerPos.x}% + 9.4%)` : "9.4%",
-							display: (ctx.scavState && bikerGone) ? "none" : "block"
+							display: ctx.scavState && bikerGone ? "none" : "block",
 						}}
 					>
-						<img 
+						<img
 							ref={backWheel}
-							src="/assets/svgs/landing/wheel.svg" 
-							alt={"bike back wheel"} 
+							src="/assets/svgs/landing/wheel.svg"
+							alt={"bike back wheel"}
 							className="no-drag bike-wheel-rotate absolute left-0 top-[56.8%] w-[40%] h-[42%]"
-							style={{height: (ctx.scavState && ctx.biker.backWheelPopped) ? "24%" : "42.5%"}} 
+							style={{
+								height:
+									ctx.scavState && ctx.biker.backWheelPopped ? "24%" : "42.5%",
+							}}
 						/>
-						<img 
+						<img
 							ref={frontWheel}
-							src="/assets/svgs/landing/wheel.svg" 
-							alt={"bike front wheel"} 
+							src="/assets/svgs/landing/wheel.svg"
+							alt={"bike front wheel"}
 							className="no-drag bike-wheel-rotate absolute left-[59.8%] top-[56.8%] w-[40%]"
-							style={{height: (ctx.scavState && ctx.biker.frontWheelPopped) ? "24%" : "42.5%"}} 
+							style={{
+								height:
+									ctx.scavState && ctx.biker.frontWheelPopped ? "24%" : "42.5%",
+							}}
 						/>
-						<img src="/assets/svgs/landing/biker.svg" alt={"bike biker wheel"} className="no-drag absolute left-[30%] top-0 w-[51%]" />
+						<img
+							src="/assets/svgs/landing/biker.svg"
+							alt={"bike biker wheel"}
+							className="no-drag absolute left-[30%] top-0 w-[51%]"
+						/>
 					</div>
 
 					{/* biker flag */}
-					{
-						ctx.scavState && 
+					{ctx.scavState && (
 						<Draggable axis="y" onDrag={liftFlag}>
-							<img 
+							<img
 								className="biker-flag no-drag absolute left-[29.4%] bottom-[53%]"
-								src="/assets/svgs/landing/scav/bike_flag.svg" 
-								alt="" />
+								src="/assets/svgs/landing/scav/bike_flag.svg"
+								alt=""
+							/>
 						</Draggable>
-					}
+					)}
 
 					{/* stabby */}
-					<Draggable onDrag={e => dragSword(e)} disabled={!ctx.scavState} position={ctx.scavState ? undefined : {x: 0, y: 0}}>
-						<img 
+					<Draggable
+						onDrag={(e) => dragSword(e)}
+						disabled={!ctx.scavState}
+						position={ctx.scavState ? undefined : { x: 0, y: 0 }}
+					>
+						<img
 							ref={swordElement}
 							className="no-drag absolute left-[72.2%] top-[22.5%] w-[5.8%]"
-							src="/assets/svgs/landing/fencer_sword.svg" 
-							alt="" />
+							src="/assets/svgs/landing/fencer_sword.svg"
+							alt=""
+						/>
 					</Draggable>
-
-					
-
 				</div>
 			</div>
 			{/* carrakatu */}
-			<img 
+			<img
 				ref={carrakatu}
 				className="no-drag absolute w-[12%]"
-				style={{top: carrakatuPos.y + 'px', left: carrakatuPos.x + 'px', transform: 'translateY(-100%'}}
-				src="/assets/svgs/landing/scav/carrakatu.svg" 
-				alt="" />
+				style={{
+					top: carrakatuPos.y + "px",
+					left: carrakatuPos.x + "px",
+					transform: "translateY(-100%",
+				}}
+				src="/assets/svgs/landing/scav/carrakatu.svg"
+				alt=""
+			/>
 		</header>
 	);
 };
