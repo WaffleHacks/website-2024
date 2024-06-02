@@ -315,7 +315,7 @@ export const CalendarPanel = () => {
 								}
 							>
 								<h2 className="text-xl font-bold">
-									{event.time} : {event.title}
+									{event.title}
 								</h2>
 
 								{(index == openNum) && 
