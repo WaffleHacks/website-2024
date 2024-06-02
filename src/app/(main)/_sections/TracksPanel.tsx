@@ -70,14 +70,14 @@ const TrackSlide: React.FC<{
 					>
 						<h3
 							className={`
-							
+								text-2xl font-bold
 						`}
 						>
 							{track.title}
 						</h3>
 						<p
 							className={`
-							
+								text-lg
 						`}
 						>
 							{track.description}
@@ -89,7 +89,7 @@ const TrackSlide: React.FC<{
 						>
 							<h4
 								className={`
-
+									text-xl font-bold
 							`}
 							>
 								Prize(s)
@@ -98,7 +98,7 @@ const TrackSlide: React.FC<{
 							<Picture
 								className={`
 								flex flex-row flex-wrap gap-2
-								w-full relative rounded-sm
+								w-full relative rounded-sm mt-2
 							`}
 							>
 								{track.prizeImages.map((image, index) => (
@@ -106,7 +106,10 @@ const TrackSlide: React.FC<{
 										key={index}
 										src={image}
 										alt={`Prize ${index + 1}`}
-										className="mx-2 rounded-sm w-[100px] h-[100px] md:w-[175px] md:h-[175px]"
+										className={`
+											rounded-lg w-[100px] h-[100px]
+											md:w-[175px] md:h-[175px]
+										`}
 										width={175}
 										height={175}
 										sizes="(max-width: 768px) 100, (min-width: 768px) 175"

@@ -29,32 +29,30 @@
     background-color: #cbd5e0;
 }
 
-.pagination-button {
-    width: 10px;
-    height: 10px;
-    background-color: gray;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.pagination-button.active {
-    background-color: black;
-}
-
-@media (width <= 768px) {
-    .custom-slide {
-        width: 100%;
-    }
-
+@media screen and (max-width: 1024px) {
     .pagination-button {
-        width: 8px;
+        width: 200px;
+        height: 14px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .pagination-button {
+        width: 150px;
+        height: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .pagination-button {
+        width: 100px;
+        height: 10px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .pagination-button {
+        width: 50px;
         height: 8px;
-    }
-}
-
-@media (width <= 480px) {
-    .pagination-button {
-        width: 6px;
-        height: 6px;
     }
 }
