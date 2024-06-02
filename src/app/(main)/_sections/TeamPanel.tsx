@@ -16,7 +16,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
 
@@ -73,7 +73,7 @@ export const TeamPanel = () => {
 		setCurrentIndex(0);
 	}
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		setLoading(false);
 	}, []);
 
@@ -136,115 +136,128 @@ export const TeamPanel = () => {
 					? 2
 					: 1;
 
+	const howMuchToShowFunc = (): number => {
+		if (isXLarge) {
+			return 5;
+		} else if (isLarge) {
+			return 4;
+		} else if (isMedium) {
+			return 3;
+		} else if (isSmall) {
+			return 2;
+		} else {
+			return 1;
+		}
+	};
 	return (
 		<>
-		<h2 className="text-4xl font-bold mb-4">Meet The Team</h2>
-		<Article
-			className={`
+			<h2 className="text-4xl font-bold mb-4">Meet The Team</h2>
+			<Article
+				className={`
 				mt-2 px-10 w-full mb-8
 			`}
-		>
-			<div className="w-full">
-				<div className="relative">
-					<div className="flex space-x-4 flex-row items-center justify-center mx-auto gap-2">
-						{loading
-							? Array.from({ length: howMuchToShow }, (_, index) => index).map(
-									(index) => (
-										<Skeleton
-											key={index}
-											className={`
-										relative overflow-hidden h-[280px] min-w-[280px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer
+			>
+				<div className="w-full">
+					<div className="relative">
+						<div className="flex space-x-4 flex-row items-center justify-center mx-auto gap-2">
+							{loading
+								? Array.from({ length: 3 }, (_, index) => index).map(
+										(index) => (
+											<Skeleton
+												key={index}
+												className={`
+										relative overflow-hidden h-[210px] min-w-[210px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer
 									`}
-										/>
-									),
-								)
-							: teamData
-									.slice(currentIndex, currentIndex + howMuchToShow)
-									.map(({ mem, member, color }, index) => (
-										<Slide key={`${mem}-${index}`} delay={(index + 1) * 0.1}>
-											<Link href={`/team/${fileToName(mem)}`}>
-												<Card
-													className={`
+											/>
+										),
+									)
+								: teamData
+										.slice(currentIndex, currentIndex + howMuchToShow)
+										.map(({ mem, member, color }, index) => (
+											<Slide key={`${mem}-${index}`} delay={(index + 1) * 0.1}>
+												<Link href={`/team/${fileToName(mem)}`}>
+													<Card
+														className={`
 												relative overflow-hidden h-[210px] min-w-[210px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer
 											`}
-													onClick={() => {
-														setShowOverlay(mem);
-														setSelectedMember({ mem, member, color });
-														router.push(`/team/${fileToName(mem)}`);
-													}}
-												>
-													<AnimatePresence>
-														{selectedMember?.mem ||
-															(showOverlay === mem && (
-																<motion.div
-																	className="absolute left-0 top-0 bottom-0 right-0 z-10 flex justify-center items-center"
-																	initial={{ opacity: 0 }}
-																	animate={{ opacity: 0.5 }}
-																	exit={{ opacity: 0 }}
-																>
-																	<div className="absolute bg-black pointer-events-none opacity-50 h-full w-full" />
-																</motion.div>
-															))}
-													</AnimatePresence>
-													<Picture
-														className={`absolute top-0 left-0 right-0 bottom-0 w-full h-full rounded-xl overflow-hidden mix-blend-multiply`}
+														onClick={() => {
+															setShowOverlay(mem);
+															setSelectedMember({ mem, member, color });
+															router.push(`/team/${fileToName(mem)}`);
+														}}
 													>
-														<Image
-															src={mem}
-															alt={mem}
-															fill={true}
-															fetchPriority="high"
-															className="object-cover mix-blend-multiply relative"
-															placeholder="blur"
-															blurDataURL={
-																lazyImages[fileToName(mem) as string]
-															}
-															sizes="(min-width: 1280px) 280px, (min-width: 1024px) 250px, (min-width: 768px) 200px"
-														/>
-													</Picture>
-												</Card>
-											</Link>
-										</Slide>
-									))}
+														<AnimatePresence>
+															{selectedMember?.mem ||
+																(showOverlay === mem && (
+																	<motion.div
+																		className="absolute left-0 top-0 bottom-0 right-0 z-10 flex justify-center items-center"
+																		initial={{ opacity: 0 }}
+																		animate={{ opacity: 0.5 }}
+																		exit={{ opacity: 0 }}
+																	>
+																		<div className="absolute bg-black pointer-events-none opacity-50 h-full w-full" />
+																	</motion.div>
+																))}
+														</AnimatePresence>
+														<Picture
+															className={`absolute top-0 left-0 right-0 bottom-0 w-full h-full rounded-xl overflow-hidden mix-blend-multiply`}
+														>
+															<Image
+																src={mem}
+																alt={mem}
+																fill={true}
+																fetchPriority="high"
+																className="object-cover mix-blend-multiply relative"
+																placeholder="blur"
+																blurDataURL={
+																	lazyImages[fileToName(mem) as string]
+																}
+																sizes="(min-width: 1280px) 280px, (min-width: 1024px) 250px, (min-width: 768px) 200px"
+															/>
+														</Picture>
+													</Card>
+												</Link>
+											</Slide>
+										))}
+						</div>
 					</div>
 				</div>
-			</div>
-			<menu
-				className={`
+				<menu
+					className={`
 					flex items-center justify-between 
 				bg-gray-100/50 p-4 rounded-md
 					shadow-md mt-6 mx-auto 
 					${isMediumOrLarger ? "w-1/2" : "w-full"}
 
 				`}
-			>
-				{currentIndex > 0 && (
-					<li className="flex">
-						<Button
-							onClick={handlePrev}
-							className={cn("", "mr-2")}
-							color={`primary`}
-						>
-							<FaArrowLeft className={`w-10`} color={`#3c2415`} />
-						</Button>
+				>
+					{currentIndex > 0 && (
+						<li className="flex">
+							<Button
+								onClick={handlePrev}
+								className={cn("", "mr-2")}
+								color={`primary`}
+							>
+								<FaArrowLeft className={`w-10`} color={`#3c2415`} />
+							</Button>
+						</li>
+					)}
+					<li className="text-lg font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis">
+						{currentIndex + 1} - {currentIndex + howMuchToShow} of {NUM_MEMBERS}
 					</li>
-				)}
-				<li className="text-lg font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis">
-					{currentIndex + 1} - {currentIndex + howMuchToShow} of {NUM_MEMBERS}
-				</li>
-				{currentIndex < NUM_MEMBERS - howMuchToShow && (
-					<li>
-						<Button
-							onClick={handleNext}
-							className={cn("", "ml-2")}
-							color={`primary`}
-						>
-							<FaArrowRight className={`w-10`} color={`#3c2415`} />
-						</Button>
-					</li>
-				)}
-			</menu>
-		</Article>
+					{currentIndex < NUM_MEMBERS - howMuchToShow && (
+						<li>
+							<Button
+								onClick={handleNext}
+								className={cn("", "ml-2")}
+								color={`primary`}
+							>
+								<FaArrowRight className={`w-10`} color={`#3c2415`} />
+							</Button>
+						</li>
+					)}
+				</menu>
+			</Article>
 		</>
 	);
 };

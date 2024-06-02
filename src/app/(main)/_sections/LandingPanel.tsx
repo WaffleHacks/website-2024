@@ -90,7 +90,7 @@ export const LandingPanel = () => {
 				container.current.clientWidth / container.current.clientHeight;
 
 			if (container_aspect_ratio < aspect_ratio) {
-				img.style.width = "100%";
+				img.style.width = "98%";
 				img.style.height = "auto";
 			} else {
 				img.style.width = "auto";
@@ -510,8 +510,7 @@ export const LandingPanel = () => {
 			carrakatuInterval.current = null;
 			if (!carrySpeakingDone.current) {
 				setCarrySpeaking(true);
-			}
-			else {
+			} else {
 				setCarryDone(true);
 			}
 		}

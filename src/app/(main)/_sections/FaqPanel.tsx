@@ -78,6 +78,7 @@ export const FaqPanel = () => {
 									backgroundColor: "#F7F7F770",
 									color: "#3C2415",
 								}}
+								aria-label={item.label}
 							>
 								{item.content}
 							</Tab>

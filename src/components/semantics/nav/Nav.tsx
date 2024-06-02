@@ -16,6 +16,7 @@ import {
 
 import AppleDialog from "@/app/(main)/_components/AppleDialog";
 import { cn } from "@/lib";
+import { useRouter } from "next/navigation";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 export const NavBar = () => {
@@ -49,6 +50,9 @@ export const NavBar = () => {
 	const [appleTalking, setAppleTalking] = useState(false);
 	const appleHasTalked = useRef(false);
 
+	/**
+	 * Backlog 1: Implement scroll-up and scroll-down classes
+	 */
 	const [_scrollDirection, setScrollDirection] = useState("scroll-up");
 
 	useIsomorphicLayoutEffect(() => {
@@ -285,7 +289,6 @@ export const NavBar = () => {
 			};
 
 		if (archer.headshot && !fallInterval.current) {
-
 			// check if apple should fall
 			const ap = apple.current;
 			if (!ap) return;
@@ -302,10 +305,12 @@ export const NavBar = () => {
 	function appyFinishTalking() {
 		setAppleTalking(false);
 		appleHasTalked.current = true;
-		if (!walkInterval.current){
+		if (!walkInterval.current) {
 			walkInterval.current = setInterval(appleInterval, 25);
 		}
 	}
+
+	const router = useRouter();
 
 	return (
 		<>
@@ -335,7 +340,7 @@ export const NavBar = () => {
 									ScrollIntoCenterView(link.href);
 								}}
 								className={`
-								text-semibold text-lg
+									text-semibold text-lg
 								`}
 							>
 								<p>{link.text}</p>
@@ -359,7 +364,7 @@ export const NavBar = () => {
 							className={`
 								w-20 h-20
 							`}
-							onClick={() => window.location.reload()}
+							onClick={() => router.push("/")}
 						>
 							<Image
 								src={`/assets/svgs/header.png`}

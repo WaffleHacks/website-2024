@@ -6,7 +6,6 @@ import { useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import CalendarDescription from "./CalendarDescription";
 import { CalendarDescriptionType as CDT } from "./CalendarDescription";
-
 interface EventStructure {
 	title: string;
 	description: string;
@@ -136,7 +135,7 @@ export const CalendarPanel = () => {
 		<h2 className="text-[45px] font-bold mb-4 lext-left w-full pl-8">Schedule</h2>
 		<div
 			ref={calendar_box}
-			className="font-mplus p-8 pt-0 relative w-[100vw] md:w-[unset]"
+			className="font-mplus p-8 relative text-[#3C2415]"
 			onClick={() => setDescPos({ x: -1, y: -1 })}
 		>
 			<div 
@@ -145,15 +144,16 @@ export const CalendarPanel = () => {
 				{/* header with day and buttons */}
 				<div className="flex flex-col gap-2 sm:gap-0 items-center sm:grid sm:grid-cols-2 md:grid-cols-3">
 					<span className="hidden md:inline-block" />
-					<span className="text-2xl font-bold text-center">
+					<span className="text-2xl font-bold text-[#3C2415] text-center">
 						{eventOrder[eventIndex]}
 					</span>
-					<div className="text-2xl font-bold text-center flex justify-end gap-4 text-white">
+					<div className="text-2xl font-bold text-[#3C2415] text-center flex justify-end gap-4">
 						<Button
 							className={calendarButton}
 							onClick={() => {
 								setEventIndex(Math.max(0, eventIndex - 1));
 							}}
+							arial-label="Previous Day"
 						>
 							<FaArrowLeft size={20} />
 						</Button>
@@ -162,6 +162,7 @@ export const CalendarPanel = () => {
 							onClick={() => {
 								setEventIndex(Math.min(eventOrder.length - 1, eventIndex + 1));
 							}}
+							arial-label="Next Day"
 						>
 							<FaArrowRight size={20} />
 						</Button>
@@ -190,13 +191,13 @@ export const CalendarPanel = () => {
 						return (
 							<div
 								key={index}
-								className="calendar-title-cell text-center font-bold"
+								className="calendar-title-cell text-[#3C2415] text-center font-bold"
 							>
 								{time}
 							</div>
 						);
 					})}
-					<span className="calendar-title-cell text-xl font-bold">
+					<span className="calendar-title-cell text-xl text-[#3C2415] font-bold">
 						Ceremonies
 					</span>
 					{(events[eventIndex] as EventList)["Ceremonies"].map(
@@ -212,8 +213,9 @@ export const CalendarPanel = () => {
 									{event && (
 										<button
 											onClick={(e) => setDesc(e, event as EventStructure)}
+											aria-label={event.title}
 										>
-											<img src="/assets/svgs/calendar/curtains.svg" />
+											<img src="/assets/svgs/calendar/curtains.svg" alt="" />
 										</button>
 									)}
 								</div>
@@ -221,7 +223,7 @@ export const CalendarPanel = () => {
 						},
 					)}
 
-					<span className="calendar-title-cell text-xl font-bold">
+					<span className="calendar-title-cell text-xl text-[#3C2415] font-bold">
 						Workshops
 					</span>
 					{(events[eventIndex] as EventList)["Workshops"].map(
@@ -240,7 +242,12 @@ export const CalendarPanel = () => {
 						},
 					)}
 
-					<span className="calendar-title-cell text-xl font-bold">
+					<span
+						className={`
+							calendar-title-cell text-xl text-[#3C2415]
+							font-bold
+						`}
+					>
 						Panels
 					</span>
 					{(events[eventIndex] as EventList)["Panels"].map(
@@ -259,7 +266,7 @@ export const CalendarPanel = () => {
 						},
 					)}
 
-					<span className="calendar-title-cell text-xl font-bold">
+					<span className="calendar-title-cell text-xl text-[#3C2415] font-bold">
 						Other / Fun
 					</span>
 					{(events[eventIndex] as EventList)["Other / Fun"].map(

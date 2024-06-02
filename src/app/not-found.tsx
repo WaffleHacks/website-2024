@@ -16,10 +16,9 @@ export default function NotFound() {
 			<Container
 				sx={{
 					my: 20,
-					zIndex: '10',
-					position: 'relative',
-					textAlign: 'center',
-
+					zIndex: "10",
+					position: "relative",
+					textAlign: "center",
 				}}
 				maxWidth="sm"
 				component={`article`}
@@ -31,13 +30,11 @@ export default function NotFound() {
 					Oh no, you've lost your way!
 				</Typography>
 				<Typography level="body-md" gutterBottom>
-					Just like a marathon, coding can sometimes lead us off track. But don't worry, we're here to help you cross the finish line. Let's get you back to the starting block.
+					Just like a marathon, coding can sometimes lead us off track. But
+					don't worry, we're here to help you cross the finish line. Let's get
+					you back to the starting block.
 				</Typography>
-				<Button
-					color="primary"
-				>
-					Return to the starting line
-				</Button>
+				<Button color="primary">Return to the starting line</Button>
 			</Container>
 			<Picture
 				className={`

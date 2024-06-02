@@ -1,24 +1,26 @@
 "use client";
 import { sponsorsData } from "@/constants";
 import { Slugify } from "@/utils";
-import { Button } from "@nextui-org/button";
-import { Card, CardBody, Image } from "@nextui-org/react";
+import { Card, Image, Skeleton } from "@nextui-org/react";
 import Link from "next/link";
 import { useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 export const SponsorsPanel = () => {
+	const [loading, setLoading] = useState(true);
+
+	useIsomorphicLayoutEffect(() => {
+		setLoading(false);
+	}, []);
 
 	const getTextColor = (tier: string): string => {
 		switch (tier) {
 			case "Platinum":
-				return "text-blue-300";
+				return "text-blue-400";
 			case "Gold":
 				return "text-yellow-600";
 			case "Silver":
 				return "text-gray-500";
-			case "Bronze":
-				return "text-orange-600";
 			default:
 				return "text-[#fff]";
 		}
@@ -27,22 +29,18 @@ export const SponsorsPanel = () => {
 	const getBorderColor = (tier: string): string => {
 		switch (tier) {
 			case "Platinum":
-				return "border-blue-300";
+				return "border-blue-400";
 			case "Gold":
 				return "border-yellow-600";
 			case "Silver":
 				return "border-gray-500";
-			case "Bronze":
-				return "border-orange-600";
 			default:
 				return "border-[#fff]";
 		}
 	};
 
 	return (
-		<>
-		<h2 className="text-4xl font-bold mb-4">Sponsors</h2>
-		<article className="card mb-8">
+		<article className="card">
 			{sponsorsData.tiers.map((tierData, index) => (
 				<div key={Slugify((index + 1).toString())} className="mb-8">
 					<section
@@ -104,6 +102,5 @@ export const SponsorsPanel = () => {
 				</div>
 			))}
 		</article>
-		</>
 	);
 };
