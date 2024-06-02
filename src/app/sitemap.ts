@@ -9,19 +9,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			priority: 1,
 		},
 		{
-			url: `${app}/accessibility`,
+			url: `${app}/legal/accessibility`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 0.8,
 		},
 		{
-			url: `${app}/privacy`,
+			url: `${app}/legal/privacy`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 0.8,
 		},
 		{
-			url: `${app}/terms`,
+			url: `${app}/legal/terms`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 0.8,

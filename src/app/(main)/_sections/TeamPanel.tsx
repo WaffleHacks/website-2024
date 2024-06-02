@@ -20,7 +20,6 @@ import { Fragment, useEffect, useRef, useState, useContext} from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
 import { TeamCard } from "../_components";
-import { ScavContext } from "@/components";
 
 const MAX_CONCURRENT_REQUESTS: number = 5;
 const NUM_MEMBERS: number = 15;

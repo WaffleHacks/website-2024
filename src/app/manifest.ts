@@ -183,18 +183,23 @@ export default function manifest(): MetadataRoute.Manifest {
 		shortcuts: [
 			{
 				name: "Accessibility",
-				url: "/accessibility",
+				url: "/legal/accessibility",
 				description: "Waffle Hack's Accessibility Statement.",
 			},
 			{
 				name: "Terms of Service",
-				url: "/terms",
+				url: "/legal/terms",
 				description: "Waffle Hack's Terms of Service.",
 			},
 			{
 				name: "Privacy Policy",
-				url: "/privacy",
+				url: "/legal/privacy",
 				description: "Waffle Hack's Privacy Policy.",
+			},
+			{
+				name: "Rules",
+				url: "/legal/rules",
+				description: "Waffle Hack's Rules.",
 			},
 		],
 		screenshots: [
