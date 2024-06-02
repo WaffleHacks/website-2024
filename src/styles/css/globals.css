@@ -53,6 +53,7 @@
 
     body {
         background-color: #f6fbe9;
+        /* background-color: white; */
         transition: background-color var(--scav-transition-dur) ease;
         color: #3C2415
     }

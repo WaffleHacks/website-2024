@@ -8,31 +8,17 @@ import { useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 
 export const SponsorsPanel = () => {
-	const getBackgroundColor = (tier: string): string => {
-		switch (tier) {
-			case "Platinum":
-				return "bg-blue-300";
-			case "Gold":
-				return "bg-yellow-300";
-			case "Silver":
-				return "bg-gray-400";
-			case "Bronze":
-				return "bg-orange-300";
-			default:
-				return "bg-[#fff]";
-		}
-	};
 
 	const getTextColor = (tier: string): string => {
 		switch (tier) {
 			case "Platinum":
 				return "text-blue-300";
 			case "Gold":
-				return "text-yellow-300";
+				return "text-yellow-600";
 			case "Silver":
-				return "text-gray-400";
+				return "text-gray-500";
 			case "Bronze":
-				return "text-orange-300";
+				return "text-orange-600";
 			default:
 				return "text-[#fff]";
 		}
@@ -43,11 +29,11 @@ export const SponsorsPanel = () => {
 			case "Platinum":
 				return "border-blue-300";
 			case "Gold":
-				return "border-yellow-300";
+				return "border-yellow-600";
 			case "Silver":
-				return "border-gray-400";
+				return "border-gray-500";
 			case "Bronze":
-				return "border-orange-300";
+				return "border-orange-600";
 			default:
 				return "border-[#fff]";
 		}

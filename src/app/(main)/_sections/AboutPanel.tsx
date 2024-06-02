@@ -10,46 +10,14 @@ export const AboutPanel = () => {
 	const isXLarge = useMediaQuery("(min-width: 1280px)");
 	const isLarge = useMediaQuery("(min-width: 1024px)");
 	const isMedium = useMediaQuery("(min-width: 768px)");
-	const isSmall = useMediaQuery("(min-width: 640px)");
-	const isXSmall = useMediaQuery("(min-width: 480px)");
-	const isXXSmall = useMediaQuery("(min-width: 320px)");
 	return (
-		<article
-			className={`
-				font-mplus flex flex-col-reverse md:flex-row
-				justify-center items-center gap-2
-				w-full max-w-screen-2xl mx-auto
-				my-8 md:my-16 lg:my-24 xl:my-32 px-10
-			`}
-		>
-			<article
-				className={`
-					flex flex-col justify-between rounded-2xl
-					transition-transform duration-300 transform max-w-screen-2xl
-					md:max-w-9xl flex-1
-				`}
-			>
-				<hgroup
-					className={`
-					text-[#3C2415]
-            w-full flex items-center justify-center flex-col
-            text-left 
-        `}
-				>
-					<h2
-						className={`
-                text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl
-                leading-11 font-bold tracking-tighter mb-2  w-full
-            `}
-					>
+		<article className="font-mplus flex flex-col-reverse md:flex-row justify-center items-center gap-2 w-full max-w-screen-2xl mx-auto px-10 my-12 md:mb-24">
+			<article className="flex flex-col justify-between rounded-2xl transition-transform duration-300 transform max-w-screen-2xl md:max-w-9xl flex-1">
+				<hgroup className="text-[#3C2415] w-full flex items-center justify-center flex-col  text-left">
+					<h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl leading-11 font-bold tracking-tighter mb-2  w-full">
 						WaffleHacks 2024
 					</h2>
-					<h3
-						className={`
-                w-full text-xl md:text-2xl lg:text-3xl xl:text-4xl
-                font-bold tracking-tighter leading-11 mb-9
-            `}
-					>
+					<h3 className="w-full text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-tighter leading-11 mb-9">
 						Let the Hacking Begin!
 					</h3>
 				</hgroup>
@@ -61,22 +29,16 @@ export const AboutPanel = () => {
 							"This year, gear up for our hottest competition yet. With pre-hackathon workshops on  June 19th & 20th, we’ll make sure you’re in tip-top shape to compete in the hackathon weekend from June 21st - 23rd.",
 						]}
 					/>
-					<span
-						className={`
-                text-[#3C2415]
-                sm:text-md text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl
-                font-bold tracking-tighter leading-11 mt-4
-            `}
-					>
+					<span className="text-[#3C2415] sm:text-md text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold tracking-tighter leading-11 mt-4">
 						Start training everyone - it's game time!
 					</span>
 				</div>
 			</article>
 			<Picture className="flex flex-row justify-center items-center transition-transform duration-300 transform w-64 h-64 md:w-96 md:h-96 lg:w-128 lg:h-128 xl:w-144 xl:h-144 flex-1 pt-5 sm:pt-0">
 				<Image
-					src="/assets/images/about.png"
+					src="/assets/images/about.svg"
 					alt=""
-					className="rounded-2xl object-contain object-center w-full h-full"
+					className="object-contain object-center w-full h-full"
 					width={isXLarge ? 500 : isLarge ? 400 : isMedium ? 300 : 200}
 					height={isXLarge ? 500 : isLarge ? 400 : isMedium ? 300 : 200}
 				/>

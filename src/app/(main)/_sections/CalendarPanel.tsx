@@ -23,7 +23,7 @@ interface EventList {
 }
 
 const calendarButton: string =
-	"flex items-center justify-center rounded-lg bg-yellow-500 w-10 h-10";
+	"flex items-center justify-center rounded-lg bg-yellow-900 w-10 h-10 text-[#bb8653]";
 
 export const CalendarPanel = () => {
 	const [eventIndex, setEventIndex] = useState<number>(0);
@@ -136,24 +136,19 @@ export const CalendarPanel = () => {
 		<h2 className="text-4xl font-bold mb-4">Calendar</h2>
 		<div
 			ref={calendar_box}
-			className="font-mplus p-8 pt-0 relative text-[#3C2415] w-[100vw] md:w-[unset]"
+			className="font-mplus p-8 pt-0 relative w-[100vw] md:w-[unset]"
 			onClick={() => setDescPos({ x: -1, y: -1 })}
 		>
 			<div 
-				className={`
-					py-6 px-8 bg-[#bb8653]/80
-					rounded-xl flex flex-col
-					backdrop-filter backdrop-blur-xl
-					text-[#3C2415]
-				`}
+				className="py-6 px-8 bg-[#bb8653]/80 rounded-xl flex flex-col backdrop-filter backdrop-blur-xl text-black"
 			>
 				{/* header with day and buttons */}
 				<div className="flex flex-col gap-2 sm:gap-0 items-center sm:grid sm:grid-cols-2 md:grid-cols-3">
 					<span className="hidden md:inline-block" />
-					<span className="text-2xl font-bold text-[#3C2415] text-center">
+					<span className="text-2xl font-bold text-center">
 						{eventOrder[eventIndex]}
 					</span>
-					<div className="text-2xl font-bold text-[#3C2415] text-center flex justify-end gap-4">
+					<div className="text-2xl font-bold text-center flex justify-end gap-4 text-white">
 						<Button
 							className={calendarButton}
 							onClick={() => {
@@ -195,13 +190,13 @@ export const CalendarPanel = () => {
 						return (
 							<div
 								key={index}
-								className="calendar-title-cell text-[#3C2415] text-center font-bold"
+								className="calendar-title-cell text-center font-bold"
 							>
 								{time}
 							</div>
 						);
 					})}
-					<span className="calendar-title-cell text-xl text-[#3C2415] font-bold">
+					<span className="calendar-title-cell text-xl font-bold">
 						Ceremonies
 					</span>
 					{(events[eventIndex] as EventList)["Ceremonies"].map(
@@ -226,7 +221,7 @@ export const CalendarPanel = () => {
 						},
 					)}
 
-					<span className="calendar-title-cell text-xl text-[#3C2415] font-bold">
+					<span className="calendar-title-cell text-xl font-bold">
 						Workshops
 					</span>
 					{(events[eventIndex] as EventList)["Workshops"].map(
@@ -245,12 +240,7 @@ export const CalendarPanel = () => {
 						},
 					)}
 
-					<span
-						className={`
-							calendar-title-cell text-xl text-[#3C2415]
-							font-bold
-						`}
-					>
+					<span className="calendar-title-cell text-xl font-bold">
 						Panels
 					</span>
 					{(events[eventIndex] as EventList)["Panels"].map(
@@ -269,7 +259,7 @@ export const CalendarPanel = () => {
 						},
 					)}
 
-					<span className="calendar-title-cell text-xl text-[#3C2415] font-bold">
+					<span className="calendar-title-cell text-xl font-bold">
 						Other / Fun
 					</span>
 					{(events[eventIndex] as EventList)["Other / Fun"].map(
