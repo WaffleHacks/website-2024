@@ -132,9 +132,11 @@ export const CalendarPanel = () => {
 	}
 
 	return (
+		<>
+		<h2 className="text-4xl font-bold mb-4">Calendar</h2>
 		<div
 			ref={calendar_box}
-			className="font-mplus p-8 relative text-[#3C2415]"
+			className="font-mplus p-8 pt-0 relative text-[#3C2415] w-[100vw] md:w-[unset]"
 			onClick={() => setDescPos({ x: -1, y: -1 })}
 		>
 			<div 
@@ -325,5 +327,6 @@ export const CalendarPanel = () => {
 				position={descPos}
 			/>
 		</div>
+		</>
 	);
 };

@@ -54,7 +54,9 @@ export const SponsorsPanel = () => {
 	};
 
 	return (
-		<article className="card my-24">
+		<>
+		<h2 className="text-4xl font-bold mb-4">Sponsors</h2>
+		<article className="card mb-8">
 			{sponsorsData.tiers.map((tierData, index) => (
 				<div key={Slugify((index + 1).toString())}>
 					<section
@@ -118,5 +120,6 @@ export const SponsorsPanel = () => {
 				</div>
 			))}
 		</article>
+		</>
 	);
 };
