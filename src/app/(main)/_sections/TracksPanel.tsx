@@ -228,14 +228,14 @@ const CustomSlider = () => {
 export const TracksPanel = () => {
 	return (
 		<>
-		<h2 className="text-4xl font-bold mb-4">Tracks / Prizes</h2>
-		<div
-			className={`
+			<h2 className="text-4xl font-bold mb-4">Tracks / Prizes</h2>
+			<div
+				className={`
 				font-mplus p-8 pt-0
 			`}
-		>
-			<CustomSlider />
-		</div>
+			>
+				<CustomSlider />
+			</div>
 		</>
 	);
 };

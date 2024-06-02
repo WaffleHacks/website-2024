@@ -5,7 +5,7 @@ export const getApiUrl = (): string => {
 
 	environment === "development"
 		? (apiUrl = `http://localhost:3000/`)
-		: (apiUrl = `https://website-2024-nine.vercel.app/`);
+		: (apiUrl = `${app.url}`);
 
 	return apiUrl;
 };
