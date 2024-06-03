@@ -65,6 +65,19 @@
     height: 6rem;
 }
 
+.calendar-career {
+    background: #50d249;
+    border-right: 1px solid #e2e8f0;
+    height: 6rem;
+}
+
+.calendar-technical {
+    background: #55a8f6;
+    border-right: 1px solid #e2e8f0;
+    height: 6rem;
+}
+
+
 .calendar-desc-card {
     position: absolute;
     display: flex;

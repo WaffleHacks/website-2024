@@ -15,10 +15,10 @@ interface EventStructure {
 }
 
 interface EventList {
-	Ceremonies: (EventStructure | unknown)[];
-	Workshops: (EventStructure | unknown)[];
-	Panels: (EventStructure | unknown)[];
-	"Other / Fun": (EventStructure | unknown)[];
+	Ceremonies: (EventStructure | null)[];
+	Workshops: (EventStructure | null)[];
+	Panels: (EventStructure | null)[];
+	"Other / Fun": (EventStructure | null)[];
 }
 
 const calendarButton: string =
@@ -34,63 +34,106 @@ export const CalendarPanel = () => {
 	const events: EventList[] = [
 		{
 			Ceremonies: [
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
 				{
 					title: "Opening Ceremony",
 					description: "Welcome to WaffleHacks 2023!",
 					time: "5:00 PM - 6:00 PM",
 					link: "",
-					type: "ceremony",
+					type: CDT.CEREMONY,
 				},
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
 			],
-			Workshops: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-			Panels: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-			"Other / Fun": ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+			Workshops: [null, null, null, null, null, null, null, null, null, null, null, null, {
+				title: "Start Up Workshop",
+				description: "",
+				time: "10:00 PM - 11:30 PM",
+				link: "",
+				type: CDT.CAREER,
+			}, null],
+			Panels: [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+			"Other / Fun": [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
 		},
 		{
-			Ceremonies: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-			Workshops: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-			Panels: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-			"Other / Fun": ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+			Ceremonies: [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+			Workshops: [null, null, null, null, 
+				{
+					title: "Performance Estimation w/ Greg Zborovsky",
+					description: "",
+					time: "2:00 PM - 3:00 PM",
+					link: "",
+					type: CDT.TECHNICAL,
+				}, 
+				null, 
+				{
+					title: "Intro to Mobile Application Development",
+					description: "",
+					time: "4:00 PM - 5:00 PM",
+					link: "",
+					type: CDT.TECHNICAL,
+				}, 
+				{
+					title: "Intermediate Application Development with Google Cloud",
+					description: "",
+					time: "5:00 PM - 6:00 PM",
+					link: "",
+					type: CDT.TECHNICAL,
+				}, 
+				null, null, null, null, null, null],
+			Panels: [{
+				title: "Internship / Resume Panel",
+				description: "",
+				time: "10:00 AM - 11:00 AM",
+				link: "",
+				type: CDT.CAREER,
+			},
+			null,
+			{
+				title: "Breaking into Alternative CS Careers",
+				description: "",
+				time: "12:00 PM - 1:00 PM",
+				link: "",
+				type: CDT.CAREER,
+			}, null, null, null, null, null, null, null, null, null, null, null],
+			"Other / Fun": [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
 		},
 		{
 			Ceremonies: [
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
 				{
 					title: "Closing Ceremony",
 					description: "Thank you for attending WaffleHacks 2023!",
 					time: "5:00 PM",
 					link: "",
-					type: "ceremony",
+					type: CDT.CEREMONY,
 				},
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
 			],
-			Workshops: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-			Panels: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-			"Other / Fun": ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+			Workshops: [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+			Panels: [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+			"Other / Fun": [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
 		},
 	];
 
@@ -200,8 +243,8 @@ export const CalendarPanel = () => {
 					<span className="calendar-title-cell text-xl text-[#3C2415] font-bold">
 						Ceremonies
 					</span>
-					{(events[eventIndex] as EventList)["Ceremonies"].map(
-						(event: any, index: React.Key | null | undefined) => {
+					{(events[eventIndex] as EventList).Ceremonies.map(
+						(event: EventStructure | null, index: number) => {
 							return (
 								<div
 									key={index}
@@ -226,18 +269,25 @@ export const CalendarPanel = () => {
 					<span className="calendar-title-cell text-xl text-[#3C2415] font-bold">
 						Workshops
 					</span>
-					{(events[eventIndex] as EventList)["Workshops"].map(
-						(event: any, index: React.Key | null | undefined) => {
+					{(events[eventIndex] as EventList).Workshops.map(
+						(event: EventStructure | null, index: number) => {
 							return (
-								<Picture
+								<div
 									key={index}
 									className={
 										"calendar-grid-cell text-center" +
-										(event ? " calendar-workshop" : "")
+										(event ? ` calendar-${event.type} event` : "")
 									}
 								>
-									{event ? <img src="/assets/svgs/calendar/wrench.svg" /> : ""}
-								</Picture>
+									{event && (
+										<button
+											onClick={(e) => setDesc(e, event as EventStructure)}
+											aria-label={event.title}
+										>
+											<img src="/assets/svgs/calendar/wrench.svg" alt="" />
+										</button>
+									)}
+								</div>
 							);
 						},
 					)}
@@ -251,17 +301,24 @@ export const CalendarPanel = () => {
 						Panels
 					</span>
 					{(events[eventIndex] as EventList)["Panels"].map(
-						(event: any, index: React.Key | null | undefined) => {
+						(event: any, index: number) => {
 							return (
-								<Picture
+								<div
 									key={index}
 									className={
 										"calendar-grid-cell text-center" +
-										(event ? " calendar-panel" : "")
+										(event ? ` calendar-${event.type} event` : "")
 									}
 								>
-									{event ? <img src="/assets/svgs/calendar/panel.svg" /> : ""}
-								</Picture>
+									{event && (
+										<button
+											onClick={(e) => setDesc(e, event as EventStructure)}
+											aria-label={event.title}
+										>
+											<img src="/assets/svgs/calendar/panel.svg" alt="" />
+										</button>
+									)}
+								</div>
 							);
 						},
 					)}
@@ -270,7 +327,7 @@ export const CalendarPanel = () => {
 						Other / Fun
 					</span>
 					{(events[eventIndex] as EventList)["Other / Fun"].map(
-						(event: any, index: React.Key | null | undefined) => {
+						(event: any, index: number) => {
 							return (
 								<Picture
 									key={index}
@@ -315,7 +372,7 @@ export const CalendarPanel = () => {
 				</div>
 			</div>
 			<CalendarDescription
-				type={CDT.CEREMONY}
+				type={descDetails?.type || CDT.OTHER}
 				title={descDetails?.title || ""}
 				description={descDetails?.description || ""}
 				time={descDetails?.time || ""}
