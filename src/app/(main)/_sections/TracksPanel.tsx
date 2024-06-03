@@ -187,7 +187,13 @@ const CustomSlider = () => {
 				<Button onClick={prevSlide} className={`bg-[#bb8653]`}>
 					<FaArrowLeft size={20} color={`#3c2415`} className={`bg-[#bb8653]`} />
 				</Button>
-				<div
+
+
+				<div>
+					<span className="font-bold text-xl">{currentSlide+1} of {totalSlides}</span>
+				</div>
+
+				{/* <div
 					className={`
 						pagination w-full
 					`}
@@ -212,7 +218,7 @@ const CustomSlider = () => {
 							)}
 						</>
 					)}
-				</div>
+				</div> */}
 				<Button onClick={nextSlide} className={`bg-[#bb8653]`}>
 					<FaArrowRight
 						size={20}

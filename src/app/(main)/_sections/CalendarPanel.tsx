@@ -11,7 +11,7 @@ interface EventStructure {
 	description: string;
 	time: string;
 	link: string;
-	type: string;
+	type: CDT;
 }
 
 interface EventList {
