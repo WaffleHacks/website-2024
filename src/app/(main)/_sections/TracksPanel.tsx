@@ -5,7 +5,6 @@ import {
 	EnterAnimation,
 	CustomPicture as Picture,
 	Section,
-	card_style,
 } from "@/components";
 import { Tracks } from "@/constants";
 import { cn } from "@/lib";

@@ -1,7 +1,7 @@
 "use client";
 import { sponsorsData } from "@/constants";
 import { Slugify } from "@/utils";
-import { Card, Image, Skeleton } from "@nextui-org/react";
+import { Image } from "@nextui-org/react";
 import Link from "next/link";
 import { useState } from "react";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
