@@ -42,6 +42,8 @@ export const SponsorsPanel = () => {
 	let sizes = ['max-h-[5.5rem]', 'max-h-[4.5rem]', 'max-h-[3.5rem]']
 
 	return (
+		<>
+		<h2 className="text-[45px] font-bold mb-4 lext-left w-full pl-8">Our Sponsors</h2>
 		<article className="card">
 			{sponsorsData.tiers.map((tierData, index) => (
 				<div key={Slugify((index + 1).toString())} className="mb-8">
@@ -104,5 +106,6 @@ export const SponsorsPanel = () => {
 				</div>
 			))}
 		</article>
+		</>
 	);
 };

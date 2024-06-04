@@ -136,15 +136,9 @@ const CustomSlider = () => {
 		setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
 	};
 
-	const goToSlide = (index: number) => {
-		setCurrentSlide(index);
-	};
-
 	useIsomorphicLayoutEffect(() => {
 		setLoading(false);
 	}, []);
-
-	const isMedium = useMediaQuery("(max-width: 768px)");
 
 	return (
 		<div
@@ -193,32 +187,6 @@ const CustomSlider = () => {
 					<span className="font-bold text-xl">{currentSlide+1} of {totalSlides}</span>
 				</div>
 
-				{/* <div
-					className={`
-						pagination w-full
-					`}
-				>
-					{!isMedium && (
-						<>
-							{Array.from({ length: Math.min(3, totalSlides) }).map(
-								(_, index) => {
-									const slideIndex = currentSlide - 1 + index;
-									if (slideIndex < 0 || slideIndex >= totalSlides) return null;
-									return (
-										<div
-											key={slideIndex}
-											className={`
-                pagination-button 
-                ${currentSlide === slideIndex ? "active" : ""}
-            `}
-											onClick={() => goToSlide(slideIndex)}
-										/>
-									);
-								},
-							)}
-						</>
-					)}
-				</div> */}
 				<Button onClick={nextSlide} className={`bg-[#bb8653]`}>
 					<FaArrowRight
 						size={20}

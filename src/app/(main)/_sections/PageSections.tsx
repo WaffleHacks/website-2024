@@ -40,10 +40,7 @@ export const PageSections = () => {
 					<section
 						id={Slugify(value.toLowerCase())}
 						key={Slugify(value.toLowerCase())}
-						className={`
-							flex items-center justify-center
-							max-w-screen-2xl flex-col
-						`}
+						className="flex items-center justify-center flex-col w-full"
 					>
 						{value !== "About" && value !== "Apply" && (
 							<h2

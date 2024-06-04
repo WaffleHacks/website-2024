@@ -57,7 +57,7 @@ export const TeamPanel = () => {
 
 	return (
 		<>
-			<h2 className="text-4xl font-bold mb-4">Meet The Team</h2>
+			<h2 className="text-[45px] font-bold mb-4 lext-left w-full pl-8">Meet the Team</h2>
 			<Article className="mt-2 px-10 w-full mb-8">
 				<div className="w-full">
 					<div className="relative">
@@ -104,7 +104,7 @@ export const TeamPanel = () => {
 						</li>
 					)}
 					<li className="text-lg font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis">
-						{currentIndex + 1} - {currentIndex + howMuchToShow} of {TeamMembers.length}
+						{currentIndex + 1} - {Math.min(currentIndex + howMuchToShow, TeamMembers.length)} of {TeamMembers.length}
 					</li>
 					{currentIndex < TeamMembers.length - howMuchToShow && (
 						<li>

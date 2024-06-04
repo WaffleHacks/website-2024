@@ -7,7 +7,7 @@ export const FaqPanel = () => {
 	const sections = Faqs.map((faq) => faq.section);
 	return (
 		<>
-			<h2 className="text-4xl font-bold mb-4">FAQs</h2>
+			<h2 className="text-[45px] font-bold mb-4 lext-left w-full pl-8">FAQs</h2>
 			<article
 				id="faq-box"
 				className={`
