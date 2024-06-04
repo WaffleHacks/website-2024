@@ -44,7 +44,7 @@ export const Tracks: ReadonlyTracks = [
 		description:
 			"This track is perfect for first-time hackers. Bring any theme, project, proposal, or design, and get ready to create and learn with like-minded individuals.",
 		prize: "TBD",
-		trackImage: "https://github.com/WomB0ComB0.png",
+		trackImage: "/assets/images/tracks/first.png",
 		prizeImages: [
 			"/assets/images/tracks/tbd.svg",
 		],
@@ -84,7 +84,7 @@ export const Tracks: ReadonlyTracks = [
 		description:
 			"Unleash your creativity with Wolfram's cutting-edge computational tools! Show off your skills by working on projects that showcase the full potential of products like Mathematica, Wolfram Alpha, and the Wolfram Language.",
 		prize: "TBD",
-		trackImage: "https://github.com/WomB0ComB0.png",
+		trackImage: "/assets/images/tracks/wolfram.png",
 		prizeImages: [
 			"/assets/images/tracks/tbd.svg",
 		],

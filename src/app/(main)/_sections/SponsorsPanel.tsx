@@ -39,6 +39,8 @@ export const SponsorsPanel = () => {
 		}
 	};
 
+	let sizes = ['max-h-[5.5rem]', 'max-h-[4.5rem]', 'max-h-[3.5rem]']
+
 	return (
 		<article className="card">
 			{sponsorsData.tiers.map((tierData, index) => (
@@ -92,7 +94,7 @@ export const SponsorsPanel = () => {
 								<Image
 									src={sponsor.image}
 									alt={sponsor.name}
-									className="object-fit transition-all w-full h-full overflow-hidden mix-blend-multiply max-h-[5rem]"
+									className={"object-fit transition-all w-full h-full overflow-hidden mix-blend-multiply " + sizes[index]}
 									fetchPriority="low"
 									sizes="(min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px"
 								/>
