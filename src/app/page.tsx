@@ -1,5 +1,8 @@
 import { CenterLayout } from "@/components";
 import { LandingPanel, PageSections } from "./(main)/_sections";
+
+export const runtime = "edge"
+
 export default async function Home() {
 	return (
 		<div className="flex flex-col items-center justify-center overflow-x-hidden relative">
