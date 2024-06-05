@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "rm -rf .next && next build",
-    "start": "next start",
+    "start": "serve ./out",
     "lint": "npx biome check --apply ./ || true && npx stylelint src/styles/**/*.{css,scss,sass} --fix",
     "lint:bun": "bunx biome check --apply ./ || true && bunx stylelint src/styles/**/*.{css,scss,sass} --fix"
   },

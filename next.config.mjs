@@ -19,6 +19,7 @@ const withPwa = pwa({
  * @type {import("next/dist/server/config").NextConfig}
  */
 const config = {
+	output: 'export',
 	typescript: {
 		ignoreBuildErrors: true,
 	},
@@ -28,15 +29,16 @@ const config = {
 			fullUrl: true,
 		},
 	},
-	images: {
-		remotePatterns: [
-			{
-				protocol: "https",
-				hostname: "github.com",
-				port: "",
-			},
-		],
-	},
+	images: { unoptimized: true },
+	// images: {
+	// 	remotePatterns: [
+	// 		{
+	// 			protocol: "https",
+	// 			hostname: "github.com",
+	// 			port: "",
+	// 		},
+	// 	],
+	// },
 
 	experimental: {
 		turbo: {
