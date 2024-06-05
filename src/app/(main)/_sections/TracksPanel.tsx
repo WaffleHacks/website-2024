@@ -142,7 +142,7 @@ const CustomSlider = () => {
 	return (
 		<div
 			className={`
-				relative w-full overflow-hidden
+				relative w-full overflow-hidden flex flex-col-reverse gap-4 sm:block
 			`}
 		>
 			<div

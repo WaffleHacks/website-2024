@@ -344,7 +344,7 @@ export const CalendarPanel = () => {
 				</div>
 
 				{/* small screen calendar list*/}
-				<div className="flex flex-col mt-4 md:hidden">
+				<div className="flex flex-col gap-4 mt-4 md:hidden">
 					{collapseDay(events[eventIndex] as EventList).map(
 						(event: any, index: number) => {
 							return (

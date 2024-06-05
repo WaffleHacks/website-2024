@@ -17,7 +17,7 @@ export const AboutPanel = () => {
 	return (
 		<article
 			className={`
-				font-mplus flex flex-col md:flex-row
+				font-mplus flex flex-col-reverse md:flex-row
 				justify-center items-center gap-2
 				w-full max-w-screen-2xl mx-auto
 				my-8 md:my-16 lg:my-24 xl:my-32 px-10
