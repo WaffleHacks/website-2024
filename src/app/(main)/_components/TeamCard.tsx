@@ -48,7 +48,7 @@ export const TeamCard: React.FC<{ member: TeamMemberData; }> = ({
 		throw new Error("Invalid member data");
 	}
 
-	const teamImage = getMemberImage(member.name, "team") as string;
+	const teamImage = member.circle_photo;
 	const waffleImage = getMemberImage(member.name, "waffles") as string;
 	const name = waffleImage.split("/").pop()?.replace(".png", "");
 
