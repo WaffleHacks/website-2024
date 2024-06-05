@@ -12,6 +12,7 @@ export const generateMetadata = ({
 
 export function generateStaticParams() {
 	return [{ name: 'jendy' }, 
+			{ name: 'kevin' },
 			{ name: 'amara' }, 
 			{ name: 'pranav' },
 			{ name: 'jasmine' },
@@ -30,6 +31,6 @@ export function generateStaticParams() {
 export default async function Page({
 	params: { name },
 }: { params: { name: string } }) {
-	const member = TeamMembers.find((member) => member.panel_photo.includes(name));
+	const member = TeamMembers.find((member) => member.photo_name == name);
 	return <TeamCard member={member as TeamMemberData} />;
 }

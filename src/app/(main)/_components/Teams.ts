@@ -4,8 +4,7 @@ export interface TeamMemberData {
     waffle_team: string;
     member_since: number;
     position: string;
-    circle_photo: string;
-    panel_photo: string;
+    photo_name: string;
     looking_forward: string;
     favorite_waffle: string ;
     education: {
@@ -25,8 +24,7 @@ export const TeamMembers: TeamMemberData[] = [
     waffle_team: 'maker',
     member_since: 4,
     position: 'Director',
-    circle_photo: '/assets/images/team/jendy.png',
-    panel_photo: '/assets/images/team/panel/jendy.png',
+    photo_name: 'jendy',
     looking_forward: 'Another year of waffle shenanigans',
     favorite_waffle: 'Bunny waffle',
     education: {
@@ -38,12 +36,27 @@ export const TeamMembers: TeamMemberData[] = [
     color: '#fddc79'
   },
   {
+    name: 'Kevin Gauld',
+    waffle_team: 'maker',
+    member_since: 4,
+    position: 'Director',
+    photo_name: 'kevin',
+    looking_forward: 'Another year of waffle shenanigans',
+    favorite_waffle: 'Mochi waffle',
+    education: {
+      school: 'California Institute of Technology',
+      class: 2024,
+      major: 'Electrical Engineering: Robotic Systems'
+    },
+    favorite_olympic_sport: 'Whackamole',
+    color: '#fddc79'
+  },
+  {
     name: 'Amara Im',
     waffle_team: 'maker',
     member_since: 3,
     position: 'Organizer',
-    circle_photo: '/assets/images/team/amara.png',
-    panel_photo: '/assets/images/team/panel/amara.png',
+    photo_name: 'amara',
     looking_forward: 'The tetris tournament',
     favorite_waffle: 'Kitty waffle',
     education: {
@@ -59,8 +72,7 @@ export const TeamMembers: TeamMemberData[] = [
     waffle_team: 'maker',
     member_since: 1,
     position: 'Organizer',
-    circle_photo: '/assets/images/team/pranav.png',
-    panel_photo: '/assets/images/team/panel/pranav.png',
+    photo_name: 'pranav',
     looking_forward: 'I look forward to seeing each and every one of our participant’s hacks and projects! I can’t wait!',
     favorite_waffle: 'Stroop waffle',
     education: {
@@ -77,8 +89,7 @@ export const TeamMembers: TeamMemberData[] = [
     waffle_team: 'maker',
     member_since: 3,
     position: 'Organizer',
-    circle_photo: '/assets/images/team/jasmine.png',
-    panel_photo: '/assets/images/team/panel/jasmine.png',
+    photo_name: 'jasmine',
     looking_forward: 'Looking forward to the workshops, panels, and interacting with participants and sponsors :D',
     favorite_waffle: 'OG Waffle <3',
     education: {
@@ -95,8 +106,7 @@ export const TeamMembers: TeamMemberData[] = [
     waffle_team: 'eater',
     member_since: 3,
     position: 'Organizer',
-    circle_photo: '/assets/images/team/samihah.png',
-    panel_photo: '/assets/images/team/panel/samihah.png',
+    photo_name: 'samihah',
     looking_forward: 'Meeting the coolest people in tech and looking at all the innovative projects that participants create',
     favorite_waffle: 'Garlic waffle',
     education: {
@@ -112,8 +122,7 @@ export const TeamMembers: TeamMemberData[] = [
     waffle_team: 'eater',
     member_since: 2,
     position: 'Organizer',
-    circle_photo: '/assets/images/team/sammi.png',
-    panel_photo: '/assets/images/team/panel/sammi.png',
+    photo_name: 'sammi',
     looking_forward: 'Seeing all the creative projects hackers come up with',
     favorite_waffle: 'Sleepy waffle',
     education: {
@@ -129,8 +138,7 @@ export const TeamMembers: TeamMemberData[] = [
     waffle_team: 'eater',
     member_since: 4,
     position: 'Director',
-    circle_photo: '/assets/images/team/arthi.png',
-    panel_photo: '/assets/images/team/panel/arthi.png',
+    photo_name: 'arthi',
     looking_forward: 'Designing new things for WaffleHacks and seeing the cool projects people come with during the hackathon',
     favorite_waffle: 'Aura waffle',
     education: {
@@ -146,8 +154,7 @@ export const TeamMembers: TeamMemberData[] = [
     waffle_team: 'eater',
     member_since: 1,
     position: 'Organizer',
-    circle_photo: '/assets/images/team/tammy.png',
-    panel_photo: '/assets/images/team/panel/tammy.png',
+    photo_name: 'tammy',
     looking_forward: 'I am excited to see what unique and creative ideas the participants will come up with during the hackathon, and seeing how they work together',
     favorite_waffle: 'Sleep-deprived waffle',
     education: {
@@ -163,8 +170,7 @@ export const TeamMembers: TeamMemberData[] = [
     waffle_team: 'maker',
     member_since: 1,
     position: 'Organizer',
-    circle_photo: '/assets/images/team/nisarg.png',
-    panel_photo: '/assets/images/team/panel/nisarg.png',
+    photo_name: 'nisarg',
     looking_forward: 'The hacker experience :D!',
     favorite_waffle: 'Blueberry Cream cheese',
     education: {
@@ -180,8 +186,7 @@ export const TeamMembers: TeamMemberData[] = [
     waffle_team: 'maker',
     member_since: 3,
     position: 'Organizer',
-    circle_photo: '/assets/images/team/ethan.png',
-    panel_photo: '/assets/images/team/panel/ethan.png',
+    photo_name: 'ethan',
     looking_forward: 'The website scavenger hunt and tetris tournament :)',
     favorite_waffle: 'Gluten free blueberry eggo',
     education: {
@@ -197,8 +202,7 @@ export const TeamMembers: TeamMemberData[] = [
     waffle_team: 'maker',
     member_since: 1,
     position: 'Organizer',
-    circle_photo: '/assets/images/team/laaveshwaran.png',
-    panel_photo: '/assets/images/team/panel/laaveshwaran.png',
+    photo_name: 'laaveshwaran',
     looking_forward: 'Creating techy-stuff to make the best wafflehacks yet!',
     favorite_waffle: 'Triangle waffle',
     education: {
@@ -214,8 +218,7 @@ export const TeamMembers: TeamMemberData[] = [
     waffle_team: 'maker',
     member_since: 1,
     position: 'Organizer',
-    circle_photo: '/assets/images/team/mike.png',
-    panel_photo: '/assets/images/team/panel/mike.png',
+    photo_name: 'mike',
     looking_forward: 'The development of our in-house tech platforms',
     favorite_waffle: 'Combined mix waffle',
     education: {
@@ -231,8 +234,9 @@ export const TeamMembers: TeamMemberData[] = [
     waffle_team: 'maker',
     member_since: 4,
     position: 'Director',
-    circle_photo: '/assets/images/team/alex.png',
-    panel_photo: '/assets/images/team/panel/alex.png',
+    photo_name: 'alex',
+    // circle_photo: '/assets/images/team/alex.png',
+    // panel_photo: '/assets/images/team/panel/alex.png',
     looking_forward: 'Working with cool people and building cool things',
     favorite_waffle: 'Kranz waffle',
     education: {

@@ -23,6 +23,8 @@ export const TeamPanel = () => {
 	const isSmall = useMediaQuery("(min-width: 640px)");
 	const isMediumOrLarger = isMedium || isLarge || isXLarge;
 
+	const PANEL_PATH = '/assets/images/team/panel/'
+
 	const router = useRouter();
 
 	const fileToName = (file: string) =>
@@ -66,17 +68,16 @@ export const TeamPanel = () => {
 							.slice(currentIndex, currentIndex + howMuchToShow)
 							.map((member, index) => (
 								<Slide key={currentIndex+index} delay={(index + 1) * 0.1}>
-									<Link href={`/team/${fileToName(member.panel_photo)}`}>
+									<Link href={`/team/${member.photo_name}`}>
 										<Card
 											className="relative overflow-hidden h-[210px] min-w-[210px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer"
-											onClick={() => router.push(`/team/${fileToName(member.panel_photo)}`)}
+											onClick={() => router.push(`/team/${member.photo_name}`)}
 										>
 											<Picture className="absolute top-0 left-0 right-0 bottom-0 w-full h-full rounded-xl overflow-hidden mix-blend-multiply">
 												<img
-													src={member.panel_photo}
+													src={PANEL_PATH + member.photo_name + '.png'}
 													alt={member.name}
 													className="object-cover mix-blend-multiply relative"
-													
 												/>
 											</Picture>
 										</Card>

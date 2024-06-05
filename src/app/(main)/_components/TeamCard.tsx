@@ -48,8 +48,11 @@ export const TeamCard: React.FC<{ member: TeamMemberData; }> = ({
 		throw new Error("Invalid member data");
 	}
 
-	const teamImage = member.circle_photo;
-	const waffleImage = getMemberImage(member.name, "waffles") as string;
+	const CIRCLE_PATH = '/assets/images/team/';
+	const WAFFLE_PATH = '/assets/images/waffles/'
+
+	const teamImage = CIRCLE_PATH + member.photo_name + '.png';
+	const waffleImage = WAFFLE_PATH + member.photo_name + '.png';;
 	const name = waffleImage.split("/").pop()?.replace(".png", "");
 
 	const waffleImageClass = name ? waffleImageClasses[name] : "";
@@ -86,8 +89,6 @@ export const TeamCard: React.FC<{ member: TeamMemberData; }> = ({
 							height={208}
 							quality={100}
 							priority
-							placeholder="blur"
-							blurDataURL={lazyImages[name as string]}
 						/>
 					</CustomPicture>
 				</Aside>

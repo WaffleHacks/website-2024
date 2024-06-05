@@ -24,12 +24,14 @@ export default {
 				"waffle-mike": "url('/assets/images/waffles/mike.png')",
 				"waffle-alex": "url('/assets/images/waffles/alex.png')",
 				"waffle-jendy": "url('/assets/images/waffles/jendy.png')",
+				"waffle-kevin": "url('/assets/images/waffles/kevin.png')"
 			}),
 			backgroundColor: (_theme) => ({
 				"waffle-color-amara": "#fddc79",
 				"waffle-color-pranav": "#fddc79",
 				"waffle-color-jasmine": "#fddc79",
 				"waffle-color-jendy": "#fddc79",
+				"waffle-color-kevin": "#fddc79",
 				"waffle-color-samihah": "#9ddcf8",
 				"waffle-color-sammi": "#9ddcf8",
 				"waffle-color-arthi": "#9ddcf8",
