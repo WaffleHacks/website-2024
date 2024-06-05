@@ -1,10 +1,7 @@
 import {
-	createAPIClient,
 	getSessionStorageValue,
 	getStorageValue,
 } from "@/lib";
-import type { TeamMember } from "@/schemas";
-import type { z } from "zod";
 import { create } from "zustand";
 
 type CookieConsentStore = {
@@ -90,28 +87,7 @@ export const useLoaded = create<{
 	setLoaded: (loaded: boolean) => set({ loaded }),
 }));
 
-interface TeamStore {
-	team: z.infer<typeof TeamMember>[];
-	getTeamMember: (name: string) => Promise<TeamMember>;
-	getAllTeamMembers: () => Promise<ReadonlyTeam>;
-}
 
-export const useTeam = create<TeamStore>((set) => ({
-	team: [],
-	teamMembers: [],
-	getTeamMember: async (name: string) => {
-		const apiClient = createAPIClient();
-		const response = await apiClient.team.get(name);
-		set((state) => ({ ...state, teamMembers: [response.member] }));
-		return response.member;
-	},
-	getAllTeamMembers: async (): Promise<ReadonlyTeam> => {
-		const apiClient = createAPIClient();
-		const response = await apiClient.team.getAll();
-		set((state) => ({ ...state, teamMembers: response.data }));
-		return response.data;
-	},
-}));
 
 export const useOverlay = create<{
 	showOverlay: string | null;

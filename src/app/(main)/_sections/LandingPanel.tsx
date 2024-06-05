@@ -776,19 +776,23 @@ export const LandingPanel = () => {
 				</div>
 			</div>
 			{/* carrakatu */}
-			<img
-				ref={carrakatu}
-				className="no-drag absolute w-[12%]"
-				style={{
-					top: carrakatuPos.y + "px",
-					left: carrakatuPos.x + "px",
-					transform: "translateY(-100%",
-				}}
-				src="/assets/svgs/landing/scav/carrakatu.svg"
-				alt=""
-			/>
+			{
+				ctx.scavState && 
+				<img
+					ref={carrakatu}
+					className="no-drag absolute w-[12%]"
+					style={{
+						top: carrakatuPos.y + "px",
+						left: carrakatuPos.x + "px",
+						transform: "translateY(-100%",
+					}}
+					src="/assets/svgs/landing/scav/carrakatu.svg"
+					alt=""
+				/>
+			}
+			
 
-			{carrySpeaking && (
+			{(ctx.scavState && carrySpeaking) && (
 				<CarrakatuDialog
 					whenDone={finishWithCarry}
 					className="bg-white rounded-lg shadow-lg p-4 max-w-[16rem]"

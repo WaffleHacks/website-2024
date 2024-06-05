@@ -10,7 +10,6 @@ import {
 	Subtract,
 	Text,
 } from "@/components";
-import { ScavContext } from "@/components";
 import {
 	colorClasses,
 	team_members_png,
@@ -21,9 +20,9 @@ import {
 import { lazyImages } from "@/data/lazyImages";
 import Image from "next/image";
 import type React from "react";
-import { useContext } from "react";
 import { FaFlag, FaGraduationCap } from "react-icons/fa";
 import { FaBookOpenReader } from "react-icons/fa6";
+import { TeamMemberData } from "./Teams";
 
 const getFirstName = (fullName: string) => {
 	return fullName.split(" ")[0];
@@ -42,16 +41,15 @@ const memberTeamAssociations: Record<string, string> = Object.fromEntries(
 	),
 );
 
-export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
+export const TeamCard: React.FC<{ member: TeamMemberData; }> = ({
 	member,
-	color,
 }) => {
-	if (!member || !member.top || !member.top.name) {
+	if (!member || !member.name) {
 		throw new Error("Invalid member data");
 	}
 
-	const teamImage = getMemberImage(member.top.name, "team") as string;
-	const waffleImage = getMemberImage(member.top.name, "waffles") as string;
+	const teamImage = getMemberImage(member.name, "team") as string;
+	const waffleImage = getMemberImage(member.name, "waffles") as string;
 	const name = waffleImage.split("/").pop()?.replace(".png", "");
 
 	const waffleImageClass = name ? waffleImageClasses[name] : "";
@@ -82,7 +80,7 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 					<CustomPicture className="w-full h-fit flex flex-row justify-center items-center z-20 rounded-full">
 						<Image
 							src={teamImage}
-							alt={member.top.name}
+							alt={member.name}
 							className="rounded-full"
 							width={208}
 							height={208}
@@ -108,7 +106,7 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 							}}
 						>
 							<span className="text-3xl font-semibold rounded-[18px] w-[275px] h-[68px] bg-[#ffeebb] text-center flex justify-center items-center relative z-10 text-[#3C2415]">
-								{member.top.name}
+								{member.name}
 							</span>
 						</h3>
 						<Article className="flex flex-col gap-1 w-full ml-[24px] text-[#3C2415] font-semibold items-center justify-start mr-auto">
@@ -121,7 +119,7 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 									/>
 									<Text
 										className="w-full"
-										text={`Team Waffle ${member.top.waffle_team}`}
+										text={`Team Waffle ${member.waffle_team}`}
 									/>
 								</Picture>
 							</Section>
@@ -134,7 +132,7 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 									/>
 									<Text
 										className="w-full"
-										text={`${member.top.member_since}x ${team} ${member.top.position}`}
+										text={`${member.member_since}x ${team} ${member.position}`}
 									/>
 								</Picture>
 							</Section>
@@ -143,7 +141,7 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 				</Aside>
 			</Header>
 			<Section className="flex m-0 p-0 items-center justify-center relative">
-				<Subtract className="z-[10]" color={color} />
+				<Subtract className="z-[10]" color={member.color} />
 				<Section className="text-center text-[#3C2415] font-semibold z-[20] absolute w-[687px] h-[559px] pl-20 pr-10 pt-[5.75rem] pb-24">
 					<Header className="flex flex-row items-start">
 						<Article className="w-1/2">
@@ -151,7 +149,7 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 								Looking forward to...
 							</h4>
 							<Text
-								text={`"${member.middle.looking_forward}"`}
+								text={`"${member.looking_forward}"`}
 								className="text-[#3C2415] font-normal text-left mr-4"
 							/>
 						</Article>
@@ -162,7 +160,7 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 					<Header className="w-full top-0">
 						<p className="w-full text-right">
 							<span className="text-[#3C2415]">
-								{member.middle.favorite_waffle.type}
+								{member.favorite_waffle}
 							</span>
 						</p>
 					</Header>
@@ -174,15 +172,15 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 							<ul className="flex items-start flex-col justify-start mr-auto left-0 gap-6">
 								<li className="text-[19.25px] text-[#3C2415] text-left font-normal flex flex-row items-center justify-start gap-2">
 									<FaFlag />
-									<Text text={member.bottom.education.school.name} />
+									<Text text={member.education.school} />
 								</li>
 								<li className="text-[19.25px] text-[#3C2415] text-left font-normal flex flex-row items-center justify-start gap-2">
 									<FaGraduationCap size={`24`} />
-									<Text text={`Class of ${member.bottom.education.class}`} />
+									<Text text={`Class of ${member.education.class}`} />
 								</li>
 								<li className="text-[19.25px] text-[#3C2415] text-left font-normal flex flex-row items-center justify-start gap-2">
 									<FaBookOpenReader size={`24`} />
-									<Text text={member.bottom.education.major} />
+									<Text text={member.education.major} />
 								</li>
 							</ul>
 						</Section>
@@ -192,8 +190,8 @@ export const TeamCard: React.FC<{ member: TeamMember; color: string }> = ({
 							</h4>
 							<Picture className="w-full h-full flex items-center justify-center">
 								<img
-									src={`/assets/svgs/team/${getFirstName(member.top.name)}.svg`}
-									alt={member.bottom.favorite_olympic_sport}
+									src={`/assets/svgs/team/${getFirstName(member.name)}.svg`}
+									alt={member.favorite_olympic_sport}
 								/>
 							</Picture>
 						</Section>

@@ -1,7 +1,7 @@
 import { TeamCard } from "@/app/(main)/_components";
 import { memberDescription } from "@/constants";
-import { createAPIClient, getTeamColor } from "@/lib";
 import React from "react";
+import { TeamMemberData, TeamMembers } from "@/app/(main)/_components/Teams";
 
 export const generateMetadata = ({
 	params: { name },
@@ -10,10 +10,26 @@ export const generateMetadata = ({
 	description: `${memberDescription[name]}`,
 });
 
+export function generateStaticParams() {
+	return [{ name: 'jendy' }, 
+			{ name: 'amara' }, 
+			{ name: 'pranav' },
+			{ name: 'jasmine' },
+			{ name: 'samihah' },
+			{ name: 'sammi' },
+			{ name: 'arthi' },
+			{ name: 'tammy' },
+			{ name: 'nisarg' },
+			{ name: 'ethan' },
+			{ name: 'laaveshwaran' },
+			{ name: 'mike' },
+			{ name: 'alex' },
+		]
+  }
+
 export default async function Page({
 	params: { name },
 }: { params: { name: string } }) {
-	const { member } = await createAPIClient().team.get(name);
-	const teamColor = getTeamColor(member.top.name) as string;
-	return <TeamCard member={member} color={teamColor} />;
+	const member = TeamMembers.find((member) => member.panel_photo.includes(name));
+	return <TeamCard member={member as TeamMemberData} />;
 }
