@@ -12,28 +12,16 @@ import {
 } from "@/components";
 import {
 	colorClasses,
-	team_members_png,
 	teams,
 	waffleImageClasses,
-	waffle_png,
 } from "@/constants";
-import { lazyImages } from "@/data/lazyImages";
 import Image from "next/image";
 import type React from "react";
 import { FaFlag, FaGraduationCap } from "react-icons/fa";
 import { FaBookOpenReader } from "react-icons/fa6";
 import { TeamMemberData } from "./Teams";
 
-const getFirstName = (fullName: string) => {
-	return fullName.split(" ")[0];
-};
 import { usePathname, useRouter } from "next/navigation";
-
-const getMemberImage = (name: string, type: "team" | "waffles") => {
-	const firstName = getFirstName(name) as string;
-	const images = type === "team" ? team_members_png : waffle_png;
-	return images[firstName];
-};
 
 const memberTeamAssociations: Record<string, string> = Object.fromEntries(
 	Object.entries(teams).flatMap(([team, members]) =>

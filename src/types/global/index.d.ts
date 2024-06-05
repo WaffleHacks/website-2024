@@ -34,7 +34,3 @@ type Sizes =
 	| "72"
 	| "80"
 	| "96";
-
-type Directory = "team" | "waffles" | "sport";
-
-type Index = number | string | React.Key;
