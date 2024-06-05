@@ -25,6 +25,7 @@ export function generateStaticParams() {
 			{ name: 'laaveshwaran' },
 			{ name: 'mike' },
 			{ name: 'alex' },
+			{ name: 'bisman' }
 		]
   }
 

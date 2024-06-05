@@ -13,6 +13,7 @@ export const waffleImageClasses: Record<string, string> = {
 	laaveshwaran: "before:bg-waffle-laaveshwaran",
 	mike: "before:bg-waffle-mike",
 	alex: "before:bg-waffle-alex",
+	bisman: "before:bg-waffle-bisman",
 };
 
 export const colorClasses: Record<string, string> = {
@@ -30,12 +31,13 @@ export const colorClasses: Record<string, string> = {
 	laaveshwaran: "before:bg-waffle-color-laaveshwaran",
 	mike: "before:bg-waffle-color-mike",
 	alex: "before:bg-waffle-color-alex",
+	bisman: "before:bg-waffle-color-bisman",
 };
 
 export const teams = {
-	operations: ["amara", "pranav", "jendy", "jasmine"],
+	operations: ["amara", "pranav", "jendy", "jasmine", "kevin"],
 	design: ["samihah", "sammi", "arthi", "tammy"],
-	technology: ["nisarg", "ethan", "laaveshwaran", "mike", "alex"],
+	technology: ["nisarg", "ethan", "laaveshwaran", "mike", "alex", "bisman"],
 };
 
 export const memberDescription: Record<string, string> = {
@@ -43,6 +45,7 @@ export const memberDescription: Record<string, string> = {
 	pranav: "Pranav is a member of the Operations team.",
 	jasmine: "Jasmine is a member of the Operations team.",
 	jendy: "Jendy is a member of the Operations team.",
+	kevin: "Kevin is a member of the Operations team.",
 	samihah: "Samihah is a member of the Design team.",
 	sammi: "Sammi is a member of the Design team.",
 	arthi: "Arthi is a member of the Design team.",
@@ -52,4 +55,5 @@ export const memberDescription: Record<string, string> = {
 	laaveshwaran: "Laaveshwaran is a member of the Technology team.",
 	mike: "Mike is a member of the Technology team.",
 	alex: "Alex is a member of the Technology team.",
+	bisman: "Bisman is a member of the Technology team.",
 };

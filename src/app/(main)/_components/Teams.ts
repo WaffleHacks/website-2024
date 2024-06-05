@@ -235,8 +235,6 @@ export const TeamMembers: TeamMemberData[] = [
     member_since: 4,
     position: 'Director',
     photo_name: 'alex',
-    // circle_photo: '/assets/images/team/alex.png',
-    // panel_photo: '/assets/images/team/panel/alex.png',
     looking_forward: 'Working with cool people and building cool things',
     favorite_waffle: 'Kranz waffle',
     education: {
@@ -245,6 +243,22 @@ export const TeamMembers: TeamMemberData[] = [
       major: 'Computer Science'
     },
     favorite_olympic_sport: 'Rowing',
+    color: '#fcb59a'
+  },
+  {
+    name: 'Bisman Khanooja',
+    waffle_team: 'maker',
+    member_since: 4,
+    position: 'Director',
+    photo_name: 'bisman',
+    looking_forward: 'Working with cool people and building cool things',
+    favorite_waffle: 'Boss waffle',
+    education: {
+      school: 'Gyaan Ganga Institute of Technology',
+      class: 2025,
+      major: 'Computer Science'
+    },
+    favorite_olympic_sport: 'Surfing',
     color: '#fcb59a'
   }
 ]

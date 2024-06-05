@@ -191,7 +191,8 @@ export const TeamCard: React.FC<{ member: TeamMemberData; }> = ({
 							</h4>
 							<Picture className="w-full h-full flex items-center justify-center">
 								<img
-									src={`/assets/svgs/team/${getFirstName(member.name)}.svg`}
+									className="w-[60%] h-[60%]"
+									src={`/assets/svgs/team/${member.photo_name}.svg`}
 									alt={member.favorite_olympic_sport}
 								/>
 							</Picture>
