@@ -1,6 +1,6 @@
-declare module "*.png" {
-	import React = require("react");
+import React from "react";
 
+declare module "*.png" {
 	export const ReactComponent: React.FC<
 		React.ImgHTMLAttributes<HTMLImageElement>
 	>;
@@ -9,8 +9,6 @@ declare module "*.png" {
 }
 
 declare module "*.jpg" {
-	import React = require("react");
-
 	export const ReactComponent: React.FC<
 		React.ImgHTMLAttributes<HTMLImageElement>
 	>;
@@ -19,8 +17,6 @@ declare module "*.jpg" {
 }
 
 declare module "*.svg" {
-	import React = require("react");
-
 	export const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>;
 	const src: string;
 	export default src;

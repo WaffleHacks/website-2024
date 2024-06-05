@@ -1,7 +1,7 @@
 import { CenterLayout } from "@/components";
 import { LandingPanel, PageSections } from "./(main)/_sections";
 
-export const runtime = "edge"
+// export const runtime = "edge"
 
 export default async function Home() {
 	return (
