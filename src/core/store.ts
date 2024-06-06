@@ -1,7 +1,4 @@
-import {
-	getSessionStorageValue,
-	getStorageValue,
-} from "@/lib";
+import { getSessionStorageValue, getStorageValue } from "@/lib";
 import { create } from "zustand";
 
 type CookieConsentStore = {
@@ -86,8 +83,6 @@ export const useLoaded = create<{
 	loaded: false,
 	setLoaded: (loaded: boolean) => set({ loaded }),
 }));
-
-
 
 export const useOverlay = create<{
 	showOverlay: string | null;

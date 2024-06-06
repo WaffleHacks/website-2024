@@ -2,20 +2,17 @@
 import { Accordion, card_style } from "@/components";
 import { Faqs } from "@/constants";
 import { Tab, Tabs } from "@nextui-org/tabs";
-
+import { cn } from "@/lib";
 export const FaqPanel = () => {
 	const sections = Faqs.map((faq) => faq.section);
 	return (
 		<>
-			<h2 className="text-[45px] font-bold mb-4 lext-left w-full pl-8">FAQs</h2>
 			<article
 				id="faq-box"
-				className={`
-					flex justify-center 
-					${card_style}
-					text-lg p-[50px]
-					bg-[#F7F7F7]
-				`}
+				className={cn(card_style, `flex justify-center 
+					text-lg sm:p-[20px] p-0
+					bg-[#F7F7F7] max-w-screen-2xl
+			`)}
 			>
 				<div className={`block w-full`}>
 					<Tabs

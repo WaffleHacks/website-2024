@@ -41,7 +41,12 @@ next-env.d.ts
 .vs
 .million
 .vercel
+
+# Manages / Runtimes
 package-lock.json
+yarn.lock
+bun.lockb
+pnpm-lock.yaml
 
 public/**/*.js.*
 public/**/*.js

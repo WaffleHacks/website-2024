@@ -1,30 +1,54 @@
-import { app } from "@/constants";
 import type { MetadataRoute } from "next";
+
 export default function sitemap(): MetadataRoute.Sitemap {
+	const teamMembers = [
+		{ name: "jendy" },
+		{ name: "amara" },
+		{ name: "pranav" },
+		{ name: "jasmine" },
+		{ name: "samihah" },
+		{ name: "sammi" },
+		{ name: "arthi" },
+		{ name: "tammy" },
+		{ name: "nisarg" },
+		{ name: "ethan" },
+		{ name: "laaveshwaran" },
+		{ name: "mike" },
+		{ name: "alex" },
+	];
+
+	const teamMemberRoutes = teamMembers.map((member) => ({
+		url: `https://wafflehacks.org/team/${member.name}`,
+		lastModified: new Date(),
+		changeFrequency: "yearly" as const,
+		priority: 0.8,
+	}));
+
 	return [
 		{
-			url: `${app}`,
+			url: `https://wafflehacks.org`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 1,
 		},
 		{
-			url: `${app}/legal/accessibility`,
+			url: `https://wafflehacks.org/legal/accessibility`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 0.8,
 		},
 		{
-			url: `${app}/legal/privacy`,
+			url: `https://wafflehacks.org/legal/privacy`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 0.8,
 		},
 		{
-			url: `${app}/legal/terms`,
+			url: `https://wafflehacks.org/legal/terms`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 0.8,
 		},
+		...teamMemberRoutes,
 	];
 }

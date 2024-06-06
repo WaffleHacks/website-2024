@@ -9,6 +9,15 @@ export default {
 		"./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
+		screens: {
+			xs: "375px",
+			sm: "640px",
+			md: "768px",
+			lg: "1024px",
+			xl: "1280px",
+			"2xl": "1536px",
+			"nav-links": "770px"
+		},
 		extend: {
 			backgroundImage: (_theme) => ({
 				"waffle-amara": "url('/assets/images/waffles/amara.png')",
@@ -42,7 +51,7 @@ export default {
 			}),
 			colors: {
 				primary: {
-					DEFAULT: "#bb8653",
+					DEFAULT: "#3C2415",
 					light: "#fddc79",
 					dark: "#3c2415",
 					contrastText: "#a47556",
@@ -72,7 +81,7 @@ export default {
 					contrastText: "#bdd1a3",
 				},
 				background: {
-					DEFAULT: "#ffffff",
+					DEFAULT: "#f5f5f5",
 					paper: "#fddc79",
 				},
 			},

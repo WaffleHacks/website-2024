@@ -19,7 +19,7 @@ const withPwa = pwa({
  * @type {import("next/dist/server/config").NextConfig}
  */
 const config = {
-	output: 'export',
+	output: "export",
 	typescript: {
 		ignoreBuildErrors: true,
 	},

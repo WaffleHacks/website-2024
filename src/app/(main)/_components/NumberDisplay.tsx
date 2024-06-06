@@ -69,16 +69,12 @@ const Clock = ({ number, text }: { number: number; text: string }) => {
 	return (
 		<header className="flex flex-col items-center relative">
 			<div className="flex flex-row gap-2">
-				{num_chars.split("").map((char, index) => {
-					return (
+
 						<span
-							key={index}
 							className="numberdisplay-number text-lg sm:text-2xl font-extrabold bg-gray-200 rounded-lg py-2 sm:py-3 px-2 sm:px-3"
 						>
-							{char}
+							{num_chars}
 						</span>
-					);
-				})}
 			</div>
 			<span className="text-base font-medium absolute top-[100%]">{text}</span>
 		</header>

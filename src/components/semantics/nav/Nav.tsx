@@ -320,7 +320,7 @@ export const NavBar = () => {
 				className={`
 					mobile-nav-slide fixed z-40 top-[100px]
 					left-0 w-full shadow-lg overflow-hidden
-					sm:hidden text-[#3C2415]
+					nav-links:hidden text-[#3C2415]
 				`}
 			>
 				<ul>
@@ -362,7 +362,6 @@ export const NavBar = () => {
 					<div className="flex gap-8 justify-center items-center">
 						<Picture
 							className={`
-								w-20 h-20
 							`}
 							onClick={() => router.push("/")}
 						>
@@ -374,20 +373,19 @@ export const NavBar = () => {
 								className={`
 									cursor-pointer
 									object-cover object-center
-									rounded-full
 								`}
 							/>
 						</Picture>
 						<ul
 							className={`
-								hidden sm:flex flex-wrap
+								hidden nav-links:flex flex-wrap
 							`}
 						>
 							{Links.map((link, index) => (
 								<li
 									key={index}
 									className={`
-										ml-0 sm:ml-4
+										ml-0 nav-links:ml-4
 									`}
 								>
 									<Link
@@ -397,7 +395,13 @@ export const NavBar = () => {
 											ScrollIntoCenterView(link.href);
 										}}
 									>
-										<p>{link.text}</p>
+										<span
+											className={`
+											hover:font-bold
+										`}
+										>
+											{link.text}
+										</span>
 									</Link>
 								</li>
 							))}
@@ -405,7 +409,7 @@ export const NavBar = () => {
 					</div>
 
 					{/* Scavenger hunt toggle */}
-					<form className="ml-auto sm:flex justify-end items-center hidden">
+					<form className="ml-auto nav-links:flex justify-end items-center hidden">
 						<Tooltip
 							placement="bottom"
 							content="Toggle Scavenger Hunt Mode"
@@ -434,7 +438,7 @@ export const NavBar = () => {
 
 					{/* Mobile menu toggle */}
 					<button
-						className={`sm:hidden w-12 h-12 relative p-4`}
+						className={`nav-links:hidden w-12 h-12 relative p-4`}
 						onClick={() => setMobileDown(!mobileDown)}
 					>
 						<div

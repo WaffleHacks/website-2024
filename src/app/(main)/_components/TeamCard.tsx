@@ -22,7 +22,7 @@ import Image from "next/image";
 import type React from "react";
 import { FaFlag, FaGraduationCap } from "react-icons/fa";
 import { FaBookOpenReader } from "react-icons/fa6";
-import { TeamMemberData } from "./Teams";
+import type { TeamMemberData } from "./Teams";
 
 const getFirstName = (fullName: string) => {
 	return fullName.split(" ")[0];
@@ -41,9 +41,7 @@ const memberTeamAssociations: Record<string, string> = Object.fromEntries(
 	),
 );
 
-export const TeamCard: React.FC<{ member: TeamMemberData; }> = ({
-	member,
-}) => {
+export const TeamCard: React.FC<{ member: TeamMemberData }> = ({ member }) => {
 	if (!member || !member.name) {
 		throw new Error("Invalid member data");
 	}
@@ -159,9 +157,7 @@ export const TeamCard: React.FC<{ member: TeamMemberData; }> = ({
 					</Header>
 					<Header className="w-full top-0">
 						<p className="w-full text-right">
-							<span className="text-[#3C2415]">
-								{member.favorite_waffle}
-							</span>
+							<span className="text-[#3C2415]">{member.favorite_waffle}</span>
 						</p>
 					</Header>
 					<Picture className="w-full h-2 flex flex-col items-center justify-center my-4">

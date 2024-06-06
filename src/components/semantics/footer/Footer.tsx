@@ -18,7 +18,7 @@ export const FooterBar = () => {
 					{
 						icon: <FaInstagram className={`w-6 h-6 hover:scale-110 `} />,
 						href: "https://www.instagram.com/waffle.hacks/",
-					}
+					},
 				],
 			},
 			right: {

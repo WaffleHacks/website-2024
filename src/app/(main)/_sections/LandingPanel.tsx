@@ -532,58 +532,58 @@ export const LandingPanel = () => {
 	}
 
 	return (
-		<header className="relative font-mplus pt-44 h-[70vh] w-full h-screen box-border">
+		<>
+			<header className="relative font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full box-border max-w-screen-2xl mx-auto mb-40 sm:mb-0">
 			{/* TODO: Bigger screens edge case */}
 			<img
 				id="landing-blob"
 				className="absolute top-24 right-0 h-[60%]"
 				src="/assets/svgs/landing/scav/blob.svg"
 				alt=""
-			/>
+				/>
 
-			<div className="w-full flex justify-center px-9">
+			<div className="max-w-screen-2xl flex justify-center">
 				<div className="w-full max-w-screen-2xl">
 					<h2 className="text-2xl font-normal">
-					Put your best code forward for the
+						Put your best code forward for the
 					</h2>
 					<h1 className="text-[2.5rem] font-medium">WaffleHacks games!</h1>
 				</div>
 			</div>
-			
 
 			<div
 				ref={container}
 				onResize={onSizing}
-				className="landing-panel-img-container p-2 relative"
-			>
+				className="landing-panel-img-container p-2 relative max-w-screen-2xl"
+				>
 				<div
 					ref={img_box}
 					className="absolute"
 					style={{ aspectRatio: 1510 / 599 }}
-				>
+					>
 					{/* Biker road */}
 					<img
 						ref={road}
 						src="/assets/svgs/landing/road.svg"
-						alt="road"
+						alt=""
 						className="absolute left-[-0.2%] top-[31.5%] w-[32.9%]"
-					/>
+						/>
 
 					{/* fencer platform */}
 					<img
 						ref={ctx.archer.landing2}
 						src="/assets/svgs/landing/fencer_pf.svg"
 						className="no-drag absolute left-[68.2%] top-[31.5%] w-[31%]"
-						alt="road"
-					/>
+						alt=""
+						/>
 
 					{/* tennis platform */}
 					<img
 						ref={ctx.archer.landing1}
 						src="/assets/svgs/landing/tennis_pf.svg"
 						className="no-drag absolute left-[50.05%] top-[67.9%] w-[31%]"
-						alt="road"
-					/>
+						alt=""
+						/>
 
 					{images.map(
 						({ src, className }: { src: string; className: string }, index) => {
@@ -597,54 +597,53 @@ export const LandingPanel = () => {
 						src="/assets/svgs/landing/tennis.svg"
 						className="no-drag absolute left-[60.4%] top-[48.8%] w-[8.4%]"
 						alt=""
-					/>
+						/>
 
 					{/* WH logo / stand */}
 					<div id="landing-wh-logo">
 						<div
 							className="absolute left-[42.9%] top-[7.1%] w-[14.85%]"
 							style={{ aspectRatio: "1/1" }}
-						>
+							>
 							<img
 								id="stand-sign"
 								className="absolute left-[9%] top-[0%] w-[85%]"
 								src="/assets/svgs/landing/scav/stand_sign.svg"
-								alt="Sign"
-							/>
+								alt=""
+								/>
 						</div>
-
 						<img
 							id="stand-shadow"
 							className="absolute left-[42.9%] top-[7.1%] w-[14.85%]"
 							src="/assets/svgs/landing/scav/wh_cut_shadow.svg"
 							alt=""
-						/>
+							/>
 						<div
 							className="overflow-hidden absolute left-[42.9%] top-[7.1%] w-[14.85%]"
 							style={{ aspectRatio: "1/1" }}
-						>
+							>
 							<img
 								className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
 								src="/assets/svgs/landing/scav/stand_bkg.svg"
 								alt=""
-							/>
+								/>
 							<img
 								id="stand-logo-inner"
 								className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
 								src="/assets/svgs/landing/scav/wh_inner.svg"
 								alt=""
-							/>
+								/>
 							<img
 								id="stand-bar"
 								className="absolute left-[24%] top-[100%] w-[52%]"
 								src="/assets/svgs/landing/scav/stand_bar.svg"
 								alt=""
-							/>
+								/>
 							<img
 								className="absolute top-0 left-0 w-full h-full"
 								src="/assets/svgs/landing/scav/wh_cut.svg"
 								alt=""
-							/>
+								/>
 						</div>
 					</div>
 
@@ -654,11 +653,11 @@ export const LandingPanel = () => {
 							<div
 								ref={ctx.archer.headspot1}
 								className="absolute w-[3%] h-[6%] left-[63.2%] top-[47%] w-[14.85%] h-[14.85%]"
-							></div>
+								></div>
 							<div
 								ref={ctx.archer.headspot2}
 								className="absolute w-[3%] h-[6%] left-[81%] top-[9.4%] w-[14.85%] h-[14.85%]"
-							></div>
+								></div>
 						</>
 					)}
 
@@ -668,7 +667,7 @@ export const LandingPanel = () => {
 							className="absolute left-[30%] top-[63.55%] w-[3.36%]"
 							src="/assets/svgs/landing/archer_lower.svg"
 							alt=""
-						/>
+							/>
 						<DraggableCore onDrag={rotateArcher} onStop={shootArrow}>
 							<div
 								ref={archerBox}
@@ -677,7 +676,7 @@ export const LandingPanel = () => {
 									transform: `rotateZ(${ctx.scavState ? archerAngle : 0}deg)`,
 								}}
 								className="absolute left-[27.25%] top-[40.3%] w-[10.2%] h-[25%]"
-							>
+								>
 								<img
 									className="no-drag absolute left-[32.5%] top-[60%] w-[74%]"
 									ref={arrow}
@@ -694,12 +693,12 @@ export const LandingPanel = () => {
 									className="no-drag absolute left-[66%] top-0 w-[35.4%]"
 									src="/assets/svgs/landing/archer_bow.svg"
 									alt=""
-								/>
+									/>
 								<img
 									className="no-drag absolute left-0 top-[33%] w-[100%]"
 									src="/assets/svgs/landing/archer_upper.svg"
 									alt=""
-								/>
+									/>
 							</div>
 						</DraggableCore>
 					</div>
@@ -721,7 +720,7 @@ export const LandingPanel = () => {
 							left: ctx.scavState ? `calc(${bikerPos.x}% + 9.4%)` : "9.4%",
 							display: ctx.scavState && bikerGone ? "none" : "block",
 						}}
-					>
+						>
 						<img
 							ref={backWheel}
 							src="/assets/svgs/landing/wheel.svg"
@@ -729,9 +728,9 @@ export const LandingPanel = () => {
 							className="no-drag bike-wheel-rotate absolute left-0 top-[56.8%] w-[40%] h-[42%]"
 							style={{
 								height:
-									ctx.scavState && ctx.biker.backWheelPopped ? "24%" : "42.5%",
+								ctx.scavState && ctx.biker.backWheelPopped ? "24%" : "42.5%",
 							}}
-						/>
+							/>
 						<img
 							ref={frontWheel}
 							src="/assets/svgs/landing/wheel.svg"
@@ -739,14 +738,14 @@ export const LandingPanel = () => {
 							className="no-drag bike-wheel-rotate absolute left-[59.8%] top-[56.8%] w-[40%]"
 							style={{
 								height:
-									ctx.scavState && ctx.biker.frontWheelPopped ? "24%" : "42.5%",
+								ctx.scavState && ctx.biker.frontWheelPopped ? "24%" : "42.5%",
 							}}
-						/>
+							/>
 						<img
 							src="/assets/svgs/landing/biker.svg"
 							alt={"bike biker wheel"}
 							className="no-drag absolute left-[30%] top-0 w-[51%]"
-						/>
+							/>
 					</div>
 
 					{/* biker flag */}
@@ -756,7 +755,7 @@ export const LandingPanel = () => {
 								className="biker-flag no-drag absolute left-[29.4%] bottom-[53%]"
 								src="/assets/svgs/landing/scav/bike_flag.svg"
 								alt=""
-							/>
+								/>
 						</Draggable>
 					)}
 
@@ -765,45 +764,44 @@ export const LandingPanel = () => {
 						onDrag={(e) => dragSword(e)}
 						disabled={!ctx.scavState}
 						position={ctx.scavState ? undefined : { x: 0, y: 0 }}
-					>
+						>
 						<img
 							ref={swordElement}
 							className="no-drag absolute left-[72.2%] top-[22.5%] w-[5.8%]"
 							src="/assets/svgs/landing/fencer_sword.svg"
 							alt=""
-						/>
+							/>
 					</Draggable>
 				</div>
 			</div>
 			{/* carrakatu */}
-			{
-				ctx.scavState && 
+			{ctx.scavState && (
 				<img
-					ref={carrakatu}
-					className="no-drag absolute w-[12%]"
-					style={{
-						top: carrakatuPos.y + "px",
-						left: carrakatuPos.x + "px",
-						transform: "translateY(-100%",
-					}}
-					src="/assets/svgs/landing/scav/carrakatu.svg"
-					alt=""
-				/>
-			}
-			
-
-			{(ctx.scavState && carrySpeaking) && (
-				<CarrakatuDialog
-					whenDone={finishWithCarry}
-					className="bg-white rounded-lg shadow-lg p-4 max-w-[16rem]"
-					style={{
-						bottom: `calc(${window.innerHeight - carrakatuPos.y}px + 11vw)`,
-						right: window.innerWidth - carrakatuPos.x + "px",
-					}}
+				ref={carrakatu}
+				className="no-drag absolute w-[12%]"
+				style={{
+					top: carrakatuPos.y + "px",
+					left: carrakatuPos.x + "px",
+					transform: "translateY(-100%",
+				}}
+				src="/assets/svgs/landing/scav/carrakatu.svg"
+				alt=""
 				/>
 			)}
 
-			<NumberDisplay className="absolute right-4 sm:right-12" />
+			{ctx.scavState && carrySpeaking && (
+				<CarrakatuDialog
+				whenDone={finishWithCarry}
+				className="bg-white rounded-lg shadow-lg p-4 max-w-[16rem]"
+				style={{
+					bottom: `calc(${window.innerHeight - carrakatuPos.y}px + 11vw)`,
+					right: window.innerWidth - carrakatuPos.x + "px",
+				}}
+				/>
+			)}
+
+			<NumberDisplay className="absolute right-4 sm:right-12 max-w-screen-2xl" />
 		</header>
+			</>
 	);
 };

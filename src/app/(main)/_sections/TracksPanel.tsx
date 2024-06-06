@@ -54,7 +54,7 @@ const TrackSlide: React.FC<{
 							src={track.trackImage}
 							alt={`${track.title} image`}
 							className={`
-							object-cover object-center
+								object-cover object-center
 							`}
 							width={450}
 							height={450}
@@ -177,20 +177,24 @@ const CustomSlider = () => {
 					w-full mx-auto mt-4 px-4
 				`}
 			>
-				<Button onClick={prevSlide} className={`bg-[#bb8653]`}>
-					<FaArrowLeft size={20} color={`#3c2415`} className={`bg-[#bb8653]`} />
+				<Button 
+					onClick={prevSlide} className={`bg-[#3C2415]`}
+					color={`primary`}
+				>
+					<FaArrowLeft size={20} color={`#f5f5f5`} className={`bg-[#3C2415]`} />
 				</Button>
 
-
 				<div>
-					<span className="font-bold text-xl">{currentSlide+1} of {totalSlides}</span>
+					<span className="font-bold text-xl hidden sm:block">
+						{currentSlide + 1} of {totalSlides}
+					</span>
 				</div>
 
-				<Button onClick={nextSlide} className={`bg-[#bb8653]`}>
+				<Button onClick={nextSlide} className={`bg-[#3C2415]`}>
 					<FaArrowRight
 						size={20}
-						color={`#3c2415`}
-						className={`bg-[#bb8653]`}
+						color={`#f5f5f5`}
+						className={`bg-[#3C2415]`}
 					/>
 				</Button>
 			</div>
@@ -201,10 +205,9 @@ const CustomSlider = () => {
 export const TracksPanel = () => {
 	return (
 		<>
-		<h2 className="text-[45px] font-bold mb-4 lext-left w-full pl-8">Tracks &amp; Prizes</h2>
-		<div
-			className={`
-				font-mplus p-8 pt-0
+			<div
+				className={`
+				font-mplus p-2 pt-0 max-w-screen-2xl mx-auto
 			`}
 			>
 				<CustomSlider />

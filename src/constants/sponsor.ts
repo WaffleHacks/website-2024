@@ -44,6 +44,6 @@ export const sponsorsData: ReadonlySponsors = {
 					link: "https://incogni.io/",
 				},
 			],
-		}
+		},
 	],
 };

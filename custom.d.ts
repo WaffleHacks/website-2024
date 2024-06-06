@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 
 declare module "*.png" {
 	export const ReactComponent: React.FC<

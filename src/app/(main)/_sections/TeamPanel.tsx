@@ -1,10 +1,6 @@
 "use client";
 
-import {
-	Article,
-	CustomPicture as Picture,
-	Slide,
-} from "@/components";
+import { Article, CustomPicture as Picture, Slide } from "@/components";
 import { cn } from "@/lib";
 import { Button, Card } from "@nextui-org/react";
 import Link from "next/link";
@@ -43,7 +39,7 @@ export const TeamPanel = () => {
 		}
 		setCurrentIndex(prevIndex);
 	};
-	
+
 	const howMuchToShow = isXLarge
 		? 5
 		: isLarge
@@ -54,29 +50,29 @@ export const TeamPanel = () => {
 					? 2
 					: 1;
 
-
 	return (
-		<>
-			<h2 className="text-[45px] font-bold mb-4 lext-left w-full pl-8">Meet the Team</h2>
+		<article>
 			<Article className="mt-2 px-10 w-full mb-8">
 				<div className="w-full">
 					<div className="relative">
 						<div className="flex space-x-4 flex-row items-center justify-center mx-auto gap-2">
-							{TeamMembers
-							.slice(currentIndex, currentIndex + howMuchToShow)
-							.map((member, index) => (
-								<Slide key={currentIndex+index} delay={(index + 1) * 0.1}>
+							{TeamMembers.slice(
+								currentIndex,
+								currentIndex + howMuchToShow,
+							).map((member, index) => (
+								<Slide key={currentIndex + index} delay={(index + 1) * 0.1}>
 									<Link href={`/team/${fileToName(member.panel_photo)}`}>
 										<Card
 											className="relative overflow-hidden h-[210px] min-w-[210px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer"
-											onClick={() => router.push(`/team/${fileToName(member.panel_photo)}`)}
+											onClick={() =>
+												router.push(`/team/${fileToName(member.panel_photo)}`)
+											}
 										>
 											<Picture className="absolute top-0 left-0 right-0 bottom-0 w-full h-full rounded-xl overflow-hidden mix-blend-multiply">
 												<img
 													src={member.panel_photo}
 													alt={member.name}
 													className="object-cover mix-blend-multiply relative"
-													
 												/>
 											</Picture>
 										</Card>
@@ -99,12 +95,14 @@ export const TeamPanel = () => {
 								className={cn("", "mr-2")}
 								color={`primary`}
 							>
-								<FaArrowLeft className={`w-10`} color={`#3c2415`} />
+								<FaArrowLeft className={`w-10`} color={`#f5f5f5`} />
 							</Button>
 						</li>
 					)}
 					<li className="text-lg font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis">
-						{currentIndex + 1} - {Math.min(currentIndex + howMuchToShow, TeamMembers.length)} of {TeamMembers.length}
+						{currentIndex + 1} -{" "}
+						{Math.min(currentIndex + howMuchToShow, TeamMembers.length)} of{" "}
+						{TeamMembers.length}
 					</li>
 					{currentIndex < TeamMembers.length - howMuchToShow && (
 						<li>
@@ -113,12 +111,12 @@ export const TeamPanel = () => {
 								className={cn("", "ml-2")}
 								color={`primary`}
 							>
-								<FaArrowRight className={`w-10`} color={`#3c2415`} />
+								<FaArrowRight className={`w-10`} color={`#f5f5f5`} />
 							</Button>
 						</li>
 					)}
 				</menu>
 			</Article>
-		</>
+		</article>
 	);
 };
