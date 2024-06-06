@@ -19,7 +19,7 @@ export const TeamPanel = () => {
 	const isSmall = useMediaQuery("(min-width: 640px)");
 	const isMediumOrLarger = isMedium || isLarge || isXLarge;
 
-	const PANEL_PATH = '/assets/images/team/panel/'
+	const PANEL_PATH = "/assets/images/team/panel/";
 
 	const router = useRouter();
 
@@ -72,7 +72,7 @@ export const TeamPanel = () => {
 										>
 											<Picture className="absolute top-0 left-0 right-0 bottom-0 w-full h-full rounded-xl overflow-hidden mix-blend-multiply">
 												<img
-													src={PANEL_PATH + member.photo_name + '.png'}
+													src={PANEL_PATH + member.photo_name + ".png"}
 													alt={member.name}
 													className="object-cover mix-blend-multiply relative"
 												/>

@@ -177,8 +177,9 @@ const CustomSlider = () => {
 					w-full mx-auto mt-4 px-4
 				`}
 			>
-				<Button 
-					onClick={prevSlide} className={`bg-[#3C2415]`}
+				<Button
+					onClick={prevSlide}
+					className={`bg-[#3C2415]`}
 					color={`primary`}
 				>
 					<FaArrowLeft size={20} color={`#f5f5f5`} className={`bg-[#3C2415]`} />

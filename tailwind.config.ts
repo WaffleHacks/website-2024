@@ -16,7 +16,7 @@ export default {
 			lg: "1024px",
 			xl: "1280px",
 			"2xl": "1536px",
-			"nav-links": "770px"
+			"nav-links": "770px",
 		},
 		extend: {
 			backgroundImage: (_theme) => ({
@@ -34,7 +34,7 @@ export default {
 				"waffle-alex": "url('/assets/images/waffles/alex.png')",
 				"waffle-jendy": "url('/assets/images/waffles/jendy.png')",
 				"waffle-kevin": "url('/assets/images/waffles/kevin.png')",
-				"waffle-bisman": "url('/assets/images/waffles/bisman.png')"
+				"waffle-bisman": "url('/assets/images/waffles/bisman.png')",
 			}),
 			backgroundColor: (_theme) => ({
 				"waffle-color-amara": "#fddc79",

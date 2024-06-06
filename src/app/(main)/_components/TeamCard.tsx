@@ -10,11 +10,7 @@ import {
 	Subtract,
 	Text,
 } from "@/components";
-import {
-	colorClasses,
-	teams,
-	waffleImageClasses,
-} from "@/constants";
+import { colorClasses, teams, waffleImageClasses } from "@/constants";
 import Image from "next/image";
 import type React from "react";
 import { FaFlag, FaGraduationCap } from "react-icons/fa";
@@ -34,11 +30,11 @@ export const TeamCard: React.FC<{ member: TeamMemberData }> = ({ member }) => {
 		throw new Error("Invalid member data");
 	}
 
-	const CIRCLE_PATH = '/assets/images/team/';
-	const WAFFLE_PATH = '/assets/images/waffles/'
+	const CIRCLE_PATH = "/assets/images/team/";
+	const WAFFLE_PATH = "/assets/images/waffles/";
 
-	const teamImage = CIRCLE_PATH + member.photo_name + '.png';
-	const waffleImage = WAFFLE_PATH + member.photo_name + '.png';;
+	const teamImage = CIRCLE_PATH + member.photo_name + ".png";
+	const waffleImage = WAFFLE_PATH + member.photo_name + ".png";
 	const name = waffleImage.split("/").pop()?.replace(".png", "");
 
 	const waffleImageClass = name ? waffleImageClasses[name] : "";

@@ -48,7 +48,7 @@ export const NumberDisplay = ({ className, style }: NumberDisplayProps) => {
 
 	return (
 		<div className={twMerge("flex flex-row", className)} style={style}>
-			<div>
+			<div className="pl-4">
 				<span className="text-xl text-right text-wrap max-w-full sm:text-2xl">
 					Countdown to the WaffleHacks Games
 				</span>
@@ -69,12 +69,9 @@ const Clock = ({ number, text }: { number: number; text: string }) => {
 	return (
 		<header className="flex flex-col items-center relative">
 			<div className="flex flex-row gap-2">
-
-						<span
-							className="numberdisplay-number text-lg sm:text-2xl font-extrabold bg-gray-200 rounded-lg py-2 sm:py-3 px-2 sm:px-3"
-						>
-							{num_chars}
-						</span>
+				<span className="numberdisplay-number text-lg sm:text-2xl font-extrabold bg-gray-200 rounded-lg py-2 sm:py-3 px-2 sm:px-3">
+					{num_chars}
+				</span>
 			</div>
 			<span className="text-base font-medium absolute top-[100%]">{text}</span>
 		</header>

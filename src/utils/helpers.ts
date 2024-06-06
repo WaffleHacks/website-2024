@@ -48,4 +48,3 @@ const sizeMap: Record<Sizes, number> = {
 export function TwDimensionConversion(size: Sizes): number {
 	return sizeMap[size];
 }
-

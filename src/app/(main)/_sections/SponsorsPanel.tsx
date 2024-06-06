@@ -1,11 +1,11 @@
 "use client";
 import { sponsorsData } from "@/constants";
+import { cn } from "@/lib";
 import { Slugify } from "@/utils";
 import { Image } from "@nextui-org/react";
 import Link from "next/link";
 import { useState } from "react";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
-import { cn } from "@/lib";
 
 export const SponsorsPanel = () => {
 	const [loading, setLoading] = useState(true);
@@ -44,9 +44,14 @@ export const SponsorsPanel = () => {
 
 	return (
 		<>
-			<article className={cn(`card`, `
+			<article
+				className={cn(
+					`card`,
+					`
 				sm:p-5 p-0
-			`)}>
+			`,
+				)}
+			>
 				{sponsorsData.tiers.map((tierData, index) => (
 					<div key={Slugify((index + 1).toString())} className="mb-8">
 						<section
