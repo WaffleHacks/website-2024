@@ -35,7 +35,7 @@ export default async function Page({
 	params: { name },
 }: { params: { name: string } }) {
 	const member = TeamMembers.find((member) =>
-		member.panel_photo.includes(name),
+		member.photo_name == name,
 	);
 	return <TeamCard member={member as TeamMemberData} />;
 }

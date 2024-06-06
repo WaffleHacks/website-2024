@@ -23,9 +23,6 @@ export const TeamPanel = () => {
 
 	const router = useRouter();
 
-	const fileToName = (file: string) =>
-		file?.split("/").pop()?.replace(".png", "");
-
 	const handleNext = () => {
 		let nextIndex = currentIndex + howMuchToShow;
 		if (nextIndex >= TeamMembers.length) {
@@ -63,11 +60,11 @@ export const TeamPanel = () => {
 								currentIndex + howMuchToShow,
 							).map((member, index) => (
 								<Slide key={currentIndex + index} delay={(index + 1) * 0.1}>
-									<Link href={`/team/${fileToName(member.panel_photo)}`}>
+									<Link href={`/team/${member.photo_name}`}>
 										<Card
 											className="relative overflow-hidden h-[210px] min-w-[210px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer"
 											onClick={() =>
-												router.push(`/team/${fileToName(member.panel_photo)}`)
+												router.push(`/team/${member.photo_name}`)
 											}
 										>
 											<Picture className="absolute top-0 left-0 right-0 bottom-0 w-full h-full rounded-xl overflow-hidden mix-blend-multiply">
@@ -101,7 +98,7 @@ export const TeamPanel = () => {
 							</Button>
 						</li>
 					)}
-					<li className="text-lg font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis hidden sm:flex">
+					<li className="text-xs xs:text-lg font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis flex">
 						{currentIndex + 1} -{" "}
 						{Math.min(currentIndex + howMuchToShow, TeamMembers.length)} of{" "}
 						{TeamMembers.length}

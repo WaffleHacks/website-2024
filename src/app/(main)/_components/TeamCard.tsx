@@ -71,8 +71,6 @@ export const TeamCard: React.FC<{ member: TeamMemberData }> = ({ member }) => {
 							height={208}
 							quality={100}
 							priority
-							placeholder="blur"
-							blurDataURL={lazyImages[name as string]}
 						/>
 					</CustomPicture>
 				</Aside>
@@ -173,7 +171,7 @@ export const TeamCard: React.FC<{ member: TeamMemberData }> = ({ member }) => {
 							</h4>
 							<Picture className="w-full h-full flex items-center justify-center">
 								<img
-									src={`/assets/svgs/team/${getFirstName(member.name)}.svg`}
+									src={`/assets/svgs/team/${member.photo_name}.svg`}
 									alt={member.favorite_olympic_sport}
 								/>
 							</Picture>

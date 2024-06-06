@@ -186,7 +186,7 @@ const CustomSlider = () => {
 				</Button>
 
 				<div>
-					<span className="font-bold text-xl hidden sm:block">
+					<span className="font-bold text-xl block">
 						{currentSlide + 1} of {totalSlides}
 					</span>
 				</div>
