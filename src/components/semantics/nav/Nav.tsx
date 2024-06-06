@@ -316,11 +316,11 @@ export const NavBar = () => {
 		<>
 			{/* mobile dropdown menu */}
 			<div
-				style={{ height: mobileDown ? "100%" : "0" }}
+				style={{ height: mobileDown ? "100vh" : "0" }}
 				className={`
 					mobile-nav-slide fixed z-40 top-[100px]
 					left-0 w-full shadow-lg overflow-hidden
-					nav-links:hidden text-[#3C2415]
+					nav-links:hidden text-[#3C2415] backdrop-blur-lg
 				`}
 			>
 				<ul>
@@ -431,7 +431,7 @@ export const NavBar = () => {
 										backgroundColor: "#3C2415",
 									},
 								}}
-								disabled={false}
+								disabled={true}
 							/>
 						</Tooltip>
 					</form>

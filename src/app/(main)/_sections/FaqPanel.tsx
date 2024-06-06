@@ -16,6 +16,7 @@ export const FaqPanel = () => {
 			>
 				<div className={`block w-full`}>
 					<Tabs
+						id="faq-tabs"
 						className={`
 							flex flex-row justify-center
 							mb-8 flex-wrap right-0 relative

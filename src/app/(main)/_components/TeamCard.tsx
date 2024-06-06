@@ -12,28 +12,16 @@ import {
 } from "@/components";
 import {
 	colorClasses,
-	team_members_png,
 	teams,
 	waffleImageClasses,
-	waffle_png,
 } from "@/constants";
-import { lazyImages } from "@/data/lazyImages";
 import Image from "next/image";
 import type React from "react";
 import { FaFlag, FaGraduationCap } from "react-icons/fa";
 import { FaBookOpenReader } from "react-icons/fa6";
 import type { TeamMemberData } from "./Teams";
 
-const getFirstName = (fullName: string) => {
-	return fullName.split(" ")[0];
-};
 import { usePathname, useRouter } from "next/navigation";
-
-const getMemberImage = (name: string, type: "team" | "waffles") => {
-	const firstName = getFirstName(name) as string;
-	const images = type === "team" ? team_members_png : waffle_png;
-	return images[firstName];
-};
 
 const memberTeamAssociations: Record<string, string> = Object.fromEntries(
 	Object.entries(teams).flatMap(([team, members]) =>
@@ -46,8 +34,11 @@ export const TeamCard: React.FC<{ member: TeamMemberData }> = ({ member }) => {
 		throw new Error("Invalid member data");
 	}
 
-	const teamImage = getMemberImage(member.name, "team") as string;
-	const waffleImage = getMemberImage(member.name, "waffles") as string;
+	const CIRCLE_PATH = '/assets/images/team/';
+	const WAFFLE_PATH = '/assets/images/waffles/'
+
+	const teamImage = CIRCLE_PATH + member.photo_name + '.png';
+	const waffleImage = WAFFLE_PATH + member.photo_name + '.png';;
 	const name = waffleImage.split("/").pop()?.replace(".png", "");
 
 	const waffleImageClass = name ? waffleImageClasses[name] : "";

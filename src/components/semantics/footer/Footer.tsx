@@ -2,7 +2,7 @@
 import { LegalLinks, app } from "@/constants";
 import type React from "react";
 import { FaInstagram } from "react-icons/fa";
-import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa6";
 import { FooterComp } from "./FooterComp";
 
 export const FooterBar = () => {

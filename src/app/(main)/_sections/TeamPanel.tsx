@@ -19,10 +19,12 @@ export const TeamPanel = () => {
 	const isSmall = useMediaQuery("(min-width: 640px)");
 	const isMediumOrLarger = isMedium || isLarge || isXLarge;
 
+	const PANEL_PATH = '/assets/images/team/panel/'
+
 	const router = useRouter();
 
 	const fileToName = (file: string) =>
-		file.split("/").pop()?.replace(".png", "");
+		file?.split("/").pop()?.replace(".png", "");
 
 	const handleNext = () => {
 		let nextIndex = currentIndex + howMuchToShow;
@@ -51,7 +53,7 @@ export const TeamPanel = () => {
 					: 1;
 
 	return (
-		<article>
+		<>
 			<Article className="mt-2 px-10 w-full mb-8">
 				<div className="w-full">
 					<div className="relative">
@@ -70,7 +72,7 @@ export const TeamPanel = () => {
 										>
 											<Picture className="absolute top-0 left-0 right-0 bottom-0 w-full h-full rounded-xl overflow-hidden mix-blend-multiply">
 												<img
-													src={member.panel_photo}
+													src={PANEL_PATH + member.photo_name + '.png'}
 													alt={member.name}
 													className="object-cover mix-blend-multiply relative"
 												/>
@@ -99,7 +101,7 @@ export const TeamPanel = () => {
 							</Button>
 						</li>
 					)}
-					<li className="text-lg font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis">
+					<li className="text-lg font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis hidden sm:flex">
 						{currentIndex + 1} -{" "}
 						{Math.min(currentIndex + howMuchToShow, TeamMembers.length)} of{" "}
 						{TeamMembers.length}
@@ -117,6 +119,6 @@ export const TeamPanel = () => {
 					)}
 				</menu>
 			</Article>
-		</article>
+		</>
 	);
 };
