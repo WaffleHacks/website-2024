@@ -73,7 +73,7 @@ const Clock = ({ number, text }: { number: number; text: string }) => {
 					{num_chars}
 				</span>
 			</div>
-			<span className="text-base font-medium absolute top-[100%]">{text}</span>
+			<span className="text-sm sm:text-base font-medium absolute top-[100%]">{text}</span>
 		</header>
 	);
 };

@@ -318,18 +318,16 @@ export const CalendarPanel = () => {
 
 	return (
 		<article
-			className={`
-				max-w-screen-2xl mx-auto
-      `}
+			className="max-w-screen-2xl mx-auto w-full"
 		>
 			<div
 				ref={calendar_box}
-				className="font-mplus p-2 relative text-[#3C2415]"
+				className="font-mplus p-2 relative text-[#3C2415] w-full"
 				onClick={() => setDescPos({ x: -1, y: -1 })}
 			>
-				<div className="sm:py-6 sm:px-8 bg-[#f5f5f5] rounded-xl flex flex-col backdrop-filter backdrop-blur-xl text-black">
+				<div className="sm:py-6 sm:px-8 bg-[#f0f0f0] rounded-xl flex flex-col backdrop-filter backdrop-blur-xl text-black w-full">
 					{/* header with day and buttons */}
-					<div className="flex flex-col gap-2 sm:gap-0 items-center sm:grid sm:grid-cols-2 md:grid-cols-3">
+					<div className="flex flex-col p-4 gap-2 sm:gap-0 items-center sm:grid sm:grid-cols-2 md:grid-cols-3">
 						<span className="hidden md:inline-block" />
 						<span className="text-2xl font-bold text-[#3C2415] text-center">
 							{eventOrder[eventIndex]}
