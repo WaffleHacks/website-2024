@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib";
-import { cva } from "class-variance-authority";
-import * as React from "react";
+import { cn } from '@/lib';
+import { cva } from 'class-variance-authority';
+import * as React from 'react';
 
-type PictureProps = React.ComponentPropsWithoutRef<"picture"> & {
-	variant?: "primary" | "secondary";
+type PictureProps = React.ComponentPropsWithoutRef<'picture'> & {
+	variant?: 'primary' | 'secondary';
 };
 
 export const CustomPicture = React.forwardRef<HTMLElement, PictureProps>(
@@ -22,34 +22,28 @@ export const CustomPicture = React.forwardRef<HTMLElement, PictureProps>(
 				<source srcSet={srcSet} type="image/png" />
 			</picture>
 		);
-	},
+	}
 );
 
-const PictureVariants = cva("overflow-hidden", {
+const PictureVariants = cva('overflow-hidden', {
 	variants: {
 		variant: {
-			primary: "rounded-lg overflow-hidden",
-			secondary: "rounded-md overflow-hidden",
+			primary: 'rounded-lg overflow-hidden',
+			secondary: 'rounded-md overflow-hidden',
 		},
 	},
 	defaultVariants: {
-		variant: "primary",
+		variant: 'primary',
 	},
 });
 
-CustomPicture.displayName = "Picture";
+CustomPicture.displayName = 'Picture';
 
-const getSrcFromChildImage = (
-	children: React.ReactNode,
-): string | undefined => {
+const getSrcFromChildImage = (children: React.ReactNode): string | undefined => {
 	let src: string | undefined;
 
 	React.Children.forEach(children, (child) => {
-		if (
-			React.isValidElement(child) &&
-			child.type === "img" &&
-			child.props.src
-		) {
+		if (React.isValidElement(child) && child.type === 'img' && child.props.src) {
 			src = child.props.src;
 		}
 	});

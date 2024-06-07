@@ -1,8 +1,9 @@
-import type React from "react";
-import type { ReactElement } from "react";
-import { twMerge } from "tailwind-merge";
+'use client';
+import type React from 'react';
+import type { ReactElement } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-import SpeechBubble from "./SpeechBubble";
+import SpeechBubble from './SpeechBubble';
 
 interface BubbleDialogSystemProps {
 	children: ReactElement[];
@@ -11,16 +12,11 @@ interface BubbleDialogSystemProps {
 	style?: React.CSSProperties;
 }
 
-const BubbleDialogSystem = ({
-	children,
-	child,
-	className,
-	style,
-}: BubbleDialogSystemProps) => {
+const BubbleDialogSystem = ({ children, child, className, style }: BubbleDialogSystemProps) => {
 	if (!child) child = 0;
 
 	return (
-		<SpeechBubble className={twMerge("absolute", className)} style={style}>
+		<SpeechBubble className={twMerge('absolute', className)} style={style}>
 			{children[child]}
 		</SpeechBubble>
 	);

@@ -1,6 +1,6 @@
-"use client";
-import { cn } from "@/lib";
-import type { SVGAttributes } from "react";
+'use client';
+import { cn } from '@/lib';
+import type { SVGAttributes } from 'react';
 
 export const Subtract: React.FC<
 	Readonly<SVGAttributes<SVGElement>> & {
@@ -53,15 +53,8 @@ export const Subtract: React.FC<
 						<feOffset dy="1" />
 						<feGaussianBlur stdDeviation="20" />
 						<feComposite in2="hardAlpha" operator="out" />
-						<feColorMatrix
-							type="matrix"
-							values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"
-						/>
-						<feBlend
-							mode="normal"
-							in2="BackgroundImageFix"
-							result="effect1_dropShadow_138_1787"
-						/>
+						<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
+						<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_138_1787" />
 						<feBlend
 							mode="normal"
 							in="SourceGraphic"

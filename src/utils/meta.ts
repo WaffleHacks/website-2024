@@ -1,11 +1,11 @@
-import { app } from "@/constants";
-import type { Metadata, Viewport } from "next";
+import { app } from '@/constants';
+import type { Metadata, Viewport } from 'next';
 
 export function constructMetadata({
-	title = "WaffleHacks",
+	title = 'WaffleHacks',
 	description = `WaffleHacks is a 48-hour student-organized hackathon working to bring technical solutions to your local communities and small businesses.We welcome all students, of high school level and beyond, and of all technical proficiency levels, to join us on June 23th - 25th, 2023.`,
-	image = "/opengraph-image.png",
-	icons = "/assets/svgs/logo.svg",
+	image = '/opengraph-image.png',
+	icons = '/assets/svgs/logo.svg',
 	noIndex = false,
 }: {
 	title?: string;
@@ -30,11 +30,11 @@ export function constructMetadata({
 			],
 		},
 		twitter: {
-			card: "summary_large_image",
+			card: 'summary_large_image',
 			title,
 			description,
 			images: [image],
-			creator: "@WaffleHacks",
+			creator: '@WaffleHacks',
 		},
 		icons: [
 			{
@@ -42,7 +42,7 @@ export function constructMetadata({
 				href: icons,
 			},
 		],
-		manifest: "/manifest.webmanifest",
+		manifest: '/manifest.webmanifest',
 		metadataBase: new URL(`${app.url}`),
 		other: {
 			currentYear: new Date().getFullYear(),
@@ -59,18 +59,18 @@ export function constructMetadata({
 
 export function constructViewport(): Viewport {
 	return {
-		width: "device-width",
-		height: "device-height",
+		width: 'device-width',
+		height: 'device-height',
 		initialScale: 1,
 		minimumScale: 1,
 		maximumScale: 5,
 		userScalable: true,
-		viewportFit: "cover",
-		interactiveWidget: "resizes-visual",
+		viewportFit: 'cover',
+		interactiveWidget: 'resizes-visual',
 		themeColor: [
-			{ media: "(prefers-color-scheme: light)", color: "#fafafa" },
-			{ media: "(prefers-color-scheme: dark)", color: "#3c2415" },
+			{ media: '(prefers-color-scheme: light)', color: '#fafafa' },
+			{ media: '(prefers-color-scheme: dark)', color: '#3c2415' },
 		],
-		colorScheme: "dark light",
+		colorScheme: 'dark light',
 	};
 }

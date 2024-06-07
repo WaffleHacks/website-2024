@@ -1,8 +1,8 @@
-"use client";
-import { Accordion, card_style } from "@/components";
-import { Faqs } from "@/constants";
-import { cn } from "@/lib";
-import { Tab, Tabs } from "@nextui-org/tabs";
+'use client';
+import { Accordion, card_style } from '@/components';
+import { Faqs } from '@/constants';
+import { cn } from '@/lib';
+import { Tab, Tabs } from '@nextui-org/tabs';
 export const FaqPanel = () => {
 	const sections = Faqs.map((faq) => faq.section);
 	return (
@@ -14,7 +14,7 @@ export const FaqPanel = () => {
 					`flex justify-center 
 					text-lg sm:p-[20px] p-0
 					bg-[#F7F7F7] max-w-screen-2xl
-			`,
+			`
 				)}
 			>
 				<div className={`block w-full`}>
@@ -26,15 +26,15 @@ export const FaqPanel = () => {
 							text-[#3C2415]
 						`}
 						style={{
-							color: "#3C2415",
-							borderRadius: "10px",
+							color: '#3C2415',
+							borderRadius: '10px',
 						}}
 						color={`primary`}
 						aria-label="FAQ Sections"
 						items={[
 							{
-								id: "all",
-								label: "Show All",
+								id: 'all',
+								label: 'Show All',
 								content: (
 									<div
 										className={`
@@ -43,7 +43,7 @@ export const FaqPanel = () => {
 										`}
 									>
 										{Faqs.map((faq, index) => (
-											<Accordion key={index} data={faq.items} />
+											<Accordion key={index} data={faq.items ?? ''} />
 										))}
 									</div>
 								),
@@ -58,11 +58,9 @@ export const FaqPanel = () => {
 											gap-4
 										`}
 									>
-										{Faqs.filter((faq) => faq.section === section).map(
-											(faq, index) => (
-												<Accordion key={index} data={faq.items} />
-											),
-										)}
+										{Faqs.filter((faq) => faq.section === section).map((faq, index) => (
+											<Accordion key={index} data={faq.items} />
+										))}
 									</div>
 								),
 							})),
@@ -76,8 +74,8 @@ export const FaqPanel = () => {
 									text-[#3C2415]
 								`}
 								style={{
-									backgroundColor: "#F7F7F770",
-									color: "#3C2415",
+									backgroundColor: '#F7F7F770',
+									color: '#3C2415',
 								}}
 								aria-label={item.label}
 							>

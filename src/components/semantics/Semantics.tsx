@@ -1,8 +1,8 @@
-"use client";
-import type React from "react";
-import { createContext, use, useRef, useState } from "react";
-import { FooterBar } from "./footer";
-import { NavBar } from "./nav";
+'use client';
+import type React from 'react';
+import { createContext, use, useRef, useState } from 'react';
+import { FooterBar } from './footer';
+import { NavBar } from './nav';
 
 interface ScavContextParameters {
 	scavState: boolean;

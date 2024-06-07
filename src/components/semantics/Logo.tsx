@@ -1,10 +1,10 @@
-"use client";
-import { CustomPicture } from "@/components";
-import { cn } from "@/lib";
-import { TwDimensionConversion } from "@/utils";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import type React from "react";
+'use client';
+import { CustomPicture } from '@/components';
+import { cn } from '@/lib';
+import { TwDimensionConversion } from '@/utils';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import type React from 'react';
 
 const Logo: React.FC<{
 	size: Sizes;
@@ -13,11 +13,8 @@ const Logo: React.FC<{
 	const router = useRouter();
 	return (
 		<CustomPicture
-			className={cn(
-				`flex justify-center cursor-pointer h-${size} w-${size}`,
-				className,
-			)}
-			onClick={() => router.push("/")}
+			className={cn(`flex justify-center cursor-pointer h-${size} w-${size}`, className)}
+			onClick={() => router.push('/')}
 		>
 			<Image
 				src={`/assets/svgs/logo.svg`}

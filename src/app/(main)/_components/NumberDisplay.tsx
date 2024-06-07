@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import { twMerge } from "tailwind-merge";
-import { useIsomorphicLayoutEffect } from "usehooks-ts";
+'use client';
+import React from 'react';
+import { twMerge } from 'tailwind-merge';
+import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 interface NumberDisplayProps {
 	className?: string;
@@ -47,7 +47,7 @@ export const NumberDisplay = ({ className, style }: NumberDisplayProps) => {
 	}, []);
 
 	return (
-		<div className={twMerge("flex flex-row", className)} style={style}>
+		<div className={twMerge('flex flex-row', className)} style={style}>
 			<div className="pl-4">
 				<span className="text-xl text-right text-wrap max-w-full sm:text-2xl">
 					Countdown to the WaffleHacks Games
@@ -65,7 +65,7 @@ export const NumberDisplay = ({ className, style }: NumberDisplayProps) => {
 
 const Clock = ({ number, text }: { number: number; text: string }) => {
 	let num_chars = number.toString();
-	if (num_chars.length < 2) num_chars = "0" + num_chars;
+	if (num_chars.length < 2) num_chars = '0' + num_chars;
 	return (
 		<header className="flex flex-col items-center relative">
 			<div className="flex flex-row gap-2">
@@ -73,7 +73,7 @@ const Clock = ({ number, text }: { number: number; text: string }) => {
 					{num_chars}
 				</span>
 			</div>
-			<span className="text-base font-medium absolute top-[100%]">{text}</span>
+			<span className="text-base font-medium absolute top-[100%] hidden sm:block">{text}</span>
 		</header>
 	);
 };

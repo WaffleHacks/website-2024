@@ -1,5 +1,5 @@
 // "use client";
-import type { LegalLinksProps } from "@/types";
+import type { LegalLinksProps } from '@/types';
 
 export const LegalLinks: LegalLinksProps = [
 	{

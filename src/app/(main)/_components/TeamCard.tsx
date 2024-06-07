@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
 	Article,
 	Aside,
@@ -9,41 +9,41 @@ import {
 	Section,
 	Subtract,
 	Text,
-} from "@/components";
-import { colorClasses, teams, waffleImageClasses } from "@/constants";
-import Image from "next/image";
-import type React from "react";
-import { FaFlag, FaGraduationCap } from "react-icons/fa";
-import { FaBookOpenReader } from "react-icons/fa6";
-import type { TeamMemberData } from "./Teams";
+} from '@/components';
+import { colorClasses, teams, waffleImageClasses } from '@/constants';
+import Image from 'next/image';
+import type React from 'react';
+import { FaFlag, FaGraduationCap } from 'react-icons/fa';
+import { FaBookOpenReader } from 'react-icons/fa6';
+import type { TeamMemberData } from './Teams';
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from 'next/navigation';
 
 const memberTeamAssociations: Record<string, string> = Object.fromEntries(
-	Object.entries(teams).flatMap(([team, members]) =>
-		members.map((member) => [member, team]),
-	),
+	Object.entries(teams).flatMap(([team, members]) => members.map((member) => [member, team]))
 );
 
 export const TeamCard: React.FC<{ member: TeamMemberData }> = ({ member }) => {
 	if (!member || !member.name) {
-		throw new Error("Invalid member data");
+		throw new Error('Invalid member data');
 	}
 
-	const CIRCLE_PATH = "/assets/images/team/";
-	const WAFFLE_PATH = "/assets/images/waffles/";
+	const CIRCLE_PATH = '/assets/images/team/';
+	const WAFFLE_PATH = '/assets/images/waffles/';
 
-	const teamImage = CIRCLE_PATH + member.photo_name + ".png";
-	const waffleImage = WAFFLE_PATH + member.photo_name + ".png";
-	const name = waffleImage.split("/").pop()?.replace(".png", "");
+	const teamImage = CIRCLE_PATH + member.photo_name + '.webp';
+	const waffleImage = WAFFLE_PATH + member.photo_name + '.webp';
+	const name = waffleImage.split('/').pop()?.replace('.webp', '');
 
-	const waffleImageClass = name ? waffleImageClasses[name] : "";
-	const colorClass = name ? colorClasses[name] : "";
+	const waffleImageClass = name ? waffleImageClasses[name] : '';
+	const colorClass = name ? colorClasses[name] : '';
 	const team = memberTeamAssociations[name as string];
 
 	const pathName: string = usePathname();
-	const isTeam = pathName.includes("team");
+	const isTeam = pathName.includes('team');
 	const router = useRouter();
+
+	const getFirstName = (name: string) => name?.split(' ')[0]?.toLowerCase() ?? '';
 
 	return (
 		<Article
@@ -71,8 +71,6 @@ export const TeamCard: React.FC<{ member: TeamMemberData }> = ({ member }) => {
 							height={208}
 							quality={100}
 							priority
-							placeholder="blur"
-							blurDataURL={lazyImages[name as string]}
 						/>
 					</CustomPicture>
 				</Aside>
@@ -82,7 +80,7 @@ export const TeamCard: React.FC<{ member: TeamMemberData }> = ({ member }) => {
 							className={`
 								flex justify-center items-center
 								text-center relative card-title
-								${!isTeam ? "cursor-pointer" : ""}
+								${!isTeam ? 'cursor-pointer' : ''}
 							`}
 							onClick={() => {
 								if (!isTeam) {
@@ -102,16 +100,13 @@ export const TeamCard: React.FC<{ member: TeamMemberData }> = ({ member }) => {
 										alt=""
 										className="rounded-md h-[35px] w-[35px]"
 									/>
-									<Text
-										className="w-full"
-										text={`Team Waffle ${member.waffle_team}`}
-									/>
+									<Text className="w-full" text={`Team Waffle ${member.waffle_team}`} />
 								</Picture>
 							</Section>
 							<Section className="flex gap-3 flex-row w-full">
 								<Picture className="w-full h-fit flex flex-row gap-2 items-center justify-center">
 									<img
-										src="/assets/images/medal.png"
+										src="/assets/images/medal.webp"
 										alt=""
 										className="rounded-md h-[35px] w-[35px]"
 									/>

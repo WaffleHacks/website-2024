@@ -1,5 +1,5 @@
-await import("./src/env.js");
-import pwa from "@ducanh2912/next-pwa";
+await import('./src/env.js');
+import pwa from '@ducanh2912/next-pwa';
 // import MillionLint from "@million/lint";
 // import million from "million/compiler";
 
@@ -7,9 +7,9 @@ const withPwa = pwa({
 	cacheOnFrontEndNav: true,
 	aggressiveFrontEndNavCaching: true,
 	reloadOnOnline: true,
-	dest: "public",
+	dest: 'public',
 	register: true,
-	sw: "service-worker.js",
+	sw: 'service-worker.js',
 	workboxOptions: {
 		disableDevLogs: true,
 	},
@@ -19,7 +19,7 @@ const withPwa = pwa({
  * @type {import("next/dist/server/config").NextConfig}
  */
 const config = {
-	output: "export",
+	output: 'export',
 	typescript: {
 		ignoreBuildErrors: true,
 	},
@@ -30,22 +30,14 @@ const config = {
 		},
 	},
 	images: { unoptimized: true },
-	// images: {
-	// 	remotePatterns: [
-	// 		{
-	// 			protocol: "https",
-	// 			hostname: "github.com",
-	// 			port: "",
-	// 		},
-	// 	],
-	// },
 
 	experimental: {
+		optimizeCss: true,
 		turbo: {
 			rules: {
-				"*.svg": {
-					loaders: ["@svgr/webpack"],
-					as: "*.js",
+				'*.svg': {
+					loaders: ['@svgr/webpack'],
+					as: '*.js',
 				},
 			},
 		},

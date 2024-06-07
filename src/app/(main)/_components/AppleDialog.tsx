@@ -1,7 +1,8 @@
-import type React from "react";
-import { useState } from "react";
+'use client';
+import type React from 'react';
+import { useState } from 'react';
 
-import BubbleDialogSystem from "./BubbleDialogSystem";
+import BubbleDialogSystem from './BubbleDialogSystem';
 
 interface CarrakatuDialogProps {
 	whenDone: () => void;
@@ -21,25 +22,18 @@ const AppleDialog = ({ whenDone, className, style }: CarrakatuDialogProps) => {
 			<>
 				<span>Thanks! :P</span>
 				<br />
-				<button
-					onClick={nextChild}
-					className="bg-gray-300 px-2 mt-2 rounded-sm user-select-none"
-				>
+				<button onClick={nextChild} className="bg-gray-300 px-2 mt-2 rounded-sm user-select-none">
 					No problem bud!
 				</button>
 			</>
 
 			<div className="text-left">
 				<span>
-					Oh! Oh! And I found this piece of paper when I was walking on the
-					navbar :D You wannit?
+					Oh! Oh! And I found this piece of paper when I was walking on the navbar :D You wannit?
 				</span>
 				<br />
 				<div className="flex justify-end">
-					<button
-						onClick={nextChild}
-						className="bg-gray-300 px-2 mt-2 rounded-sm user-select-none"
-					>
+					<button onClick={nextChild} className="bg-gray-300 px-2 mt-2 rounded-sm user-select-none">
 						Uh, sure.
 					</button>
 				</div>
@@ -49,10 +43,7 @@ const AppleDialog = ({ whenDone, className, style }: CarrakatuDialogProps) => {
 				<span>Walking Time! I made this flag myself you know.</span>
 				<br />
 				<div className="flex justify-end">
-					<button
-						onClick={whenDone}
-						className="bg-gray-300 px-2 mt-2 rounded-sm user-select-none"
-					>
+					<button onClick={whenDone} className="bg-gray-300 px-2 mt-2 rounded-sm user-select-none">
 						Done
 					</button>
 				</div>

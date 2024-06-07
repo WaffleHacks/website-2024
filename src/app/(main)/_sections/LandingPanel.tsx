@@ -1,22 +1,12 @@
-"use client";
-import { ScavContext } from "@/components";
-import React, {
-	useState,
-	useRef,
-	useLayoutEffect,
-	useContext,
-	useEffect,
-} from "react";
-import CarrakatuDialog from "../_components/CarrakatuDialog";
+'use client';
+import { ScavContext } from '@/components';
+import React, { useState, useRef, useLayoutEffect, useContext, useEffect } from 'react';
+import CarrakatuDialog from '../_components/CarrakatuDialog';
 
-import Draggable, {
-	DraggableCore,
-	type DraggableData,
-	type DraggableEvent,
-} from "react-draggable";
+import Draggable, { DraggableCore, type DraggableData, type DraggableEvent } from 'react-draggable';
 
-import { useIsomorphicLayoutEffect } from "usehooks-ts";
-import { NumberDisplay } from "../_components";
+import { useIsomorphicLayoutEffect } from 'usehooks-ts';
+import { NumberDisplay } from '../_components';
 
 function useWindowSize() {
 	const [size, setSize] = useState([0, 0]);
@@ -24,9 +14,9 @@ function useWindowSize() {
 		function updateSize() {
 			setSize([window.innerWidth, window.innerHeight]);
 		}
-		window.addEventListener("resize", updateSize);
+		window.addEventListener('resize', updateSize);
 		updateSize();
-		return () => window.removeEventListener("resize", updateSize);
+		return () => window.removeEventListener('resize', updateSize);
 	}, []);
 	return size;
 }
@@ -86,40 +76,35 @@ export const LandingPanel = () => {
 		if (container.current && img_box.current) {
 			const img = img_box.current;
 			const aspect_ratio = 1510 / 599;
-			const container_aspect_ratio =
-				container.current.clientWidth / container.current.clientHeight;
+			const container_aspect_ratio = container.current.clientWidth / container.current.clientHeight;
 
 			if (container_aspect_ratio < aspect_ratio) {
-				img.style.width = "98%";
-				img.style.height = "auto";
+				img.style.width = '98%';
+				img.style.height = 'auto';
 			} else {
-				img.style.width = "auto";
-				img.style.height = "100%";
+				img.style.width = 'auto';
+				img.style.height = '100%';
 			}
 		}
 	}
 
-	useIsomorphicLayoutEffect(onSizing, [
-		container.current,
-		img_box.current,
-		windowSize,
-	]);
+	useIsomorphicLayoutEffect(onSizing, [container.current, img_box.current, windowSize]);
 	const images = [
 		{
-			src: "/assets/svgs/landing/red_pf.svg",
-			className: "no-drag absolute left-[34.5%] top-[31.5%] w-[31%]",
+			src: '/assets/svgs/landing/red_pf.svg',
+			className: 'no-drag absolute left-[34.5%] top-[31.5%] w-[31%]',
 		},
 		{
-			src: "/assets/svgs/landing/fencer_pf.svg",
-			className: "no-drag absolute left-[68.2%] top-[31.5%] w-[31%]",
+			src: '/assets/svgs/landing/fencer_pf.svg',
+			className: 'no-drag absolute left-[68.2%] top-[31.5%] w-[31%]',
 		},
 		{
-			src: "/assets/svgs/landing/fencer_body.svg",
-			className: "no-drag absolute left-[77.8%] top-[15.2%] w-[11.6%]",
+			src: '/assets/svgs/landing/fencer_body.svg',
+			className: 'no-drag absolute left-[77.8%] top-[15.2%] w-[11.6%]',
 		},
 		{
-			src: "/assets/svgs/landing/archer_pf.svg",
-			className: "no-drag absolute left-[16.2%] top-[67.5%] w-[31%]",
+			src: '/assets/svgs/landing/archer_pf.svg',
+			className: 'no-drag absolute left-[16.2%] top-[67.5%] w-[31%]',
 		},
 	];
 
@@ -146,9 +131,7 @@ export const LandingPanel = () => {
 		// check if arrow tip intersects box
 		const arX = arBox.left + arBox.width;
 		const arY = arBox.top + arBox.height;
-		return (
-			arX >= box.left && arX <= box.right && arY >= box.top && arY <= box.bottom
-		);
+		return arX >= box.left && arX <= box.right && arY >= box.top && arY <= box.bottom;
 	}
 	function boxesIntersect(box1: DOMRect, box2: DOMRect) {
 		return !(
@@ -204,12 +187,8 @@ export const LandingPanel = () => {
 				const h2 = ctx.archer.headspot2?.current?.getBoundingClientRect();
 
 				if (
-					(ctx.archer.activeHeadSpot.current == 1 &&
-						h1 &&
-						arrowIntersectsBox(box, h1)) ||
-					(ctx.archer.activeHeadSpot.current == 2 &&
-						h2 &&
-						arrowIntersectsBox(box, h2))
+					(ctx.archer.activeHeadSpot.current == 1 && h1 && arrowIntersectsBox(box, h1)) ||
+					(ctx.archer.activeHeadSpot.current == 2 && h2 && arrowIntersectsBox(box, h2))
 				) {
 					gotHeadshot.current = true;
 				}
@@ -336,11 +315,7 @@ export const LandingPanel = () => {
 		const target = e.target as HTMLImageElement;
 		const targetRect = target.getBoundingClientRect();
 		// check intersection with road
-		if (
-			targetRect.bottom <= roadRect.top &&
-			!bikingForwards &&
-			!bikerInterval.current
-		) {
+		if (targetRect.bottom <= roadRect.top && !bikingForwards && !bikerInterval.current) {
 			// lift flag
 			setBikingForwards(true);
 		}
@@ -349,7 +324,7 @@ export const LandingPanel = () => {
 	function interpolateWithCurve(
 		from: { x: number; y: number },
 		to: { x: number; y: number },
-		t: number,
+		t: number
 	) {
 		// rounded curve from t = 0 to 1, with variation in x and y
 		const curve = Math.sin((t * Math.PI) / 2);
@@ -432,12 +407,7 @@ export const LandingPanel = () => {
 			clearInterval(carrakatuInterval.current as NodeJS.Timeout);
 			carrakatuInterval.current = null;
 		};
-	}, [
-		ctx.scavState,
-		ctx.archer.headshot,
-		ctx.biker.frontWheelPopped,
-		ctx.biker.backWheelPopped,
-	]);
+	}, [ctx.scavState, ctx.archer.headshot, ctx.biker.frontWheelPopped, ctx.biker.backWheelPopped]);
 
 	// control carrakatu position as it brings the biker back, starts dialog
 	useEffect(() => {
@@ -452,19 +422,12 @@ export const LandingPanel = () => {
 		const bikerPos = biker.current.getBoundingClientRect();
 
 		const t = carrakatuSetPosition.at;
-		const { x, y } = interpolateWithCurve(
-			carrakatuSetPosition.from,
-			carrakatuSetPosition.to,
-			t,
-		);
+		const { x, y } = interpolateWithCurve(carrakatuSetPosition.from, carrakatuSetPosition.to, t);
 		setCarrakatuPos({ x, y });
 
 		if (carrakatuPickedUp.current && !carrakatuDroppedOff.current) {
-			const bikerX =
-				((x - bikerPos.width - containerRect.left) * 100) / containerRect.width;
-			const bikerY =
-				((y - bikerPos.height - containerRect.top) * 100) /
-				containerRect.height;
+			const bikerX = ((x - bikerPos.width - containerRect.left) * 100) / containerRect.width;
+			const bikerY = ((y - bikerPos.height - containerRect.top) * 100) / containerRect.height;
 			setBikerPos({ x: bikerX, y: bikerY, falling: false });
 		}
 
@@ -486,11 +449,7 @@ export const LandingPanel = () => {
 			setTimeout(() => {
 				carrakatuInterval.current = setInterval(lakatuBringsBikerBack, 15);
 			}, 500);
-		} else if (
-			carrakatuPickedUp.current &&
-			!carrakatuDroppedOff.current &&
-			t >= 1
-		) {
+		} else if (carrakatuPickedUp.current && !carrakatuDroppedOff.current && t >= 1) {
 			// move to the right by biker_width
 			carrakatuDroppedOff.current = true;
 			const nextPos = { x: x + bikerPos.width, y: y };
@@ -533,21 +492,19 @@ export const LandingPanel = () => {
 
 	return (
 		<>
-			<header className="relative font-mplus px-2 sm:px-12 pt-44 h-[70vh] w-full box-border max-w-screen-2xl mx-auto mb-40 sm:mb-0">
+			<header className="relative font-mplus px-2 sm:px-12 pt-44 max-h-[850.5px] w-full box-border max-w-screen-2xl mx-auto mb-11">
 				{/* TODO: Bigger screens edge case */}
-				<img
+				{/* <img
 					id="landing-blob"
 					className="absolute top-24 right-0 h-[60%]"
 					src="/assets/svgs/landing/scav/blob.svg"
 					alt=""
-				/>
+				/> */}
 
 				<div className="max-w-screen-2xl flex justify-center">
 					<div className="w-full max-w-screen-2xl">
-						<h2 className="text-2xl font-normal">
-							Put your best code forward for the
-						</h2>
-						<h1 className="text-[2.5rem] font-medium">WaffleHacks games!</h1>
+						<h2 className="text-2xl font-normal">Put your best code forward for the</h2>
+						<h1 className="text-[2.5rem] font-medium leading-8">WaffleHacks games!</h1>
 					</div>
 				</div>
 
@@ -556,11 +513,7 @@ export const LandingPanel = () => {
 					onResize={onSizing}
 					className="landing-panel-img-container p-2 relative max-w-screen-2xl"
 				>
-					<div
-						ref={img_box}
-						className="absolute"
-						style={{ aspectRatio: 1510 / 599 }}
-					>
+					<div ref={img_box} className="absolute" style={{ aspectRatio: 1510 / 599 }}>
 						{/* Biker road */}
 						<img
 							ref={road}
@@ -585,16 +538,9 @@ export const LandingPanel = () => {
 							alt=""
 						/>
 
-						{images.map(
-							(
-								{ src, className }: { src: string; className: string },
-								index,
-							) => {
-								return (
-									<img key={index} src={src} alt="" className={className} />
-								);
-							},
-						)}
+						{images.map(({ src, className }: { src: string; className: string }, index) => {
+							return <img key={index} src={src} alt="" className={className} />;
+						})}
 
 						{/* tennis player */}
 						<img
@@ -608,7 +554,7 @@ export const LandingPanel = () => {
 						<div id="landing-wh-logo">
 							<div
 								className="absolute left-[42.9%] top-[7.1%] w-[14.85%]"
-								style={{ aspectRatio: "1/1" }}
+								style={{ aspectRatio: '1/1' }}
 							>
 								<img
 									id="stand-sign"
@@ -625,7 +571,7 @@ export const LandingPanel = () => {
 							/>
 							<div
 								className="overflow-hidden absolute left-[42.9%] top-[7.1%] w-[14.85%]"
-								style={{ aspectRatio: "1/1" }}
+								style={{ aspectRatio: '1/1' }}
 							>
 								<img
 									className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
@@ -677,7 +623,7 @@ export const LandingPanel = () => {
 								<div
 									ref={archerBox}
 									style={{
-										transformOrigin: "bottom",
+										transformOrigin: 'bottom',
 										transform: `rotateZ(${ctx.scavState ? archerAngle : 0}deg)`,
 									}}
 									className="absolute left-[27.25%] top-[40.3%] w-[10.2%] h-[25%]"
@@ -688,7 +634,7 @@ export const LandingPanel = () => {
 										style={{
 											left: `calc(32.5% + ${arrowPos.x}px)`,
 											top: `calc(60% + ${arrowPos.y}px)`,
-											transformOrigin: "center",
+											transformOrigin: 'center',
 											transform: `rotateZ(${arrowPos.angle}deg)`,
 										}}
 										src="/assets/svgs/landing/archer_arrow.svg"
@@ -719,40 +665,34 @@ export const LandingPanel = () => {
 									(ctx.scavState && ctx.biker.frontWheelPopped ? 15 : 0) +
 									(ctx.scavState && bikerPos.falling ? 30 : 0)
 								}deg)`,
-								transition: "transform 0.5s ease-in",
-								transformOrigin: "bottom center",
-								top: ctx.scavState ? `calc(${bikerPos.y}% + 13.7%)` : "13.7%",
-								left: ctx.scavState ? `calc(${bikerPos.x}% + 9.4%)` : "9.4%",
-								display: ctx.scavState && bikerGone ? "none" : "block",
+								transition: 'transform 0.5s ease-in',
+								transformOrigin: 'bottom center',
+								top: ctx.scavState ? `calc(${bikerPos.y}% + 13.7%)` : '13.7%',
+								left: ctx.scavState ? `calc(${bikerPos.x}% + 9.4%)` : '9.4%',
+								display: ctx.scavState && bikerGone ? 'none' : 'block',
 							}}
 						>
 							<img
 								ref={backWheel}
 								src="/assets/svgs/landing/wheel.svg"
-								alt={"bike back wheel"}
+								alt={'bike back wheel'}
 								className="no-drag bike-wheel-rotate absolute left-0 top-[56.8%] w-[40%] h-[42%]"
 								style={{
-									height:
-										ctx.scavState && ctx.biker.backWheelPopped
-											? "24%"
-											: "42.5%",
+									height: ctx.scavState && ctx.biker.backWheelPopped ? '24%' : '42.5%',
 								}}
 							/>
 							<img
 								ref={frontWheel}
 								src="/assets/svgs/landing/wheel.svg"
-								alt={"bike front wheel"}
+								alt={'bike front wheel'}
 								className="no-drag bike-wheel-rotate absolute left-[59.8%] top-[56.8%] w-[40%]"
 								style={{
-									height:
-										ctx.scavState && ctx.biker.frontWheelPopped
-											? "24%"
-											: "42.5%",
+									height: ctx.scavState && ctx.biker.frontWheelPopped ? '24%' : '42.5%',
 								}}
 							/>
 							<img
 								src="/assets/svgs/landing/biker.svg"
-								alt={"bike biker wheel"}
+								alt={'bike biker wheel'}
 								className="no-drag absolute left-[30%] top-0 w-[51%]"
 							/>
 						</div>
@@ -789,9 +729,9 @@ export const LandingPanel = () => {
 						ref={carrakatu}
 						className="no-drag absolute w-[12%]"
 						style={{
-							top: carrakatuPos.y + "px",
-							left: carrakatuPos.x + "px",
-							transform: "translateY(-100%",
+							top: carrakatuPos.y + 'px',
+							left: carrakatuPos.x + 'px',
+							transform: 'translateY(-100%',
 						}}
 						src="/assets/svgs/landing/scav/carrakatu.svg"
 						alt=""
@@ -804,12 +744,13 @@ export const LandingPanel = () => {
 						className="bg-white rounded-lg shadow-lg p-4 max-w-[16rem]"
 						style={{
 							bottom: `calc(${window.innerHeight - carrakatuPos.y}px + 11vw)`,
-							right: window.innerWidth - carrakatuPos.x + "px",
+							right: window.innerWidth - carrakatuPos.x + 'px',
 						}}
 					/>
 				)}
-
-				<NumberDisplay className="absolute right-4 sm:right-12 max-w-screen-2xl" />
+				<div className="flex justify-flex-end">
+					<NumberDisplay className="ml-auto" />
+				</div>
 			</header>
 		</>
 	);

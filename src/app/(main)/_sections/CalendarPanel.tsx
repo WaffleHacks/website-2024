@@ -1,11 +1,11 @@
-"use client";
-import { Picture } from "@/components";
-import { Button } from "@nextui-org/button";
-import type React from "react";
-import { useRef, useState } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
-import CalendarDescription from "./CalendarDescription";
-import { CalendarDescriptionType as CDT } from "./CalendarDescription";
+'use client';
+import { Picture } from '@/components';
+import { Button } from '@nextui-org/button';
+import type React from 'react';
+import { useRef, useState } from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
+import CalendarDescription from './CalendarDescription';
+import { CalendarDescriptionType as CDT } from './CalendarDescription';
 interface EventStructure {
 	title: string;
 	description: string;
@@ -18,19 +18,15 @@ interface EventList {
 	Ceremonies: (EventStructure | null)[];
 	Workshops: (EventStructure | null)[];
 	Panels: (EventStructure | null)[];
-	"Other / Fun": (EventStructure | null)[];
+	'Other / Fun': (EventStructure | null)[];
 }
 
 const calendarButton: string =
-	"flex items-center justify-center rounded-lg bg-white w-10 h-10 text-black";
+	'flex items-center justify-center rounded-lg bg-white w-10 h-10 text-black';
 
 export const CalendarPanel = () => {
 	const [eventIndex, setEventIndex] = useState<number>(0);
-	const eventOrder: string[] = [
-		"Friday, June 21st",
-		"Saturday, June 22nd",
-		"Sunday, June 23rd",
-	];
+	const eventOrder: string[] = ['Friday, June 21st', 'Saturday, June 22nd', 'Sunday, June 23rd'];
 	const events: EventList[] = [
 		{
 			Ceremonies: [
@@ -42,10 +38,10 @@ export const CalendarPanel = () => {
 				null,
 				null,
 				{
-					title: "Opening Ceremony",
-					description: "Welcome to WaffleHacks 2024!",
-					time: "5:00 PM - 6:00 PM",
-					link: "",
+					title: 'Opening Ceremony',
+					description: 'Welcome to WaffleHacks 2024!',
+					time: '5:00 PM - 6:00 PM',
+					link: '',
 					type: CDT.CEREMONY,
 				},
 				null,
@@ -69,31 +65,16 @@ export const CalendarPanel = () => {
 				null,
 				null,
 				{
-					title: "Start Up Workshop",
-					description: "",
-					time: "10:00 PM - 11:30 PM",
-					link: "",
+					title: 'Start Up Workshop',
+					description: '',
+					time: '10:00 PM - 11:30 PM',
+					link: '',
 					type: CDT.CAREER,
 				},
 				null,
 			],
-			Panels: [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-			],
-			"Other / Fun": [
+			Panels: [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+			'Other / Fun': [
 				null,
 				null,
 				null,
@@ -133,25 +114,25 @@ export const CalendarPanel = () => {
 				null,
 				null,
 				{
-					title: "Performance Estimation w/ Greg Zborovsky",
-					description: "",
-					time: "2:00 PM - 3:00 PM",
-					link: "",
+					title: 'Performance Estimation w/ Greg Zborovsky',
+					description: '',
+					time: '2:00 PM - 3:00 PM',
+					link: '',
 					type: CDT.TECHNICAL,
 				},
 				null,
 				{
-					title: "Intro to Mobile Application Development",
-					description: "",
-					time: "4:00 PM - 5:00 PM",
-					link: "",
+					title: 'Intro to Mobile Application Development',
+					description: '',
+					time: '4:00 PM - 5:00 PM',
+					link: '',
 					type: CDT.TECHNICAL,
 				},
 				{
-					title: "Intermediate Application Development with Google Cloud",
-					description: "",
-					time: "5:00 PM - 6:00 PM",
-					link: "",
+					title: 'Intermediate Application Development with Google Cloud',
+					description: '',
+					time: '5:00 PM - 6:00 PM',
+					link: '',
 					type: CDT.TECHNICAL,
 				},
 				null,
@@ -163,18 +144,18 @@ export const CalendarPanel = () => {
 			],
 			Panels: [
 				{
-					title: "Internship / Resume Panel",
-					description: "",
-					time: "10:00 AM - 11:00 AM",
-					link: "",
+					title: 'Internship / Resume Panel',
+					description: '',
+					time: '10:00 AM - 11:00 AM',
+					link: '',
 					type: CDT.CAREER,
 				},
 				null,
 				{
-					title: "Breaking into Alternative CS Careers",
-					description: "",
-					time: "12:00 PM - 1:00 PM",
-					link: "",
+					title: 'Breaking into Alternative CS Careers',
+					description: '',
+					time: '12:00 PM - 1:00 PM',
+					link: '',
 					type: CDT.CAREER,
 				},
 				null,
@@ -189,7 +170,7 @@ export const CalendarPanel = () => {
 				null,
 				null,
 			],
-			"Other / Fun": [
+			'Other / Fun': [
 				null,
 				null,
 				null,
@@ -216,10 +197,10 @@ export const CalendarPanel = () => {
 				null,
 				null,
 				{
-					title: "Closing Ceremony",
-					description: "Thank you for attending WaffleHacks 2023!",
-					time: "5:00 PM",
-					link: "",
+					title: 'Closing Ceremony',
+					description: 'Thank you for attending WaffleHacks 2023!',
+					time: '5:00 PM',
+					link: '',
 					type: CDT.CEREMONY,
 				},
 				null,
@@ -245,23 +226,8 @@ export const CalendarPanel = () => {
 				null,
 				null,
 			],
-			Panels: [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-			],
-			"Other / Fun": [
+			Panels: [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+			'Other / Fun': [
 				null,
 				null,
 				null,
@@ -285,10 +251,7 @@ export const CalendarPanel = () => {
 	const [descDetails, setDescDetails] = useState<EventStructure | null>(null);
 	const [openNum, setOpenNum] = useState(-1);
 
-	function setDesc(
-		e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-		event: EventStructure,
-	) {
+	function setDesc(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, event: EventStructure) {
 		if (!calendar_box.current) return;
 
 		const rect = calendar_box.current.getBoundingClientRect();
@@ -311,7 +274,7 @@ export const CalendarPanel = () => {
 			if (section.Ceremonies[i]) items.push(section.Ceremonies[i]);
 			if (section.Workshops[i]) items.push(section.Workshops[i]);
 			if (section.Panels[i]) items.push(section.Panels[i]);
-			if (section["Other / Fun"][i]) items.push(section["Other / Fun"][i]);
+			if (section['Other / Fun'][i]) items.push(section['Other / Fun'][i]);
 		}
 		return items;
 	}
@@ -340,18 +303,16 @@ export const CalendarPanel = () => {
 								onClick={() => {
 									setEventIndex(Math.max(0, eventIndex - 1));
 								}}
-								arial-label="Previous Day"
+								aria-label="Previous"
 							>
 								<FaArrowLeft size={20} />
 							</Button>
 							<Button
 								className={calendarButton}
 								onClick={() => {
-									setEventIndex(
-										Math.min(eventOrder.length - 1, eventIndex + 1),
-									);
+									setEventIndex(Math.min(eventOrder.length - 1, eventIndex + 1));
 								}}
-								arial-label="Next Day"
+								aria-label="Next"
 							>
 								<FaArrowRight size={20} />
 							</Button>
@@ -362,20 +323,20 @@ export const CalendarPanel = () => {
 					<div className="calendar-grid w-full mt-4 hidden md:grid">
 						<span />
 						{[
-							"10 AM",
-							"11 AM",
-							"12 PM",
-							"1 PM",
-							"2 PM",
-							"3 PM",
-							"4 PM",
-							"5 PM",
-							"6 PM",
-							"7 PM",
-							"8 PM",
-							"9 PM",
-							"10 PM",
-							"11 PM",
+							'10 AM',
+							'11 AM',
+							'12 PM',
+							'1 PM',
+							'2 PM',
+							'3 PM',
+							'4 PM',
+							'5 PM',
+							'6 PM',
+							'7 PM',
+							'8 PM',
+							'9 PM',
+							'10 PM',
+							'11 PM',
 						].map((time, index) => {
 							return (
 								<div
@@ -386,17 +347,14 @@ export const CalendarPanel = () => {
 								</div>
 							);
 						})}
-						<span className="calendar-title-cell text-xl text-[#3C2415] font-bold">
-							Ceremonies
-						</span>
+						<span className="calendar-title-cell text-xl text-[#3C2415] font-bold">Ceremonies</span>
 						{(events[eventIndex] as EventList).Ceremonies.map(
 							(event: EventStructure | null, index: number) => {
 								return (
 									<div
 										key={index}
 										className={
-											"calendar-grid-cell text-center" +
-											(event ? " calendar-ceremony event" : "")
+											'calendar-grid-cell text-center' + (event ? ' calendar-ceremony event' : '')
 										}
 									>
 										{event && (
@@ -409,20 +367,18 @@ export const CalendarPanel = () => {
 										)}
 									</div>
 								);
-							},
+							}
 						)}
 
-						<span className="calendar-title-cell text-xl text-[#3C2415] font-bold">
-							Workshops
-						</span>
+						<span className="calendar-title-cell text-xl text-[#3C2415] font-bold">Workshops</span>
 						{(events[eventIndex] as EventList).Workshops.map(
 							(event: EventStructure | null, index: number) => {
 								return (
 									<div
 										key={index}
 										className={
-											"calendar-grid-cell text-center" +
-											(event ? ` calendar-${event.type} event` : "")
+											'calendar-grid-cell text-center' +
+											(event ? ` calendar-${event.type} event` : '')
 										}
 									>
 										{event && (
@@ -435,7 +391,7 @@ export const CalendarPanel = () => {
 										)}
 									</div>
 								);
-							},
+							}
 						)}
 
 						<span
@@ -446,85 +402,74 @@ export const CalendarPanel = () => {
 						>
 							Panels
 						</span>
-						{(events[eventIndex] as EventList)["Panels"].map(
-							(event: any, index: number) => {
-								return (
-									<div
-										key={index}
-										className={
-											"calendar-grid-cell text-center" +
-											(event ? ` calendar-${event.type} event` : "")
-										}
-									>
-										{event && (
-											<button
-												onClick={(e) => setDesc(e, event as EventStructure)}
-												aria-label={event.title}
-											>
-												<img src="/assets/svgs/calendar/panel.svg" alt="" />
-											</button>
-										)}
-									</div>
-								);
-							},
-						)}
+						{(events[eventIndex] as EventList)['Panels'].map((event: any, index: number) => {
+							return (
+								<div
+									key={index}
+									className={
+										'calendar-grid-cell text-center' +
+										(event ? ` calendar-${event.type} event` : '')
+									}
+								>
+									{event && (
+										<button
+											onClick={(e) => setDesc(e, event as EventStructure)}
+											aria-label={event.title}
+										>
+											<img src="/assets/svgs/calendar/panel.svg" alt="" />
+										</button>
+									)}
+								</div>
+							);
+						})}
 
 						<span className="calendar-title-cell text-xl text-[#3C2415] font-bold">
 							Other / Fun
 						</span>
-						{(events[eventIndex] as EventList)["Other / Fun"].map(
-							(event: any, index: number) => {
-								return (
-									<Picture
-										key={index}
-										className={
-											"calendar-grid-cell text-center" +
-											(event ? " calendar-other" : "")
-										}
-									>
-										{event ? <img src="/assets/svgs/calendar/other.svg" /> : ""}
-									</Picture>
-								);
-							},
-						)}
+						{(events[eventIndex] as EventList)['Other / Fun'].map((event: any, index: number) => {
+							return (
+								<Picture
+									key={index}
+									className={'calendar-grid-cell text-center' + (event ? ' calendar-other' : '')}
+								>
+									{event ? <img src="/assets/svgs/calendar/other.svg" /> : ''}
+								</Picture>
+							);
+						})}
 					</div>
 
 					{/* small screen calendar list*/}
 					<div className="flex flex-col mt-4 md:hidden max-w-screen-2xl p-4">
-						{collapseDay(events[eventIndex] as EventList).map(
-							(event: any, index: number) => {
-								return (
-									<button
-										key={index}
-										onClick={(e) =>
-											setOpenNum((n) => (index == n ? -1 : index))
-										}
-										className={
-											"calendar-list-cell text-center text-black bg-white/75 hover:bg-white transition-colors duration-300 rounded-lg p-4 mb-3" +
-											(event ? " event" : "")
-										}
-									>
-										<h2 className="text-xl font-bold">{event.title}</h2>
+						{collapseDay(events[eventIndex] as EventList).map((event: any, index: number) => {
+							return (
+								<button
+									key={index}
+									onClick={(e) => setOpenNum((n) => (index == n ? -1 : index))}
+									className={
+										'calendar-list-cell text-center text-black bg-white/75 hover:bg-white transition-colors duration-300 rounded-lg p-4 mb-3' +
+										(event ? ' event' : '')
+									}
+								>
+									<h2 className="text-xl font-bold">{event.title}</h2>
 
-										{index == openNum && (
-											<div className="text-left">
-												<p>{event.description}</p>
-												<p className="mt-2">Time: {event.time}</p>
-												{event.link && <a href={event.link}>Link Here</a>}
-											</div>
-										)}
-									</button>
-								);
-							},
-						)}
+									{index == openNum && (
+										<div className="text-left">
+											<p>{event.description}</p>
+											<p className="mt-2">Time: {event.time}</p>
+											{event.link && <a href={event.link}>Link Here</a>}
+										</div>
+									)}
+								</button>
+							);
+						})}
 					</div>
 				</div>
 				<CalendarDescription
 					type={descDetails?.type || CDT.OTHER}
-					title={descDetails?.title || ""}
-					description={descDetails?.description || ""}
-					time={descDetails?.time || ""}
-					link={descDetails?.link || ""}
+					title={descDetails?.title || ''}
+					description={descDetails?.description || ''}
+					time={descDetails?.time || ''}
+					link={descDetails?.link || ''}
 					show={descPos.x !== -1 && descPos.y !== -1}
 					position={descPos}
 				/>

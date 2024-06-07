@@ -1,46 +1,42 @@
-"use client";
+'use client';
 
-import { CustomPicture as Picture, ScavContext } from "@/components";
-import Switch from "@mui/material/Switch";
-import { Tooltip } from "@nextui-org/tooltip";
-import Image from "next/image";
-import Link from "next/link";
-import type React from "react";
-import { useContext, useEffect, useRef, useState } from "react";
+import { CustomPicture as Picture, ScavContext } from '@/components';
+import Switch from '@mui/material/Switch';
+import { Tooltip } from '@nextui-org/tooltip';
+import Image from 'next/image';
+import Link from 'next/link';
+import type React from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
-import {
-	DraggableCore,
-	type DraggableData,
-	type DraggableEvent,
-} from "react-draggable";
+import { DraggableCore, type DraggableData, type DraggableEvent } from 'react-draggable';
 
-import AppleDialog from "@/app/(main)/_components/AppleDialog";
-import { cn } from "@/lib";
-import { useRouter } from "next/navigation";
-import { useIsomorphicLayoutEffect } from "usehooks-ts";
+import AppleDialog from '@/app/(main)/_components/AppleDialog';
+import { cn } from '@/lib';
+import { useRouter } from 'next/navigation';
+import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 export const NavBar = () => {
 	const Links: ReadonlyArray<{
 		href: string;
 		text: string;
 	}> = [
-		{ href: "#about", text: "About" },
-		{ href: "#calendar", text: "Schedule" },
-		{ href: "#tracks-and-awards", text: "Tracks & Prizes" },
-		{ href: "#meet-the-team", text: "Team" },
-		{ href: "#sponsors", text: "Sponsors" },
-		{ href: "#faqs", text: "FAQs" },
-		{ href: "#apply", text: "Apply" },
+		{ href: '#about', text: 'About' },
+		{ href: '#calendar', text: 'Schedule' },
+		{ href: '#tracks-and-awards', text: 'Tracks & Prizes' },
+		{ href: '#meet-the-team', text: 'Team' },
+		{ href: '#sponsors', text: 'Sponsors' },
+		{ href: '#faqs', text: 'FAQs' },
+		{ href: '#apply', text: 'Apply' },
 	];
 
 	const [mobileDown, setMobileDown] = useState(false);
 
-	const label = { inputProps: { "aria-label": "Scav switch" } };
+	const label = { inputProps: { 'aria-label': 'Scav switch' } };
 
 	const { scavState, setScavState, archer } = useContext(ScavContext);
 
 	const apple = useRef<HTMLImageElement>(null);
-	const [appleImg, setAppleImg] = useState("apple1");
+	const [appleImg, setAppleImg] = useState('apple1');
 	const [appleX, setAppleX] = useState<number>(-100);
 	const [appleY, setAppleY] = useState<number>(0);
 	const walkInterval = useRef<NodeJS.Timeout | null>();
@@ -53,45 +49,34 @@ export const NavBar = () => {
 	/**
 	 * Backlog 1: Implement scroll-up and scroll-down classes
 	 */
-	const [_scrollDirection, setScrollDirection] = useState("scroll-up");
+	const [_scrollDirection, setScrollDirection] = useState('scroll-up');
 
 	useIsomorphicLayoutEffect(() => {
-		const body: HTMLBodyElement = document.querySelector(
-			"body",
-		)! as HTMLBodyElement;
-		const targetElement: HTMLElement = document.querySelector(
-			"#target-element",
-		)! as HTMLElement;
+		const body: HTMLBodyElement = document.querySelector('body')! as HTMLBodyElement;
+		const targetElement: HTMLElement = document.querySelector('#target-element')! as HTMLElement;
 		let lastScroll = 0;
 
 		const handleScroll = () => {
 			const currentScroll = window.scrollY;
-			const targetPosition =
-				targetElement.getBoundingClientRect().top + window.scrollY;
+			const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
 
 			if (currentScroll <= 0) {
-				body.classList.remove("scroll-up");
+				body.classList.remove('scroll-up');
 				return;
 			}
 
-			if (
-				currentScroll > lastScroll &&
-				!body.classList.contains("scroll-down")
-			) {
-				body.classList.remove("scroll-up");
-				body.classList.add("scroll-down");
-			} else if (
-				currentScroll < lastScroll &&
-				body.classList.contains("scroll-down")
-			) {
-				body.classList.remove("scroll-down");
-				body.classList.add("scroll-up");
+			if (currentScroll > lastScroll && !body.classList.contains('scroll-down')) {
+				body.classList.remove('scroll-up');
+				body.classList.add('scroll-down');
+			} else if (currentScroll < lastScroll && body.classList.contains('scroll-down')) {
+				body.classList.remove('scroll-down');
+				body.classList.add('scroll-up');
 			}
 
 			if (currentScroll >= targetPosition) {
-				body.classList.add("hide-nav");
+				body.classList.add('hide-nav');
 			} else {
-				body.classList.remove("hide-nav");
+				body.classList.remove('hide-nav');
 			}
 
 			lastScroll = currentScroll;
@@ -103,8 +88,8 @@ export const NavBar = () => {
 
 	function setScav(e: React.ChangeEvent<HTMLInputElement>) {
 		setScavState(e.target.checked);
-		if (e.target.checked) document.body.classList.add("scav");
-		else document.body.classList.remove("scav");
+		if (e.target.checked) document.body.classList.add('scav');
+		else document.body.classList.remove('scav');
 	}
 
 	function appleInterval() {
@@ -113,7 +98,7 @@ export const NavBar = () => {
 			walkInterval.current = null;
 			return;
 		}
-		const files = ["apple1", "apple2", "apple3", "apple2"];
+		const files = ['apple1', 'apple2', 'apple3', 'apple2'];
 
 		setAppleX((x) => {
 			let nextX = x + 1;
@@ -121,7 +106,7 @@ export const NavBar = () => {
 			if (next_ind < 0) next_ind = (4 - next_ind + 4) % 4;
 			const file = files[next_ind];
 			if (file == undefined) {
-				console.log("undefined", file, next_ind);
+				console.log('undefined', file, next_ind);
 			}
 			setAppleImg(files[next_ind] as string);
 			if (nextX > window.innerWidth) nextX = -100;
@@ -140,7 +125,7 @@ export const NavBar = () => {
 				Math.floor(window.innerHeight / 2);
 			window.scrollTo({
 				top: middle,
-				behavior: "smooth",
+				behavior: 'smooth',
 			});
 		}
 	};
@@ -165,7 +150,7 @@ export const NavBar = () => {
 
 		const ap = apple.current;
 		if (!ap) return;
-		const navRect = document.querySelector("nav")?.getBoundingClientRect();
+		const navRect = document.querySelector('nav')?.getBoundingClientRect();
 		if (!navRect) return;
 		const apRect = ap.getBoundingClientRect();
 
@@ -200,15 +185,11 @@ export const NavBar = () => {
 
 		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]) {
 			setAppleY(navRect.bottom - h1[3] - apRect.height / 8);
-			setAppleX(
-				window.innerWidth - (h1[0] + h1[1]) / 2 - (3 * apRect.width) / 5,
-			);
+			setAppleX(window.innerWidth - (h1[0] + h1[1]) / 2 - (3 * apRect.width) / 5);
 			archer.activeHeadSpot.current = 1;
 		} else if (mx > h2[0] && mx < h2[1] && my > h2[2] && my < h2[3]) {
 			setAppleY(navRect.bottom - h2[3] - apRect.height / 8);
-			setAppleX(
-				window.innerWidth - (h2[0] + h2[1]) / 2 - (3 * apRect.width) / 5,
-			);
+			setAppleX(window.innerWidth - (h2[0] + h2[1]) / 2 - (3 * apRect.width) / 5);
 			archer.activeHeadSpot.current = 2;
 		} else {
 			setAppleY(navRect.bottom - mouseY);
@@ -216,17 +197,17 @@ export const NavBar = () => {
 			archer.activeHeadSpot.current = -1;
 		}
 
-		setAppleImg("applesit");
+		setAppleImg('applesit');
 	}
 	function appleDragStop() {
 		const ap = apple.current;
 		if (!ap) return;
 		const appleRect = ap.getBoundingClientRect();
-		const navRect = document.querySelector("nav")?.getBoundingClientRect();
+		const navRect = document.querySelector('nav')?.getBoundingClientRect();
 		if (!navRect) return;
 		if (appleRect.bottom <= navRect.bottom) {
-			ap.style.bottom = "0";
-			ap.style.top = "unset";
+			ap.style.bottom = '0';
+			ap.style.top = 'unset';
 			setAppleY(0);
 			if (!appleHasTalked.current && archer.headshot) {
 				setAppleTalking(true);
@@ -293,7 +274,7 @@ export const NavBar = () => {
 			const ap = apple.current;
 			if (!ap) return;
 			const appleRect = ap.getBoundingClientRect();
-			const navRect = document.querySelector("nav")?.getBoundingClientRect();
+			const navRect = document.querySelector('nav')?.getBoundingClientRect();
 			if (!navRect) return;
 			if (appleRect.bottom > navRect.bottom) {
 				fallSpeed.current = 1;
@@ -316,7 +297,7 @@ export const NavBar = () => {
 		<>
 			{/* mobile dropdown menu */}
 			<div
-				style={{ height: mobileDown ? "100vh" : "0" }}
+				style={{ height: mobileDown ? '100vh' : '0' }}
 				className={`
 					mobile-nav-slide fixed z-40 top-[100px]
 					left-0 w-full shadow-lg overflow-hidden
@@ -351,11 +332,11 @@ export const NavBar = () => {
 			</div>
 			<nav
 				className={cn(
-					"",
+					'',
 					`navbar fixed top-0 z-50
 					w-full flex flex-row justify-between h-[100px] p-4
 					shadow-lg font-semibold items-center
-					px-4`,
+					px-4`
 				)}
 			>
 				<div className="flex items-center justify-between p-5 w-full max-w-screen-2xl mx-auto">
@@ -363,10 +344,10 @@ export const NavBar = () => {
 						<Picture
 							className={`
 							`}
-							onClick={() => router.push("/")}
+							onClick={() => router.push('/')}
 						>
 							<Image
-								src={`/assets/svgs/header.png`}
+								src={`/assets/svgs/header.webp`}
 								alt={``}
 								height={80}
 								width={80}
@@ -421,14 +402,14 @@ export const NavBar = () => {
 								onChange={setScav}
 								value={scavState}
 								sx={{
-									"& .MuiSwitch-switchBase.Mui-checked": {
-										color: "#3C2415",
-										"&:hover": {
-											backgroundColor: "rgba(60,36,21,0.08)",
+									'& .MuiSwitch-switchBase.Mui-checked': {
+										color: '#3C2415',
+										'&:hover': {
+											backgroundColor: 'rgba(60,36,21,0.08)',
 										},
 									},
-									"& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-										backgroundColor: "#3C2415",
+									'& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+										backgroundColor: '#3C2415',
 									},
 								}}
 								disabled={true}
@@ -440,19 +421,20 @@ export const NavBar = () => {
 					<button
 						className={`nav-links:hidden w-12 h-12 relative p-4`}
 						onClick={() => setMobileDown(!mobileDown)}
+						aria-label="Mobile Menu Toggle"
 					>
 						<div
 							className="absolute bg-black w-full h-[3px] transition-all duration-300"
 							style={{
-								top: mobileDown ? "calc(50% - 1.5px)" : "33%",
-								transform: mobileDown ? "rotate(45deg)" : "",
+								top: mobileDown ? 'calc(50% - 1.5px)' : '33%',
+								transform: mobileDown ? 'rotate(45deg)' : '',
 							}}
 						></div>
 						<div
 							className="absolute bg-black w-full h-[3px] transition-all duration-300"
 							style={{
-								bottom: mobileDown ? "calc(50% - 1.5px)" : "33%",
-								transform: mobileDown ? "rotate(-45deg)" : "",
+								bottom: mobileDown ? 'calc(50% - 1.5px)' : '33%',
+								transform: mobileDown ? 'rotate(-45deg)' : '',
 							}}
 						></div>
 					</button>
@@ -465,9 +447,9 @@ export const NavBar = () => {
 								alt="apple"
 								className="no-drag"
 								style={{
-									position: "absolute",
+									position: 'absolute',
 									bottom: `${appleY}px`,
-									width: "4rem",
+									width: '4rem',
 									right: `${appleX}px`,
 								}}
 							/>
@@ -478,7 +460,7 @@ export const NavBar = () => {
 						<AppleDialog
 							whenDone={appyFinishTalking}
 							className="absolute top-[100%] bg-white rounded-lg shadow-lg p-4 max-w-[16rem]"
-							style={{ right: appleX + 80 + "px", top: `calc(100% - 30px)` }}
+							style={{ right: appleX + 80 + 'px', top: `calc(100% - 30px)` }}
 						/>
 					)}
 				</div>

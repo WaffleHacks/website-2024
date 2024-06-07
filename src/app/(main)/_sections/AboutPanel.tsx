@@ -1,15 +1,14 @@
-"use client";
-import { CustomPicture as Picture, Text } from "@/components";
-import { Skeleton } from "@nextui-org/skeleton";
-import Image from "next/image";
-import React from "react";
-import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
+'use client';
+import { CustomPicture as Picture, Text } from '@/components';
+import Image from 'next/image';
+import React from 'react';
+import { useIsomorphicLayoutEffect, useMediaQuery } from 'usehooks-ts';
 export const AboutPanel = () => {
 	const [loading, setLoading] = React.useState(true);
 
-	const isXLarge = useMediaQuery("(min-width: 1280px)");
-	const isLarge = useMediaQuery("(min-width: 1024px)");
-	const isMedium = useMediaQuery("(min-width: 768px)");
+	const isXLarge = useMediaQuery('(min-width: 1280px)');
+	const isLarge = useMediaQuery('(min-width: 1024px)');
+	const isMedium = useMediaQuery('(min-width: 768px)');
 
 	useIsomorphicLayoutEffect(() => {
 		setLoading(false);
@@ -20,7 +19,7 @@ export const AboutPanel = () => {
 				font-mplus flex flex-col-reverse md:flex-row
 				justify-center items-center gap-2
 				w-full max-w-screen-2xl mx-auto
-				my-8 md:my-16 lg:my-24 xl:my-32 px-10
+				my-8  px-10
 			`}
 		>
 			<article
@@ -58,14 +57,14 @@ export const AboutPanel = () => {
 					<Text
 						className="text-lg font-normal text-left"
 						text={[
-							"Wafflehacks is a 48 - hour student - organized hackathon working to inspire high school and university students of all technical backgrounds to learn and create solutions that impact local communities and small businesses.",
-							"This year, gear up for our hottest competition yet. With pre-hackathon workshops on  June 19th & 20th, we’ll make sure you’re in tip-top shape to compete in the hackathon weekend from June 21st - 23rd.",
+							'Wafflehacks is a 48 - hour student - organized hackathon working to inspire high school and university students of all technical backgrounds to learn and create solutions that impact local communities and small businesses.',
+							'This year, gear up for our hottest competition yet. With pre-hackathon workshops on  June 19th & 20th, we’ll make sure you’re in tip-top shape to compete in the hackathon weekend from June 21st - 23rd.',
 						]}
 					/>
 					<span
 						className={`
                 text-[#3C2415]
-                sm:text-md text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl
+                sm:text-lg text-base md:text-xl lg:text-2xl xl:text-3xl 2xl:text-3xl
                 font-bold tracking-tighter leading-11 mt-4
             `}
 					>
@@ -73,21 +72,18 @@ export const AboutPanel = () => {
 					</span>
 				</div>
 			</article>
-			{loading ? (
-				<Skeleton className="flex flex-row justify-center items-center transition-transform duration-300 transform w-64 h-64 md:w-96 md:h-96 lg:w-128 lg:h-128 xl:w-144 xl:h-144 flex-1 pt-5 sm:pt-0" />
-			) : (
-				<Picture className="flex flex-row justify-center items-center transition-transform duration-300 transform w-64 h-64 md:w-96 md:h-96 lg:w-128 lg:h-128 xl:w-144 xl:h-144 flex-1 pt-5 sm:pt-0">
-					<Image
-						src="/assets/images/about.png"
-						alt=""
-						className="rounded-2xl object-contain object-center w-full h-full"
-						fetchPriority={`high`}
-						loading={`eager`}
-						width={isXLarge ? 500 : isLarge ? 400 : isMedium ? 300 : 200}
-						height={isXLarge ? 500 : isLarge ? 400 : isMedium ? 300 : 200}
-					/>
-				</Picture>
-			)}
+			<Picture className="flex flex-row justify-center items-center transition-transform duration-300 transform w-64 h-64 md:w-96 md:h-96 lg:w-128 lg:h-128 xl:w-144 xl:h-144 flex-1 pt-10 sm:pt-0 pb-5 sm:pb-0">
+				<Image
+					src="/assets/images/about.webp"
+					alt=""
+					className="rounded-2xl object-contain object-center w-full h-full"
+					fetchPriority={`low`}
+					loading={`eager`}
+					width={isXLarge ? 500 : isLarge ? 400 : isMedium ? 300 : 200}
+					height={isXLarge ? 500 : isLarge ? 400 : isMedium ? 300 : 200}
+					sizes={`(max-width: 200px) 100vw, 200px`}
+				/>
+			</Picture>
 		</article>
 	);
 };

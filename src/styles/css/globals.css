@@ -24,18 +24,13 @@
     }
     
     :host,html {
-        line-height: 1.5;
+        @apply leading-7 text-base antialiased font-sans tabular-nums transition-all duration-300 list-none scroll-smooth;
+
         text-size-adjust: 100%;
-        -webkit-font-smoothing: antialiased;
-        font-family: 'M PLUS Rounded 1c',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
         font-feature-settings: normal;
         font-variation-settings: normal;
         tab-size: 4;
         -webkit-tap-highlight-color: transparent;
-        transition-duration:  0.3s;
-        list-style: none;
-        scroll-behavior: smooth;
-        transition: all;
     }
     
     ::-webkit-scrollbar {
@@ -44,55 +39,40 @@
     }
 
     .font-mplus {
-        font-family: 'M PLUS Rounded 1c',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        @apply font-sans;
     }
 
     .no-scroll {
-        overflow-y: hidden;
+        @apply overflow-y-hidden;
     }
 
     body {
-        background-color: #fafafa;
-        transition: background-color var(--scav-transition-dur) ease;
-        color: #3C2415
+        @apply bg-[#fafafa] transition-colors duration-200 ease-in text-[#3C2415];
     }
 
     body.scav {
-        background-color: #F2DCC0;
+        @apply bg-[#F2DCC0];
     }
 
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'M PLUS Rounded 1c',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-        font-weight: 700;
-        line-height: 1.2;
-        color: #3C2415;
+        @apply font-sans font-bold leading-5 text-[#3C2415];
     }
 
     p {
-        font-family: 'M PLUS Rounded 1c',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-        font-weight: 400;
-        line-height: 1.5;
-        color: #3C2415;
+        @apply font-sans font-normal leading-7 text-[#3C2415];
     }
 
     a {
-        color: #3C2415;
-        text-decoration: none;
-        transition: color var(--scav-transition-dur) ease;
+        @apply text-[#3C2415] no-underline transition-colors duration-200 ease-in;
     }
 
     a:hover {
-        font-weight: 700;
+        @apply font-bold;
     }
 
     span {
-        font-family: 'M PLUS Rounded 1c',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-        font-weight: 400;
-        line-height: 1.5;
-        color: #3C2415;
+        @apply font-sans font-normal leading-7 text-[#3C2415];
     }
-
-    
 }
 
 @layer base {
