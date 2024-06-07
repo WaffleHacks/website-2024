@@ -51,8 +51,11 @@ export const TeamCard: React.FC<{ member: TeamMemberData }> = ({ member }) => {
 				flex flex-col gap-3 w-[687px]
 				h-[884px] rounded-xl shadow-lg
 				border-none py-10 mx-auto
-				bg-[#f5f5f5] relative
+				bg-[#f5f5f5] relative mt-24
 			`}
+			style={{
+				scale: '80%'
+			}}
 		>
 			<Picture className="w-full h-8 flex flex-col items-center justify-center mb-2">
 				<img src="/assets/svgs/logo-small.svg" alt="" />
@@ -168,7 +171,7 @@ export const TeamCard: React.FC<{ member: TeamMemberData }> = ({ member }) => {
 							</h4>
 							<Picture className="w-full h-full flex items-center justify-center">
 								<img
-									src={`/assets/svgs/team/${getFirstName(member.name)}.svg`}
+									src={`/assets/svgs/team/${member.photo_name}.svg`}
 									alt={member.favorite_olympic_sport}
 								/>
 							</Picture>

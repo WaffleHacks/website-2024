@@ -33,76 +33,34 @@ const TrackSlide: React.FC<{
 				`
 				)}
 			>
-				<Article
-					className={`
-					flex flex-col md:flex-row items-center
-					justify-center h-full w-full
-				`}
-				>
-					<Picture
-						className={`
-						w-full max-w-[450px]
-						h-auto rounded-md
-						`}
-					>
+				<Article className="flex flex-col md:flex-row items-center justify-center h-full w-full">
+					<Picture className="w-full max-w-[450px] h-auto rounded-md">
 						<Image
 							src={track.trackImage}
 							alt={`${track.title} image`}
-							className={`
-								object-cover object-center
-							`}
+							className="object-cover object-center"
 							width={450}
 							height={450}
 							sizes="(max-width: 768px) 100vw, (min-width: 768px) 50vw"
 						/>
 					</Picture>
-					<Article
-						className={`
-						mt-4 md:mt-0 md:ml-4 w-full
-					`}
-					>
-						<h3
-							className={`
-								text-2xl font-bold
-						`}
-						>
+					<Article className="mt-4 md:mt-0 md:ml-4 w-full">
+						<h3 className="text-2xl font-bold">
 							{track.title}
 						</h3>
-						<p
-							className={`
-								text-lg
-						`}
-						>
+						<p className="text-lg">
 							{track.description}
 						</p>
-						<Article
-							className={`
+						<Article>
+							<h4 className="text-xl font-bold">Prize(s)</h4>
 
-						`}
-						>
-							<h4
-								className={`
-									text-xl font-bold
-							`}
-							>
-								Prize(s)
-							</h4>
-
-							<Picture
-								className={`
-								flex flex-row flex-wrap gap-2
-								w-full relative rounded-sm mt-2
-								`}
-							>
+							<Picture className="flex flex-row flex-wrap gap-2 w-full relative rounded-sm mt-2">
 								{track.prizeImages.map((image: string, index: number) => (
 									<Image
 										key={index}
 										src={image}
 										alt={`Prize ${index + 1}`}
-										className={`
-												rounded-lg w-[100px] h-[100px]
-												md:w-[175px] md:h-[175px]
-											`}
+										className="rounded-lg w-[100px] h-[100px] md:w-[175px] md:h-[175px]"
 										width={175}
 										height={175}
 										sizes="(max-width: 768px) 100, (min-width: 768px) 175"
@@ -179,7 +137,7 @@ const CustomSlider = () => {
 				</Button>
 
 				<div>
-					<span className="font-bold text-xl hidden sm:block">
+					<span className="font-bold text-xl block">
 						{currentSlide + 1} of {totalSlides}
 					</span>
 				</div>
