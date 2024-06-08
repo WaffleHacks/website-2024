@@ -518,6 +518,7 @@ export const LandingPanel = () => {
 
 	function finishWithCarry() {
 		setCarrySpeaking(false);
+		ctx.shards.setShards([...ctx.shards.shards, 1]);
 		carrySpeakingDone.current = true;
 		const { x, y } = carrakatuPos;
 		const to = { x: 1000, y: -500 };
@@ -535,8 +536,7 @@ export const LandingPanel = () => {
 		<>
 			<header className="relative font-mplus px-2 sm:px-12 pt-44 w-full h-screen box-border max-w-screen-2xl mx-auto">
 				{/* TODO: Bigger screens edge case */}
-				<img
-					id="landing-blob"
+				<img id="landing-blob"
 					className="absolute top-24 right-0 h-[60%]"
 					src="/assets/svgs/landing/scav/blob.svg"
 					alt=""

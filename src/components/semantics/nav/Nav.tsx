@@ -30,14 +30,13 @@ export const NavBar = () => {
 		{ href: "#meet-the-team", text: "Team" },
 		{ href: "#sponsors", text: "Sponsors" },
 		{ href: "#faqs", text: "FAQs" },
-		{ href: "#apply", text: "Apply" },
 	];
 
 	const [mobileDown, setMobileDown] = useState(false);
 
 	const label = { inputProps: { "aria-label": "Scav switch" } };
 
-	const { scavState, setScavState, archer } = useContext(ScavContext);
+	const { scavState, setScavState, archer, shards } = useContext(ScavContext);
 
 	const apple = useRef<HTMLImageElement>(null);
 	const [appleImg, setAppleImg] = useState("apple1");
@@ -49,11 +48,6 @@ export const NavBar = () => {
 	const [appleGone, setAppleGone] = useState(false);
 	const [appleTalking, setAppleTalking] = useState(false);
 	const appleHasTalked = useRef(false);
-
-	/**
-	 * Backlog 1: Implement scroll-up and scroll-down classes
-	 */
-	const [_scrollDirection, setScrollDirection] = useState("scroll-up");
 
 	useIsomorphicLayoutEffect(() => {
 		const body: HTMLBodyElement = document.querySelector(
@@ -304,6 +298,7 @@ export const NavBar = () => {
 
 	function appyFinishTalking() {
 		setAppleTalking(false);
+		shards.setShards([...shards.shards, 2]);
 		appleHasTalked.current = true;
 		if (!walkInterval.current) {
 			walkInterval.current = setInterval(appleInterval, 25);
@@ -349,6 +344,7 @@ export const NavBar = () => {
 					))}
 				</ul>
 			</div>
+			{/* main navbar */}
 			<nav
 				className={cn(
 					"",
@@ -382,12 +378,7 @@ export const NavBar = () => {
 							`}
 						>
 							{Links.map((link, index) => (
-								<li
-									key={index}
-									className={`
-										ml-0 nav-links:ml-4
-									`}
-								>
+								<li key={index} className="ml-0 nav-links:ml-4">
 									<Link
 										href={link.href}
 										onClick={(e) => {
@@ -395,16 +386,17 @@ export const NavBar = () => {
 											ScrollIntoCenterView(link.href);
 										}}
 									>
-										<span
-											className={`
-											hover:font-bold
-										`}
-										>
+										<span className="hover:font-bold">
 											{link.text}
 										</span>
 									</Link>
 								</li>
 							))}
+							<li className="ml-0 nav-links:ml-4">
+								<a href="https://apply.wafflehacks.org/" className="font-[400]  hover:font-bold" target="_blank">
+									Apply
+								</a>
+							</li>
 						</ul>
 					</div>
 
@@ -431,7 +423,7 @@ export const NavBar = () => {
 										backgroundColor: "#3C2415",
 									},
 								}}
-								disabled={true}
+								disabled={false}
 							/>
 						</Tooltip>
 					</form>
@@ -482,6 +474,25 @@ export const NavBar = () => {
 						/>
 					)}
 				</div>
+
+				{
+					scavState && <>
+					<div 
+						className="bg-slate-400/75 backdrop-blur-sm p-4 absolute top-[120%] flex flex-col gap-4 rounded-r-xl"
+						style={{
+							left: shards.shards.length > 0 ? 0 : -200,
+							transition: "left 0.5s ease-in-out"
+						}}
+					>
+						<span className="text-xl font-bold">Inventory</span>
+						{
+							shards.shards.map(s => (
+								<img className="w-16" src={`/assets/svgs/scav/shard${s}.svg`} alt="" />
+							))
+						}
+					</div>
+					</>
+				}
 			</nav>
 		</>
 	);
