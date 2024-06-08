@@ -1,1 +1,1 @@
-export * from "./ThemeRegistry";
+export * from './ThemeRegistry';

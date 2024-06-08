@@ -1,8 +1,8 @@
-"use client";
-import { button_style } from "@/components";
-import { cn } from "@/lib";
-import { Button } from "@nextui-org/button";
-import type React from "react";
+'use client';
+import { button_style } from '@/components';
+import { cn } from '@/lib';
+import { Button } from '@nextui-org/button';
+import type React from 'react';
 export const ApplyPanel = () => {
 	return (
 		<>

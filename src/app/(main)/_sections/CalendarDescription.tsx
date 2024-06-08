@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
 export enum CalendarDescriptionType {
-	CEREMONY = "ceremony",
-	TECHNICAL = "technical",
-	CAREER = "career",
-	COMPETITION = "competition",
-	PANEL = "panel",
-	OTHER = "other",
+	CEREMONY = 'ceremony',
+	TECHNICAL = 'technical',
+	CAREER = 'career',
+	COMPETITION = 'competition',
+	PANEL = 'panel',
+	OTHER = 'other',
 }
 
 interface CalendarDescriptionProps {
@@ -29,24 +29,24 @@ const CalendarDescription = ({
 	position,
 }: CalendarDescriptionProps) => {
 	const colors = {
-		[CalendarDescriptionType.CEREMONY]: "bg-yellow-600",
-		[CalendarDescriptionType.TECHNICAL]: "bg-blue-600",
-		[CalendarDescriptionType.CAREER]: "bg-green-600",
-		[CalendarDescriptionType.COMPETITION]: "bg-red-600",
-		[CalendarDescriptionType.PANEL]: "bg-purple-600",
-		[CalendarDescriptionType.OTHER]: "bg-gray-600",
+		[CalendarDescriptionType.CEREMONY]: 'bg-yellow-600',
+		[CalendarDescriptionType.TECHNICAL]: 'bg-blue-600',
+		[CalendarDescriptionType.CAREER]: 'bg-green-600',
+		[CalendarDescriptionType.COMPETITION]: 'bg-red-600',
+		[CalendarDescriptionType.PANEL]: 'bg-purple-600',
+		[CalendarDescriptionType.OTHER]: 'bg-gray-600',
 	};
 	const smallDescriptions = {
-		[CalendarDescriptionType.CEREMONY]: "Ceremony",
-		[CalendarDescriptionType.TECHNICAL]: "Technical Workshop",
-		[CalendarDescriptionType.CAREER]: "Career Workshop",
-		[CalendarDescriptionType.COMPETITION]: "Competition",
-		[CalendarDescriptionType.PANEL]: "Panel",
-		[CalendarDescriptionType.OTHER]: "Other",
+		[CalendarDescriptionType.CEREMONY]: 'Ceremony',
+		[CalendarDescriptionType.TECHNICAL]: 'Technical Workshop',
+		[CalendarDescriptionType.CAREER]: 'Career Workshop',
+		[CalendarDescriptionType.COMPETITION]: 'Competition',
+		[CalendarDescriptionType.PANEL]: 'Panel',
+		[CalendarDescriptionType.OTHER]: 'Other',
 	};
 	return (
 		<div
-			className={"calendar-desc-card" + (!show ? " hidden" : "")}
+			className={'calendar-desc-card' + (!show ? ' hidden' : '')}
 			style={{ top: position.y, left: position.x }}
 		>
 			<div className="flex gap-2">
@@ -62,7 +62,7 @@ const CalendarDescription = ({
 
 			<div className="mt-4">
 				<a href={link} className="bg-[#2258A2] text-white px-4 py-2 rounded-lg">
-					{link == "" ? "Link Coming Soon" : "Link"}
+					{link == '' ? 'Link Coming Soon' : 'Link'}
 				</a>
 			</div>
 		</div>

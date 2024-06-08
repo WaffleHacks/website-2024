@@ -1,7 +1,7 @@
-"use client";
-import { motion, useAnimation, useInView } from "framer-motion";
-import { useRef } from "react";
-import { useIsomorphicLayoutEffect } from "usehooks-ts";
+'use client';
+import { motion, useAnimation, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 type props = {
 	children: React.ReactNode;
@@ -16,7 +16,7 @@ export const Slide: React.FC<props> = ({ children, className, delay }) => {
 
 	useIsomorphicLayoutEffect(() => {
 		if (isInview) {
-			controls.start("stop");
+			controls.start('stop');
 		}
 	}, [controls, isInview]);
 
@@ -28,7 +28,7 @@ export const Slide: React.FC<props> = ({ children, className, delay }) => {
 				stop: { opacity: 1, translateY: 0 },
 			}}
 			transition={{
-				ease: "easeInOut",
+				ease: 'easeInOut',
 				duration: 0.3,
 				delay: delay,
 				stiffness: 0.5,

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { animate, motion, useMotionValue } from "framer-motion";
-import { useState } from "react";
-import useMeasure from "react-use-measure";
-import { useIsomorphicLayoutEffect } from "usehooks-ts";
+import { animate, motion, useMotionValue } from 'framer-motion';
+import { useState } from 'react';
+import useMeasure from 'react-use-measure';
+import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 export const InfiniteHorizontalScroll: React.FC<{
 	children: React.ReactNode;
@@ -23,7 +23,7 @@ export const InfiniteHorizontalScroll: React.FC<{
 		const finalPosition = -width / 2 - 8;
 		if (mustFinish) {
 			controls = animate(xTranslation, [xTranslation.get(), finalPosition], {
-				ease: "linear",
+				ease: 'linear',
 				duration: duration * (1 - xTranslation.get() / finalPosition),
 				onComplete: () => {
 					setMustFinish(false);
@@ -32,10 +32,10 @@ export const InfiniteHorizontalScroll: React.FC<{
 			});
 		} else {
 			controls = animate(xTranslation, [0, finalPosition], {
-				ease: "linear",
+				ease: 'linear',
 				duration: duration,
 				repeat: Number.POSITIVE_INFINITY,
-				repeatType: "loop",
+				repeatType: 'loop',
 				repeatDelay: 0,
 			});
 		}

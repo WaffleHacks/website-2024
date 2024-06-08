@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib";
-import type React from "react";
+import { cn } from '@/lib';
+import type React from 'react';
 
 interface TextProps {
 	text?: string | string[];
@@ -13,12 +13,12 @@ export const Text: React.FC<Readonly<TextProps>> = ({ text, className }) => {
 		<>
 			{Array.isArray(text) ? (
 				text.map((t, i: number) => (
-					<p className={cn("text-[#604020]", className)} key={i}>
+					<p className={cn('text-[#604020]', className)} key={i}>
 						{t}
 					</p>
 				))
 			) : (
-				<p className={cn("text-[#604020]", className)}>{text}</p>
+				<p className={cn('text-[#604020]', className)}>{text}</p>
 			)}
 		</>
 	);

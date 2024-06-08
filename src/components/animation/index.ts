@@ -1,2 +1,2 @@
-export * from "./pages";
-export * from "./Slide";
+export * from './pages';
+export * from './Slide';

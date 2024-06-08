@@ -1,7 +1,7 @@
-import { CenterLayout, TransitionAnimation } from "@/components";
-import type React from "react";
-import "@/styles/css/globals.css";
-import "@/styles/sass/globals.scss";
+import { CenterLayout, TransitionAnimation } from '@/components';
+import type React from 'react';
+import '@/styles/css/globals.css';
+import '@/styles/sass/globals.scss';
 
 export default function LegalBaseLayout({
 	children,

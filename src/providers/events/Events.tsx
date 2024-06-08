@@ -1,6 +1,6 @@
-"use client";
-import type React from "react";
-import { Toaster } from "sonner";
+'use client';
+import type React from 'react';
+import { Toaster } from 'sonner';
 
 export const Events: React.FC<
 	Readonly<{

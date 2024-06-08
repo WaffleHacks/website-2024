@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Article, Picture, Text } from "@/components";
-import Image from "next/image";
-import type React from "react";
+import { Article, Picture, Text } from '@/components';
+import Image from 'next/image';
+import type React from 'react';
 
 export const Card: React.FC<{
 	image: string;
@@ -26,7 +26,7 @@ export const Card: React.FC<{
 					sizes={`(min-width: 640px) 640px, 100vw`}
 					priority
 					quality={100}
-					style={{ objectFit: "contain", padding: "10px" }}
+					style={{ objectFit: 'contain', padding: '10px' }}
 				/>
 				<source srcSet={image} type={`image/webp`} />
 			</Picture>

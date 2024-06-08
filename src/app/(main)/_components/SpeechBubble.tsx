@@ -1,4 +1,5 @@
-import type React from "react";
+'use client';
+import type React from 'react';
 
 interface SpeechBubbleProps {
 	children: any;
@@ -8,10 +9,7 @@ interface SpeechBubbleProps {
 
 const SpeechBubble = ({ children, className, style }: SpeechBubbleProps) => {
 	return (
-		<div
-			className={"speech-bubble inline " + (className ? className : "")}
-			style={style}
-		>
+		<div className={'speech-bubble inline ' + (className ? className : '')} style={style}>
 			{children}
 		</div>
 	);

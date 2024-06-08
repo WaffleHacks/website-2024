@@ -1,7 +1,7 @@
-"use client";
-import { Picture } from "@/components/templates";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+'use client';
+import { Picture } from '@/components/templates';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 	const router = useRouter();
@@ -41,7 +41,7 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 								sm:w-auto
 							`}
 						>
-							<Picture onClick={() => router.push("/")}>
+							<Picture onClick={() => router.push('/')}>
 								<img src={top.left.image} alt={`Logo`} className="mr-4" />
 							</Picture>
 							<div
@@ -56,9 +56,7 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 										href={icon.href}
 										target={`_blank`}
 										rel={`noopener noreferrer`}
-										aria-label={
-											icon.href.replace(/https?:\/\/(www\.)?/, "").split("/")[0]
-										}
+										aria-label={icon.href.replace(/https?:\/\/(www\.)?/, '').split('/')[0]}
 									>
 										{icon.icon}
 									</Link>
@@ -72,12 +70,8 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 							lg:w-auto mb-2 lg:mb-0
 						`}
 					>
-						Fiscally sponsored by{" "}
-						<Link
-							href={top.right.link}
-							target={`_blank`}
-							rel={`noopener noreferrer`}
-						>
+						Fiscally sponsored by{' '}
+						<Link href={top.right.link} target={`_blank`} rel={`noopener noreferrer`}>
 							{top.right.sponsor}
 						</Link>
 					</div>
@@ -96,12 +90,7 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 						`}
 					>
 						{bottom.right.links.map((link, index) => (
-							<Link
-								key={index}
-								href={link.href}
-								target={`_self`}
-								rel={`noopener noreferrer`}
-							>
+							<Link key={index} href={link.href} target={`_self`} rel={`noopener noreferrer`}>
 								<span className="mr-4">{link.text}</span>
 							</Link>
 						))}
@@ -110,7 +99,7 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 						<span className="mr-4">
 							&copy; {bottom.left.name} {new Date().getFullYear()}
 						</span>
-						{"|"}
+						{'|'}
 						<span className="ml-4"> Non-profit EIN: {bottom.left.ein}</span>
 					</p>
 				</div>

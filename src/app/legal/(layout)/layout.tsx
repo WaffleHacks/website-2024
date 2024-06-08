@@ -1,5 +1,5 @@
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import type React from "react";
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import type React from 'react';
 
 export default function LegalLayerLayout({
 	children,

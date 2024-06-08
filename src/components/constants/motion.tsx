@@ -1,5 +1,5 @@
-"use client";
-import { type Variants, cubicBezier, motion } from "framer-motion";
+'use client';
+import { type Variants, cubicBezier, motion } from 'framer-motion';
 
 export const MotionArticle = motion.article;
 export const MotionDiv = motion.div;
@@ -24,7 +24,7 @@ export const variants = {
 			y: 0,
 			transition: {
 				duration: 0.4,
-				ease: "easeInOut",
+				ease: 'easeInOut',
 			},
 		},
 		exit: {
@@ -32,7 +32,7 @@ export const variants = {
 			y: 20,
 			transition: {
 				duration: 0.4,
-				ease: "easeInOut",
+				ease: 'easeInOut',
 			},
 		},
 	},
@@ -43,7 +43,7 @@ export const CrossFadeVariants: Variants = {
 		opacity: 1,
 		transition: {
 			repeat: Number.POSITIVE_INFINITY,
-			repeatType: "reverse",
+			repeatType: 'reverse',
 			delay: 7,
 			duration: 10,
 			repeatDelay: 7,
@@ -53,7 +53,7 @@ export const CrossFadeVariants: Variants = {
 		opacity: 0,
 		transition: {
 			repeat: Number.POSITIVE_INFINITY,
-			repeatType: "reverse",
+			repeatType: 'reverse',
 			delay: 7,
 			duration: 10,
 			repeatDelay: 7,

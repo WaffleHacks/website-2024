@@ -1,1 +1,1 @@
-export * from "./motion-semantics";
+export * from './motion-semantics';

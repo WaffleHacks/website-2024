@@ -1,9 +1,12 @@
-import { CenterLayout } from "@/components";
-import { LandingPanel, PageSections } from "./(main)/_sections";
+'use client';
+import { CenterLayout } from '@/components';
+import React from 'react';
+import { LandingPanel, PageSections } from './(main)/_sections';
 
-export default function Home() {
+const Home = React.memo(() => {
 	return (
-		<div className="flex flex-col items-center justify-center overflow-x-hidden relative">
+		// <div className="flex flex-col items-center justify-center overflow-x-hidden relative">
+		<>
 			<LandingPanel />
 			<CenterLayout
 				Element={`main`}
@@ -11,6 +14,8 @@ export default function Home() {
 			>
 				<PageSections />
 			</CenterLayout>
-		</div>
+		</>
 	);
-}
+});
+
+export default Home;

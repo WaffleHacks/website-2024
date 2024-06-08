@@ -1,21 +1,16 @@
-"use client";
+'use client';
 
-import {
-	Article,
-	EnterAnimation,
-	CustomPicture as Picture,
-	Section,
-} from "@/components";
-import { Tracks } from "@/constants";
-import { cn } from "@/lib";
-import { Slugify } from "@/utils";
-import { Button } from "@nextui-org/button";
-import { Skeleton } from "@nextui-org/skeleton";
-import Image from "next/image";
-import type React from "react";
-import { useState } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useIsomorphicLayoutEffect, useMediaQuery } from "usehooks-ts";
+import { Article, EnterAnimation, CustomPicture as Picture, Section } from '@/components';
+import { Tracks } from '@/constants';
+import { cn } from '@/lib';
+import { Slugify } from '@/utils';
+import { Button } from '@nextui-org/button';
+import { Skeleton } from '@nextui-org/skeleton';
+import Image from 'next/image';
+import type React from 'react';
+import { useState } from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 const TrackSlide: React.FC<{
 	track: Tracks;
@@ -30,8 +25,12 @@ const TrackSlide: React.FC<{
 		<EnterAnimation>
 			<Section
 				className={cn(
-					`p-4 mx-2 h-auto rounded-lg`,
-					`bg-[#f0f0f0] shadow-lg`,
+					`
+					p-4 mx-2 h-auto rounded-lg 
+					`,
+					`
+					bg-[#f5f5f5] shadow-lg
+				`
 				)}
 			>
 				<Article className="flex flex-col md:flex-row items-center justify-center h-full w-full">
@@ -118,10 +117,7 @@ const CustomSlider = () => {
 					flex-shrink-0 w-full
 					`}
 					>
-						<TrackSlide
-							key={Slugify(Tracks[currentSlide]!.title)}
-							track={Tracks[currentSlide]!}
-						/>
+						<TrackSlide key={Slugify(Tracks[currentSlide]!.title)} track={Tracks[currentSlide]!} />
 					</Section>
 				)}
 			</div>
@@ -135,6 +131,7 @@ const CustomSlider = () => {
 					onClick={prevSlide}
 					className={`bg-[#3C2415]`}
 					color={`primary`}
+					aria-label="Previous"
 				>
 					<FaArrowLeft size={20} color={`#f5f5f5`} className={`bg-[#3C2415]`} />
 				</Button>
@@ -145,12 +142,8 @@ const CustomSlider = () => {
 					</span>
 				</div>
 
-				<Button onClick={nextSlide} className={`bg-[#3C2415]`}>
-					<FaArrowRight
-						size={20}
-						color={`#f5f5f5`}
-						className={`bg-[#3C2415]`}
-					/>
+				<Button onClick={nextSlide} className={`bg-[#3C2415]`} aria-label="Next">
+					<FaArrowRight size={20} color={`#f5f5f5`} className={`bg-[#3C2415]`} />
 				</Button>
 			</div>
 		</div>

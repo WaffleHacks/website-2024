@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useIsomorphicLayoutEffect } from "usehooks-ts";
+import { useRouter } from 'next/navigation';
+import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 export default function page() {
 	const router = useRouter();
 	useIsomorphicLayoutEffect(() => {
-		document.title = "WaffleHacks - Team";
-		router.push("/");
+		document.title = 'WaffleHacks - Team';
+		router.push('/');
 	}, []);
 	return (
 		<>

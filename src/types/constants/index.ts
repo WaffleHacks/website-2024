@@ -1,5 +1,5 @@
-import type { HTMLMotionProps } from "framer-motion";
-import type { Key } from "react";
+import type { HTMLMotionProps } from 'framer-motion';
+import type { Key } from 'react';
 
 export interface LegalLinks {
 	href: string;
@@ -10,17 +10,17 @@ export interface LegalLinksProps extends Array<LegalLinks> {}
 [];
 
 type Semantics =
-	| "article"
-	| "aside"
-	| "div"
-	| "figure"
-	| "footer"
-	| "header"
-	| "main"
-	| "menu"
-	| "nav"
-	| "picture"
-	| "section";
+	| 'article'
+	| 'aside'
+	| 'div'
+	| 'figure'
+	| 'footer'
+	| 'header'
+	| 'main'
+	| 'menu'
+	| 'nav'
+	| 'picture'
+	| 'section';
 
 export interface SemanticProps<T extends Semantics>
 	extends React.PropsWithChildren<React.HTMLProps<HTMLElement>> {

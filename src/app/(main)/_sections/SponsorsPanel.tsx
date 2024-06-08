@@ -1,11 +1,11 @@
-"use client";
-import { sponsorsData } from "@/constants";
-import { cn } from "@/lib";
-import { Slugify } from "@/utils";
-import { Image } from "@nextui-org/react";
-import Link from "next/link";
-import { useState } from "react";
-import { useIsomorphicLayoutEffect } from "usehooks-ts";
+'use client';
+import { sponsorsData } from '@/constants';
+import { cn } from '@/lib';
+import { Slugify } from '@/utils';
+import { Image } from '@nextui-org/react';
+import Link from 'next/link';
+import { useState } from 'react';
+import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 export const SponsorsPanel = () => {
 	const [loading, setLoading] = useState(true);
@@ -16,31 +16,31 @@ export const SponsorsPanel = () => {
 
 	const getTextColor = (tier: string): string => {
 		switch (tier) {
-			case "Platinum":
-				return "text-blue-400";
-			case "Gold":
-				return "text-yellow-600";
-			case "Silver":
-				return "text-gray-500";
+			case 'Platinum':
+				return 'text-[#0651AC]';
+			case 'Gold':
+				return 'text-[#684803]';
+			case 'Silver':
+				return 'text-[#4F545F]';
 			default:
-				return "text-[#fff]";
+				return 'text-[#fff]';
 		}
 	};
 
 	const getBorderColor = (tier: string): string => {
 		switch (tier) {
-			case "Platinum":
-				return "border-blue-400";
-			case "Gold":
-				return "border-yellow-600";
-			case "Silver":
-				return "border-gray-500";
+			case 'Platinum':
+				return 'border-[#0651AC]';
+			case 'Gold':
+				return 'border-[#684803]';
+			case 'Silver':
+				return 'border-[#4F545F]';
 			default:
-				return "border-[#fff]";
+				return 'border-[#fff]';
 		}
 	};
 
-	const sizes = ["max-h-[5.5rem]", "max-h-[4.5rem]", "max-h-[3.5rem]"];
+	const sizes = ['max-h-[5.5rem]', 'max-h-[4.5rem]', 'max-h-[3.5rem]'];
 
 	return (
 		<>
@@ -49,7 +49,7 @@ export const SponsorsPanel = () => {
 					`card`,
 					`
 				sm:p-5 p-0
-			`,
+			`
 				)}
 			>
 				{sponsorsData.tiers.map((tierData, index) => (
@@ -92,9 +92,7 @@ export const SponsorsPanel = () => {
 								<Link
 									key={sponsorIndex}
 									href={
-										sponsor.link
-											? sponsor.link
-											: `https://www.google.com/search?q=${sponsor.name}`
+										sponsor.link ? sponsor.link : `https://www.google.com/search?q=${sponsor.name}`
 									}
 									target="_blank"
 									rel="noopener noreferrer"
@@ -104,7 +102,7 @@ export const SponsorsPanel = () => {
 										src={sponsor.image}
 										alt={sponsor.name}
 										className={
-											"object-fit transition-all w-full h-full overflow-hidden mix-blend-multiply " +
+											'object-fit transition-all w-full h-full overflow-hidden mix-blend-multiply ' +
 											sizes[index]
 										}
 										fetchPriority="low"
