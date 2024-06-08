@@ -404,7 +404,7 @@ export const NavBar = () => {
 										backgroundColor: '#3C2415',
 									},
 								}}
-								disabled={false}
+								disabled={true}
 							/>
 						</Tooltip>
 					</form>
