@@ -477,6 +477,7 @@ export const LandingPanel = () => {
 
 	function finishWithCarry() {
 		setCarrySpeaking(false);
+		ctx.shards.setShards([...ctx.shards.shards, 1]);
 		carrySpeakingDone.current = true;
 		const { x, y } = carrakatuPos;
 		const to = { x: 1000, y: -500 };

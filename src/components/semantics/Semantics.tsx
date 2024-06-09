@@ -22,6 +22,10 @@ interface ScavContextParameters {
 		setBackWheelPopped: (state: boolean) => void;
 		setFrontWheelPopped: (state: boolean) => void;
 	};
+	shards: {
+		shards: number[];
+		setShards: (order: number[]) => void;
+	}
 }
 
 export const ScavContext = createContext<ScavContextParameters>({
@@ -42,6 +46,10 @@ export const ScavContext = createContext<ScavContextParameters>({
 		setBackWheelPopped: (state: boolean) => {},
 		setFrontWheelPopped: (state: boolean) => {},
 	},
+	shards: {
+		shards: [],
+		setShards: (order: number[]) => {},
+	}
 });
 
 export const Semantics: React.FC<
@@ -53,6 +61,7 @@ export const Semantics: React.FC<
 	const [backWheelPopped, setBackWheelPopped] = useState<boolean>(false);
 	const [frontWheelPopped, setFrontWheelPopped] = useState<boolean>(false);
 	const [headshot, setHeadshot] = useState<boolean>(false);
+	const [shards, setShards] = useState<number[]>([]);
 
 	return (
 		<>
@@ -75,6 +84,10 @@ export const Semantics: React.FC<
 						setBackWheelPopped,
 						setFrontWheelPopped,
 					},
+					shards: {
+						shards,
+						setShards,
+					}
 				}}
 			>
 				<NavBar />
