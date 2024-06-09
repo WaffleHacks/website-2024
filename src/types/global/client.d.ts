@@ -31,7 +31,7 @@ type ReadonlyTracks = ReadonlyArray<Tracks>;
 
 interface AccordionTextProps {
 	title: string;
-	description: string | string[];
+	description: string | string[] | JSX.Element;
 	index: number;
 	expandedIndex: number | null;
 	setExpandedIndex: React.Dispatch<React.SetStateAction<number | null>>;

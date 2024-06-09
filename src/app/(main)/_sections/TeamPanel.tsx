@@ -43,6 +43,13 @@ export const TeamPanel = () => {
 	return (
 		<>
 			<Article className="mt-2 px-10 w-full mb-8">
+				<h2
+					className={`
+							text-4xl font-semibold text-center sm:text-left max-w-screen-2xl flex items-center sm:justify-between justify-center mx-auto mb-4 mt-4
+					`}
+				>
+					Meet the Team
+				</h2>
 				<div className="w-full">
 					<div className="relative">
 						<div className="flex space-x-4 flex-row items-center justify-center mx-auto gap-2">

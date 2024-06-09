@@ -45,12 +45,8 @@ const TrackSlide: React.FC<{
 						/>
 					</Picture>
 					<Article className="mt-4 md:mt-0 md:ml-4 w-full">
-						<h3 className="text-2xl font-bold">
-							{track.title}
-						</h3>
-						<p className="text-lg">
-							{track.description}
-						</p>
+						<h3 className="text-2xl font-bold">{track.title}</h3>
+						<p className="text-lg">{track.description}</p>
 						<Article>
 							<h4 className="text-xl font-bold">Prize(s)</h4>
 
@@ -155,8 +151,22 @@ export const TracksPanel = () => {
 		<>
 			<div
 				className={`
-				font-mplus p-2 pt-0 max-w-screen-2xl mx-auto
-			`}
+				w-full px-10
+				`}
+			>
+				<h2
+					className={`
+					text-4xl font-semibold text-center sm:text-left max-w-screen-2xl flex items-center sm:justify-between justify-center mx-auto mb-4 mt-4
+					`}
+				>
+					Tracks & Prizes
+				</h2>
+			</div>
+
+			<div
+				className={`
+					font-mplus p-2 pt-0 max-w-screen-2xl mx-auto
+					`}
 			>
 				<CustomSlider />
 			</div>
