@@ -54,7 +54,7 @@ export const TeamCard: React.FC<{ member: TeamMemberData }> = ({ member }) => {
 				bg-[#f5f5f5] relative mt-24
 			`}
 			style={{
-				scale: '80%'
+				scale: '80%',
 			}}
 		>
 			<Picture className="w-full h-8 flex flex-col items-center justify-center mb-2">

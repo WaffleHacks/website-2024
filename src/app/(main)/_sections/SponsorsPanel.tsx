@@ -48,10 +48,17 @@ export const SponsorsPanel = () => {
 				className={cn(
 					`card`,
 					`
-				sm:p-5 p-0
+				sm:px-10 px-0 w-full
 			`
 				)}
 			>
+				<h2
+					className={`
+							text-4xl font-semibold text-center sm:text-left max-w-screen-2xl flex items-center sm:justify-between justify-center mx-auto mb-4 mt-4
+					`}
+				>
+					Our Sponsors
+				</h2>
 				{sponsorsData.tiers.map((tierData, index) => (
 					<div key={Slugify((index + 1).toString())} className="mb-8">
 						<section

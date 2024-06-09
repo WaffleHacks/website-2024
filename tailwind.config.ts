@@ -17,6 +17,7 @@ export default {
 			xl: '1280px',
 			'2xl': '1536px',
 			'nav-links': '770px',
+			calendar: '825px',
 		},
 		extend: {
 			backgroundImage: (_theme) => ({

@@ -1,12 +1,26 @@
 'use client';
 import { Accordion, card_style } from '@/components';
-import { Faqs } from '@/constants';
+import { Faqs } from '@/constants/faqs';
 import { cn } from '@/lib';
 import { Tab, Tabs } from '@nextui-org/tabs';
 export const FaqPanel = () => {
 	const sections = Faqs.map((faq) => faq.section);
 	return (
 		<>
+			<div
+				className={`
+					w-full px-10	
+				`}
+			>
+				<h2
+					className={`
+					text-4xl font-semibold text-center sm:text-left max-w-screen-2xl flex items-center sm:justify-between justify-center mx-auto mb-4 mt-4
+					`}
+				>
+					FAQs
+				</h2>
+			</div>
+
 			<article
 				id="faq-box"
 				className={cn(

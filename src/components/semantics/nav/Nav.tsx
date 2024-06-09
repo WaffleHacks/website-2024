@@ -5,17 +5,17 @@ import Switch from '@mui/material/Switch';
 import { Tooltip } from '@nextui-org/tooltip';
 import Image from 'next/image';
 import Link from 'next/link';
-import type React from 'react';
-import { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { DraggableCore, type DraggableData, type DraggableEvent } from 'react-draggable';
 
 import AppleDialog from '@/app/(main)/_components/AppleDialog';
 import { cn } from '@/lib';
+import { ScrollIntoCenterView } from '@/utils';
 import { useRouter } from 'next/navigation';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
-export const NavBar = () => {
+export const NavBar = React.memo(() => {
 	const Links: ReadonlyArray<{
 		href: string;
 		text: string;
@@ -107,22 +107,6 @@ export const NavBar = () => {
 			return nextX;
 		});
 	}
-
-	const ScrollIntoCenterView = (href: string) => {
-		const element = document.querySelector(href);
-		if (element) {
-			const elementRect = element.getBoundingClientRect();
-			const absoluteElementTop = elementRect.top + window.scrollY;
-			const middle =
-				absoluteElementTop +
-				Math.floor(elementRect.height / 2) -
-				Math.floor(window.innerHeight / 2);
-			window.scrollTo({
-				top: middle,
-				behavior: 'smooth',
-			});
-		}
-	};
 
 	useIsomorphicLayoutEffect(() => {
 		if (walkInterval.current) {
@@ -478,4 +462,4 @@ export const NavBar = () => {
 			</nav>
 		</>
 	);
-};
+});
