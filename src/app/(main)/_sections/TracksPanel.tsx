@@ -1,6 +1,6 @@
 'use client';
 
-import { Article, EnterAnimation, CustomPicture as Picture, Section } from '@/components';
+import { Article, EnterAnimation, CustomPicture as Picture, ScavContext, Section } from '@/components';
 import { Tracks } from '@/constants';
 import { cn } from '@/lib';
 import { Slugify } from '@/utils';
@@ -8,7 +8,7 @@ import { Button } from '@nextui-org/button';
 import { Skeleton } from '@nextui-org/skeleton';
 import Image from 'next/image';
 import type React from 'react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
@@ -17,9 +17,20 @@ const TrackSlide: React.FC<{
 }> = ({ track }) => {
 	const [loading, setLoading] = useState<boolean>(true);
 
+	const [waf2Done, setWaf2Done] = useState<boolean>(false);
+	const ctx = useContext(ScavContext);
+
 	useIsomorphicLayoutEffect(() => {
 		setLoading(false);
 	}, []);
+
+	function waf2Finish(){
+		setWaf2Done(true);
+
+		setTimeout(() => 
+		ctx.waffle.setHidingSpot(ctx.waffle.hidingSpot + 1)
+		, 500);
+	}
 
 	return (
 		<EnterAnimation>
@@ -34,7 +45,13 @@ const TrackSlide: React.FC<{
 				)}
 			>
 				<Article className="flex flex-col md:flex-row items-center justify-center h-full w-full">
-					<Picture className="w-full max-w-[450px] h-auto rounded-md">
+					<Picture className="w-full max-w-[450px] h-auto rounded-md relative">
+					{
+						(ctx.scavState && ctx.waffle.hidingSpot == 1 && track.title == "Food Insecurity [TRACK]" ) &&
+						<button id="waf2" className={'absolute bottom-0' + (waf2Done ? ' finished' : '')} onClick={waf2Finish}>
+							<img src="/assets/svgs/scav/wawa.svg" alt="" className='w-16'  />
+						</button>	
+					}
 						<Image
 							src={track.trackImage}
 							alt={`${track.title} image`}

@@ -30,5 +30,7 @@ export function generateStaticParams() {
 
 export default async function Page({ params: { name } }: { params: { name: string } }) {
 	const member = TeamMembers.find((member) => member.name?.split(' ')[0]?.toLowerCase() == name);
-	return <TeamCard member={member as TeamMemberData} />;
+	return (
+		<TeamCard member={member as TeamMemberData} />
+	);
 }
