@@ -7,6 +7,7 @@ import { Slugify } from '@/utils';
 import { Button } from '@nextui-org/button';
 import { Skeleton } from '@nextui-org/skeleton';
 import Image from 'next/image';
+import { useQueryState } from 'nuqs';
 import type React from 'react';
 import { useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
@@ -15,12 +16,6 @@ import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 const TrackSlide: React.FC<{
 	track: Tracks;
 }> = ({ track }) => {
-	const [loading, setLoading] = useState<boolean>(true);
-
-	useIsomorphicLayoutEffect(() => {
-		setLoading(false);
-	}, []);
-
 	return (
 		<EnterAnimation>
 			<Section
@@ -72,7 +67,11 @@ const TrackSlide: React.FC<{
 };
 
 const CustomSlider = () => {
-	const [currentSlide, setCurrentSlide] = useState(0);
+	const [currentSlide, setCurrentSlide] = useQueryState('track', {
+		parse: Number,
+		defaultValue: 0,
+		clearOnDefault: true,
+	});
 	const [loading, setLoading] = useState(true);
 	const totalSlides = Tracks.length;
 

@@ -45,6 +45,5 @@ export default function RootStyleRegistry({
 			/>
 		);
 	});
-
 	return <CacheProvider value={cache}>{children}</CacheProvider>;
 }

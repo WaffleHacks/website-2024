@@ -3,6 +3,7 @@ import { heading_style } from '@/components';
 import { cn } from '@/lib';
 import { Slugify } from '@/utils';
 import React from 'react';
+import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import {
 	AboutPanel,
 	ApplyPanel,
@@ -23,6 +24,27 @@ export const PageSections = () => {
 		faqs: 'FAQs',
 		apply: 'Apply',
 	};
+
+	useIsomorphicLayoutEffect(() => {
+		const pathname = window.location.href as string;
+		const hash = pathname.split('#')[1]?.split('?')[0];
+		if (hash) {
+			const element = document.getElementById(hash) as HTMLElement;
+			const elementRect = element?.getBoundingClientRect();
+			const absoluteElementTop = elementRect?.top + window.scrollY;
+			const middle =
+				absoluteElementTop +
+				Math.floor(elementRect?.height / 2) -
+				Math.floor(window.innerHeight / 2);
+			if (element) {
+				window.scrollTo({
+					top: middle,
+					behavior: 'smooth',
+				});
+			}
+		}
+	});
+
 	return (
 		<>
 			{Object.entries(sections).map(([key, value]) => {

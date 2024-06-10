@@ -73,6 +73,14 @@
     span {
         @apply font-sans font-normal leading-7 text-[#3C2415];
     }
+
+    ul {
+        @apply list-disc list-inside;
+    }
+
+    ol {
+        @apply list-decimal list-inside;
+    }
 }
 
 @layer base {

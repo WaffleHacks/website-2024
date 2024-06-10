@@ -25,7 +25,7 @@ interface ScavContextParameters {
 	shards: {
 		shards: number[];
 		setShards: (order: number[]) => void;
-	}
+	};
 }
 
 export const ScavContext = createContext<ScavContextParameters>({
@@ -49,7 +49,7 @@ export const ScavContext = createContext<ScavContextParameters>({
 	shards: {
 		shards: [],
 		setShards: (order: number[]) => {},
-	}
+	},
 });
 
 export const Semantics: React.FC<
@@ -87,7 +87,7 @@ export const Semantics: React.FC<
 					shards: {
 						shards,
 						setShards,
-					}
+					},
 				}}
 			>
 				<NavBar />

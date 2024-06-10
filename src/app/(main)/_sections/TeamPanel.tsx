@@ -4,13 +4,17 @@ import { Article, CustomPicture as Picture, Slide } from '@/components';
 import { cn } from '@/lib';
 import { Button, Card } from '@nextui-org/react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useQueryState } from 'nuqs';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useMediaQuery } from 'usehooks-ts';
 import { TeamMembers } from '../_components/Teams';
 
 export const TeamPanel = () => {
-	const [currentIndex, setCurrentIndex] = useState(0);
+	const [currentIndex, setCurrentIndex] = useQueryState('team', {
+		parse: Number,
+		defaultValue: 0,
+		clearOnDefault: true,
+	});
 
 	const isXLarge = useMediaQuery('(min-width: 1500px)');
 	const isLarge = useMediaQuery('(min-width: 1200px)');

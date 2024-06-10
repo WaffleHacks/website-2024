@@ -1,6 +1,7 @@
 'use client';
 import { Picture } from '@/components';
 import { Button } from '@nextui-org/button';
+import { useQueryState } from 'nuqs';
 import type React from 'react';
 import { useRef, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
@@ -25,7 +26,11 @@ const calendarButton: string =
 	'flex items-center justify-center rounded-lg bg-white w-10 h-10 text-black';
 
 export const CalendarPanel = () => {
-	const [eventIndex, setEventIndex] = useState<number>(0);
+	const [eventIndex, setEventIndex] = useQueryState('day', {
+		parse: Number,
+		defaultValue: 0,
+		clearOnDefault: true,
+	});
 	const eventOrder: string[] = ['Friday, June 21st', 'Saturday, June 22nd', 'Sunday, June 23rd'];
 	const events: EventList[] = [
 		{
