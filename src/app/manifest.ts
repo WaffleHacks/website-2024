@@ -30,7 +30,7 @@ export default function manifest(): MetadataRoute.Manifest {
 				src: '/assets/svgs/logo.svg',
 				type: 'image/svg+xml',
 				sizes: 'any',
-				purpose: 'any',
+				purpose: 'maskable',
 			},
 			{
 				src: '/pwa/windows11/SmallTile.scale-100.png',

@@ -3,7 +3,7 @@ import { Picture } from '@/components';
 import { Button } from '@nextui-org/button';
 import { useQueryState } from 'nuqs';
 import type React from 'react';
-import { useRef, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
 import CalendarDescription from './CalendarDescription';
 import { CalendarDescriptionType as CDT } from './CalendarDescription';

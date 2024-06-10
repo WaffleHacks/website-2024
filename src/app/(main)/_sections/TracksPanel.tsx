@@ -9,7 +9,7 @@ import { Skeleton } from '@nextui-org/skeleton';
 import Image from 'next/image';
 import { useQueryState } from 'nuqs';
 import type React from 'react';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
