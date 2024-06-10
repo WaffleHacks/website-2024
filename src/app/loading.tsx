@@ -11,7 +11,7 @@ const Loading = React.memo(() => {
         className={`
 					flex flex-col justify-center
 					items-center h-screen w-screen
-					overflow-hidden absolute top-0
+					overflow-hidden  top-0
 					left-0 bottom-0 right-0 z-50
         `}
         >
@@ -22,9 +22,9 @@ const Loading = React.memo(() => {
             `}
           >
             <Image
-              src={`/assets/svgs/logo.svg`}
+              src={`/assets/svgs/dom/loading.svg`}
               alt={`Loading`}
-              layout={`fill`}
+              fill
               objectFit={`contain`}
             />
           </Picture>
