@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
 		name: 'Waffle Hacks',
 		short_name: 'WH',
 		description:
-			'WaffleHacks is a 48-hour, virtual,  student-organized hackathon working to bring technical solutions to your local communities and small businesses.We welcome all students, of high school level and beyond, and of all technical proficiency levels, to join us on June 21st - 23rd, 2024.',
+			'WaffleHacks is a 48-hour, virtual, student-organized hackathon working to bring technical solutions to your local communities and small businesses.We welcome all students, of high school level and beyond, and of all technical proficiency levels, to join us on June 21st - 23rd, 2024.',
 		categories: [
 			'education',
 			'technology',
