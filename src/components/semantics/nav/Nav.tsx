@@ -407,7 +407,7 @@ export const NavBar = React.memo(() => {
 										backgroundColor: '#3C2415',
 									},
 								}}
-								disabled={true}
+								disabled={false}
 							/>
 						</Tooltip>
 					</form>

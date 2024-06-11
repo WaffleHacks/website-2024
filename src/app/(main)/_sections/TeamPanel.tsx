@@ -7,7 +7,8 @@ import Link from 'next/link';
 import { useQueryState } from 'nuqs';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useMediaQuery } from 'usehooks-ts';
-import { TeamMembers } from '../_components/Teams';
+import { TeamMemberData, TeamMembers } from '../_components/Teams';
+import { TeamCard } from '../_components';
 
 export const TeamPanel = () => {
 	const [currentIndex, setCurrentIndex] = useQueryState('team', {
@@ -46,7 +47,7 @@ export const TeamPanel = () => {
 
 	return (
 		<>
-			<Article className="mt-2 px-10 w-full mb-8">
+			<Article className="mt-2 px-10 w-full mb-8 relative">
 				<h2
 					className={`
 							text-4xl font-semibold text-center sm:text-left max-w-screen-2xl flex items-center sm:justify-between justify-center mx-auto mb-4 mt-4
@@ -117,6 +118,11 @@ export const TeamPanel = () => {
 						</li>
 					)}
 				</menu>
+				<div className='absolute bg-white p-4 rounded-lg bottom-full w-[25vw]'>
+					{/* <TeamCard member={TeamMembers[currentIndex] as TeamMemberData} style={{
+						scale: (100 * )
+					}} /> */}
+				</div>
 			</Article>
 		</>
 	);

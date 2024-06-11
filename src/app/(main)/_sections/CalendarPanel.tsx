@@ -1,9 +1,9 @@
 'use client';
-import { Picture } from '@/components';
+import { Picture, ScavContext } from '@/components';
 import { Button } from '@nextui-org/button';
 import { useQueryState } from 'nuqs';
 import type React from 'react';
-import { Suspense, useRef, useState } from 'react';
+import { Suspense, useContext, useRef, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
 import CalendarDescription from './CalendarDescription';
 import { CalendarDescriptionType as CDT } from './CalendarDescription';
@@ -256,6 +256,10 @@ export const CalendarPanel = () => {
 	const [descDetails, setDescDetails] = useState<EventStructure | null>(null);
 	const [openNum, setOpenNum] = useState(-1);
 
+	const [waf1Done, setWaf1Done] = useState(false);
+
+	const ctx = useContext(ScavContext);
+
 	function setDesc(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, event: EventStructure) {
 		if (!calendar_box.current) return;
 
@@ -284,6 +288,14 @@ export const CalendarPanel = () => {
 		return items;
 	}
 
+	function waf1Finish(){
+		setWaf1Done(true);
+
+		setTimeout(() => 
+		ctx.waffle.setHidingSpot(ctx.waffle.hidingSpot + 1)
+		, 500);
+	}
+
 	return (
 		<>
 			<div
@@ -305,6 +317,12 @@ export const CalendarPanel = () => {
 					className="font-mplus p-2 relative text-[#3C2415] w-full"
 					onClick={() => setDescPos({ x: -1, y: -1 })}
 				>
+					{
+						(ctx.scavState && ctx.waffle.hidingSpot == 0 ) &&
+						<button id="waf1" className={'absolute top-0' + (waf1Done ? ' finished' : '') } onClick={waf1Finish}>
+							<img src="/assets/svgs/scav/wawa.svg" alt="" className='w-16'  />
+						</button>	
+					}
 					<div className="sm:py-6 sm:px-8 bg-[#f0f0f0] rounded-xl flex flex-col backdrop-filter backdrop-blur-xl text-black w-full">
 						{/* header with day and buttons */}
 						<div className="flex flex-col p-4 gap-2 sm:gap-0 items-center sm:grid sm:grid-cols-2 md:grid-cols-3">

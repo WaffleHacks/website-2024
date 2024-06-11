@@ -26,6 +26,10 @@ interface ScavContextParameters {
 		shards: number[];
 		setShards: (order: number[]) => void;
 	};
+	waffle: {
+		hidingSpot: number;
+		setHidingSpot: (spot: number) => void;
+	};
 }
 
 export const ScavContext = createContext<ScavContextParameters>({
@@ -50,6 +54,10 @@ export const ScavContext = createContext<ScavContextParameters>({
 		shards: [],
 		setShards: (order: number[]) => {},
 	},
+	waffle:  {
+		hidingSpot: 0,
+		setHidingSpot: (spot: number) => {},
+	}
 });
 
 export const Semantics: React.FC<
@@ -62,6 +70,7 @@ export const Semantics: React.FC<
 	const [frontWheelPopped, setFrontWheelPopped] = useState<boolean>(false);
 	const [headshot, setHeadshot] = useState<boolean>(false);
 	const [shards, setShards] = useState<number[]>([]);
+	const [hidingSpot, setHidingSpot] = useState<number>(0);
 
 	return (
 		<>
@@ -88,6 +97,10 @@ export const Semantics: React.FC<
 						shards,
 						setShards,
 					},
+					waffle: {
+						hidingSpot,
+						setHidingSpot,
+					},	
 				}}
 			>
 				<NavBar />
