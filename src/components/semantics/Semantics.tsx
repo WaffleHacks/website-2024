@@ -57,7 +57,7 @@ export const ScavContext = createContext<ScavContextParameters>({
 	waffle:  {
 		hidingSpot: 0,
 		setHidingSpot: (spot: number) => {},
-	}
+	},
 });
 
 export const Semantics: React.FC<

@@ -7,6 +7,7 @@ import { Suspense, useContext, useRef, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
 import CalendarDescription from './CalendarDescription';
 import { CalendarDescriptionType as CDT } from './CalendarDescription';
+
 interface EventStructure {
 	title: string;
 	description: string;
