@@ -109,7 +109,7 @@ export const SponsorsPanel = () => {
 										src={sponsor.image}
 										alt={sponsor.name}
 										className={
-											'object-fit transition-all w-full h-full overflow-hidden mix-blend-multiply ' +
+											'object-contain transition-all w-full h-full overflow-hidden mix-blend-multiply ' +
 											sizes[index]
 										}
 										fetchPriority="low"
