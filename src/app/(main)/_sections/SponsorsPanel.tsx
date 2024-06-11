@@ -4,15 +4,8 @@ import { cn } from '@/lib';
 import { Slugify } from '@/utils';
 import { Image } from '@nextui-org/react';
 import Link from 'next/link';
-import { useState } from 'react';
-import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 export const SponsorsPanel = () => {
-	const [loading, setLoading] = useState(true);
-
-	useIsomorphicLayoutEffect(() => {
-		setLoading(false);
-	}, []);
 
 	const getTextColor = (tier: string): string => {
 		switch (tier) {
@@ -44,19 +37,8 @@ export const SponsorsPanel = () => {
 
 	return (
 		<>
-			<article
-				className={cn(
-					`card`,
-					`
-				sm:px-10 px-0 w-full
-			`
-				)}
-			>
-				<h2
-					className={`
-							text-4xl font-semibold text-center sm:text-left max-w-screen-2xl flex items-center sm:justify-between justify-center mx-auto mb-4 mt-4
-					`}
-				>
+			<article className="w-full">
+				<h2 className="text-4xl font-semibold text-center sm:text-left max-w-screen-2xl flex items-center sm:justify-between justify-center mx-auto mb-4 mt-4">
 					Our Sponsors
 				</h2>
 				{sponsorsData.tiers.map((tierData, index) => (

@@ -282,7 +282,7 @@ export const NavBar = React.memo(() => {
 			<div
 				style={{ height: mobileDown ? '100vh' : '0' }}
 				className={`
-					mobile-nav-slide fixed z-40 top-[100px]
+					mobile-nav-slide fixed z-40 top-[100px] box-border
 					left-0 w-full shadow-lg overflow-hidden
 					nav-links:hidden text-[#3C2415] backdrop-blur-lg
 				`}
@@ -326,7 +326,7 @@ export const NavBar = React.memo(() => {
 				className={cn(
 					'',
 					`navbar fixed top-0 z-50
-					w-full flex flex-row justify-between h-[100px] p-4
+					w-full box-border flex flex-row justify-between h-[100px] p-4
 					shadow-lg font-semibold items-center
 					px-4`
 				)}
