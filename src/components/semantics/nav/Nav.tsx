@@ -284,7 +284,7 @@ export const NavBar = React.memo(() => {
 				className={`
 					mobile-nav-slide fixed z-40 top-[100px] box-border
 					left-0 w-full shadow-lg overflow-hidden
-					nav-links:hidden text-[#3C2415] backdrop-blur-lg
+					nav-links:hidden text-[#3C2415] bg-white
 				`}
 			>
 				<ul
