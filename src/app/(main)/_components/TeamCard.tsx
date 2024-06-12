@@ -1,23 +1,7 @@
 'use client';
-import {
-	Article,
-	Aside,
-	CustomPicture,
-	Footer,
-	Header,
-	Picture,
-	Section,
-	Subtract,
-	Text,
-} from '@/components';
-import { colorClasses, teams, waffleImageClasses } from '@/constants';
-import Image from 'next/image';
+import { teams } from '@/constants';
 import type React from 'react';
-import { FaFlag, FaGraduationCap } from 'react-icons/fa';
-import { FaBookOpenReader } from 'react-icons/fa6';
 import type { TeamMemberData } from './Teams';
-
-import { usePathname, useRouter } from 'next/navigation';
 import { CSSProperties } from 'react';
 
 const memberTeamAssociations: Record<string, string> = Object.fromEntries(
@@ -32,17 +16,11 @@ export const TeamCard: React.FC<{ member: TeamMemberData, style?:CSSProperties }
 	const CIRCLE_PATH = '/assets/images/team/';
 	const WAFFLE_PATH = '/assets/images/waffles/';
 
-	const teamImage = CIRCLE_PATH + member.photo_name + '.webp';
+	const teamImage = CIRCLE_PATH + member.photo_name + '.png';
 	const waffleImage = WAFFLE_PATH + member.photo_name + '.webp';
 	const name = waffleImage.split('/').pop()?.replace('.webp', '');
 
-	const waffleImageClass = name ? waffleImageClasses[name] : '';
-	const colorClass = name ? colorClasses[name] : '';
 	const team = memberTeamAssociations[name as string];
-
-	const pathName: string = usePathname();
-	const isTeam = pathName.includes('team');
-	const router = useRouter();
 
 	function splitIntoLines(text: string, maxLineLength: number): string[] {
 		const words = text.split(' ');
@@ -243,11 +221,11 @@ export const TeamCard: React.FC<{ member: TeamMemberData, style?:CSSProperties }
 			{/* member name */}
 			{
 				member.name.length < 20 ?
-				<text x="484.5" y="176" fill="#3C2415" style={{font: "bold 30px sans-serif"}} dominant-baseline="middle" text-anchor="middle">{member.name}</text>
+				<text x="484.5" y="176" fill="#3C2415" style={{font: "bold 30px sans-serif"}} dominantBaseline="middle" text-anchor="middle">{member.name}</text>
 				:
 				<>
-				<text x="484.5" y="163" fill="#3C2415" style={{font: "bold 24px sans-serif"}} dominant-baseline="middle" text-anchor="middle">{member.name.split(' ')[0]}</text>
-				<text x="484.5" y="188" fill="#3C2415" style={{font: "bold 24px sans-serif"}} dominant-baseline="middle" text-anchor="middle">{member.name.split(' ')[1]}</text>
+				<text x="484.5" y="163" fill="#3C2415" style={{font: "bold 24px sans-serif"}} dominantBaseline="middle" text-anchor="middle">{member.name.split(' ')[0]}</text>
+				<text x="484.5" y="188" fill="#3C2415" style={{font: "bold 24px sans-serif"}} dominantBaseline="middle" text-anchor="middle">{member.name.split(' ')[1]}</text>
 				</>
 			}
 			{/* team */}
@@ -265,7 +243,7 @@ export const TeamCard: React.FC<{ member: TeamMemberData, style?:CSSProperties }
 			}
 			
 			{/* favorite waffle */}
-			<text x="630" y="570" fill="#3C2415" style={{font: "normal 18px sans-serif"}} dominant-baseline="hanging" text-anchor="end">{member.favorite_waffle}</text>
+			<text x="630" y="570" fill="#3C2415" style={{font: "normal 18px sans-serif"}} dominantBaseline="hanging" text-anchor="end">{member.favorite_waffle}</text>
 			
 			{/* favorite olympic sport */}
 			<text x="400" y="645" fill="#3C2415" style={{font: "bold 18px sans-serif"}}>Favorite Olympic Sport</text>
