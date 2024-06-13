@@ -113,6 +113,11 @@ export const TeamPanel = () => {
 						</li>
 					)}
 				</menu>
+				{/* <div className='absolute bg-white p-4 rounded-lg bottom-full w-[25vw]'>
+					<TeamCard member={TeamMembers[currentIndex] as TeamMemberData} style={{
+						scale: (100 * )
+					}} />
+				</div> */}
 			</Article>
 		</>
 	);
