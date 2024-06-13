@@ -6,7 +6,6 @@ import { Image } from '@nextui-org/react';
 import Link from 'next/link';
 
 export const SponsorsPanel = () => {
-
 	const getTextColor = (tier: string): string => {
 		switch (tier) {
 			case 'Platinum':

@@ -30,13 +30,15 @@ export function generateStaticParams() {
 
 export default async function Page({ params: { name } }: { params: { name: string } }) {
 	const member = TeamMembers.find((member) => member.name?.split(' ')[0]?.toLowerCase() == name);
-	return  (
-	<div className='flex justify-center mt-24'>
-		<TeamCard member={member as TeamMemberData} style={{
-			width: '80vw', 
-			maxHeight: '80vh'}} />
-	</div>
+	return (
+		<div className="flex justify-center mt-24">
+			<TeamCard
+				member={member as TeamMemberData}
+				style={{
+					width: '80vw',
+					maxHeight: '80vh',
+				}}
+			/>
+		</div>
 	);
-	
-	
 }

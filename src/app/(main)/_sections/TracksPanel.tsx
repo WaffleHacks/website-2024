@@ -1,6 +1,12 @@
 'use client';
 
-import { Article, EnterAnimation, CustomPicture as Picture, ScavContext, Section } from '@/components';
+import {
+	Article,
+	EnterAnimation,
+	CustomPicture as Picture,
+	ScavContext,
+	Section,
+} from '@/components';
 import { Tracks } from '@/constants';
 import { cn } from '@/lib';
 import { Slugify } from '@/utils';
@@ -19,12 +25,10 @@ const TrackSlide: React.FC<{
 	const [waf2Done, setWaf2Done] = useState<boolean>(false);
 	const ctx = useContext(ScavContext);
 
-	function waf2Finish(){
+	function waf2Finish() {
 		setWaf2Done(true);
 
-		setTimeout(() => 
-		ctx.waffle.setHidingSpot(ctx.waffle.hidingSpot + 1)
-		, 500);
+		setTimeout(() => ctx.waffle.setHidingSpot(ctx.waffle.hidingSpot + 1), 500);
 	}
 
 	return (
@@ -41,12 +45,17 @@ const TrackSlide: React.FC<{
 			>
 				<Article className="flex flex-col md:flex-row items-center justify-center h-full w-full">
 					<Picture className="w-full max-w-[450px] h-auto rounded-md">
-						{
-							(ctx.scavState && ctx.waffle.hidingSpot == 1 && track.title == "Food Insecurity [TRACK]" ) &&
-							<button id="waf2" className={'absolute bottom-0' + (waf2Done ? ' finished' : '')} onClick={waf2Finish}>
-								<img src="/assets/svgs/scav/wawa.svg" alt="" className='w-16'  />
-							</button>	
-						}
+						{ctx.scavState &&
+							ctx.waffle.hidingSpot == 1 &&
+							track.title == 'Food Insecurity [TRACK]' && (
+								<button
+									id="waf2"
+									className={'absolute bottom-0' + (waf2Done ? ' finished' : '')}
+									onClick={waf2Finish}
+								>
+									<img src="/assets/svgs/scav/wawa.svg" alt="" className="w-16" />
+								</button>
+							)}
 						<Image
 							src={track.trackImage}
 							alt={`${track.title} image`}
