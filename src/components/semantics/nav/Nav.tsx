@@ -8,11 +8,10 @@ import Link from 'next/link';
 import React, { useContext, useRef, useState } from 'react';
 
 import { DraggableCore, type DraggableData, type DraggableEvent } from 'react-draggable';
-
 import AppleDialog from '@/app/(main)/_components/AppleDialog';
 import { cn } from '@/lib';
 import { ScrollIntoCenterView } from '@/utils';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 export const NavBar = React.memo(() => {
