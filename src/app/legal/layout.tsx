@@ -10,7 +10,7 @@ export default function LegalBaseLayout({
 }) {
 	return (
 		<CenterLayout
-			Element={`section`}
+			Element={`main`}
 			className={` h-screen flex items-center justify-center overflow-y-scroll
 				my-auto mx-auto w-screen
 				*:text-[#3c2415]

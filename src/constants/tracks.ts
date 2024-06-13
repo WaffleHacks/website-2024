@@ -55,20 +55,4 @@ export const Tracks: ReadonlyTracks = [
 		trackImage: '/assets/images/tracks/ai.webp',
 		prizeImages: ['/assets/images/tracks/tbd.svg'],
 	},
-	{
-		title: 'Best Use of Data [PRIZE]',
-		description:
-			'Unleash the power of data and take your project to the next level with this category! From visualizations to analysis, explore the endless possibilities of data APIs and seamlessly integrate them into your product.',
-		prize: 'TBD',
-		trackImage: '/assets/images/tracks/data.webp',
-		prizeImages: ['/assets/images/tracks/tbd.svg'],
-	},
-	{
-		title: 'Best Use of Wolfram [PRIZE]',
-		description:
-			"Unleash your creativity with Wolfram's cutting-edge computational tools! Show off your skills by working on projects that showcase the full potential of products like Mathematica, Wolfram Alpha, and the Wolfram Language.",
-		prize: 'TBD',
-		trackImage: '/assets/images/tracks/wolfram.webp',
-		prizeImages: ['/assets/images/tracks/tbd.svg'],
-	},
 ];

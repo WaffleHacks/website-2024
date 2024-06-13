@@ -1,5 +1,6 @@
 'use client';
 import { Picture } from '@/components/templates';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -42,7 +43,16 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 							`}
 						>
 							<Picture onClick={() => router.push('/')}>
-								<img src={top.left.image} alt={`Logo`} className="mr-4" />
+								<Image
+									src={`/assets/svgs/header.webp`}
+									alt={``}
+									height={80}
+									width={80}
+									className={`
+									cursor-pointer
+									object-cover object-center
+								`}
+								/>
 							</Picture>
 							<div
 								className={`
@@ -71,7 +81,14 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 						`}
 					>
 						Fiscally sponsored by{' '}
-						<Link href={top.right.link} target={`_blank`} rel={`noopener noreferrer`}>
+						<Link
+							href={top.right.link}
+							target={`_blank`}
+							rel={`noopener noreferrer`}
+							className={`
+								underline cursor-pointer	
+							`}
+						>
 							{top.right.sponsor}
 						</Link>
 					</div>
@@ -90,8 +107,17 @@ export const FooterComp: React.FC<FooterProps> = ({ top, bottom }) => {
 						`}
 					>
 						{bottom.right.links.map((link, index) => (
-							<Link key={index} href={link.href} target={`_self`} rel={`noopener noreferrer`}>
-								<span className="mr-4">{link.text}</span>
+							<Link
+								key={index}
+								href={link.href}
+								target={`_self`}
+								rel={`noopener noreferrer`}
+								className={`
+								text-sm cursor-pointer
+								underline
+							`}
+							>
+								<span className="mr-4 hover:font-bold">{link.text}</span>
 							</Link>
 						))}
 					</div>

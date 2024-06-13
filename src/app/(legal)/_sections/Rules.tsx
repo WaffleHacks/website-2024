@@ -16,10 +16,21 @@ export const Rules = () => {
 				<h1>Rules</h1>
 			</header>
 			<Container maxWidth="sm" sx={{ marginTop: 3, marginBottom: 3 }} component={`article`}>
-				<Typography level="h2" gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					level="h2"
+					gutterBottom
+				>
 					The spirit of the competition
 				</Typography>
-				<Typography gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					gutterBottom
+				>
 					Remember that hackathons are like marathons. Some people go to compete but most people
 					take part to better themselves and have fun. Whatever the reason you're at a hackathon,
 					make sure you're upholding the{' '}
@@ -32,10 +43,22 @@ export const Rules = () => {
 					by collaborating with other teams, helping beginners, and having fun.
 				</Typography>
 
-				<Typography level="h2" gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					level="h2"
+					gutterBottom
+				>
 					The rules of the competition
 				</Typography>
-				<Typography component="ol" gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					component="ol"
+					gutterBottom
+				>
 					<li>
 						A team should consist of a minimum of 1 person and a max of 4. There will be up to 4
 						prizes distributed per team. You are free to choose your teammates either prior to or on
@@ -98,10 +121,21 @@ export const Rules = () => {
 					</li>
 				</Typography>
 
-				<Typography level="h2" gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					level="h2"
+					gutterBottom
+				>
 					Demos
 				</Typography>
-				<Typography gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					gutterBottom
+				>
 					After hacking finishes, teams will show their projects to each other and to the judges by
 					submitting on{' '}
 					<Link className={`underline`} href="https://wffl.link/devpost">
@@ -109,13 +143,23 @@ export const Rules = () => {
 					</Link>
 					.
 				</Typography>
-				<Typography gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					gutterBottom
+				>
 					You are strongly encouraged to present a demo of what you have built. Pitches or
 					presentations are discouraged. You are not judged on the quality of your pitch or the
 					quality of your idea. As you are judged on what you built, you'll only hurt yourself by
 					not showing a demo.
 				</Typography>
-				<Typography gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					gutterBottom
+				>
 					You are encouraged to present what you have done even if your hack is broken or you
 					weren’t able to finish. It's okay if you didn't finish your hack—that happens all the
 					time! Completion is only one part of the judging criteria, so you might still do well.
@@ -125,18 +169,40 @@ export const Rules = () => {
 					you learned.
 				</Typography>
 
-				<Typography level="h2" gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					level="h2"
+					gutterBottom
+				>
 					Judging Criteria
 				</Typography>
-				<Typography gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					gutterBottom
+				>
 					Teams will be judged on these four criteria. Judges will weigh the criteria equally.
 					During judging, participants should try to describe what they did for each criterion in
 					their project.
 				</Typography>
-				<Typography component="ul" gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					component="ul"
+					gutterBottom
+				>
 					<li>
 						<b>Technology:</b>
-						<Typography component="ul">
+						<Typography
+							sx={{
+								color: '#3C2415',
+							}}
+							component="ul"
+						>
 							<li>How technically impressive was the hack?</li>
 							<li>Was the technical problem the team tackled difficult?</li>
 							<li>
@@ -147,7 +213,12 @@ export const Rules = () => {
 					</li>
 					<li>
 						<b>Design:</b>
-						<Typography component="ul">
+						<Typography
+							sx={{
+								color: '#3C2415',
+							}}
+							component="ul"
+						>
 							<li>Did the team put thought into the user experience?</li>
 							<li>How well designed is the interface?</li>
 							<li>For a website, this might be about how beautiful the CSS or graphics are.</li>
@@ -160,7 +231,12 @@ export const Rules = () => {
 					</li>
 					<li>
 						<b>Originality:</b>
-						<Typography component="ul">
+						<Typography
+							sx={{
+								color: '#3C2415',
+							}}
+							component="ul"
+						>
 							<li>Can your hack inspire innovation in the next generation of students?</li>
 							<li>
 								Does it do something entirely novel, or at least take a fresh approach to an old
@@ -174,7 +250,12 @@ export const Rules = () => {
 					</li>
 					<li>
 						<b>Impact/Usefulness:</b>
-						<Typography component="ul">
+						<Typography
+							sx={{
+								color: '#3C2415',
+							}}
+							component="ul"
+						>
 							<li>Does your hack have a social impact?</li>
 							<li>Does it fulfill a real need people have?</li>
 							<li>
@@ -185,20 +266,41 @@ export const Rules = () => {
 					</li>
 					<li>
 						<b>Feasibility/Practicality:</b>
-						<Typography component="ul">
+						<Typography
+							sx={{
+								color: '#3C2415',
+							}}
+							component="ul"
+						>
 							<li>Is this project feasible and practical in the next couple years?</li>
 							<li>Can your project scale to meet the requirements of mass adoption?</li>
 						</Typography>
 					</li>
 				</Typography>
-				<Typography gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					gutterBottom
+				>
 					These criteria will guide judges but ultimately judges are free to make decisions based on
 					their gut feeling of which projects are the most impressive and most deserving.
 				</Typography>
-				<Typography gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					gutterBottom
+				>
 					It's important to note that these judging criteria do not include:
 				</Typography>
-				<Typography component="ul" gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					component="ul"
+					gutterBottom
+				>
 					<li>
 						How good your code is. It doesn't matter if your code is messy, or not well commented,
 						or uses inefficient algorithms. Hacking is about playing around, making mistakes, and
@@ -211,7 +313,12 @@ export const Rules = () => {
 						It's about building and learning.
 					</li>
 				</Typography>
-				<Typography gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					gutterBottom
+				>
 					So don't worry about coming up with the next big idea or building the next Facebook.
 					You'll have plenty of time for that outside the hackathon. Just focus on learning, having
 					fun, and making new friends. At the end of the day the skills you learn and the friends
@@ -219,19 +326,41 @@ export const Rules = () => {
 					hackathon.
 				</Typography>
 
-				<Typography level="h2" gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					level="h2"
+					gutterBottom
+				>
 					Remember!
 				</Typography>
-				<Typography gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					gutterBottom
+				>
 					The competition is just a part of the hackathon. To make the most out of the event, try
 					something new, teach other people, and make new friends!
 				</Typography>
 
-				<Typography gutterBottom>
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					gutterBottom
+				>
 					<b>Happy Hacking from the WaffleHacks team!</b>
 				</Typography>
 
-				<Typography gutterBottom component="caption">
+				<Typography
+					sx={{
+						color: '#3C2415',
+					}}
+					gutterBottom
+					component="caption"
+				>
 					_Last Updated: May 17, 2022_
 				</Typography>
 			</Container>

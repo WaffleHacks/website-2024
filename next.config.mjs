@@ -32,6 +32,7 @@ const config = {
 	images: { unoptimized: true },
 
 	experimental: {
+		// missingSuspenseWithCSRBailout: false,
 		optimizeCss: true,
 		turbo: {
 			rules: {

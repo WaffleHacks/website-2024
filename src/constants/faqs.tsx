@@ -54,7 +54,7 @@ export const Faqs: ReadonlyArray<{
 					<p>
 						Prizes for the hackathon include cash rewards, tech gadgets, and opportunities for
 						further development of your projects with industry mentors. Specific prize details and
-						categories can be found on the
+						categories can be found on the{' '}
 						<Link
 							href={`#tracks-and-awards`}
 							target="_self"
@@ -64,9 +64,8 @@ export const Faqs: ReadonlyArray<{
 								ScrollIntoCenterView('#tracks-and-awards');
 							}}
 						>
-							{' '}
-							Tracks & Prizes section{' '}
-						</Link>
+							Tracks & Prizes section
+						</Link>{' '}
 						of our website.
 					</p>
 				),
@@ -75,25 +74,23 @@ export const Faqs: ReadonlyArray<{
 				title: 'How can I sponsor the hackathon?',
 				description: (
 					<p>
-						If you are interested in sponsoring the hackathon, please view the
+						If you are interested in sponsoring the hackathon, please view the{' '}
 						<Link
 							href={`https://drive.google.com/file/d/1S5hBEByUB56xo_o7RGvM4WJ6dJA8G5px/view?usp=sharing`}
 							target="_blank"
 							className="underline cursor-pointer"
 						>
-							{' '}
-							sponsorship package{' '}
-						</Link>
-						for more information. For any inquiries, please contact the sponsorship team at
+							sponsorship package
+						</Link>{' '}
+						for more information. For any inquiries, please contact the sponsorship team at{' '}
 						<Link
 							href={`mailto:sponsors@wafflehacks.org?subject=Sponsorship Inquiry`}
 							target="_blank"
 							className="underline cursor-pointer"
 						>
-							{' '}
 							sponsors@wafflehacks.org
-							{'.'}
 						</Link>
+						{'.'}
 					</p>
 				),
 			},
@@ -107,15 +104,14 @@ export const Faqs: ReadonlyArray<{
 				description: (
 					<p>
 						Volunteers are crucial to the success of the hackathon. If you wish to volunteer, please
-						contact the operations team
+						contact the operations team{' '}
 						<Link
 							href={`mailto:operations@wafflehacks.org?subject=Volunteer Inquiry`}
 							target="_blank"
 							className="underline cursor-pointer"
 						>
-							{' '}
-							operations@wafflehacks.org.{' '}
-						</Link>
+							operations@wafflehacks.org.
+						</Link>{' '}
 						Roles include technology, operations, and design.
 					</p>
 				),
@@ -124,15 +120,14 @@ export const Faqs: ReadonlyArray<{
 				title: 'How can I contact the organizers of the hackathon?',
 				description: (
 					<p>
-						For any inquiries, you can reach out to the organizers via
+						For any inquiries, you can reach out to the organizers via{' '}
 						<Link
 							href={`
 								mailto:operations@wafflehacks.org?subject=General Inquiry
 							`}
 						>
-							{' '}
-							email{' '}
-						</Link>
+							email
+						</Link>{' '}
 						. We are available to answer questions regarding registration, participation,
 						sponsorship, and any other concerns you may have.
 					</p>

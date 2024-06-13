@@ -4,15 +4,17 @@ import { Container, Typography } from '@mui/joy';
 import { Button } from '@nextui-org/button';
 import Image from 'next/image';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 const NotFound = React.memo(() => {
+	const router = useRouter();
 	return (
 		<CenterLayout
 			Element={`main`}
 			className={`
-                w-screen h-screen flex items-center
-                justify-center 
-            `}
+        w-screen h-screen flex items-center 
+				justify-center
+      `}
 		>
 			<Container
 				sx={{
@@ -27,9 +29,10 @@ const NotFound = React.memo(() => {
 				<Typography
 					level="h1"
 					component="h1"
-					gutterBottom
+
 					sx={{
 						color: '#3C2415',
+						fontSize: '10rem',
 					}}
 				>
 					404
@@ -53,7 +56,12 @@ const NotFound = React.memo(() => {
 					Just like a marathon, coding can sometimes lead us off track. But don't worry, we're here
 					to help you cross the finish line. Let's get you back to the starting block.
 				</Typography>
-				<Button className="bg-[#3C2415] text-[#f5f5f5]">Return to the starting line</Button>
+				<Button
+					className="bg-[#3C2415] text-[#f5f5f5] mt-4"
+					onClick={() => router.push('/')}
+				>
+					Return to the starting line
+				</Button>
 			</Container>
 			<Picture
 				className={`

@@ -19,12 +19,12 @@ export const NavBar = React.memo(() => {
 		href: string;
 		text: string;
 	}> = [
-		{ href: "#about", text: "About" },
-		{ href: "#calendar", text: "Schedule" },
-		{ href: "#tracks-and-awards", text: "Tracks & Prizes" },
-		{ href: "#meet-the-team", text: "Team" },
-		{ href: "#sponsors", text: "Sponsors" },
-		{ href: "#faqs", text: "FAQs" },
+		{ href: '#about', text: 'About' },
+		{ href: '#calendar', text: 'Schedule' },
+		{ href: '#tracks-and-awards', text: 'Tracks & Prizes' },
+		{ href: '#meet-the-team', text: 'Team' },
+		{ href: '#sponsors', text: 'Sponsors' },
+		{ href: '#faqs', text: 'FAQs' },
 	];
 
 	const [mobileDown, setMobileDown] = useState(false);
@@ -256,12 +256,16 @@ export const NavBar = React.memo(() => {
 			<div
 				style={{ height: mobileDown ? '100vh' : '0' }}
 				className={`
-					mobile-nav-slide fixed z-40 top-[100px]
+					mobile-nav-slide fixed z-40 top-[100px] box-border
 					left-0 w-full shadow-lg overflow-hidden
 					nav-links:hidden text-[#3C2415] backdrop-blur-lg
 				`}
 			>
-				<ul>
+				<ul
+					className={`
+							list-none
+					`}
+				>
 					{Links.map((link, index) => (
 						<li
 							key={index}
@@ -296,7 +300,7 @@ export const NavBar = React.memo(() => {
 				className={cn(
 					'',
 					`navbar fixed top-0 z-50
-					w-full flex flex-row justify-between h-[100px] p-4
+					w-full box-border flex flex-row justify-between h-[100px] p-4
 					shadow-lg font-semibold items-center
 					px-4`
 				)}
@@ -321,7 +325,7 @@ export const NavBar = React.memo(() => {
 						</Picture>
 						<ul
 							className={`
-								hidden nav-links:flex flex-wrap
+								hidden nav-links:flex flex-wrap list-none
 							`}
 						>
 							{Links.map((link, index) => (
@@ -337,16 +341,19 @@ export const NavBar = React.memo(() => {
 												} 
 										}}
 									>
-										<span className="hover:font-bold">
-											{link.text}
-										</span>
+										<span className="hover:font-bold">{link.text}</span>
 									</Link>
 								</li>
 							))}
 							<li className="ml-0 nav-links:ml-4">
-								<a href="https://apply.wafflehacks.org/" className="font-[400]  hover:font-bold" target="_blank">
+								<Link
+									href="https://apply.wafflehacks.org/"
+									className="font-[400]  hover:font-bold"
+									target="_blank"
+									rel="noreferrer"
+								>
 									Apply
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</div>
@@ -427,24 +434,22 @@ export const NavBar = React.memo(() => {
 					)}
 				</div>
 
-				{
-					scavState && <>
-					<div 
-						className="bg-slate-400/75 backdrop-blur-sm p-4 absolute top-[120%] flex flex-col gap-4 rounded-r-xl"
-						style={{
-							left: shards.shards.length > 0 ? 0 : -200,
-							transition: "left 0.5s ease-in-out"
-						}}
-					>
-						<span className="text-xl font-bold">Inventory</span>
-						{
-							shards.shards.map(s => (
+				{scavState && (
+					<>
+						<div
+							className="bg-slate-400/75 backdrop-blur-sm p-4 absolute top-[120%] flex flex-col gap-4 rounded-r-xl"
+							style={{
+								left: shards.shards.length > 0 ? 0 : -200,
+								transition: 'left 0.5s ease-in-out',
+							}}
+						>
+							<span className="text-xl font-bold">Inventory</span>
+							{shards.shards.map((s) => (
 								<img className="w-16" src={`/assets/svgs/scav/shard${s}.svg`} alt="" />
-							))
-						}
-					</div>
+							))}
+						</div>
 					</>
-				}
+				)}
 			</nav>
 		</>
 	);

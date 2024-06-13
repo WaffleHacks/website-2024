@@ -744,7 +744,7 @@ export const LandingPanel = () => {
 						whenDone={finishWithCarry}
 						className="bg-white rounded-lg shadow-lg p-4 max-w-[16rem]"
 						style={{
-							bottom: `calc(${window.innerHeight - carrakatuPos.y}px + 11vw)`,
+							top: `calc(${carrakatuPos.y}px - 20vw)`,
 							right: window.innerWidth - carrakatuPos.x + 'px',
 						}}
 					/>

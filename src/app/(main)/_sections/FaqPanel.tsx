@@ -3,6 +3,7 @@ import { Accordion, card_style } from '@/components';
 import { Faqs } from '@/constants/faqs';
 import { cn } from '@/lib';
 import { Tab, Tabs } from '@nextui-org/tabs';
+import { Suspense } from 'react';
 export const FaqPanel = () => {
 	const sections = Faqs.map((faq) => faq.section);
 	return (

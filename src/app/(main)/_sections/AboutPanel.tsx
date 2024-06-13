@@ -57,8 +57,8 @@ export const AboutPanel = () => {
 					<Text
 						className="text-lg font-normal text-left"
 						text={[
-							'Wafflehacks is a 48 - hour student - organized hackathon working to inspire high school and university students of all technical backgrounds to learn and create solutions that impact local communities and small businesses.',
-							'This year, gear up for our hottest competition yet. With pre-hackathon workshops on  June 19th & 20th, we’ll make sure you’re in tip-top shape to compete in the hackathon weekend from June 21st - 23rd.',
+							'Wafflehacks is a 48-hour, virtual, student-organized hackathon working to inspire high school and university students of all technical backgrounds to learn and create solutions that impact local communities and small businesses.',
+							'This year, gear up for our hottest competition yet. With pre-hackathon workshops on  June 19th & 20th, we’ll make sure you’re in tip-top shape to compete in the hackathon weekend from June 21st - 23rd, 2024.',
 						]}
 					/>
 					<span
