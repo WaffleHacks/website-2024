@@ -7,11 +7,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext, useRef, useState } from 'react';
 
-import { DraggableCore, type DraggableData, type DraggableEvent } from 'react-draggable';
 import AppleDialog from '@/app/(main)/_components/AppleDialog';
 import { cn } from '@/lib';
 import { ScrollIntoCenterView } from '@/utils';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { DraggableCore, type DraggableData, type DraggableEvent } from 'react-draggable';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 export const NavBar = React.memo(() => {
@@ -236,15 +236,14 @@ export const NavBar = React.memo(() => {
 
 	useIsomorphicLayoutEffect(() => {
 		const body = document.querySelector('body') as HTMLBodyElement;
-		if (mobileDown)  body.classList.add('overflow-y-hidden')
-		
+		if (mobileDown) body.classList.add('overflow-y-hidden');
+
 		return () => {
 			body.classList.remove('overflow-y-hidden');
-		}
-	},[mobileDown])
+		};
+	}, [mobileDown]);
 
-	const 
-		router = useRouter(),
+	const router = useRouter(),
 		pathname: string = usePathname(),
 		isTeam: boolean = pathname.includes('/team'),
 		isLegal: boolean = pathname.includes('/legal'),
@@ -283,7 +282,7 @@ export const NavBar = React.memo(() => {
 										router.push(`/${link.href}`);
 									} else {
 										ScrollIntoCenterView(link.href);
-									} 
+									}
 								}}
 								className={`
 									text-semibold text-lg
@@ -338,7 +337,7 @@ export const NavBar = React.memo(() => {
 												router.push(`/${link.href}`);
 											} else {
 												ScrollIntoCenterView(link.href);
-												} 
+											}
 										}}
 									>
 										<span className="hover:font-bold">{link.text}</span>

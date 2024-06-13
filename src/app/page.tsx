@@ -3,7 +3,7 @@ import { CenterLayout } from '@/components';
 import React from 'react';
 import { LandingPanel, PageSections } from './(main)/_sections';
 
-const Home =  React.memo(async () => {
+const Home = React.memo(async () => {
 	return (
 		// <div className="flex flex-col items-center justify-center overflow-x-hidden relative">
 		<>
