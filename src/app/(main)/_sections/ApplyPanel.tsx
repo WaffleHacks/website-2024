@@ -1,12 +1,10 @@
 'use client';
-import { button_style } from '@/components';
-import { cn } from '@/lib';
-import { Button } from '@nextui-org/button';
+import Link from 'next/link';
 import type React from 'react';
 export const ApplyPanel = () => {
 	return (
 		<>
-			<a
+			<Link
 				href="https://apply.wafflehacks.org/"
 				className={`px-4 py-2 text-white
 				bg-[#3C2415]/100
@@ -18,7 +16,7 @@ export const ApplyPanel = () => {
 				rel="noopener noreferrer"
 			>
 				Apply
-			</a>
+			</Link>
 		</>
 	);
 };

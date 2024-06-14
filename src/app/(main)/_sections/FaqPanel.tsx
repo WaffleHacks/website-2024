@@ -15,7 +15,10 @@ export const FaqPanel = () => {
 			>
 				<h2
 					className={`
-					text-4xl font-semibold text-center sm:text-left max-w-screen-2xl flex items-center sm:justify-between justify-center mx-auto mb-4 mt-4
+						text-4xl font-semibold text-center sm:text-left 
+						max-w-screen-2xl flex items-center 
+						sm:justify-between justify-center mx-auto mb-4 
+						mt-4
 					`}
 				>
 					FAQs

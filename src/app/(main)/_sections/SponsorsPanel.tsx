@@ -1,9 +1,9 @@
 'use client';
 import { sponsorsData } from '@/constants';
-import { cn } from '@/lib';
 import { Slugify } from '@/utils';
 import { Image } from '@nextui-org/react';
 import Link from 'next/link';
+import { cn } from '@/lib';
 
 export const SponsorsPanel = () => {
 	const getTextColor = (tier: string): string => {
@@ -36,7 +36,14 @@ export const SponsorsPanel = () => {
 
 	return (
 		<>
-			<article className="w-full">
+			<article
+				className={cn(
+					`card`,
+					`
+						sm:px-10 px-0 w-full
+					`
+				)}
+			>
 				<h2 className="text-4xl font-semibold text-center sm:text-left max-w-screen-2xl flex items-center sm:justify-between justify-center mx-auto mb-4 mt-4">
 					Our Sponsors
 				</h2>
