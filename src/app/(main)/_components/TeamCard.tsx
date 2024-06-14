@@ -46,7 +46,7 @@ export const TeamCard: React.FC<{ member: TeamMemberData, style?:CSSProperties }
 	}
 
 	return (
-		<svg style={style} width="725" height="922" viewBox="0 0 725 922" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<svg style={style} viewBox="0 0 725 922" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<defs>
 				
 				<rect id="rect" x="25%" y="25%" width="50%" height="50%" rx="15"/>

@@ -35,3 +35,29 @@ dialog {
     }
   }
 }
+
+.team-topcard {
+  background: white;
+  border: 2px solid black;
+  border-radius: 1rem;
+}
+.team-topcard .card-spike {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  background: #000;
+  position: absolute;
+  top: 100%;
+  left: calc(50% - 1rem);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+.team-topcard .card-spike-inner {
+  display: inline-block;
+  width: calc(2rem - 4px);
+  height: calc(2rem - 4px);
+  background: #fff;
+  position: absolute;
+  top: -0.25px;
+  left: 2px;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}

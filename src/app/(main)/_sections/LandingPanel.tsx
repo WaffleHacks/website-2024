@@ -495,12 +495,6 @@ export const LandingPanel = () => {
 		<>
 			<header className="relative font-mplus px-2 sm:px-12 pt-44 max-h-[850.5px] w-full box-border max-w-screen-2xl mx-auto mb-11">
 				{/* TODO: Bigger screens edge case */}
-				{/* <img
-					id="landing-blob"
-					className="absolute top-24 right-0 h-[60%]"
-					src="/assets/svgs/landing/scav/blob.svg"
-					alt=""
-				/> */}
 
 				<div className="max-w-screen-2xl flex justify-center">
 					<div className="w-full max-w-screen-2xl">
@@ -579,6 +573,16 @@ export const LandingPanel = () => {
 									src="/assets/svgs/landing/scav/stand_bkg.svg"
 									alt=""
 								/>
+								<img 
+									src="/assets/svgs/landing/scav/wren_stand.png" 
+									alt="Wren"
+									className="absolute left-[26%] top-[20%] w-[42%]" />
+								<img
+									className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
+									src="/assets/svgs/landing/scav/stand_inner_shadow.svg"
+									alt=""
+								/>
+								
 								<img
 									id="stand-logo-inner"
 									className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"

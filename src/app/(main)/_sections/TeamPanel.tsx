@@ -1,6 +1,6 @@
 'use client';
 
-import { Article, CustomPicture as Picture, Slide } from '@/components';
+import { Article, CustomPicture as Picture, ScavContext, Slide } from '@/components';
 import { cn } from '@/lib';
 import { Button, Card } from '@nextui-org/react';
 import Link from 'next/link';
@@ -9,6 +9,8 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useMediaQuery } from 'usehooks-ts';
 import { TeamMemberData, TeamMembers } from '../_components/Teams';
 import { TeamCard } from '../_components';
+import React, { useContext, useEffect, useState } from 'react';
+import InlineDialogSystem from '../_components/InlineDialogSystem';
 
 export const TeamPanel = () => {
 	const [currentIndex, setCurrentIndex] = useQueryState('team', {
@@ -45,9 +47,40 @@ export const TeamPanel = () => {
 
 	const howMuchToShow = isXLarge ? 5 : isLarge ? 4 : isMedium ? 3 : isSmall ? 2 : 1;
 
+	const ctx = useContext(ScavContext);
+	const [showPopupCard, setShowPopupCard] = useState(false);
+	const [popupX, setPopupX] = useState(-1);
+	const [memberToShow, setMemberToShow] = useState<TeamMemberData | undefined>();
+	const containerRect = React.useRef<HTMLDivElement>(null);
+	const [dialogChild, setDialogChild] = useState(0);
+
+
+	function setPopup(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number){
+		if(!containerRect.current) return;
+
+		if (TeamMembers[index] == memberToShow){
+			setShowPopupCard(false);
+			setMemberToShow(undefined);
+			return;
+		}
+
+		let element = e.currentTarget;
+		let rect = element.getBoundingClientRect();
+		let contRect = containerRect.current.getBoundingClientRect();
+		let midX = rect.left + rect.width / 2 - contRect.left;
+		setPopupX(midX);
+		setShowPopupCard(true);
+		setMemberToShow(TeamMembers[index]);
+	}
+
+	useEffect(() => {
+		setShowPopupCard(false);
+	}, [howMuchToShow, currentIndex]);
+
 	return (
 		<>
 			<Article className="mt-2 px-10 w-full mb-8 relative">
+				<div  ref={containerRect} className='w-full h-full relative'>
 				<h2
 					className={`
 							text-4xl font-semibold text-center sm:text-left max-w-screen-2xl flex items-center sm:justify-between justify-center mx-auto mb-4 mt-4
@@ -61,21 +94,37 @@ export const TeamPanel = () => {
 							{TeamMembers.slice(currentIndex, currentIndex + howMuchToShow).map(
 								(member, index) => (
 									<Slide key={currentIndex + index} delay={(index + 1) * 0.1}>
-										<Link
-											href={`/team/${fileToName(
-												member.name.toLowerCase().split(' ')[0] as string
-											)}`}
-										>
-											<Card className="relative overflow-hidden h-[210px] min-w-[210px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer">
-												<Picture className="absolute top-0 left-0 right-0 bottom-0 w-full h-full rounded-xl overflow-hidden mix-blend-multiply">
-													<img
-														src={PANEL_PATH + member.photo_name + '.webp'}
-														alt={member.name}
-														className="object-cover mix-blend-multiply relative"
-													/>
-												</Picture>
-											</Card>
-										</Link>
+										{
+											!ctx.scavState ?
+											<Link
+												href={`/team/${fileToName(
+													member.name.toLowerCase().split(' ')[0] as string
+												)}`}
+											>
+												<Card className="relative overflow-hidden h-[210px] min-w-[210px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer">
+													<Picture className="absolute top-0 left-0 right-0 bottom-0 w-full h-full rounded-xl overflow-hidden mix-blend-multiply">
+														<img
+															src={PANEL_PATH + member.photo_name + '.webp'}
+															alt={member.name}
+															className="object-cover mix-blend-multiply relative"
+														/>
+													</Picture>
+												</Card>
+											</Link>
+											:
+											<button onClick={e => setPopup(e, currentIndex + index)}>
+												<Card className="relative overflow-hidden h-[210px] min-w-[210px] bg-[#f5f5f5] hover:bg-[#e0e0e0] transition-colors transition-duration-800 rounded-xl flex justify-center items-center shadow-lg border-none cursor-pointer">
+													<Picture className="absolute top-0 left-0 right-0 bottom-0 w-full h-full rounded-xl overflow-hidden mix-blend-multiply">
+														<img
+															src={PANEL_PATH + member.photo_name + '.webp'}
+															alt={member.name}
+															className="object-cover mix-blend-multiply relative"
+														/>
+													</Picture>
+												</Card>
+											</button>
+										}
+										
 									</Slide>
 								)
 							)}
@@ -118,10 +167,47 @@ export const TeamPanel = () => {
 						</li>
 					)}
 				</menu>
-				<div className='absolute bg-white p-4 rounded-lg bottom-full w-[25vw]'>
-					{/* <TeamCard member={TeamMembers[currentIndex] as TeamMemberData} style={{
-						scale: (100 * )
-					}} /> */}
+				{
+					(ctx.scavState && showPopupCard) && 
+					<div className='team-topcard absolute p-4 bottom-full' style={{
+						transform: `translateX(-50%)`, 
+						left: popupX,
+						bottom: 'calc(100% - 10px)'
+					}}>
+						<div className='card-spike'>
+							<div className='card-spike-inner'></div>
+						</div>
+						{
+							(memberToShow?.photo_name == 'tammy' && ctx.waffle.hidingSpot >= 2) ?
+							<InlineDialogSystem child={dialogChild} className='max-w-64'>
+								<div>
+									<span>Hello there. I guess you found me.</span>
+									<br />
+									<span>Can I get some me time now?</span>
+									<br />
+									<button className='bg-gray-300 px-2 py-px rounded-md' onClick={() => setDialogChild(1)}>Next</button>
+								</div>
+								<div>
+									<span>No? What if I give you a random piece of paper I found?</span>
+									<br />
+									<button className='bg-gray-300 px-2 py-px rounded-md' onClick={() => {
+										setDialogChild(2);
+										ctx.shards.setShards([...ctx.shards.shards, 2]);
+									}}>Well, sure</button>
+								</div>
+								<div>
+									<span>Ok, bye now! Have fun!</span>
+								</div>
+							</InlineDialogSystem>
+							
+							:
+							<TeamCard member={memberToShow as TeamMemberData} style={{
+								height: '50vh'
+							}} />
+						}
+						
+					</div>
+				}
 				</div>
 			</Article>
 		</>
