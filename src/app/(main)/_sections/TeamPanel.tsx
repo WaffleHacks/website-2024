@@ -7,8 +7,8 @@ import Link from 'next/link';
 import { useQueryState } from 'nuqs';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useMediaQuery } from 'usehooks-ts';
-import { TeamMemberData, TeamMembers } from '../_components/Teams';
 import { TeamCard } from '../_components';
+import { TeamMemberData, TeamMembers } from '../_components/Teams';
 import React, { useContext, useEffect, useState } from 'react';
 import InlineDialogSystem from '../_components/InlineDialogSystem';
 

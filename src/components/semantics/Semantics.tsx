@@ -54,7 +54,7 @@ export const ScavContext = createContext<ScavContextParameters>({
 		shards: [],
 		setShards: (order: number[]) => {},
 	},
-	waffle:  {
+	waffle: {
 		hidingSpot: 0,
 		setHidingSpot: (spot: number) => {},
 	},
@@ -100,7 +100,7 @@ export const Semantics: React.FC<
 					waffle: {
 						hidingSpot,
 						setHidingSpot,
-					},	
+					},
 				}}
 			>
 				<NavBar />

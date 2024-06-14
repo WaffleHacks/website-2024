@@ -5,14 +5,13 @@ import Switch from '@mui/material/Switch';
 import { Tooltip } from '@nextui-org/tooltip';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-
-import { DraggableCore, type DraggableData, type DraggableEvent } from 'react-draggable';
+import React, { useContext, useRef, useState } from 'react';
 
 import AppleDialog from '@/app/(main)/_components/AppleDialog';
 import { cn } from '@/lib';
 import { ScrollIntoCenterView } from '@/utils';
 import { usePathname, useRouter } from 'next/navigation';
+import { DraggableCore, type DraggableData, type DraggableEvent } from 'react-draggable';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 export const NavBar = React.memo(() => {
@@ -44,41 +43,6 @@ export const NavBar = React.memo(() => {
 	const [appleGone, setAppleGone] = useState(false);
 	const [appleTalking, setAppleTalking] = useState(false);
 	const appleHasTalked = useRef(false);
-
-	useIsomorphicLayoutEffect(() => {
-		const body: HTMLBodyElement = document.querySelector('body')! as HTMLBodyElement;
-		const targetElement: HTMLElement = document.querySelector('#target-element')! as HTMLElement;
-		let lastScroll = 0;
-
-		const handleScroll = () => {
-			const currentScroll = window.scrollY;
-			const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
-
-			if (currentScroll <= 0) {
-				body.classList.remove('scroll-up');
-				return;
-			}
-
-			if (currentScroll > lastScroll && !body.classList.contains('scroll-down')) {
-				body.classList.remove('scroll-up');
-				body.classList.add('scroll-down');
-			} else if (currentScroll < lastScroll && body.classList.contains('scroll-down')) {
-				body.classList.remove('scroll-down');
-				body.classList.add('scroll-up');
-			}
-
-			if (currentScroll >= targetPosition) {
-				body.classList.add('hide-nav');
-			} else {
-				body.classList.remove('hide-nav');
-			}
-
-			lastScroll = currentScroll;
-		};
-
-		// window.addEventListener("scroll", handleScroll);
-		// return () => window.removeEventListener("scroll", handleScroll);
-	}, []);
 
 	function setScav(e: React.ChangeEvent<HTMLInputElement>) {
 		setScavState(e.target.checked);
@@ -240,7 +204,7 @@ export const NavBar = React.memo(() => {
 		}
 	}
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		if (!scavState)
 			return () => {
 				clearInterval(fallInterval.current as NodeJS.Timeout);
@@ -270,11 +234,20 @@ export const NavBar = React.memo(() => {
 		}
 	}
 
-	const 
-		router = useRouter(),
+	useIsomorphicLayoutEffect(() => {
+		const body = document.querySelector('body') as HTMLBodyElement;
+		if (mobileDown) body.classList.add('overflow-y-hidden');
+
+		return () => {
+			body.classList.remove('overflow-y-hidden');
+		};
+	}, [mobileDown]);
+
+	const router = useRouter(),
 		pathname: string = usePathname(),
 		isTeam: boolean = pathname.includes('/team'),
-		is404: boolean = !pathname.includes('/team') && pathname !== '/';
+		isLegal: boolean = pathname.includes('/legal'),
+		is404: boolean = !isTeam && !isLegal && pathname !== '/';
 
 	return (
 		<>
@@ -305,11 +278,11 @@ export const NavBar = React.memo(() => {
 								onClick={(e) => {
 									e.preventDefault();
 									setMobileDown(false);
-									if (isTeam || is404) {
+									if (isTeam || is404 || isLegal) {
 										router.push(`/${link.href}`);
 									} else {
 										ScrollIntoCenterView(link.href);
-									} 
+									}
 								}}
 								className={`
 									text-semibold text-lg
@@ -360,11 +333,11 @@ export const NavBar = React.memo(() => {
 										href={link.href}
 										onClick={(e) => {
 											e.preventDefault();
-											if (isTeam || is404) {
+											if (isTeam || is404 || isLegal) {
 												router.push(`/${link.href}`);
 											} else {
 												ScrollIntoCenterView(link.href);
-												} 
+											}
 										}}
 									>
 										<span className="hover:font-bold">{link.text}</span>
