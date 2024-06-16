@@ -195,8 +195,44 @@ export const TeamPanel = () => {
 										ctx.shards.setShards([...ctx.shards.shards, 2]);
 									}}>Well, sure</button>
 								</div>
-								<div>
-									<span>Ok, bye now! Have fun!</span>
+								<div className='w-64 aspect-[1] relative'>
+									<div className='border-l-2 border-black h-[33%] absolute left-1/2 top-[10%]'></div>
+									
+									<img 
+											src="/assets/svgs/landing/scav/tape.svg" 
+											alt="" 
+											className='w-[5.5rem] absolute left-1/2 top-[10px]' 
+											style={{transform: 'translateX(-50%) rotate(42deg)'}}
+									/>
+									
+									{
+										!ctx.shards.shards.includes(4) &&
+										<button
+											className='w-24 absolute left-1/2' 
+											style={{transform: 'translateX(-50%)'}}
+											onClick={() => ctx.shards.setShards([...ctx.shards.shards, 4])}
+										>
+											<img 
+												src="/assets/svgs/landing/scav/tape.svg" 
+												alt="" 
+											/>
+										</button>
+									}
+									
+									
+									<div 
+										className='bg-white shadow-lg flex flex-col gap-2 items-center text-xl p-4 border-2 border-gray-300 absolute left-1/2 top-[35%]'
+										style={{transform: 'translateX(-50%)', width: 'calc(100% - 2rem)'}}
+									>
+										<span>Hacking</span>
+										<span>In</span>
+										<span>Progress</span>
+										<img 
+											className='absolute w-12 right-3 top-[23%]' 
+											style={{transform: 'rotate(-32deg)'}}
+											src="/assets/svgs/scav/wawa.svg" 
+										alt="" />
+									</div>
 								</div>
 							</InlineDialogSystem>
 							
