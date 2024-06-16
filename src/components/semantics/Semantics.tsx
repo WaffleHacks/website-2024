@@ -88,7 +88,7 @@ export const Semantics: React.FC<
 	const [backWheelPopped, setBackWheelPopped] = useState<boolean>(false);
 	const [frontWheelPopped, setFrontWheelPopped] = useState<boolean>(false);
 	const [headshot, setHeadshot] = useState<boolean>(false);
-	const [shards, setShards] = useState<number[]>([1, 2, 3, 4]);
+	const [shards, setShards] = useState<number[]>([]);
 	const [hidingSpot, setHidingSpot] = useState<number>(0);
 	const [taped, setTaped] = useState<boolean>(false);
 	const [shardsOnTable, setShardsOnTable] = useState<number[]>([]);
