@@ -598,7 +598,7 @@ export const NavBar = React.memo(() => {
 								:
 								<img 
 									className='no-drag relative w-24' 
-									src="/assets/svgs/scav/tapedPiece.png" 
+									src="/assets/svgs/scav/tapedPiece.svg" 
 									alt="tape" />
 									
 							))}

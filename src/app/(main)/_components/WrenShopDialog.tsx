@@ -3,9 +3,8 @@ import BubbleDialogSystem from './BubbleDialogSystem';
 import { ScavContext } from '@/components';
 
 const WrenShopDialog = () => {
-  const stand = '/assets/svgs/landing/scav/wren_at_sign.png';
+  const stand = '/assets/svgs/landing/scav/waffle shack.png';
   const table = '/assets/svgs/landing/scav/table.png';
-  const [currentImage, setCurrentImage] = useState(stand);
   const [counterDialogChild, setCounterDialogChild] = useState(0);
 
   const ctx = useContext(ScavContext);
@@ -13,18 +12,44 @@ const WrenShopDialog = () => {
   return (
     <div className='w-full h-full flex justify-center items-center'>
         <div className='relative'>
-            <img src={currentImage} alt="shop" className="object-contain w-full h-full" />
+            {
+                ctx.shop.lookingAtTable ? 
+                    <img 
+                        src={table} 
+                        alt="shop" 
+                        className="object-contain w-full h-full" 
+                        style={{
+                            filter: 'brightness(0.8)'
+                        }}
+                    />
+                :
+                    <img 
+                        src={stand} 
+                        alt="shop" 
+                        className="object-contain w-full h-full" 
+                    />
+            }
+            
 
             {
                 ctx.shop.lookingAtTable && <>
-                    <div ref={ctx.shop.table} className='bg-blue-600/50 absolute w-[80%] h-[65%] left-[10%] top-[8%] '></div>
+                    <div 
+                        ref={ctx.shop.table} 
+                        className='absolute w-[86%] h-[60%] left-[7.3%] top-[18%]'
+                        style={{
+                            clipPath: 'polygon(14.5% 0, 87% 0, 100% 100%, 0 100%)'
+                        }}
+                    ></div>
                 </>
             }
         </div>
 
         {
             !ctx.shop.lookingAtTable &&
-            <BubbleDialogSystem child={counterDialogChild}>
+            <BubbleDialogSystem 
+                child={counterDialogChild}
+                style={{right: '55%', bottom: '55%'}}
+            >
                 <div className='p-4'>
                     <span>Hi, welcome to Wren's Waffle Shop!</span>
                     <br />
@@ -77,7 +102,6 @@ const WrenShopDialog = () => {
                         className='bg-gray-300 rounded-md px-2 py-px'
                         onClick={() => {
                             ctx.shop.setLookingAtTable(true);
-                            setCurrentImage(table);
                         }}
                     >
                         Go to table

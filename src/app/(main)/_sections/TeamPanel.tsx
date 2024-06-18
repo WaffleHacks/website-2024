@@ -192,7 +192,7 @@ export const TeamPanel = () => {
 									<br />
 									<button className='bg-gray-300 px-2 py-px rounded-md' onClick={() => {
 										setDialogChild(2);
-										ctx.shards.setShards([...ctx.shards.shards, 2]);
+										ctx.shards.setShards([...ctx.shards.shards, 3]);
 									}}>Well, sure</button>
 								</div>
 								<div className='w-64 aspect-[1] relative'>

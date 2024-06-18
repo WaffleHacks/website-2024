@@ -589,7 +589,7 @@ export const LandingPanel = () => {
 									<img 
 										src="/assets/svgs/landing/scav/wren_stand.png" 
 										alt="Wren"
-										className="absolute left-[26%] top-[20%] w-[42%]"
+										className="absolute left-[32%] top-[20%] w-[40%]"
 										/>
 								{/* </button> */}
 								
@@ -787,7 +787,6 @@ export const LandingPanel = () => {
 							<WrenShopDialog />
 							<button onClick={closePopup} className="bg-white absolute top-4 left-4 p-2 rounded-md shadow-md border-[1px] border-gray-300">Close</button>
 						</div>
-						{/* <div className='bg-white p-8'></div> */}
 					</div>
 				}
 		</>
