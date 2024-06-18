@@ -9,6 +9,7 @@ import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import { NumberDisplay } from '../_components';
 import Modal from '../_components/Modal';
 import WrenShopDialog from '../_components/WrenShopDialog';
+import Image from 'next/image';
 
 function useWindowSize() {
 	const [size, setSize] = useState([0, 0]);
@@ -585,13 +586,11 @@ export const LandingPanel = () => {
 									src="/assets/svgs/landing/scav/stand_bkg.svg"
 									alt=""
 								/>
-								{/* <button onClick={startPopup} className="absolute left-[26%] top-[20%] w-[42%]"> */}
-									<img 
-										src="/assets/svgs/landing/scav/wren_stand.png" 
-										alt="Wren"
-										className="absolute left-[32%] top-[20%] w-[40%]"
-										/>
-								{/* </button> */}
+								<img 
+									src="/assets/svgs/landing/scav/wren_stand.png" 
+									alt="Wren"
+									className="absolute left-[32%] top-[20%] w-[40%]"
+									/>
 								
 								<img
 									className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"

@@ -133,8 +133,8 @@ export const TeamPanel = () => {
 				</div>
 				<menu
 					className={`
-					max-w-screen-2xl
-					flex items-center justify-between bg-gray-100/50 p-4 rounded-md shadow-md mt-6 mx-auto 
+					max-w-screen-2xl rounded-lg
+					flex items-center justify-between bg-gray-100/50 p-4 shadow-md mt-6 mx-auto 
 					${isMediumOrLarger ? 'w-1/2' : 'w-full'}
 				`}
 				>
@@ -142,7 +142,7 @@ export const TeamPanel = () => {
 						<li className="flex">
 							<Button
 								onClick={handlePrev}
-								className={cn('', 'mr-2')}
+								className={cn('', 'mr-2 rounded-md')}
 								color={`primary`}
 								aria-label="Previous"
 							>
@@ -158,7 +158,7 @@ export const TeamPanel = () => {
 						<li>
 							<Button
 								onClick={handleNext}
-								className={cn('', 'ml-2')}
+								className={cn('', 'ml-2 rounded-md')}
 								color={`primary`}
 								aria-label="Next"
 							>
