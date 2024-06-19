@@ -40,6 +40,10 @@ interface ScavContextParameters {
 		lookingAtTable: boolean;
 		setLookingAtTable: (looking: boolean) => void;
 	};
+	completed: boolean;
+	setCompleted: (completed: boolean) => void;
+	completedTime: Date;
+	setCompletedTime: (time: Date) => void;
 }
 
 export const ScavContext = createContext<ScavContextParameters>({
@@ -76,7 +80,11 @@ export const ScavContext = createContext<ScavContextParameters>({
 		table: null,
 		lookingAtTable: false,
 		setLookingAtTable: () => {}
-	}
+	},
+	completed: false,
+	setCompleted: (completed: boolean) => {},
+	completedTime: new Date(),
+	setCompletedTime: (time: Date) => {},
 });
 
 export const Semantics: React.FC<
@@ -93,6 +101,8 @@ export const Semantics: React.FC<
 	const [taped, setTaped] = useState<boolean>(false);
 	const [shardsOnTable, setShardsOnTable] = useState<number[]>([]);
 	const [lookingAtTable, setLookingAtTable] = useState<boolean>(false);
+	const [completed, setCompleted] = useState<boolean>(false);
+	const [completedTime, setCompletedTime] = useState<Date>(new Date());
 
 	return (
 		<>
@@ -131,7 +141,11 @@ export const Semantics: React.FC<
 						table: useRef<HTMLDivElement | null>(null),
 						lookingAtTable,
 						setLookingAtTable
-					}
+					},
+					completed,
+					setCompleted,
+					completedTime,
+					setCompletedTime,
 				}}
 			>
 				<NavBar />
