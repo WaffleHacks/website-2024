@@ -78,7 +78,7 @@ export const CalendarPanel = () => {
 				null, null, null, null, null, null, null, {
 					title: 'Hackathon Strategy w/ Audrey Chen',
 					description: 'Welcome to WaffleHacks 2023!',
-					time: '5:00 PM - 6:00 PM',
+					time: '5:30 PM - 6:30 PM',
 					link: '',
 					type: CDT.CAREER,
 				}, null, null, null, null, null, null
