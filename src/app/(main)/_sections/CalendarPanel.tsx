@@ -65,14 +65,7 @@ export const CalendarPanel = () => {
 				null,
 				null,
 				null,
-				{
-					title: 'Intro to Cloud Computing',
-					description: 'Welcome to WaffleHacks 2023!',
-					time: '11:00 PM - 12:00 AM',
-					link: '',
-					type: CDT.TECHNICAL,
-				},
-				
+				null				
 			],
 			Panels: [
 				null, null, null, null, null, null, null, {
@@ -125,20 +118,8 @@ export const CalendarPanel = () => {
 				null,
 				null,
 				null,
-				{
-					title: 'Intro to UI/UX with Figma',
-					description: 'Welcome to WaffleHacks 2023!',
-					time: '5:00 PM - 6:30 AM',
-					link: '',
-					type: CDT.TECHNICAL,
-				},
-				{
-					title: 'Intro to Web Development',
-					description: 'Welcome to WaffleHacks 2023!',
-					time: '6:30 PM - 8:00 AM',
-					link: '',
-					type: CDT.TECHNICAL,
-				},
+				null,
+				null,
 				null,
 				null,
 				null,
@@ -196,9 +177,22 @@ export const CalendarPanel = () => {
 				null,
 				null,
 				null,
+				{
+					title: 'Intro to UI/UX with Figma',
+					description: 'Welcome to WaffleHacks 2023!',
+					time: '5:00 PM - 6:30 AM',
+					link: '',
+					type: CDT.TECHNICAL,
+				},
+				{
+					title: 'Intro to Web Development',
+					description: 'Welcome to WaffleHacks 2023!',
+					time: '6:30 PM - 8:00 AM',
+					link: '',
+					type: CDT.TECHNICAL,
+				},
 				null,
-				null,
-				null,
+
 				{
 					title: 'Start Up Workshop',
 					description: '',
@@ -275,7 +269,14 @@ export const CalendarPanel = () => {
 				null,
 				null,
 				null,
-				null,
+				{
+					title: 'Intro to Cloud Computing',
+					description: 'Welcome to WaffleHacks 2023!',
+					time: '11:00 PM - 12:00 AM',
+					link: '',
+					type: CDT.TECHNICAL,
+				},
+
 			],
 			Panels: [
 				{
