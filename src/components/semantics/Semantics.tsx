@@ -27,9 +27,8 @@ interface ScavContextParameters {
 		setShards: (order: number[]) => void;
 		taped: boolean;
 		setTaped: (state: boolean) => void;
-		shardsOnTable: number[]
-		setShardsOnTable: (onTable: number[]) => void
-		
+		shardsOnTable: number[];
+		setShardsOnTable: (onTable: number[]) => void;
 	};
 	waffle: {
 		hidingSpot: number;
@@ -70,7 +69,7 @@ export const ScavContext = createContext<ScavContextParameters>({
 		taped: false,
 		setTaped: (state: boolean) => {},
 		shardsOnTable: [],
-		setShardsOnTable: (onTable: number[]) => {}
+		setShardsOnTable: (onTable: number[]) => {},
 	},
 	waffle: {
 		hidingSpot: 0,
@@ -79,7 +78,7 @@ export const ScavContext = createContext<ScavContextParameters>({
 	shop: {
 		table: null,
 		lookingAtTable: false,
-		setLookingAtTable: () => {}
+		setLookingAtTable: () => {},
 	},
 	completed: false,
 	setCompleted: (completed: boolean) => {},
@@ -128,10 +127,10 @@ export const Semantics: React.FC<
 					shards: {
 						shards,
 						setShards,
-						taped, 
+						taped,
 						setTaped,
 						shardsOnTable,
-						setShardsOnTable
+						setShardsOnTable,
 					},
 					waffle: {
 						hidingSpot,
@@ -140,7 +139,7 @@ export const Semantics: React.FC<
 					shop: {
 						table: useRef<HTMLDivElement | null>(null),
 						lookingAtTable,
-						setLookingAtTable
+						setLookingAtTable,
 					},
 					completed,
 					setCompleted,
