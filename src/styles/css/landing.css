@@ -81,7 +81,6 @@ body.scav #landing-blob { opacity: 1; }
 .overlay {
   max-width: 1140px;
   max-height: 640px;
-
   display: flex;
   align-items: center;
   background: rgb(255 255 255 / 37.5%);
@@ -122,8 +121,9 @@ body.scav #landing-blob { opacity: 1; }
   justify-content: center;
   align-items: center;
 }
+
 .wren-shop-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgb(0 0 0 / 50%);
   backdrop-filter: blur(5px);
 }
 
@@ -135,6 +135,7 @@ body.scav #landing-blob { opacity: 1; }
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }

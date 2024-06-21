@@ -44,25 +44,14 @@ export const NavBar = React.memo(() => {
 	const [appleTalking, setAppleTalking] = useState(false);
 	const appleHasTalked = useRef(false);
 
-	const [shardPositions, setShardPositions] = useState([
-		false,
-		false,
-		false,
-		false,
-		false
-	]);
+	const [shardPositions, setShardPositions] = useState([false, false, false, false, false]);
 	const shardRefs = [
 		useRef<HTMLImageElement>(),
 		useRef<HTMLImageElement>(),
 		useRef<HTMLImageElement>(),
 		useRef<HTMLImageElement>(),
 	];
-	const shardWidthReferences = [
-		1,
-		1,
-		753/889,
-		1260/889
-	];
+	const shardWidthReferences = [1, 1, 753 / 889, 1260 / 889];
 	const inventory = useRef<HTMLDivElement>(null);
 
 	function setScav(e: React.ChangeEvent<HTMLInputElement>) {
@@ -286,19 +275,18 @@ export const NavBar = React.memo(() => {
 		const my = (e as any).clientY;
 
 		if (mx > h1[0] && mx < h1[1] && my > h1[2] && my < h1[3]) {
-			let pos = [...shardPositions];
+			const pos = [...shardPositions];
 			pos[index] = true;
 			setShardPositions(pos);
-			if (!shards.shardsOnTable.includes(index)){
+			if (!shards.shardsOnTable.includes(index)) {
 				shards.setShardsOnTable([...shards.shardsOnTable, index]);
 			}
-		}
-		else {
-			let pos = [...shardPositions];
+		} else {
+			const pos = [...shardPositions];
 			pos[index] = false;
 			setShardPositions(pos);
-			if (shards.shardsOnTable.includes(index)){
-				shards.setShardsOnTable(shards.shardsOnTable.filter(x => x != index));
+			if (shards.shardsOnTable.includes(index)) {
+				shards.setShardsOnTable(shards.shardsOnTable.filter((x) => x != index));
 			}
 		}
 	}
@@ -312,39 +300,43 @@ export const NavBar = React.memo(() => {
 		);
 	}
 
-	function checkShardsTaped(){
-		let shard1 = shardRefs[0];
-		let shard2 = shardRefs[1];
-		let shard3 = shardRefs[2];
-		let tape = shardRefs[3];
-		
-		if (!shard1?.current || !shard2?.current || !shard3?.current || !tape?.current){
+	function checkShardsTaped() {
+		const shard1 = shardRefs[0];
+		const shard2 = shardRefs[1];
+		const shard3 = shardRefs[2];
+		const tape = shardRefs[3];
+
+		if (!shard1?.current || !shard2?.current || !shard3?.current || !tape?.current) {
 			return;
 		}
 
-		let s1Box = shard1.current.getBoundingClientRect();
-		let s2Box = shard2.current.getBoundingClientRect();
-		let s3Box = shard3.current.getBoundingClientRect();
-		let tapeBox = tape.current.getBoundingClientRect();
+		const s1Box = shard1.current.getBoundingClientRect();
+		const s2Box = shard2.current.getBoundingClientRect();
+		const s3Box = shard3.current.getBoundingClientRect();
+		const tapeBox = tape.current.getBoundingClientRect();
 
 		// check if tape overlaps with all shards
-		if (!boxesIntersect(tapeBox, s1Box) || !boxesIntersect(tapeBox, s2Box) || !boxesIntersect(tapeBox, s3Box)){
+		if (
+			!boxesIntersect(tapeBox, s1Box) ||
+			!boxesIntersect(tapeBox, s2Box) ||
+			!boxesIntersect(tapeBox, s3Box)
+		) {
 			return;
 		}
 
 		// check if shards are relatively in the right places
-		let mid1 = {
-			x: s1Box.x + s1Box.width/2,
-			y: s1Box.y + s1Box.height/2
-		}
-		let mid2 = {
-			x: s2Box.x + s2Box.width/2,
-			y: s2Box.y + s2Box.height/2
-		}
-		let mid3 = {
-			x: s3Box.x + s3Box.width/2,
-			y: s3Box.y + s3Box.height/2
-		}
+		const mid1 = {
+			x: s1Box.x + s1Box.width / 2,
+			y: s1Box.y + s1Box.height / 2,
+		};
+		const mid2 = {
+			x: s2Box.x + s2Box.width / 2,
+			y: s2Box.y + s2Box.height / 2,
+		};
+		const mid3 = {
+			x: s3Box.x + s3Box.width / 2,
+			y: s3Box.y + s3Box.height / 2,
+		};
 
 		console.log(mid1, mid2, mid3);
 		// order:
@@ -550,61 +542,72 @@ export const NavBar = React.memo(() => {
 			</nav>
 
 			{scavState && (
-					<>
-						<div
-							ref={inventory}
-							className="bg-slate-400/75 backdrop-blur-sm p-4 fixed top-[8rem] flex flex-col gap-4 rounded-r-xl z-[100]"
-							style={{
-								left: shards.shards.length > 0 ? 0 : -200,
-								transition: 'left 0.5s ease-in-out',
-							}}
-						>
-							<span className="text-xl font-bold">Inventory</span>
-							{shards.shards.map((s, ind) => (
-								s < 4 ? 
-								<Draggable 
-									key={ind} 
-									onDrag={(e, pos) => shardDrag(s, e, pos)} 
+				<>
+					<div
+						ref={inventory}
+						className="bg-slate-400/75 backdrop-blur-sm p-4 fixed top-[8rem] flex flex-col gap-4 rounded-r-xl z-[100]"
+						style={{
+							left: shards.shards.length > 0 ? 0 : -200,
+							transition: 'left 0.5s ease-in-out',
+						}}
+					>
+						<span className="text-xl font-bold">Inventory</span>
+						{shards.shards.map((s, ind) =>
+							s < 4 ? (
+								<Draggable
+									key={ind}
+									onDrag={(e, pos) => shardDrag(s, e, pos)}
 									onStop={checkShardsTaped}
-									position={(shardPositions[s] && shop.lookingAtTable) ? undefined : {x: 0, y: 0}}
+									position={shardPositions[s] && shop.lookingAtTable ? undefined : { x: 0, y: 0 }}
 									disabled={!shop.lookingAtTable}
 								>
-									<img 
-										ref={shardRefs[s-1] as React.MutableRefObject<HTMLImageElement>}
-										className={"no-drag relative " + ((shardPositions[s] && shop.lookingAtTable) ? 'w-24' : 'w-16')} 
+									<img
+										ref={shardRefs[s - 1] as React.MutableRefObject<HTMLImageElement>}
+										className={
+											'no-drag relative ' +
+											(shardPositions[s] && shop.lookingAtTable ? 'w-24' : 'w-16')
+										}
 										style={{
-											width: (shardPositions[s] && shop.lookingAtTable) ? `calc(5rem * ${shardWidthReferences[s]} * 1.2)` : `calc(5rem * ${shardWidthReferences[s]})`
+											width:
+												shardPositions[s] && shop.lookingAtTable
+													? `calc(5rem * ${shardWidthReferences[s]} * 1.2)`
+													: `calc(5rem * ${shardWidthReferences[s]})`,
 										}}
-										src={`/assets/svgs/scav/shard${s}.svg`} 
-										alt="Ticket shard" 
+										src={`/assets/svgs/scav/shard${s}.svg`}
+										alt="Ticket shard"
 									/>
 								</Draggable>
-								:
-								s == 4 ?
-								<Draggable 
-									key={ind} 
-									onDrag={(e, pos) => shardDrag(s, e, pos)} 
+							) : s == 4 ? (
+								<Draggable
+									key={ind}
+									onDrag={(e, pos) => shardDrag(s, e, pos)}
 									onStop={checkShardsTaped}
-									position={(shardPositions[s-1] && shop.lookingAtTable) ? undefined : {x: 0, y: 0}}
+									position={
+										shardPositions[s - 1] && shop.lookingAtTable ? undefined : { x: 0, y: 0 }
+									}
 									disabled={!shop.lookingAtTable}
 								>
-									<img 
-										ref={shardRefs[s-1] as React.MutableRefObject<HTMLImageElement>}
-										className={'no-drag relative ' + ((shardPositions[s] && shop.lookingAtTable) ? 'w-24' : 'w-16')} 
-										src="/assets/svgs/landing/scav/tape.svg" 
-										alt="tape" />
+									<img
+										ref={shardRefs[s - 1] as React.MutableRefObject<HTMLImageElement>}
+										className={
+											'no-drag relative ' +
+											(shardPositions[s] && shop.lookingAtTable ? 'w-24' : 'w-16')
+										}
+										src="/assets/svgs/landing/scav/tape.svg"
+										alt="tape"
+									/>
 								</Draggable>
-
-								:
-								<img 
-									className='no-drag relative w-24' 
-									src="/assets/svgs/scav/tapedPiece.svg" 
-									alt="tape" />
-									
-							))}
-						</div>
-					</>
-				)}
+							) : (
+								<img
+									className="no-drag relative w-24"
+									src="/assets/svgs/scav/tapedPiece.svg"
+									alt="tape"
+								/>
+							)
+						)}
+					</div>
+				</>
+			)}
 		</>
 	);
 });

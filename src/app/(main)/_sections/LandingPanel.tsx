@@ -5,11 +5,11 @@ import CarrakatuDialog from '../_components/CarrakatuDialog';
 
 import Draggable, { DraggableCore, type DraggableData, type DraggableEvent } from 'react-draggable';
 
+import Image from 'next/image';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import { NumberDisplay } from '../_components';
 import Modal from '../_components/Modal';
 import WrenShopDialog from '../_components/WrenShopDialog';
-import Image from 'next/image';
 
 function useWindowSize() {
 	const [size, setSize] = useState([0, 0]);
@@ -347,10 +347,10 @@ export const LandingPanel = () => {
 		});
 	}
 
-	function startPopup(){
+	function startPopup() {
 		setWrenPopup(true);
 	}
-	function closePopup(){
+	function closePopup() {
 		setWrenPopup(false);
 		ctx.shop.setLookingAtTable(false);
 	}
@@ -586,18 +586,18 @@ export const LandingPanel = () => {
 									src="/assets/svgs/landing/scav/stand_bkg.svg"
 									alt=""
 								/>
-								<img 
-									src="/assets/svgs/landing/scav/wren_stand.png" 
+								<img
+									src="/assets/svgs/landing/scav/wren_stand.png"
 									alt="Wren"
 									className="absolute left-[32%] top-[20%] w-[40%]"
-									/>
-								
+								/>
+
 								<img
 									className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
 									src="/assets/svgs/landing/scav/stand_inner_shadow.svg"
 									alt=""
 								/>
-								
+
 								<img
 									id="stand-logo-inner"
 									className="absolute left-[14.7%] top-[14.9%] w-[70.5%]"
@@ -616,7 +616,11 @@ export const LandingPanel = () => {
 									alt=""
 								/>
 
-								<button onClick={startPopup} className="absolute left-[26%] top-[20%] w-[42%]" style={{aspectRatio: 0.65}}></button>
+								<button
+									onClick={startPopup}
+									className="absolute left-[26%] top-[20%] w-[42%]"
+									style={{ aspectRatio: 0.65 }}
+								></button>
 							</div>
 						</div>
 
@@ -773,21 +777,24 @@ export const LandingPanel = () => {
 				<div className="flex justify-flex-end">
 					<NumberDisplay className="ml-auto" />
 				</div>
-
 			</header>
 
-			{
-					(ctx.scavState && wrenPopup) &&
-					<div
-					className='wren-shop-dialog fixed top-0 left-0 w-screen h-screen z-[60] flex justify-center items-center'
-					style={{backdropFilter: 'blur(4px)', background: 'rgba(0, 0, 0, 0.2)'}}
-					>
-						<div className="relative w-5/6 h-5/6 rounded-xl overflow-hidden border-white border-4 ">
-							<WrenShopDialog />
-							<button onClick={closePopup} className="bg-white absolute top-4 left-4 p-2 rounded-md shadow-md border-[1px] border-gray-300">Close</button>
-						</div>
+			{ctx.scavState && wrenPopup && (
+				<div
+					className="wren-shop-dialog fixed top-0 left-0 w-screen h-screen z-[60] flex justify-center items-center"
+					style={{ backdropFilter: 'blur(4px)', background: 'rgba(0, 0, 0, 0.2)' }}
+				>
+					<div className="relative w-5/6 h-5/6 rounded-xl overflow-hidden border-white border-4 ">
+						<WrenShopDialog />
+						<button
+							onClick={closePopup}
+							className="bg-white absolute top-4 left-4 p-2 rounded-md shadow-md border-[1px] border-gray-300"
+						>
+							Close
+						</button>
 					</div>
-				}
+				</div>
+			)}
 		</>
 	);
 };

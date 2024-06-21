@@ -61,9 +61,11 @@
     transform: translateY(80%) translateX(100%) rotate(-25deg);
     transition: transform 0.3s;
 }
+
 #waf2:not(.finished):hover {
     transform: translateY(60%) translateX(100%) rotate(-5deg);
 }
+
 #waf2.finished {
     transform: translateY(150%) translateX(100%) rotate(-90deg);
 }

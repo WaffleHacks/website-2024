@@ -1,9 +1,9 @@
 'use client';
 import { sponsorsData } from '@/constants';
+import { cn } from '@/lib';
 import { Slugify } from '@/utils';
 import { Image } from '@nextui-org/react';
 import Link from 'next/link';
-import { cn } from '@/lib';
 
 export const SponsorsPanel = () => {
 	const getTextColor = (tier: string): string => {

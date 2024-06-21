@@ -13,6 +13,7 @@
     *::before,
     *::after{
         @apply tabular-nums box-border;
+
         box-sizing: border-box;
     }
 
