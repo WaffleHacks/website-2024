@@ -57,7 +57,7 @@ export const CalendarPanel = () => {
 				title: 'Opening Ceremony',
 				description: 'Welcome to WaffleHacks 2024!',
 				time: '5:00 PM - 6:00 PM',
-				link: '', // Replace with actual YouTube link
+				link: 'https://youtu.be/XBzOXfWqIqA',
 				type: CDT.CEREMONY,
 			}, null, null, null, null, null, null],
 			Workshops: [null, null, null, null, null, null, null, {
