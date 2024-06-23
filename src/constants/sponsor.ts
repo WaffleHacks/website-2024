@@ -23,6 +23,11 @@ export const sponsorsData: ReadonlySponsors = {
 					image: '/assets/images/sponsors/balsamiq-logo.webp',
 					link: 'https://balsamiq.com/',
 				},
+				{
+					name: 'BlueProton',
+					image: '/assets/images/sponsors/blueproton.png',
+					link: 'https://blueproton.com/',
+				},
 			],
 		},
 		{

@@ -62,13 +62,13 @@ export const CalendarPanel = () => {
 			}, null, null, null, null, null, null],
 			Workshops: [null, null, null, null, null, null, null, {
 				title: 'Intro to UI/UX with Figma',
-				description: 'Welcome to WaffleHacks 2023!',
+				description: 'Welcome to WaffleHacks 2024!',
 				time: '5:00 PM - 6:30 PM',
 				link: 'https://meet.google.com/mrj-zcfz-vob',
 				type: CDT.TECHNICAL,
 			}, {
 					title: 'Intro to Web Development',
-					description: 'Welcome to WaffleHacks 2023!',
+					description: 'Welcome to WaffleHacks 2024!',
 					time: '6:30 PM - 8:00 PM',
 					link: 'https://meet.google.com/vsv-jswx-ofa',
 					type: CDT.TECHNICAL,
